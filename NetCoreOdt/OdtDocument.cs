@@ -22,14 +22,24 @@ namespace NetCoreOdt
         internal XmlDocument ContentFile { get; private set; }
 
         /// <summary>
-        /// The raw content before the text content
+        /// The raw content before the style content
         /// </summary>
-        internal StringBuilder BeforeTextContent { get; private set; }
+        internal StringBuilder BeforeStyleContent { get; private set; }
+
+        /// <summary>
+        /// The raw style content
+        /// </summary>
+        internal StringBuilder StyleContent { get; private set; }
+
+        /// <summary>
+        /// The raw content after the style content and before the text content
+        /// </summary>
+        internal StringBuilder AfterStyleContent { get; private set; }
 
         /// <summary>
         /// The raw content after the text content
         /// </summary>
-        internal StringBuilder NewTextContent { get; private set; }
+        internal StringBuilder TextContent { get; private set; }
 
         /// <summary>
         /// The raw text content
@@ -68,13 +78,17 @@ namespace NetCoreOdt
             TempWorkingPath = tempWorkingPath;
             ContentFilePath = Path.Combine(TempWorkingPath, "content.xml");
 
-            BeforeTextContent = new StringBuilder();
-            AfteTextContent   = new StringBuilder();
-            NewTextContent    = new StringBuilder();
-            ContentFile       = new XmlDocument();
+            ContentFile        = new XmlDocument();
+
+            BeforeStyleContent = new StringBuilder();
+            StyleContent       = new StringBuilder();
+            AfterStyleContent  = new StringBuilder();
+            TextContent        = new StringBuilder();
+            AfteTextContent    = new StringBuilder();
 
             CreateOdtTemplate();
             ReadContent();
+            AddStandardStyles();
         }
 
         #endregion Public Constructors
@@ -86,33 +100,21 @@ namespace NetCoreOdt
         /// </summary>
         /// <param name="value">The value to write into the document</param>
         public void Write(ValueType value)
-        {
-            NewTextContent.Append($"<text:p text:style-name=\"Standard\">");
-            NewTextContent.Append(value);
-            NewTextContent.Append("</text:p>");
-        }
+            => Write(value, TextStyle.Normal);
 
         /// <summary>
         /// Write a single line with a unformatted text to the document (Note: line breaks "\n" will currently not working)
         /// </summary>
         /// <param name="text">The text to write into the document</param>
         public void Write(string text)
-        {
-            NewTextContent.Append($"<text:p text:style-name=\"Standard\">");
-            NewTextContent.Append(text);
-            NewTextContent.Append("</text:p>");
-        }
+            => Write(text, TextStyle.Normal);
 
         /// <summary>
         /// Write the content of the given <see cref="StringBuilder"/> as unformatted text into the document (Note: line breaks "\n" will currently not working)
         /// </summary>
-        /// <param name="text">The <see cref="StringBuilder"/> that contains the content for the document</param>
-        public void Write(StringBuilder text)
-        {
-            NewTextContent.Append($"<text:p text:style-name=\"Standard\">");
-            NewTextContent.Append(text);
-            NewTextContent.Append("</text:p>");
-        }
+        /// <param name="content">The <see cref="StringBuilder"/> that contains the content for the document</param>
+        public void Write(StringBuilder content)
+            => Write(content, TextStyle.Normal);
 
         /// <summary>
         /// Write a single line with a styled value to the document
@@ -121,10 +123,9 @@ namespace NetCoreOdt
         /// <param name="style">The text style of the value</param>
         public void Write(ValueType value, TextStyle style)
         {
-            // TODO
-            NewTextContent.Append($"<text:p text:style-name=\"Standard\">");
-            NewTextContent.Append(value);
-            NewTextContent.Append("</text:p>");
+            TextContent.Append($"<text:p text:style-name=\"{GetStyleName(style)}\">");
+            TextContent.Append(value);
+            TextContent.Append("</text:p>");
         }
 
         /// <summary>
@@ -134,23 +135,21 @@ namespace NetCoreOdt
         /// <param name="style">The text style of the text</param>
         public void Write(string text, TextStyle style)
         {
-            // TODO
-            NewTextContent.Append($"<text:p text:style-name=\"Standard\">");
-            NewTextContent.Append(text);
-            NewTextContent.Append("</text:p>");
+            TextContent.Append($"<text:p text:style-name=\"{GetStyleName(style)}\">");
+            TextContent.Append(text);
+            TextContent.Append("</text:p>");
         }
 
         /// <summary>
         /// Write the content of the given <see cref="StringBuilder"/> as styled text the document (Note: line breaks "\n" will currently not working)
         /// </summary>
-        /// <param name="text">The <see cref="StringBuilder"/> that contains the content for the document</param>
+        /// <param name="content">The <see cref="StringBuilder"/> that contains the content for the document</param>
         /// <param name="style">The text style of the content</param>
-        public void Write(StringBuilder text, TextStyle style)
+        public void Write(StringBuilder content, TextStyle style)
         {
-            // TODO
-            NewTextContent.Append($"<text:p text:style-name=\"Standard\">");
-            NewTextContent.Append(text);
-            NewTextContent.Append("</text:p>");
+            TextContent.Append($"<text:p text:style-name=\"{GetStyleName(style)}\">");
+            TextContent.Append(content);
+            TextContent.Append("</text:p>");
         }
 
         #endregion Public Methods  - Write
@@ -188,8 +187,10 @@ namespace NetCoreOdt
         {
             Directory.Delete(TempWorkingPath, true);
 
-            BeforeTextContent.Clear();
-            NewTextContent.Clear();
+            BeforeStyleContent.Clear();
+            StyleContent.Clear();
+            AfterStyleContent.Clear();
+            TextContent.Clear();
             AfteTextContent.Clear();
 
             ContentFile     = new XmlDocument();
@@ -244,14 +245,49 @@ namespace NetCoreOdt
 
                 using(var textReader = new StreamReader(fileStream))
                 {
-                    var rawFileContent = textReader.ReadToEnd();
-                    var contentSplit   = rawFileContent.Split("<text:p text:style-name=\"Standard\"/>");
+                    var rawFileContent    = textReader.ReadToEnd();
+                    var textContentSplit  = rawFileContent.Split("<text:p text:style-name=\"Standard\"/>");
+                    var styleContentSplit = textContentSplit[0].Split("<office:automatic-styles/>");
 
-                    BeforeTextContent.Append(contentSplit.ElementAtOrDefault(0) ?? string.Empty);
-                    AfteTextContent.Append(contentSplit.ElementAtOrDefault(1) ?? string.Empty);
+                    BeforeStyleContent.Append(styleContentSplit.ElementAtOrDefault(0) ?? string.Empty);
+                    AfterStyleContent.Append(styleContentSplit.ElementAtOrDefault(1) ?? string.Empty);
+                    AfteTextContent.Append(textContentSplit.ElementAtOrDefault(1) ?? string.Empty);
                 }
             }
+        }
 
+        /// <summary>
+        /// Add all needed styles for all <see cref="TextStyle"/> combinations to the style content
+        /// </summary>
+        internal void AddStandardStyles()
+        {
+            StyleContent.Append("<office:automatic-styles>");
+
+            // P1 - Normal - 000
+            StyleContent.Append("<style:style style:name=\"P1\" style:family=\"paragraph\" style:parent-style-name=\"Standard\"><style:text-properties/></style:style>");
+
+            // P2 - Bold - 001
+            StyleContent.Append("<style:style style:name=\"P2\" style:family=\"paragraph\" style:parent-style-name=\"Standard\"><style:text-properties fo:font-weight=\"bold\" style:font-weight-asian=\"bold\" style:font-weight-complex=\"bold\"/></style:style>");
+
+            // P3 - Italic -010
+            StyleContent.Append("<style:style style:name=\"P3\" style:family=\"paragraph\" style:parent-style-name=\"Standard\"><style:text-properties fo:font-style=\"italic\" style:font-style-asian=\"italic\" style:font-style-complex=\"italic\"/></style:style>");
+
+            // P4 - Bold + Italic - 011
+            StyleContent.Append("<style:style style:name=\"P4\" style:family=\"paragraph\" style:parent-style-name=\"Standard\"><style:text-properties fo:font-style=\"italic\" fo:font-weight=\"bold\" style:font-style-asian=\"italic\" style:font-weight-asian=\"bold\" style:font-style-complex=\"italic\" style:font-weight-complex=\"bold\"/></style:style>");
+
+            // P5 0b_100 - Underline
+            StyleContent.Append("<style:style style:name=\"P5\" style:family=\"paragraph\" style:parent-style-name=\"Standard\"><style:text-properties style:text-underline-style=\"solid\" style:text-underline-width=\"auto\" style:text-underline-color=\"font-color\"/></style:style>");
+
+            // P6 - 0b_101 - Bold + Underline
+            StyleContent.Append("<style:style style:name=\"P6\" style:family=\"paragraph\" style:parent-style-name=\"Standard\"><style:text-properties style:text-underline-style=\"solid\" style:text-underline-width=\"auto\" style:text-underline-color=\"font-color\" fo:font-weight=\"bold\" style:font-weight-asian=\"bold\" style:font-weight-complex=\"bold\"/></style:style>");
+
+            // P7 - 0b_110 - Italic + Underline
+            StyleContent.Append("<style:style style:name=\"P7\" style:family=\"paragraph\" style:parent-style-name=\"Standard\"><style:text-properties fo:font-style=\"italic\" style:text-underline-style=\"solid\" style:text-underline-width=\"auto\" style:text-underline-color=\"font-color\" style:font-style-asian=\"italic\" style:font-style-complex=\"italic\"/></style:style>");
+
+            // P8 - 0b_111 - Bold + Italic + Underline
+            StyleContent.Append("<style:style style:name=\"P8\" style:family=\"paragraph\" style:parent-style-name=\"Standard\"><style:text-properties fo:font-style=\"italic\" style:text-underline-style=\"solid\" style:text-underline-width=\"auto\" style:text-underline-color=\"font-color\" fo:font-weight=\"bold\" style:font-style-asian=\"italic\" style:font-weight-asian=\"bold\" style:font-style-complex=\"italic\" style:font-weight-complex=\"bold\"/></style:style>");
+
+            StyleContent.Append("</office:automatic-styles>");
         }
 
         /// <summary>
@@ -265,12 +301,34 @@ namespace NetCoreOdt
             {
                 using(var textWriter = new StreamWriter(fileStream))
                 {
-                    textWriter.Write(BeforeTextContent);
-                    textWriter.Write(NewTextContent);
+                    textWriter.Write(BeforeStyleContent);
+                    textWriter.Write(StyleContent);
+                    textWriter.Write(AfterStyleContent);
+                    textWriter.Write(TextContent);
                     textWriter.Write(AfteTextContent);
                 }
             }
         }
+
+        /// <summary>
+        /// Return the name representation of a given style or style combination
+        /// </summary>
+        /// <param name="style">The style for the style name</param>
+        /// <returns>The name representation of the style or style combination</returns>
+        internal string GetStyleName(TextStyle style)
+            => style switch
+            {
+                TextStyle.Normal                                        => "P1",
+                TextStyle.Bold                                          => "P2",
+                TextStyle.Italic                                        => "P3",
+                TextStyle.Bold | TextStyle.Italic                       => "P4",
+                TextStyle.Underline                                     => "P5",
+                TextStyle.Bold | TextStyle.Underline                    => "P6",
+                TextStyle.Italic | TextStyle.Underline                  => "P7",
+                TextStyle.Bold | TextStyle.Italic | TextStyle.Underline => "P8",
+
+                _ => throw new NotSupportedException("Style combination has no style entry")
+            };
 
         #endregion Internal Methods
     }
