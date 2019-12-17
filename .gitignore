@@ -1,0 +1,9 @@
+# Visual Studio 2019 - Build folders
+bin/
+obj/
+
+# Visual Studio 2019 - Cache
+.vs/
+
+# Visual Studio 2019 - User settings
+*.user
