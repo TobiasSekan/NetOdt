@@ -3,7 +3,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29521.150
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetCoreOdt", "NetCoreOdt\NetCoreOdt.csproj", "{064BCCE3-9E2F-4AF9-A426-3D24082934D5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetCoreOdt", "NetCoreOdt\NetCoreOdt.csproj", "{064BCCE3-9E2F-4AF9-A426-3D24082934D5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5C44EA8E-18A3-498B-8F1C-6EFDD7BF7EF7}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		LICENSE = LICENSE
+		readme.md = readme.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
