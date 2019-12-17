@@ -17,20 +17,28 @@ Easy API to create ODT files in .NET Core applications
 using var odtDoucment = new OdtDocument();
 
 // Create and prepare a new ODT document inside the given temporary folder
-// using var odtDoucment = new OdtDocument("C:/tempFolder");
+// using var odtDoucment = new OdtDocument("E:\\testTest.odt");
 
-// ****************************************************
-// more API function will come in next time, stay tuned
-// ****************************************************
+// Write a single line with a unformatted value to the document
+odtDoucment.Write(long.MinValue);
+odtDoucment.Write(byte.MaxValue);
+odtDoucment.Write(uint.MaxValue);
+odtDoucment.Write(double.NaN);
 
-// Temporary direct raw content manipulation (will be removed when features working)
-odtDoucment.RawFileContent
+// Write a single line with a unformatted text to the document (Note: line breaks "\n" will currently not working)
+odtDoucment.Write("This is a text");
 
-// Temporary direct XML content manipulation (will be removed when features working)
-odtDoucment.ContentFile
+// Write the content of the given <see cref="StringBuilder"/> into the document (Note: line breaks "\n" will currently not working)
+var stringBuilder = new StringBuilder();
+stringBuilder.Append("This is a text a very very very long text");
+odtDoucment.Write(stringBuilder);
 
 // Save the ODT document into the given path
-odtDoucment.Save("C:/testTest.odt");
+odtDoucment.Save("E:\\testTest.odt");
 
 // ODT document will dispose here automatically (and remove temporary working folder)
+
+// *****************************************************
+// more API functions will come in next time, stay tuned
+// *****************************************************
 ```

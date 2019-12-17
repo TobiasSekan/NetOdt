@@ -1,7 +1,9 @@
 ﻿using System;
 using System.IO;
 using System.IO.Compression;
+using System.Linq;
 using System.Reflection;
+using System.Text;
 using System.Xml;
 
 namespace NetCoreOdt
@@ -11,31 +13,37 @@ namespace NetCoreOdt
     /// </summary>
     public sealed class OdtDocument : IDisposable
     {
-        #region Public Properties
+        #region Internal Properties
 
         /// <summary>
         /// The XML content of the content file
         /// </summary>
-        public XmlDocument ContentFile { get; private set; }
+        internal XmlDocument ContentFile { get; private set; }
+
+        /// <summary>
+        /// The raw content before the text content
+        /// </summary>
+        internal StringBuilder BeforeTextContent { get; private set; }
+
+        /// <summary>
+        /// The raw content after the text content
+        /// </summary>
+        internal StringBuilder NewTextContent { get; private set; }
+
+        /// <summary>
+        /// The raw text content
+        /// </summary>
+        internal StringBuilder AfteTextContent { get; private set; }
 
         /// <summary>
         /// The temporary working folder, will delete when <see cref="Dispose"/> is called
         /// </summary>
-        public string TempWorkingPath { get; private set; }
-
-        #endregion Public Properties
-
-        #region Internal Properties
+        internal string TempWorkingPath { get; private set; }
 
         /// <summary>
         /// The path to the content file (typical inside the <see cref="TempWorkingPath"/>)
         /// </summary>
         internal string ContentFilePath { get; private set; }
-
-        /// <summary>
-        /// The raw content of the content file
-        /// </summary>
-        internal string RawFileContent { get; set; }
 
         #endregion Internal Properties
 
@@ -59,14 +67,53 @@ namespace NetCoreOdt
             TempWorkingPath = tempWorkingPath;
             ContentFilePath = Path.Combine(TempWorkingPath, "content.xml");
 
-            RawFileContent  = string.Empty;
-            ContentFile     = new XmlDocument();
+            BeforeTextContent = new StringBuilder();
+            AfteTextContent   = new StringBuilder();
+            NewTextContent    = new StringBuilder();
+            ContentFile       = new XmlDocument();
 
             CreateOdtTemplate();
             ReadContent();
         }
 
         #endregion Public Constructors
+
+        #region Public Methods - Write
+
+        /// <summary>
+        /// Write a single line with a unformatted value to the document
+        /// </summary>
+        /// <param name="value">The value to write into the document</param>
+        public void Write(ValueType value)
+        {
+            NewTextContent.Append($"<text:p text:style-name=\"Standard\">");
+            NewTextContent.Append(value);
+            NewTextContent.Append("</text:p>");
+        }
+
+        /// <summary>
+        /// Write a single line with a unformatted text to the document (Note: line breaks "\n" will currently not working)
+        /// </summary>
+        /// <param name="text">The text to write into the document</param>
+        public void Write(string text)
+        {
+            NewTextContent.Append($"<text:p text:style-name=\"Standard\">");
+            NewTextContent.Append(text);
+            NewTextContent.Append("</text:p>");
+        }
+
+        /// <summary>
+        /// Write the content of the given <see cref="StringBuilder"/> into the document (Note: line breaks "\n" will currently not working)
+        /// </summary>
+        /// <param name="text">The <see cref="StringBuilder"/> that contains the content for the document</param>
+        public void Write(StringBuilder text)
+        {
+            NewTextContent.Append($"<text:p text:style-name=\"Standard\">");
+            NewTextContent.Append(text);
+            NewTextContent.Append("</text:p>");
+        }
+
+        #endregion Public Methods  - Write
 
         #region Public Methods
 
@@ -101,9 +148,12 @@ namespace NetCoreOdt
         {
             Directory.Delete(TempWorkingPath, true);
 
+            BeforeTextContent.Clear();
+            NewTextContent.Clear();
+            AfteTextContent.Clear();
+
             ContentFile     = new XmlDocument();
             TempWorkingPath = string.Empty;
-            RawFileContent  = string.Empty;
             ContentFilePath = string.Empty;
         }
 
@@ -154,7 +204,11 @@ namespace NetCoreOdt
 
                 using(var textReader = new StreamReader(fileStream))
                 {
-                    RawFileContent = textReader.ReadToEnd();
+                    var rawFileContent = textReader.ReadToEnd();
+                    var contentSplit   = rawFileContent.Split("<text:p text:style-name=\"Standard\"/>");
+
+                    BeforeTextContent.Append(contentSplit.ElementAtOrDefault(0) ?? string.Empty);
+                    AfteTextContent.Append(contentSplit.ElementAtOrDefault(1) ?? string.Empty);
                 }
             }
 
@@ -171,7 +225,9 @@ namespace NetCoreOdt
             {
                 using(var textWriter = new StreamWriter(fileStream))
                 {
-                    textWriter.Write(RawFileContent);
+                    textWriter.Write(BeforeTextContent);
+                    textWriter.Write(NewTextContent);
+                    textWriter.Write(AfteTextContent);
                 }
             }
         }

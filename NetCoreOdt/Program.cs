@@ -1,4 +1,6 @@
-﻿namespace NetCoreOdt
+﻿using System.Text;
+
+namespace NetCoreOdt
 {
     public class Program
     {
@@ -8,20 +10,24 @@
             using var odtDoucment = new OdtDocument();
 
             // Create and prepare a new ODT document inside the given temporary folder
-            // using var odtDoucment = new OdtDocument(tempWorkingPath);
+            // using var odtDoucment = new OdtDocument("E:/tempFolder");
 
-            // Start: testing region
+            // Write a single line with a unformatted value to the document
+            odtDoucment.Write(long.MinValue);
+            odtDoucment.Write(byte.MaxValue);
+            odtDoucment.Write(uint.MaxValue);
+            odtDoucment.Write(double.NaN);
 
-            var contentSplit = odtDoucment.RawFileContent.Split("<text:p text:style-name=\"Standard\"/>");
+            // Write a single line with a unformatted text to the document (Note: line breaks "\n" will currently not working)
+            odtDoucment.Write("This is a text");
 
-            odtDoucment.RawFileContent  = contentSplit[0] + "<text:p text:style-name=\"Standard\">blablabla</text:p>" + contentSplit[1];
-
-
-            // End: testing region
-
+            // Write the content of the given <see cref="StringBuilder"/> into the document (Note: line breaks "\n" will currently not working)
+            var stringBuilder = new StringBuilder();
+            stringBuilder.Append("This is a text a very very very long text");
+            odtDoucment.Write(stringBuilder);
 
             // Save the ODT document into the given path
-            odtDoucment.Save("E:\\testTest.odt");
+            odtDoucment.Save("E:/testTest.odt");
 
             // ODT document will dispose here automatically (and remove temporary working folder)
         }
