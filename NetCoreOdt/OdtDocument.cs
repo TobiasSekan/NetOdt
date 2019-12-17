@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NetCoreOdt.Enumerations;
+using System;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
@@ -103,11 +104,50 @@ namespace NetCoreOdt
         }
 
         /// <summary>
-        /// Write the content of the given <see cref="StringBuilder"/> into the document (Note: line breaks "\n" will currently not working)
+        /// Write the content of the given <see cref="StringBuilder"/> as unformatted text into the document (Note: line breaks "\n" will currently not working)
         /// </summary>
         /// <param name="text">The <see cref="StringBuilder"/> that contains the content for the document</param>
         public void Write(StringBuilder text)
         {
+            NewTextContent.Append($"<text:p text:style-name=\"Standard\">");
+            NewTextContent.Append(text);
+            NewTextContent.Append("</text:p>");
+        }
+
+        /// <summary>
+        /// Write a single line with a styled value to the document
+        /// </summary>
+        /// <param name="value">The value to write into the document</param>
+        /// <param name="style">The text style of the value</param>
+        public void Write(ValueType value, TextStyle style)
+        {
+            // TODO
+            NewTextContent.Append($"<text:p text:style-name=\"Standard\">");
+            NewTextContent.Append(value);
+            NewTextContent.Append("</text:p>");
+        }
+
+        /// <summary>
+        /// Write a single line with a styled text to the document (Note: line breaks "\n" will currently not working)
+        /// </summary>
+        /// <param name="text">The text to write into the document</param>
+        /// <param name="style">The text style of the text</param>
+        public void Write(string text, TextStyle style)
+        {
+            // TODO
+            NewTextContent.Append($"<text:p text:style-name=\"Standard\">");
+            NewTextContent.Append(text);
+            NewTextContent.Append("</text:p>");
+        }
+
+        /// <summary>
+        /// Write the content of the given <see cref="StringBuilder"/> as styled text the document (Note: line breaks "\n" will currently not working)
+        /// </summary>
+        /// <param name="text">The <see cref="StringBuilder"/> that contains the content for the document</param>
+        /// <param name="style">The text style of the content</param>
+        public void Write(StringBuilder text, TextStyle style)
+        {
+            // TODO
             NewTextContent.Append($"<text:p text:style-name=\"Standard\">");
             NewTextContent.Append(text);
             NewTextContent.Append("</text:p>");

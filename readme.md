@@ -33,8 +33,22 @@ var stringBuilder = new StringBuilder();
 stringBuilder.Append("This is a text a very very very long text");
 odtDoucment.Write(stringBuilder);
 
+// Write a single line with a styled value to the document
+odtDoucment.Write(long.MinValue, TextStyle.Bold);
+odtDoucment.Write(byte.MaxValue, TextStyle.Italic);
+odtDoucment.Write(uint.MaxValue, TextStyle.Underline);
+odtDoucment.Write(double.NaN, TextStyle.Bold | TextStyle.Italic | TextStyle.Underline);
+
+// Write a single line with a unformatted text to the document (Note: line breaks "\n" will currently not working)
+odtDoucment.Write("This is a text", TextStyle.Bold | TextStyle.Underline);
+
+// Write the content of the given <see cref="StringBuilder"/> into the document (Note: line breaks "\n" will currently not working)
+var stringBuilderFormated = new StringBuilder();
+stringBuilderFormated.Append("This is a text a very very very long text");
+odtDoucment.Write(stringBuilderFormated, TextStyle.Italic | TextStyle.Underline);
+
 // Save the ODT document into the given path
-odtDoucment.Save("E:\\testTest.odt");
+odtDoucment.Save("E:/testTest.odt");
 
 // ODT document will dispose here automatically (and remove temporary working folder)
 
@@ -42,3 +56,11 @@ odtDoucment.Save("E:\\testTest.odt");
 // more API functions will come in next time, stay tuned
 // *****************************************************
 ```
+
+## Supported text styling
+Note: For style combinations you must combine the text styling via a bitwise or `|` like `TextStyle.Bold | TextStyle.Italic | TextStyle.Underline`
+
+* Bold
+* Italic
+* Underline (simple)
+
