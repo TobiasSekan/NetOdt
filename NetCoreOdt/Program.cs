@@ -7,6 +7,8 @@
             // Create and prepare a new ODT document
             using var odtDoucment = new OdtDocument();
 
+            // Create and prepare a new ODT document inside the given temporary folder
+            // using var odtDoucment = new OdtDocument(tempWorkingPath);
 
             // Start: testing region
 
@@ -18,11 +20,10 @@
             // End: testing region
 
 
-            // Create and prepare a new ODT document
+            // Save the ODT document into the given path
             odtDoucment.Save("E:\\testTest.odt");
 
-            // ODT document will dispose here
-            // -> remove temporary working folder
+            // ODT document will dispose here automatically (and remove temporary working folder)
         }
     }
 }
