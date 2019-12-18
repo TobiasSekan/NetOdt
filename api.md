@@ -2,11 +2,14 @@
 
 _More API functions will come in next time, stay tuned_
 
-## Important Notes
+## important
+Don't forget to use `using` syntax or call `Dispose()` when finished.
 
-* Don't forget to use `using` syntax or call `Dispose()` when finished.
-* Use `StringBuilder` for long text passages, when possible
-* Use `DataTable` for tables, when possible
+# Best practice
+* Use `StringBuilder` for long text passages
+* Avoid usage of line-breaks inside the `StringBuilder` content
+* Use the `WriteTable(row, column, text)` when need a pre-filled table
+* Use `DataTable` for tables
 
 ## Create a document
 
@@ -34,11 +37,9 @@ odtDocument.Write(uint.MaxValue);
 odtDocument.Write(double.NaN);
 
 // Write a single line with a unformatted text to the document
-// (Note: line breaks "\n" will currently not working)
 odtDocument.Write("This is a text");
 
 // Write the content of the given StringBuilder into the document
-// (Note: line breaks "\n" will currently not working)
 var content = new StringBuilder();
 content.Append("This is a text a very very very long text");
 odtDocument.Write(content);
@@ -54,11 +55,9 @@ odtDocument.Write(uint.MaxValue, TextStyle.Underline);
 odtDocument.Write(double.NaN, TextStyle.Bold | TextStyle.Italic | TextStyle.Underline);
 
 // Write a single line with a unformatted text to the document
-// (Note: line breaks "\n" will currently not working)
 odtDocument.Write("This is a text", TextStyle.Bold | TextStyle.Underline);
 
 // Write the content of the given StringBuilder into the document
-// (Note: line breaks "\n" will currently not working)
 var content = new StringBuilder();
 content.Append("This is a text a very very very long text");
 odtDocument.Write(content, TextStyle.Italic | TextStyle.Underline);

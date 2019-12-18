@@ -335,9 +335,22 @@ namespace NetCoreOdt
         /// <param name="style">The text style of the text</param>
         public void Write(in string text, in TextStyle style)
         {
-            TextContent.Append($"<text:p text:style-name=\"{GetStyleName(style)}\">");
-            TextContent.Append(text);
-            TextContent.Append("</text:p>");
+            var styleName = GetStyleName(style);
+
+            if(!text.Contains('\n'))
+            {
+                TextContent.Append($"<text:p text:style-name=\"{styleName}\">");
+                TextContent.Append(text);
+                TextContent.Append("</text:p>");
+                return;
+            }
+
+            foreach(var textBlock in text.Split("\n"))
+            {
+                TextContent.Append($"<text:p text:style-name=\"{styleName}\">");
+                TextContent.Append(textBlock);
+                TextContent.Append("</text:p>");
+            }
         }
 
         /// <summary>
@@ -347,9 +360,32 @@ namespace NetCoreOdt
         /// <param name="style">The text style of the content</param>
         public void Write(in StringBuilder content, in TextStyle style)
         {
-            TextContent.Append($"<text:p text:style-name=\"{GetStyleName(style)}\">");
-            TextContent.Append(content);
-            TextContent.Append("</text:p>");
+            var styleName          = GetStyleName(style);
+            var containsLineBreaks = false;
+
+            for(var index = 0; index < content.Length; index++)
+            {
+                if(content[index] == '\n')
+                {
+                    containsLineBreaks = true;
+                    break;
+                }
+            }
+
+            if(!containsLineBreaks)
+            {
+                TextContent.Append($"<text:p text:style-name=\"{styleName}\">");
+                TextContent.Append(content);
+                TextContent.Append("</text:p>");
+                return;
+            }
+
+            foreach(var contentBlock in content.ToString().Split("\n"))
+            {
+                TextContent.Append($"<text:p text:style-name=\"{styleName}\">");
+                TextContent.Append(contentBlock);
+                TextContent.Append("</text:p>");
+            }
         }
 
         #endregion Public Methods - Write Text

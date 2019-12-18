@@ -9,8 +9,8 @@ using var odtDocument = new OdtDocument("E:/MyDocument.odt");
 // Write formated text into the document
 odtDocument.Write("This is a text", TextStyle.Bold);
 
-// Write empty table into the document
-odtDocument.WriteTable(3, 3);
+// Write a pre-filled table into the document
+odtDocument.WriteTable(3, 3, "Fill me");
 
 // automatic dispose call will do the rest of the work
 
