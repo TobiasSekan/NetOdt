@@ -14,6 +14,20 @@ namespace NetCoreOdt
     /// </summary>
     public sealed class OdtDocument : IDisposable
     {
+        #region Public Properties
+
+        /// <summary>
+        /// The full file path (directory + name for the ODT file)
+        /// </summary>
+        public string FilePath { get; private set; }
+
+        /// <summary>
+        /// The temporary working folder, will delete when <see cref="Dispose"/> is called
+        /// </summary>
+        public string TempWorkingPath { get; private set; }
+
+        #endregion Public Properties
+
         #region Internal Properties
 
         /// <summary>
@@ -47,11 +61,6 @@ namespace NetCoreOdt
         internal StringBuilder AfteTextContent { get; private set; }
 
         /// <summary>
-        /// The temporary working folder, will delete when <see cref="Dispose"/> is called
-        /// </summary>
-        internal string TempWorkingPath { get; private set; }
-
-        /// <summary>
         /// The path to the content file (typical inside the <see cref="TempWorkingPath"/>)
         /// </summary>
         internal string ContentFilePath { get; private set; }
@@ -61,22 +70,36 @@ namespace NetCoreOdt
         #region Public Constructors
 
         /// <summary>
-        /// Create a new instance of <see cref="OdtDocument"/> and use a automatic generated temporary folder
+        /// Create a new ODT document, save the ODT document as "Unknown.odt" and use a automatic generated temporary folder
         /// under the <see cref="Environment.SpecialFolder.LocalApplicationData"/> folder
         /// </summary>
         public OdtDocument()
-            : this(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "NetCoreOdt", Guid.NewGuid().ToString()))
+            : this("Unknown.odt")
         {
         }
 
         /// <summary>
-        /// Create a new instance of <see cref="OdtDocument"/> and use the given temporary folder
+        /// Create a new ODT document, save the ODT document into the given file path and use a automatic generated temporary folder
+        /// under the <see cref="Environment.SpecialFolder.LocalApplicationData"/> folder
         /// </summary>
-        /// <param name="tempWorkingPath">The temporary working path for the none zipped document files</param>
-        public OdtDocument(string tempWorkingPath)
+        /// <param name="filePath">The save path for the ODT document</param>
+        public OdtDocument(string filePath)
+            : this(filePath,
+                   Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "NetCoreOdt", Guid.NewGuid().ToString()))
         {
-            TempWorkingPath = tempWorkingPath;
-            ContentFilePath = Path.Combine(TempWorkingPath, "content.xml");
+        }
+
+        /// <summary>
+        /// Create a new ODT document, save the ODT document into the given file path and use the given temporary folder
+        /// </summary>
+        /// <param name="filePath">The save path for the ODT document</param>
+        /// <param name="tempWorkingPath">The temporary working path for the none zipped document files</param>
+        public OdtDocument(string filePath, string tempWorkingPath)
+        {
+            FilePath           = filePath;
+            TempWorkingPath    = tempWorkingPath;
+
+            ContentFilePath    = Path.Combine(TempWorkingPath, "content.xml");
 
             ContentFile        = new XmlDocument();
 
@@ -154,37 +177,70 @@ namespace NetCoreOdt
 
         #endregion Public Methods  - Write
 
-        #region Public Methods
+        #region Public Methods - Save
 
         /// <summary>
-        /// Save the change content and create the ODT document into the given path , automatic override a existing file
+        /// Save the change content and create the ODT document into the given path and automatic override a existing file
         /// </summary>
         /// <param name="filePath">The save path for the ODT document</param>
-        public void Save(string filePath)
-            => Save(filePath, overrideExistingFile: true);
-
-        /// <summary>
-        /// Save the change content and create the ODT document into the given path 
-        /// </summary>
-        /// <param name="filePath">The save path for the ODT document</param>
-        /// <param name="overrideExistingFile">Indicate that a existing file will be override</param>
-        public void Save(string filePath, bool overrideExistingFile)
+        public void SaveAs(string filePath)
         {
-            WriteContent();
+            FilePath = filePath;
 
-            if(overrideExistingFile && File.Exists(filePath))
-            {
-                File.Delete(filePath);
-            }
-
-            ZipFile.CreateFromDirectory(TempWorkingPath, filePath);
+            Save(overrideExistingFile: true);
         }
 
         /// <summary>
-        /// Delete the <see cref="TempWorkingPath"/> folder and free all resources
+        /// Save the change content and create the ODT document into the given path
+        /// </summary>
+        /// <param name="filePath">The save path for the ODT document</param>
+        /// <param name="overrideExistingFile">Indicate that a existing file will be override</param>
+        public void SaveAs(string filePath, bool overrideExistingFile)
+        {
+            FilePath = filePath;
+
+            Save(overrideExistingFile);
+        }
+
+        /// <summary>
+        /// Save the change content and create the ODT document and automatic override a existing file
+        /// </summary>
+        public void Save()
+            => Save(overrideExistingFile: true);
+
+        /// <summary>
+        /// Save the change content and create the ODT document
+        /// </summary>
+        /// <param name="overrideExistingFile">Indicate that a existing file will be override</param>
+        public void Save(bool overrideExistingFile)
+        {
+            WriteContent();
+
+            if(overrideExistingFile && File.Exists(FilePath))
+            {
+                File.Delete(FilePath);
+            }
+
+            ZipFile.CreateFromDirectory(TempWorkingPath, FilePath);
+        }
+
+        #endregion Public Methods - Save
+
+        #region Public Methods - Dispose
+
+        /// <summary>
+        /// Save the document (override when existing), delete the <see cref="TempWorkingPath"/> folder and free all resources
         /// </summary>
         public void Dispose()
+            => Dispose(overrideExistingFile: true);
+
+        /// <summary>
+        /// Save the document , delete the <see cref="TempWorkingPath"/> folder and free all resources
+        /// </summary>
+        public void Dispose(bool overrideExistingFile)
         {
+            Save(overrideExistingFile);
+
             Directory.Delete(TempWorkingPath, true);
 
             BeforeStyleContent.Clear();
@@ -198,7 +254,7 @@ namespace NetCoreOdt
             ContentFilePath = string.Empty;
         }
 
-        #endregion Public Methods
+        #endregion Public Methods - Dispose
 
         #region Internal Methods
 

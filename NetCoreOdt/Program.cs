@@ -8,10 +8,7 @@ namespace NetCoreOdt
         public static void Main(string[] args)
         {
             // Create and prepare a new ODT document
-            using var odtDoucment = new OdtDocument();
-
-            // Create and prepare a new ODT document inside the given temporary folder
-            // using var odtDoucment = new OdtDocument("E:/tempFolder");
+            using var odtDoucment = new OdtDocument("E:/testTest.odt");
 
             // Write a single line with a unformatted value to the document
             odtDoucment.Write(long.MinValue);
@@ -41,10 +38,7 @@ namespace NetCoreOdt
             stringBuilderFormated.Append("This is a text a very very very long text");
             odtDoucment.Write(stringBuilderFormated, TextStyle.Italic | TextStyle.Underline);
 
-            // Save the ODT document into the given path
-            odtDoucment.Save("E:/testTest.odt");
-
-            // ODT document will dispose here automatically (and remove temporary working folder)
+            // on Dispose call the ODT document will automatic save and temporary working folder will delete
         }
     }
 }
