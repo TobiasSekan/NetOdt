@@ -39,9 +39,9 @@ odtDocument.Write("This is a text");
 
 // Write the content of the given StringBuilder into the document
 // (Note: line breaks "\n" will currently not working)
-var stringBuilder = new StringBuilder();
-stringBuilder.Append("This is a text a very very very long text");
-odtDocument.Write(stringBuilder);
+var content = new StringBuilder();
+content.Append("This is a text a very very very long text");
+odtDocument.Write(content);
 ```
 
 ## Write formatted values and text into the document
@@ -59,22 +59,33 @@ odtDocument.Write("This is a text", TextStyle.Bold | TextStyle.Underline);
 
 // Write the content of the given StringBuilder into the document
 // (Note: line breaks "\n" will currently not working)
-var stringBuilder = new StringBuilder();
-stringBuilder.Append("This is a text a very very very long text");
-odtDocument.Write(stringBuilderFormated, TextStyle.Italic | TextStyle.Underline);
+var content = new StringBuilder();
+content.Append("This is a text a very very very long text");
+odtDocument.Write(content, TextStyle.Italic | TextStyle.Underline);
 ```
 
 ## Write a unformatted table
 
 ```csharp
-
 // Write an empty unformatted table with the given row and cell count into the document
 odtDocument.WriteTable(3, 3);
 
+// Write an unformatted table with the given row and cell count into the document and fill each cell with the given value
+odtDocument.WriteTable(3, 3, 0.00);
+
+// Write an unformatted table with the given row and cell count into the document and fill each cell with the given text
+odtDocument.WriteTable(3, 3, "Fill me");
+
+// Write an unformatted table with the given row and cell count into the document and fill each cell with the given content
+var content = new StringBuilder();
+content.Append("Fill me");
+odtDocument.WriteTable(3, 3, content);
+
 //  Write a unformatted table and fill it with the given data from the DataTable
 var table = new DataTable();
-odtDoucment.WriteTable(dataTable);
+odtDocument.WriteTable(dataTable);
 ```
+
 Examples for `DataTable`  usage can be found here [C# DataTable Examples](https://www.dotnetperls.com/datatable)
 
 ## Manually save the document

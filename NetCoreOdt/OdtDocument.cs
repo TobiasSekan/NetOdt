@@ -154,6 +154,96 @@ namespace NetCoreOdt
         }
 
         /// <summary>
+        /// Write an unformatted table with the given row and cell count into the document and fill each cell with the given value
+        /// </summary>
+        /// <param name="rowCount">The count of the rows</param>
+        /// <param name="columnCount">The count of the columns</param>
+        /// <param name="value">The value for each cell</param>
+        public void WriteTable(in int rowCount, in int columnCount, in ValueType value)
+        {
+            TableCount++;
+
+            TextContent.Append($"<table:table table:name=\"Tabelle{TableCount}\" table:style-name=\"Tabelle1\">");
+            TextContent.Append($"<table:table-column table:style-name=\"Tabelle1.A\" table:number-columns-repeated=\"{columnCount}\"/>");
+
+            for(var rowNumber = 1; rowNumber <= rowCount; rowNumber++)
+            {
+                TextContent.Append("<table:table-row>");
+
+                for(var columnNumber = 1; columnNumber <= columnCount; columnNumber++)
+                {
+                    TextContent.Append($"<table:table-cell table:style-name=\"Tabelle1.{GetTableCellStyleName(rowNumber, columnNumber, columnCount)}\" office:value-type=\"string\">");
+                    Write(value);
+                    TextContent.Append($"</table:table-cell>");
+                }
+
+                TextContent.Append("</table:table-row>");
+            }
+
+            TextContent.Append("</table:table>");
+        }
+
+        /// <summary>
+        /// Write an unformatted table with the given row and cell count into the document and fill each cell with the given text
+        /// </summary>
+        /// <param name="rowCount">The count of the rows</param>
+        /// <param name="columnCount">The count of the columns</param>
+        /// <param name="text">The text for each cell</param>
+        public void WriteTable(in int rowCount, in int columnCount, in string text)
+        {
+            TableCount++;
+
+            TextContent.Append($"<table:table table:name=\"Tabelle{TableCount}\" table:style-name=\"Tabelle1\">");
+            TextContent.Append($"<table:table-column table:style-name=\"Tabelle1.A\" table:number-columns-repeated=\"{columnCount}\"/>");
+
+            for(var rowNumber = 1; rowNumber <= rowCount; rowNumber++)
+            {
+                TextContent.Append("<table:table-row>");
+
+                for(var columnNumber = 1; columnNumber <= columnCount; columnNumber++)
+                {
+                    TextContent.Append($"<table:table-cell table:style-name=\"Tabelle1.{GetTableCellStyleName(rowNumber, columnNumber, columnCount)}\" office:value-type=\"string\">");
+                    Write(text);
+                    TextContent.Append($"</table:table-cell>");
+                }
+
+                TextContent.Append("</table:table-row>");
+            }
+
+            TextContent.Append("</table:table>");
+        }
+
+        /// <summary>
+        /// Write an unformatted table with the given row and cell count into the document and fill each cell with the given content
+        /// </summary>
+        /// <param name="rowCount">The count of the rows</param>
+        /// <param name="columnCount">The count of the columns</param>
+        /// <param name="content">The content for each cell</param>
+        public void WriteTable(in int rowCount, in int columnCount, in StringBuilder content)
+        {
+            TableCount++;
+
+            TextContent.Append($"<table:table table:name=\"Tabelle{TableCount}\" table:style-name=\"Tabelle1\">");
+            TextContent.Append($"<table:table-column table:style-name=\"Tabelle1.A\" table:number-columns-repeated=\"{columnCount}\"/>");
+
+            for(var rowNumber = 1; rowNumber <= rowCount; rowNumber++)
+            {
+                TextContent.Append("<table:table-row>");
+
+                for(var columnNumber = 1; columnNumber <= columnCount; columnNumber++)
+                {
+                    TextContent.Append($"<table:table-cell table:style-name=\"Tabelle1.{GetTableCellStyleName(rowNumber, columnNumber, columnCount)}\" office:value-type=\"string\">");
+                    Write(content);
+                    TextContent.Append($"</table:table-cell>");
+                }
+
+                TextContent.Append("</table:table-row>");
+            }
+
+            TextContent.Append("</table:table>");
+        }
+
+        /// <summary>
         /// Write a unformatted table and fill it with the given data from the <see cref="DataTable"/>
         /// </summary>
         /// <param name="dataTable">The <see cref="DataTable"/> that contains the data for the table</param>
