@@ -1,5 +1,6 @@
 ﻿using NetCoreOdt.Enumerations;
 using System;
+using System.Data;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
@@ -25,6 +26,11 @@ namespace NetCoreOdt
         /// The temporary working folder, will delete when <see cref="Dispose"/> is called
         /// </summary>
         public string TempWorkingPath { get; private set; }
+
+        /// <summary>
+        /// The count of the tables
+        /// </summary>
+        public int TableCount { get; private set; }
 
         #endregion Public Properties
 
@@ -58,7 +64,7 @@ namespace NetCoreOdt
         /// <summary>
         /// The raw text content
         /// </summary>
-        internal StringBuilder AfteTextContent { get; private set; }
+        internal StringBuilder AfterTextContent { get; private set; }
 
         /// <summary>
         /// The path to the content file (typical inside the <see cref="TempWorkingPath"/>)
@@ -83,7 +89,7 @@ namespace NetCoreOdt
         /// under the <see cref="Environment.SpecialFolder.LocalApplicationData"/> folder
         /// </summary>
         /// <param name="filePath">The save path for the ODT document</param>
-        public OdtDocument(string filePath)
+        public OdtDocument(in string filePath)
             : this(filePath,
                    Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "NetCoreOdt", Guid.NewGuid().ToString()))
         {
@@ -94,8 +100,10 @@ namespace NetCoreOdt
         /// </summary>
         /// <param name="filePath">The save path for the ODT document</param>
         /// <param name="tempWorkingPath">The temporary working path for the none zipped document files</param>
-        public OdtDocument(string filePath, string tempWorkingPath)
+        public OdtDocument(in string filePath, in string tempWorkingPath)
         {
+            TableCount         = 0;
+
             FilePath           = filePath;
             TempWorkingPath    = tempWorkingPath;
 
@@ -107,36 +115,115 @@ namespace NetCoreOdt
             StyleContent       = new StringBuilder();
             AfterStyleContent  = new StringBuilder();
             TextContent        = new StringBuilder();
-            AfteTextContent    = new StringBuilder();
+            AfterTextContent    = new StringBuilder();
 
             CreateOdtTemplate();
             ReadContent();
-            AddStandardStyles();
         }
 
         #endregion Public Constructors
 
-        #region Public Methods - Write
+        #region Public Methods - Write Table
+
+        /// <summary>
+        /// Write an empty unformatted table with the given row and cell count into the document
+        /// </summary>
+        /// <param name="rowCount">The count of the rows</param>
+        /// <param name="columnCount">The count of the columns</param>
+        public void WriteTable(in int rowCount, in int columnCount)
+        {
+            TableCount++;
+
+            TextContent.Append($"<table:table table:name=\"Tabelle{TableCount}\" table:style-name=\"Tabelle1\">");
+            TextContent.Append($"<table:table-column table:style-name=\"Tabelle1.A\" table:number-columns-repeated=\"{columnCount}\"/>");
+
+            for(var rowNumber = 1; rowNumber <= rowCount; rowNumber++)
+            {
+                TextContent.Append("<table:table-row>");
+
+                for(var columnNumber = 1; columnNumber <= columnCount; columnNumber++)
+                {
+                    TextContent.Append($"<table:table-cell table:style-name=\"Tabelle1.{GetTableCellStyleName(rowNumber, columnNumber, columnCount)}\" office:value-type=\"string\">");
+                    TextContent.Append($"</table:table-cell>");
+                }
+
+                TextContent.Append("</table:table-row>");
+            }
+
+            TextContent.Append("</table:table>");
+        }
+
+        /// <summary>
+        /// Write a unformatted table and fill it with the given data from the <see cref="DataTable"/>
+        /// </summary>
+        /// <param name="dataTable">The <see cref="DataTable"/> that contains the data for the table</param>
+        public void WriteTable(in DataTable dataTable)
+        {
+
+            TableCount++;
+
+            TextContent.Append($"<table:table table:name=\"Tabelle{TableCount}\" table:style-name=\"Tabelle1\">");
+            TextContent.Append($"<table:table-column table:style-name=\"Tabelle1.A\" table:number-columns-repeated=\"{dataTable.Columns.Count}\"/>");
+
+            var rowNumber = 0;
+
+            foreach(DataRow? dataRow in dataTable.Rows)
+            {
+                rowNumber++;
+
+                if(dataRow is null)
+                {
+                    continue;
+                }
+
+                TextContent.Append("<table:table-row>");
+
+                var columnCount  = dataRow.ItemArray.Length;
+                var columnNumber = 0;
+
+                foreach(var column in dataRow.ItemArray)
+                {
+                    columnNumber++;
+
+                    if(column is null)
+                    {
+                        continue;
+                    }
+
+                    TextContent.Append($"<table:table-cell table:style-name=\"Tabelle1.{GetTableCellStyleName(rowNumber, columnNumber, columnCount)}\" office:value-type=\"string\">");
+                    Write(column.ToString() ?? string.Empty, TextStyle.Normal);
+                    TextContent.Append($"</table:table-cell>");
+                }
+
+                TextContent.Append("</table:table-row>");
+            }
+
+            TextContent.Append("</table:table>");
+        }
+
+        #endregion Public Methods - Write Table
+
+        #region Public Methods - Write Text
 
         /// <summary>
         /// Write a single line with a unformatted value to the document
         /// </summary>
         /// <param name="value">The value to write into the document</param>
-        public void Write(ValueType value)
+        public void Write(in ValueType value)
             => Write(value, TextStyle.Normal);
 
         /// <summary>
         /// Write a single line with a unformatted text to the document (Note: line breaks "\n" will currently not working)
         /// </summary>
         /// <param name="text">The text to write into the document</param>
-        public void Write(string text)
+        public void Write(in string text)
             => Write(text, TextStyle.Normal);
 
         /// <summary>
         /// Write the content of the given <see cref="StringBuilder"/> as unformatted text into the document (Note: line breaks "\n" will currently not working)
         /// </summary>
         /// <param name="content">The <see cref="StringBuilder"/> that contains the content for the document</param>
-        public void Write(StringBuilder content)
+        public void Write(in StringBuilder content)
             => Write(content, TextStyle.Normal);
 
         /// <summary>
@@ -144,7 +231,7 @@ namespace NetCoreOdt
         /// </summary>
         /// <param name="value">The value to write into the document</param>
         /// <param name="style">The text style of the value</param>
-        public void Write(ValueType value, TextStyle style)
+        public void Write(in ValueType value, in TextStyle style)
         {
             TextContent.Append($"<text:p text:style-name=\"{GetStyleName(style)}\">");
             TextContent.Append(value);
@@ -156,7 +243,7 @@ namespace NetCoreOdt
         /// </summary>
         /// <param name="text">The text to write into the document</param>
         /// <param name="style">The text style of the text</param>
-        public void Write(string text, TextStyle style)
+        public void Write(in string text, in TextStyle style)
         {
             TextContent.Append($"<text:p text:style-name=\"{GetStyleName(style)}\">");
             TextContent.Append(text);
@@ -168,14 +255,14 @@ namespace NetCoreOdt
         /// </summary>
         /// <param name="content">The <see cref="StringBuilder"/> that contains the content for the document</param>
         /// <param name="style">The text style of the content</param>
-        public void Write(StringBuilder content, TextStyle style)
+        public void Write(in StringBuilder content, in TextStyle style)
         {
             TextContent.Append($"<text:p text:style-name=\"{GetStyleName(style)}\">");
             TextContent.Append(content);
             TextContent.Append("</text:p>");
         }
 
-        #endregion Public Methods  - Write
+        #endregion Public Methods - Write Text
 
         #region Public Methods - Save
 
@@ -183,7 +270,7 @@ namespace NetCoreOdt
         /// Save the change content and create the ODT document into the given path and automatic override a existing file
         /// </summary>
         /// <param name="filePath">The save path for the ODT document</param>
-        public void SaveAs(string filePath)
+        public void SaveAs(in string filePath)
         {
             FilePath = filePath;
 
@@ -195,7 +282,7 @@ namespace NetCoreOdt
         /// </summary>
         /// <param name="filePath">The save path for the ODT document</param>
         /// <param name="overrideExistingFile">Indicate that a existing file will be override</param>
-        public void SaveAs(string filePath, bool overrideExistingFile)
+        public void SaveAs(in string filePath, in bool overrideExistingFile)
         {
             FilePath = filePath;
 
@@ -212,7 +299,7 @@ namespace NetCoreOdt
         /// Save the change content and create the ODT document
         /// </summary>
         /// <param name="overrideExistingFile">Indicate that a existing file will be override</param>
-        public void Save(bool overrideExistingFile)
+        public void Save(in bool overrideExistingFile)
         {
             WriteContent();
 
@@ -237,7 +324,7 @@ namespace NetCoreOdt
         /// <summary>
         /// Save the document , delete the <see cref="TempWorkingPath"/> folder and free all resources
         /// </summary>
-        public void Dispose(bool overrideExistingFile)
+        public void Dispose(in bool overrideExistingFile)
         {
             Save(overrideExistingFile);
 
@@ -247,7 +334,7 @@ namespace NetCoreOdt
             StyleContent.Clear();
             AfterStyleContent.Clear();
             TextContent.Clear();
-            AfteTextContent.Clear();
+            AfterTextContent.Clear();
 
             ContentFile     = new XmlDocument();
             TempWorkingPath = string.Empty;
@@ -307,7 +394,7 @@ namespace NetCoreOdt
 
                     BeforeStyleContent.Append(styleContentSplit.ElementAtOrDefault(0) ?? string.Empty);
                     AfterStyleContent.Append(styleContentSplit.ElementAtOrDefault(1) ?? string.Empty);
-                    AfteTextContent.Append(textContentSplit.ElementAtOrDefault(1) ?? string.Empty);
+                    AfterTextContent.Append(textContentSplit.ElementAtOrDefault(1) ?? string.Empty);
                 }
             }
         }
@@ -317,8 +404,6 @@ namespace NetCoreOdt
         /// </summary>
         internal void AddStandardStyles()
         {
-            StyleContent.Append("<office:automatic-styles>");
-
             // P1 - Normal - 000
             StyleContent.Append("<style:style style:name=\"P1\" style:family=\"paragraph\" style:parent-style-name=\"Standard\"><style:text-properties/></style:style>");
 
@@ -342,8 +427,36 @@ namespace NetCoreOdt
 
             // P8 - 0b_111 - Bold + Italic + Underline
             StyleContent.Append("<style:style style:name=\"P8\" style:family=\"paragraph\" style:parent-style-name=\"Standard\"><style:text-properties fo:font-style=\"italic\" style:text-underline-style=\"solid\" style:text-underline-width=\"auto\" style:text-underline-color=\"font-color\" fo:font-weight=\"bold\" style:font-style-asian=\"italic\" style:font-weight-asian=\"bold\" style:font-style-complex=\"italic\" style:font-weight-complex=\"bold\"/></style:style>");
+        }
 
-            StyleContent.Append("</office:automatic-styles>");
+        /// <summary>
+        /// Add all needed styles for simple tables
+        /// </summary>
+        internal void AddTableStyles()
+        {
+            if(TableCount < 1)
+            {
+                // When a document has no tables, we don't need a table style
+                return;
+            }
+
+            StyleContent.Append("<style:style style:name=\"Tabelle1\" style:family=\"table\">");
+            StyleContent.Append("<style:table-properties style:width=\"17cm\" table:align=\"margins\"/>");
+            StyleContent.Append("</style:style>");
+            StyleContent.Append("<style:style style:name=\"Tabelle1.A\" style:family=\"table-column\">");
+            StyleContent.Append("<style:table-column-properties style:column-width=\"3.401cm\" style:rel-column-width=\"13107*\"/>");
+            StyleContent.Append("</style:style>");
+            StyleContent.Append("<style:style style:name=\"Tabelle1.A1\" style:family=\"table-cell\">");
+            StyleContent.Append("<style:table-cell-properties fo:padding=\"0.097cm\" fo:border-left=\"0.05pt solid #000000\" fo:border-right=\"none\" fo:border-top=\"0.05pt solid #000000\" fo:border-bottom=\"0.05pt solid #000000\"/>");
+            StyleContent.Append("</style:style>");
+            StyleContent.Append("<style:style style:name=\"Tabelle1.E1\" style:family=\"table-cell\"><style:table-cell-properties fo:padding=\"0.097cm\" fo:border=\"0.05pt solid #000000\"/>");
+            StyleContent.Append("</style:style>");
+            StyleContent.Append("<style:style style:name=\"Tabelle1.A2\" style:family=\"table-cell\"><style:table-cell-properties fo:padding=\"0.097cm\" fo:border-left=\"0.05pt solid #000000\" fo:border-right=\"none\" fo:border-top=\"none\" fo:border-bottom=\"0.05pt solid #000000\"/>");
+            StyleContent.Append("</style:style>");
+            StyleContent.Append("<style:style style:name=\"Tabelle1.E2\" style:family=\"table-cell\"><style:table-cell-properties fo:padding=\"0.097cm\" fo:border-left=\"0.05pt solid #000000\" fo:border-right=\"0.05pt solid #000000\" fo:border-top=\"none\" fo:border-bottom=\"0.05pt solid #000000\"/>");
+            StyleContent.Append("</style:style>");
+            StyleContent.Append("<style:style style:name=\"P1\" style:family=\"paragraph\" style:parent-style-name=\"Table_20_Contents\">");
+            StyleContent.Append("</style:style>");
         }
 
         /// <summary>
@@ -351,6 +464,9 @@ namespace NetCoreOdt
         /// </summary>
         internal void WriteContent()
         {
+            AddStandardStyles();
+            AddTableStyles();
+
             // don't use short using syntax to avoid not closed and disposed stream
 
             using(var fileStream = File.Create(ContentFilePath))
@@ -358,10 +474,12 @@ namespace NetCoreOdt
                 using(var textWriter = new StreamWriter(fileStream))
                 {
                     textWriter.Write(BeforeStyleContent);
+                    textWriter.Write("<office:automatic-styles>");
                     textWriter.Write(StyleContent);
+                    textWriter.Write("</office:automatic-styles>");
                     textWriter.Write(AfterStyleContent);
                     textWriter.Write(TextContent);
-                    textWriter.Write(AfteTextContent);
+                    textWriter.Write(AfterTextContent);
                 }
             }
         }
@@ -371,7 +489,7 @@ namespace NetCoreOdt
         /// </summary>
         /// <param name="style">The style for the style name</param>
         /// <returns>The name representation of the style or style combination</returns>
-        internal string GetStyleName(TextStyle style)
+        internal string GetStyleName(in TextStyle style)
             => style switch
             {
                 TextStyle.Normal                                        => "P1",
@@ -385,6 +503,22 @@ namespace NetCoreOdt
 
                 _ => throw new NotSupportedException("Style combination has no style entry")
             };
+
+        /// <summary>
+        /// Return the name representation for a style for the given table cell
+        /// </summary>
+        /// <param name="rowNumber">The row number of the current cell</param>
+        /// <param name="columnNumber">The column number of the current cell</param>
+        /// <param name="columnCount">The column count of the current row</param>
+        /// <returns>The name representation of a table column</returns>
+        internal string GetTableCellStyleName(in int rowNumber, in int columnNumber, in int columnCount)
+        {
+            var number = rowNumber == 1 ? "1" : "2";
+
+            var prefix = columnCount == columnNumber ? "E" : "A";
+
+            return prefix + number;
+        }
 
         #endregion Internal Methods
     }

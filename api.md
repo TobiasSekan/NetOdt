@@ -3,8 +3,10 @@
 _More API functions will come in next time, stay tuned_
 
 ## Important Notes
+
 * Don't forget to use `using` syntax or call `Dispose()` when finished.
-* Use `StringBuilder` for long text passages
+* Use `StringBuilder` for long text passages, when possible
+* Use `DataTable` for tables, when possible
 
 ## Create a document
 
@@ -62,20 +64,33 @@ stringBuilder.Append("This is a text a very very very long text");
 odtDocument.Write(stringBuilderFormated, TextStyle.Italic | TextStyle.Underline);
 ```
 
+## Write a unformatted table
+
+```csharp
+
+// Write an empty unformatted table with the given row and cell count into the document
+odtDocument.WriteTable(3, 3);
+
+//  Write a unformatted table and fill it with the given data from the DataTable
+var table = new DataTable();
+odtDoucment.WriteTable(dataTable);
+```
+Examples for `DataTable`  usage can be found here [C# DataTable Examples](https://www.dotnetperls.com/datatable)
+
 ## Manually save the document
 
 ```csharp
 // Save the change content and create the ODT document and automatic override a existing file
-odtDocument.Save()
+odtDocument.Save();
 
 // Save the change content and create the ODT document
-odtDocument.Save(overrideExistingFile: false)
+odtDocument.Save(overrideExistingFile: false);
 
 // Save the change content and create the ODT document into the given path
-odtDocument.SaveAs("E:/MyDocument.odt")
+odtDocument.SaveAs("E:/MyDocument.odt");
 
 // Save the change content and create the ODT document into the given path and automatic override a existing file
-odtDocument.SaveAs("E:/MyDocument.odt", overrideExistingFile: false)
+odtDocument.SaveAs("E:/MyDocument.odt", overrideExistingFile: false);
 ```
 
 ## Manually call Dispose method
