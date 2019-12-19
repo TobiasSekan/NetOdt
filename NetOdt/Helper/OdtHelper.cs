@@ -1,4 +1,5 @@
-﻿using NetOdt.Helper;
+﻿using NetOdt.Constants;
+using NetOdt.Helper;
 using System;
 using System.IO;
 using System.Reflection;
@@ -26,6 +27,7 @@ namespace NetCoreOdt.Helper
             DirectoryHelper.CreateDirectory(tempWorkingUri, "Configurations2");
             DirectoryHelper.CreateDirectory(tempWorkingUri, "META-INF");
             DirectoryHelper.CreateDirectory(tempWorkingUri, "Thumbnails");
+            DirectoryHelper.CreateDirectory(tempWorkingUri, FolderResource.PictureFolderName);
 
             foreach(var file in Directory.GetFiles(originalFolder))
             {

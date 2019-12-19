@@ -19,6 +19,9 @@ namespace NetOdtTest
 
             odtDoucment.WriteTable(GetTable());
 
+            // TODO: need changes inside the "/MATA-INF/mainfest.xml"
+            odtDoucment.Write("E:/picture1.jpg", 14.9, 9.8);
+
             odtDoucment.Write("Unformatted", HeaderStyle.HeadingLevel01);
 
             odtDoucment.Write(long.MinValue);

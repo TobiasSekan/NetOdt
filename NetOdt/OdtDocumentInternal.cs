@@ -1,4 +1,6 @@
 ﻿using NetCoreOdt.Helper;
+using NetOdt.Constants;
+using NetOdt.Helper;
 using System;
 using System.IO;
 using System.Linq;
@@ -93,6 +95,16 @@ namespace NetCoreOdt
             if(TableCount > 0)
             {
                 StyleHelper.AddTableStyles(StyleContent);
+            }
+
+            // When a document has no pictures, we don't need a picture style
+            if(PictureCount > 0)
+            {
+                StyleHelper.AddPictureStyle(StyleContent);
+            }
+            else
+            {
+                FileHelper.Delete(TempWorkingUri, FolderResource.PictureFolderName);
             }
 
             // don't use simple using syntax to avoid possible not closed and disposed streams

@@ -29,6 +29,11 @@ namespace NetCoreOdt
         /// </summary>
         public byte TableCount { get; private set; }
 
+        /// <summary>
+        /// The count of picture
+        /// </summary>
+        public byte PictureCount { get; private set; }
+
         #endregion Public Properties
 
         #region Public Constructors
@@ -80,6 +85,7 @@ namespace NetCoreOdt
         public OdtDocument(in Uri fileUri, in Uri tempWorkingUri)
         {
             TableCount         = 0;
+            PictureCount       = 0;
 
             FileUri            = fileUri;
             TempWorkingUri     = tempWorkingUri;

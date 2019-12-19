@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Runtime.CompilerServices;
 
 namespace NetOdt.Helper
 {
@@ -14,6 +15,7 @@ namespace NetOdt.Helper
         /// <param name="pathLeft">The left part for the complete path</param>
         /// <param name="pathRight">The right part for the complete path</param>
         /// <returns>A <see cref="Uri"/> with the complete path</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static Uri Combine(string pathLeft, string pathRight)
             => new Uri(Path.Combine(pathLeft, pathRight));
 
@@ -23,6 +25,7 @@ namespace NetOdt.Helper
         /// <param name="uriLeft">The left part for the complete path</param>
         /// <param name="pathRight">The right part for the complete path</param>
         /// <returns>A <see cref="Uri"/> with the complete path</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static Uri Combine(Uri uriLeft, string pathRight)
             => new Uri(Path.Combine(uriLeft.AbsolutePath, pathRight));
 
@@ -32,6 +35,7 @@ namespace NetOdt.Helper
         /// <param name="uriLeft">The left part for the complete path</param>
         /// <param name="uriRight">The right part for the complete path</param>
         /// <returns>A <see cref="Uri"/> with the complete path</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static Uri Combine(Uri uriLeft, Uri uriRight)
             => new Uri(Path.Combine(uriLeft.AbsolutePath, uriRight.AbsolutePath));
     }

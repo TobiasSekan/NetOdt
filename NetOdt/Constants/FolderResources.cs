@@ -23,5 +23,10 @@ namespace NetOdt.Constants
         /// </summary>
         internal static string TemporaryRootFolderPath { get; } = Path.Combine(LocalApplicationDataPath, TemporaryRootFolderName);
 
+        /// <summary>
+        /// The name of the picture folder inside the ODT document
+        /// </summary>
+        internal static string PictureFolderName { get; } = "Pictures";
+
     }
 }
