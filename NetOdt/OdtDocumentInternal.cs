@@ -1,4 +1,5 @@
 ﻿using NetCoreOdt.Helper;
+using System;
 using System.Data;
 using System.IO;
 using System.Linq;
@@ -72,8 +73,8 @@ namespace NetCoreOdt
                 using(var textReader = new StreamReader(fileStream))
                 {
                     var rawFileContent    = textReader.ReadToEnd();
-                    var textContentSplit  = rawFileContent.Split("<text:p text:style-name=\"Standard\"/>");
-                    var styleContentSplit = textContentSplit[0].Split("<office:automatic-styles/>");
+                    var textContentSplit  = rawFileContent.Split(new string[] { "<text:p text:style-name=\"Standard\"/>" }, StringSplitOptions.None);
+                    var styleContentSplit = textContentSplit[0].Split(new string[] { "<office:automatic-styles/>" }, StringSplitOptions.None);
 
                     BeforeStyleContent.Append(styleContentSplit.ElementAtOrDefault(0) ?? string.Empty);
                     AfterStyleContent.Append(styleContentSplit.ElementAtOrDefault(1) ?? string.Empty);

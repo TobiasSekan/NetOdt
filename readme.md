@@ -1,5 +1,5 @@
-# NetCoreOdt
-Easy API to create ODT files in .NET Core applications
+# NetOdt
+Easy API to create ODT documents in .NET
 
 ## Simple API usage
 ```csharp
@@ -51,4 +51,4 @@ TextStyle.Bold | TextStyle.Italic | TextStyle.Underline
 * Use `EnumFlag` for combinations of `enum` values (bold, italic, ...)
 * Use build-in `DataTable` for tables
 * No new data-types, use only build-in data-types
-* .Net Standard 2.1, C# 8.0
+* .Net Standard 2.0, C# 8.0

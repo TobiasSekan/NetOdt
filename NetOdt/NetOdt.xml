@@ -1,0 +1,302 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>NetOdt</name>
+    </assembly>
+    <members>
+        <member name="T:NetCoreOdt.Enumerations.TextStyle">
+            <summary>
+            The style of a text
+            </summary>
+        </member>
+        <member name="F:NetCoreOdt.Enumerations.TextStyle.Normal">
+            <summary>
+            Text without any style
+            </summary>
+        </member>
+        <member name="F:NetCoreOdt.Enumerations.TextStyle.Bold">
+            <summary>
+            A bold text
+            </summary>
+        </member>
+        <member name="F:NetCoreOdt.Enumerations.TextStyle.Italic">
+            <summary>
+            A italic text
+            </summary>
+        </member>
+        <member name="F:NetCoreOdt.Enumerations.TextStyle.Underline">
+            <summary>
+            A text with a underline
+            </summary>
+        </member>
+        <member name="T:NetCoreOdt.Helper.OdtHelper">
+            <summary>
+            Helper class to easier work with ODT files
+            </summary>
+        </member>
+        <member name="M:NetCoreOdt.Helper.OdtHelper.CreateOdtTemplate(System.String)">
+            <summary>
+            Create a folder with a minimum of files that are need by a ODT document
+            </summary>
+        </member>
+        <member name="T:NetCoreOdt.Helper.StringBuilderHelper">
+            <summary>
+            Helper class to easier work with <see cref="T:System.Text.StringBuilder"/> objects
+            </summary>
+        </member>
+        <member name="M:NetCoreOdt.Helper.StringBuilderHelper.ContainsLineBreaks(System.Text.StringBuilder)">
+            <summary>
+            Test if a given <see cref="T:System.Text.StringBuilder"/> content contains line breaks
+            </summary>
+            <returns><see langword="true"/> if the content contains line breaks, otherwise <see langword="false"/></returns>
+        </member>
+        <member name="T:NetCoreOdt.Helper.StyleHelper">
+            <summary>
+            Helper class to easier work with ODT document styles
+            </summary>
+        </member>
+        <member name="M:NetCoreOdt.Helper.StyleHelper.AddStandardTextStyles(System.Text.StringBuilder)">
+            <summary>
+            Add all needed styles for all <see cref="T:NetCoreOdt.Enumerations.TextStyle"/> combinations to the style content
+            </summary>
+        </member>
+        <member name="M:NetCoreOdt.Helper.StyleHelper.AddTableStyles(System.Text.StringBuilder)">
+            <summary>
+            Add all needed styles for simple tables
+            </summary>
+        </member>
+        <member name="M:NetCoreOdt.Helper.StyleHelper.GetStyleName(NetCoreOdt.Enumerations.TextStyle@)">
+            <summary>
+            Return the name representation of a given style or style combination
+            </summary>
+            <param name="style">The style for the style name</param>
+            <returns>The name representation of the style or style combination</returns>
+        </member>
+        <member name="M:NetCoreOdt.Helper.StyleHelper.GetTableCellStyleName(System.Int32@,System.Int32@,System.Int32@)">
+            <summary>
+            Return the name representation for a style for the given table cell
+            </summary>
+            <param name="rowNumber">The row number of the current cell</param>
+            <param name="columnNumber">The column number of the current cell</param>
+            <param name="columnCount">The column count of the current row</param>
+            <returns>The name representation of a table column</returns>
+        </member>
+        <member name="T:NetCoreOdt.OdtDocument">
+            <summary>
+            Class to create and write ODT documents
+            </summary>
+            <summary>
+            Class to create and write ODT documents
+            </summary>
+            <summary>
+            Class to create and write ODT documents
+            </summary>
+            <summary>
+            Class to create and write ODT documents
+            </summary>
+            <summary>
+            Class to create and write ODT documents
+            </summary>
+            <summary>
+            Class to create and write ODT documents
+            </summary>
+        </member>
+        <member name="P:NetCoreOdt.OdtDocument.FilePath">
+            <summary>
+            The full file path (directory + name for the ODT file)
+            </summary>
+        </member>
+        <member name="P:NetCoreOdt.OdtDocument.TempWorkingPath">
+            <summary>
+            The temporary working folder, will delete when <see cref="M:NetCoreOdt.OdtDocument.Dispose"/> is called
+            </summary>
+        </member>
+        <member name="P:NetCoreOdt.OdtDocument.TableCount">
+            <summary>
+            The count of the tables
+            </summary>
+        </member>
+        <member name="M:NetCoreOdt.OdtDocument.#ctor">
+            <summary>
+            Create a new ODT document, save the ODT document as "Unknown.odt" and use a automatic generated temporary folder
+            under the <see cref="F:System.Environment.SpecialFolder.LocalApplicationData"/> folder
+            </summary>
+        </member>
+        <member name="M:NetCoreOdt.OdtDocument.#ctor(System.String@)">
+            <summary>
+            Create a new ODT document, save the ODT document into the given file path and use a automatic generated temporary folder
+            under the <see cref="F:System.Environment.SpecialFolder.LocalApplicationData"/> folder
+            </summary>
+            <param name="filePath">The save path for the ODT document</param>
+        </member>
+        <member name="M:NetCoreOdt.OdtDocument.#ctor(System.String@,System.String@)">
+            <summary>
+            Create a new ODT document, save the ODT document into the given file path and use the given temporary folder
+            </summary>
+            <param name="filePath">The save path for the ODT document</param>
+            <param name="tempWorkingPath">The temporary working path for the none zipped document files</param>
+        </member>
+        <member name="M:NetCoreOdt.OdtDocument.Dispose">
+            <summary>
+            Save the document (override when existing), delete the <see cref="P:NetCoreOdt.OdtDocument.TempWorkingPath"/> folder and free all resources
+            </summary>
+        </member>
+        <member name="M:NetCoreOdt.OdtDocument.Dispose(System.Boolean@)">
+            <summary>
+            Save the document , delete the <see cref="P:NetCoreOdt.OdtDocument.TempWorkingPath"/> folder and free all resources
+            </summary>
+        </member>
+        <member name="P:NetCoreOdt.OdtDocument.ContentFile">
+             <summary>
+             The XML content of the content file
+            <para>TODO: #8 - Find a way to use XMLDocument class</para>
+             </summary>
+        </member>
+        <member name="P:NetCoreOdt.OdtDocument.BeforeStyleContent">
+            <summary>
+            The raw content before the style content
+            </summary>
+        </member>
+        <member name="P:NetCoreOdt.OdtDocument.StyleContent">
+            <summary>
+            The raw style content
+            </summary>
+        </member>
+        <member name="P:NetCoreOdt.OdtDocument.AfterStyleContent">
+            <summary>
+            The raw content after the style content and before the text content
+            </summary>
+        </member>
+        <member name="P:NetCoreOdt.OdtDocument.TextContent">
+            <summary>
+            The raw content after the text content
+            </summary>
+        </member>
+        <member name="P:NetCoreOdt.OdtDocument.AfterTextContent">
+            <summary>
+            The raw text content
+            </summary>
+        </member>
+        <member name="P:NetCoreOdt.OdtDocument.ContentFilePath">
+            <summary>
+            The path to the content file (typical inside the <see cref="P:NetCoreOdt.OdtDocument.TempWorkingPath"/>)
+            </summary>
+        </member>
+        <member name="M:NetCoreOdt.OdtDocument.ReadContent">
+            <summary>
+            Read the complete content of the content file
+            </summary>
+        </member>
+        <member name="M:NetCoreOdt.OdtDocument.WriteContent">
+            <summary>
+            Write the complete content to the content file (overwrite the existing file)
+            </summary>
+        </member>
+        <member name="M:NetCoreOdt.OdtDocument.SaveAs(System.String@)">
+            <summary>
+            Save the change content and create the ODT document into the given path and automatic override a existing file
+            </summary>
+            <param name="filePath">The save path for the ODT document</param>
+        </member>
+        <member name="M:NetCoreOdt.OdtDocument.SaveAs(System.String@,System.Boolean@)">
+            <summary>
+            Save the change content and create the ODT document into the given path
+            </summary>
+            <param name="filePath">The save path for the ODT document</param>
+            <param name="overrideExistingFile">Indicate that a existing file will be override</param>
+        </member>
+        <member name="M:NetCoreOdt.OdtDocument.Save">
+            <summary>
+            Save the change content and create the ODT document and automatic override a existing file
+            </summary>
+        </member>
+        <member name="M:NetCoreOdt.OdtDocument.Save(System.Boolean@)">
+            <summary>
+            Save the change content and create the ODT document
+            </summary>
+            <param name="overrideExistingFile">Indicate that a existing file will be override</param>
+        </member>
+        <member name="M:NetCoreOdt.OdtDocument.WriteTable(System.Int32@,System.Int32@)">
+            <summary>
+            Write an empty unformatted table with the given row and cell count into the document
+            </summary>
+            <param name="rowCount">The count of the rows</param>
+            <param name="columnCount">The count of the columns</param>
+        </member>
+        <member name="M:NetCoreOdt.OdtDocument.WriteTable(System.Int32@,System.Int32@,System.ValueType@)">
+            <summary>
+            Write an unformatted table with the given row and cell count into the document and fill each cell with the given value
+            </summary>
+            <param name="rowCount">The count of the rows</param>
+            <param name="columnCount">The count of the columns</param>
+            <param name="value">The value for each cell</param>
+        </member>
+        <member name="M:NetCoreOdt.OdtDocument.WriteTable(System.Int32@,System.Int32@,System.String@)">
+            <summary>
+            Write an unformatted table with the given row and cell count into the document and fill each cell with the given text
+            </summary>
+            <param name="rowCount">The count of the rows</param>
+            <param name="columnCount">The count of the columns</param>
+            <param name="text">The text for each cell</param>
+        </member>
+        <member name="M:NetCoreOdt.OdtDocument.WriteTable(System.Int32@,System.Int32@,System.Text.StringBuilder@)">
+            <summary>
+            Write an unformatted table with the given row and cell count into the document and fill each cell with the given content
+            </summary>
+            <param name="rowCount">The count of the rows</param>
+            <param name="columnCount">The count of the columns</param>
+            <param name="content">The content for each cell</param>
+        </member>
+        <member name="M:NetCoreOdt.OdtDocument.WriteTable(System.Data.DataTable@)">
+            <summary>
+            Write a unformatted table and fill it with the given data from the <see cref="T:System.Data.DataTable"/>
+            </summary>
+            <param name="dataTable">The <see cref="T:System.Data.DataTable"/> that contains the data for the table</param>
+        </member>
+        <member name="M:NetCoreOdt.OdtDocument.Write(System.ValueType@)">
+            <summary>
+            Write a single line with a unformatted value to the document
+            </summary>
+            <param name="value">The value to write into the document</param>
+        </member>
+        <member name="M:NetCoreOdt.OdtDocument.Write(System.String@)">
+            <summary>
+            Write a single line with a unformatted text to the document (Note: line breaks "\n" will currently not working)
+            </summary>
+            <param name="text">The text to write into the document</param>
+        </member>
+        <member name="M:NetCoreOdt.OdtDocument.Write(System.Text.StringBuilder@)">
+            <summary>
+            Write the content of the given <see cref="T:System.Text.StringBuilder"/> as unformatted text into the document (Note: line breaks "\n" will currently not working)
+            </summary>
+            <param name="content">The <see cref="T:System.Text.StringBuilder"/> that contains the content for the document</param>
+        </member>
+        <member name="M:NetCoreOdt.OdtDocument.Write(System.ValueType@,NetCoreOdt.Enumerations.TextStyle@)">
+            <summary>
+            Write a single line with a styled value to the document
+            </summary>
+            <param name="value">The value to write into the document</param>
+            <param name="style">The text style of the value</param>
+        </member>
+        <member name="M:NetCoreOdt.OdtDocument.Write(System.String@,NetCoreOdt.Enumerations.TextStyle@)">
+            <summary>
+            Write a single line with a styled text to the document (Note: line breaks "\n" will currently not working)
+            </summary>
+            <param name="text">The text to write into the document</param>
+            <param name="style">The text style of the text</param>
+        </member>
+        <member name="M:NetCoreOdt.OdtDocument.Write(System.Text.StringBuilder@,NetCoreOdt.Enumerations.TextStyle@)">
+            <summary>
+            Write the content of the given <see cref="T:System.Text.StringBuilder"/> as styled text the document (Note: line breaks "\n" will currently not working)
+            </summary>
+            <param name="content">The <see cref="T:System.Text.StringBuilder"/> that contains the content for the document</param>
+            <param name="style">The text style of the content</param>
+        </member>
+        <member name="M:NetCoreOdt.OdtDocument.WriteEmptyLines(System.Int32)">
+            <summary>
+            Write the given count of empty lines
+            </summary>
+            <param name="countOfEmptyLines">The count of empty lines to write</param>
+        </member>
+    </members>
+</doc>

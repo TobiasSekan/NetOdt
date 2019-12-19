@@ -19,7 +19,7 @@ namespace NetCoreOdt
         public string FilePath { get; private set; }
 
         /// <summary>
-        /// The temporary working folder, will delete when <see cref="Dispose"/> is called
+        /// The temporary working folder, will delete when <see cref="Dispose()"/> is called
         /// </summary>
         public string TempWorkingPath { get; private set; }
 

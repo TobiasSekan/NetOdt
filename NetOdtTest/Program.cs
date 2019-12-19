@@ -1,9 +1,10 @@
-﻿using NetCoreOdt.Enumerations;
+﻿using NetCoreOdt;
+using NetCoreOdt.Enumerations;
 using System;
 using System.Data;
 using System.Text;
 
-namespace NetCoreOdt
+namespace NetOdtTest
 {
     public class Program
     {
