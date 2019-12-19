@@ -105,6 +105,11 @@ var content = new StringBuilder();
 content.Append("Fill me");
 odtDocument.WriteTable(3, 3, content);
 
+// Write a unformatted table and fill it with the given data from the array
+var array = new List<List<string>>();
+array.Add(new List<string>());
+odtDocument.WriteTable(array);
+
 //  Write a unformatted table and fill it with the given data from the DataTable
 var table = new DataTable();
 odtDocument.WriteTable(dataTable);
