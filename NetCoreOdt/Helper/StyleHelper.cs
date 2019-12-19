@@ -1,0 +1,102 @@
+﻿using NetCoreOdt.Enumerations;
+using System;
+using System.Text;
+
+namespace NetCoreOdt.Helper
+{
+    /// <summary>
+    /// Helper class to easier work with ODT document styles
+    /// </summary>
+    internal static class StyleHelper
+    {
+        /// <summary>
+        /// Add all needed styles for all <see cref="TextStyle"/> combinations to the style content
+        /// </summary>
+        internal static void AddStandardTextStyles(StringBuilder StyleContent)
+        {
+            // P1 - Normal - 000
+            StyleContent.Append("<style:style style:name=\"P1\" style:family=\"paragraph\" style:parent-style-name=\"Standard\"><style:text-properties/></style:style>");
+
+            // P2 - Bold - 001
+            StyleContent.Append("<style:style style:name=\"P2\" style:family=\"paragraph\" style:parent-style-name=\"Standard\"><style:text-properties fo:font-weight=\"bold\" style:font-weight-asian=\"bold\" style:font-weight-complex=\"bold\"/></style:style>");
+
+            // P3 - Italic -010
+            StyleContent.Append("<style:style style:name=\"P3\" style:family=\"paragraph\" style:parent-style-name=\"Standard\"><style:text-properties fo:font-style=\"italic\" style:font-style-asian=\"italic\" style:font-style-complex=\"italic\"/></style:style>");
+
+            // P4 - Bold + Italic - 011
+            StyleContent.Append("<style:style style:name=\"P4\" style:family=\"paragraph\" style:parent-style-name=\"Standard\"><style:text-properties fo:font-style=\"italic\" fo:font-weight=\"bold\" style:font-style-asian=\"italic\" style:font-weight-asian=\"bold\" style:font-style-complex=\"italic\" style:font-weight-complex=\"bold\"/></style:style>");
+
+            // P5 0b_100 - Underline
+            StyleContent.Append("<style:style style:name=\"P5\" style:family=\"paragraph\" style:parent-style-name=\"Standard\"><style:text-properties style:text-underline-style=\"solid\" style:text-underline-width=\"auto\" style:text-underline-color=\"font-color\"/></style:style>");
+
+            // P6 - 0b_101 - Bold + Underline
+            StyleContent.Append("<style:style style:name=\"P6\" style:family=\"paragraph\" style:parent-style-name=\"Standard\"><style:text-properties style:text-underline-style=\"solid\" style:text-underline-width=\"auto\" style:text-underline-color=\"font-color\" fo:font-weight=\"bold\" style:font-weight-asian=\"bold\" style:font-weight-complex=\"bold\"/></style:style>");
+
+            // P7 - 0b_110 - Italic + Underline
+            StyleContent.Append("<style:style style:name=\"P7\" style:family=\"paragraph\" style:parent-style-name=\"Standard\"><style:text-properties fo:font-style=\"italic\" style:text-underline-style=\"solid\" style:text-underline-width=\"auto\" style:text-underline-color=\"font-color\" style:font-style-asian=\"italic\" style:font-style-complex=\"italic\"/></style:style>");
+
+            // P8 - 0b_111 - Bold + Italic + Underline
+            StyleContent.Append("<style:style style:name=\"P8\" style:family=\"paragraph\" style:parent-style-name=\"Standard\"><style:text-properties fo:font-style=\"italic\" style:text-underline-style=\"solid\" style:text-underline-width=\"auto\" style:text-underline-color=\"font-color\" fo:font-weight=\"bold\" style:font-style-asian=\"italic\" style:font-weight-asian=\"bold\" style:font-style-complex=\"italic\" style:font-weight-complex=\"bold\"/></style:style>");
+        }
+
+        /// <summary>
+        /// Add all needed styles for simple tables
+        /// </summary>
+        internal static void AddTableStyles(StringBuilder StyleContent)
+        {
+            StyleContent.Append("<style:style style:name=\"Tabelle1\" style:family=\"table\">");
+            StyleContent.Append("<style:table-properties style:width=\"17cm\" table:align=\"margins\"/>");
+            StyleContent.Append("</style:style>");
+            StyleContent.Append("<style:style style:name=\"Tabelle1.A\" style:family=\"table-column\">");
+            StyleContent.Append("<style:table-column-properties style:column-width=\"3.401cm\" style:rel-column-width=\"13107*\"/>");
+            StyleContent.Append("</style:style>");
+            StyleContent.Append("<style:style style:name=\"Tabelle1.A1\" style:family=\"table-cell\">");
+            StyleContent.Append("<style:table-cell-properties fo:padding=\"0.097cm\" fo:border-left=\"0.05pt solid #000000\" fo:border-right=\"none\" fo:border-top=\"0.05pt solid #000000\" fo:border-bottom=\"0.05pt solid #000000\"/>");
+            StyleContent.Append("</style:style>");
+            StyleContent.Append("<style:style style:name=\"Tabelle1.E1\" style:family=\"table-cell\"><style:table-cell-properties fo:padding=\"0.097cm\" fo:border=\"0.05pt solid #000000\"/>");
+            StyleContent.Append("</style:style>");
+            StyleContent.Append("<style:style style:name=\"Tabelle1.A2\" style:family=\"table-cell\"><style:table-cell-properties fo:padding=\"0.097cm\" fo:border-left=\"0.05pt solid #000000\" fo:border-right=\"none\" fo:border-top=\"none\" fo:border-bottom=\"0.05pt solid #000000\"/>");
+            StyleContent.Append("</style:style>");
+            StyleContent.Append("<style:style style:name=\"Tabelle1.E2\" style:family=\"table-cell\"><style:table-cell-properties fo:padding=\"0.097cm\" fo:border-left=\"0.05pt solid #000000\" fo:border-right=\"0.05pt solid #000000\" fo:border-top=\"none\" fo:border-bottom=\"0.05pt solid #000000\"/>");
+            StyleContent.Append("</style:style>");
+            StyleContent.Append("<style:style style:name=\"P1\" style:family=\"paragraph\" style:parent-style-name=\"Table_20_Contents\">");
+            StyleContent.Append("</style:style>");
+        }
+
+        /// <summary>
+        /// Return the name representation of a given style or style combination
+        /// </summary>
+        /// <param name="style">The style for the style name</param>
+        /// <returns>The name representation of the style or style combination</returns>
+        internal static string GetStyleName(in TextStyle style)
+            => style switch
+            {
+                TextStyle.Normal                                        => "P1",
+                TextStyle.Bold                                          => "P2",
+                TextStyle.Italic                                        => "P3",
+                TextStyle.Bold | TextStyle.Italic                       => "P4",
+                TextStyle.Underline                                     => "P5",
+                TextStyle.Bold | TextStyle.Underline                    => "P6",
+                TextStyle.Italic | TextStyle.Underline                  => "P7",
+                TextStyle.Bold | TextStyle.Italic | TextStyle.Underline => "P8",
+
+                _ => throw new NotSupportedException("Style combination has no style entry")
+            };
+
+        /// <summary>
+        /// Return the name representation for a style for the given table cell
+        /// </summary>
+        /// <param name="rowNumber">The row number of the current cell</param>
+        /// <param name="columnNumber">The column number of the current cell</param>
+        /// <param name="columnCount">The column count of the current row</param>
+        /// <returns>The name representation of a table column</returns>
+        internal static string GetTableCellStyleName(in int rowNumber, in int columnNumber, in int columnCount)
+        {
+            var number = rowNumber == 1 ? "1" : "2";
+
+            var prefix = columnCount == columnNumber ? "E" : "A";
+
+            return prefix + number;
+        }
+    }
+}
