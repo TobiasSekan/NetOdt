@@ -1,4 +1,5 @@
 ﻿using NetCoreOdt.Enumerations;
+using NetOdt.Enumerations;
 using System;
 using System.Text;
 
@@ -64,10 +65,10 @@ namespace NetCoreOdt.Helper
         }
 
         /// <summary>
-        /// Return the name representation of a given style or style combination
+        /// Return the name representation of a given <see cref="TextStyle"/>
         /// </summary>
-        /// <param name="style">The style for the style name</param>
-        /// <returns>The name representation of the style or style combination</returns>
+        /// <param name="style">The text style for the style name</param>
+        /// <returns>The name representation of the <see cref="TextStyle"/> </returns>
         internal static string GetStyleName(in TextStyle style)
             => style switch
             {
@@ -80,7 +81,35 @@ namespace NetCoreOdt.Helper
                 TextStyle.Italic | TextStyle.Underline                  => "P7",
                 TextStyle.Bold | TextStyle.Italic | TextStyle.Underline => "P8",
 
-                _ => throw new NotSupportedException("Style combination has no style entry")
+                _ => throw new NotSupportedException("Text style not supported")
+            };
+
+        /// <summary>
+        /// Return the name representation of a given <see cref="HeaderStyle"/>
+        /// </summary>
+        /// <param name="style">The header style for the style name</param>
+        /// <returns>The name representation of the <see cref="HeaderStyle"/> </returns>
+        internal static string GetStyleName(in HeaderStyle style)
+            => style switch
+            {
+                HeaderStyle.Title      => "Title",
+                HeaderStyle.HeadingLevel01   => "Heading_20_1",
+                HeaderStyle.HeadingLevel02   => "Heading_20_2",
+                HeaderStyle.HeadingLevel03   => "Heading_20_3",
+                HeaderStyle.HeadingLevel04   => "Heading_20_4",
+                HeaderStyle.HeadingLevel05   => "Heading_20_5",
+                HeaderStyle.HeadingLevel06   => "Heading_20_6",
+                HeaderStyle.HeadingLevel07   => "Heading_20_7",
+                HeaderStyle.HeadingLevel08   => "Heading_20_8",
+                HeaderStyle.HeadingLevel09   => "Heading_20_9",
+                HeaderStyle.HeadingLevel10  => "Heading_20_10",
+                HeaderStyle.Subtitle   => "Subtitle",
+                HeaderStyle.Signature  => "Signature",
+                HeaderStyle.Quotations => "Quotations",
+                HeaderStyle.Endnote    => "Endnote",
+                HeaderStyle.Footnote   => "Footnote",
+
+                _ => throw new NotSupportedException("Header style not supported")
             };
 
         /// <summary>

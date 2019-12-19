@@ -4,6 +4,91 @@
         <name>NetOdt</name>
     </assembly>
     <members>
+        <member name="T:NetOdt.Enumerations.HeaderStyle">
+            <summary>
+            The style of a header
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.HeaderStyle.Title">
+            <summary>
+            Title
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.HeaderStyle.Heading1">
+            <summary>
+            Heading level 1
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.HeaderStyle.Heading2">
+            <summary>
+            Heading level 2
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.HeaderStyle.Heading3">
+            <summary>
+            Heading level 3
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.HeaderStyle.Heading4">
+            <summary>
+            Heading level 4
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.HeaderStyle.Heading5">
+            <summary>
+            Heading level 5
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.HeaderStyle.Heading6">
+            <summary>
+            Heading level 6
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.HeaderStyle.Heading7">
+            <summary>
+            Heading level 7
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.HeaderStyle.Heading8">
+            <summary>
+            Heading level 8
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.HeaderStyle.Heading9">
+            <summary>
+            Heading level 9
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.HeaderStyle.Heading10">
+            <summary>
+            Heading level 10
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.HeaderStyle.Subtitle">
+            <summary>
+            Subtitle
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.HeaderStyle.Signature">
+            <summary>
+            Signature
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.HeaderStyle.Quotations">
+            <summary>
+            Quotations
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.HeaderStyle.Endnote">
+            <summary>
+            Endnote
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.HeaderStyle.Footnote">
+            <summary>
+            Footnote
+            </summary>
+        </member>
         <member name="T:NetCoreOdt.Enumerations.TextStyle">
             <summary>
             The style of a text
@@ -67,10 +152,17 @@
         </member>
         <member name="M:NetCoreOdt.Helper.StyleHelper.GetStyleName(NetCoreOdt.Enumerations.TextStyle@)">
             <summary>
-            Return the name representation of a given style or style combination
+            Return the name representation of a given <see cref="T:NetCoreOdt.Enumerations.TextStyle"/>
             </summary>
-            <param name="style">The style for the style name</param>
-            <returns>The name representation of the style or style combination</returns>
+            <param name="style">The text style for the style name</param>
+            <returns>The name representation of the <see cref="T:NetCoreOdt.Enumerations.TextStyle"/> </returns>
+        </member>
+        <member name="M:NetCoreOdt.Helper.StyleHelper.GetStyleName(NetOdt.Enumerations.HeaderStyle@)">
+            <summary>
+            Return the name representation of a given <see cref="T:NetOdt.Enumerations.HeaderStyle"/>
+            </summary>
+            <param name="style">The header style for the style name</param>
+            <returns>The name representation of the <see cref="T:NetOdt.Enumerations.HeaderStyle"/> </returns>
         </member>
         <member name="M:NetCoreOdt.Helper.StyleHelper.GetTableCellStyleName(System.Int32@,System.Int32@,System.Int32@)">
             <summary>
@@ -297,6 +389,27 @@
             Write the given count of empty lines
             </summary>
             <param name="countOfEmptyLines">The count of empty lines to write</param>
+        </member>
+        <member name="M:NetCoreOdt.OdtDocument.Write(System.ValueType@,NetOdt.Enumerations.HeaderStyle@)">
+            <summary>
+            Write a value with the given header style
+            </summary>
+            <param name="value">The value for the header</param>
+            <param name="style">The style of the header</param>
+        </member>
+        <member name="M:NetCoreOdt.OdtDocument.Write(System.String@,NetOdt.Enumerations.HeaderStyle@)">
+            <summary>
+            Write a text with the given header style
+            </summary>
+            <param name="text">The text for the header</param>
+            <param name="style">The style of the header</param>
+        </member>
+        <member name="M:NetCoreOdt.OdtDocument.Write(System.Text.StringBuilder@,NetOdt.Enumerations.HeaderStyle@)">
+            <summary>
+            Write a content with the given header style
+            </summary>
+            <param name="content">The content for the header</param>
+            <param name="style">The style of the header</param>
         </member>
     </members>
 </doc>

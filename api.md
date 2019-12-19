@@ -2,13 +2,13 @@
 
 _More API functions will come in next time, stay tuned_
 
-## important
-Don't forget to use `using` syntax or call `Dispose()` when finished.
+## Important
+**Don't forget to use `using` syntax or call `Dispose()` when finished.**
 
 # Best practice
 * Use `StringBuilder` for long text passages
-* Avoid usage of line-breaks inside the `StringBuilder` content
-* Use the `WriteTable(row, column, text)` when need a pre-filled table
+* Use `WriteTable(row, column, text)` when need a pre-filled table
+* Use `WriteEmptyLines(count)` when you need a amount of empty lines
 * Use `DataTable` for tables
 
 ## Create a document
@@ -52,7 +52,7 @@ odtDocument.Write(content);
 odtDocument.Write(long.MinValue, TextStyle.Bold);
 odtDocument.Write(byte.MaxValue, TextStyle.Italic);
 odtDocument.Write(uint.MaxValue, TextStyle.Underline);
-odtDocument.Write(double.NaN, TextStyle.Bold | TextStyle.Italic | TextStyle.Underline);
+odtDocument.Write(double.NaN,    TextStyle.Bold | TextStyle.Italic | TextStyle.Underline);
 
 // Write a single line with a unformatted text to the document
 odtDocument.Write("This is a text", TextStyle.Bold | TextStyle.Underline);
@@ -61,6 +61,24 @@ odtDocument.Write("This is a text", TextStyle.Bold | TextStyle.Underline);
 var content = new StringBuilder();
 content.Append("This is a text a very very very long text");
 odtDocument.Write(content, TextStyle.Italic | TextStyle.Underline);
+```
+
+## Write headers
+
+```csharp
+// Write a value with the given header style
+odtDocument.Write(long.MinValue, HeaderStyle.HeadingLevel01);
+odtDocument.Write(byte.MaxValue, HeaderStyle.HeadingLevel02);
+odtDocument.Write(uint.MaxValue, HeaderStyle.HeadingLevel03);
+odtDocument.Write(double.NaN,    HeaderStyle.HeadingLevel04);
+
+// Write a value with the given header style
+odtDocument.Write("This is a title",  HeaderStyle.Title);
+
+// Write a content with the given header style
+var content = new StringBuilder();
+content.Append("This is a very very very long footnote");
+odtDocument.Write(content, HeaderStyle.Footnote);
 ```
 
 ## Write empty lines

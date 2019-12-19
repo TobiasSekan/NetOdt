@@ -6,6 +6,9 @@ Easy API to create ODT documents in .NET
 // Create document
 using var odtDocument = new OdtDocument("E:/MyDocument.odt");
 
+// Write a title
+odtDocument.Write("My document", HeaderStyle.Title);
+
 // Write a bold text
 odtDocument.Write("This is a text", TextStyle.Bold);
 
@@ -20,11 +23,9 @@ odtDocument.WriteTable(3, 3, "Fill me");
 
 // thats it :-)
 ```
-
 [All API calls can find here](./api.md)
 
 ## Upcoming features
-* Headline support (T1, H1 ... H10)
 * Simple text align support (left, center, right)
 * Text color support (foreground, background)
 * Data type support for table cells
@@ -33,15 +34,8 @@ odtDocument.WriteTable(3, 3, "Fill me");
 ## Bugs report and feature requests
 Please use the GitHub issues tracker
 
-## Supported text styling
-For style combinations you must combine the text styling via a bitwise or `|`, like
-```
-TextStyle.Bold | TextStyle.Italic | TextStyle.Underline
-```
-
-* Bold
-* Italic
-* Underline (simple)
+## Supported stylings
+[All supported styles can find here](./styles.md)
 
 ## Goals
 * Simple to use API

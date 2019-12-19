@@ -1,5 +1,6 @@
 ﻿using NetCoreOdt;
 using NetCoreOdt.Enumerations;
+using NetOdt.Enumerations;
 using System;
 using System.Data;
 using System.Text;
@@ -12,7 +13,11 @@ namespace NetOdtTest
         {
             using var odtDoucment = new OdtDocument("E:/testTest.odt");
 
+            odtDoucment.Write("My Test document", HeaderStyle.Title);
+
             odtDoucment.WriteTable(GetTable());
+
+            odtDoucment.Write("Unformatted", HeaderStyle.HeadingLevel01);
 
             odtDoucment.Write(long.MinValue);
 
@@ -33,6 +38,8 @@ namespace NetOdtTest
 
             odtDoucment.WriteTable(GetTable());
 
+            odtDoucment.Write("Formatted", HeaderStyle.HeadingLevel01);
+
             // Write a single line with a styled value to the document
             odtDoucment.Write(long.MinValue, TextStyle.Bold);
             odtDoucment.Write(byte.MaxValue, TextStyle.Italic);
@@ -45,6 +52,8 @@ namespace NetOdtTest
             var contentTwo = new StringBuilder();
             content.Append("This is a text a\n very\n\n\nvery very\n\n\nlong text");
             odtDoucment.Write(content, TextStyle.Italic | TextStyle.Underline);
+
+            odtDoucment.Write("sub-sub-sub-sub", HeaderStyle.Subtitle);
 
             odtDoucment.WriteTable(3, 3, "Fill me");
             odtDoucment.WriteTable(3, 3, 0.00);
