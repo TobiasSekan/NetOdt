@@ -6,13 +6,17 @@ Easy API to create ODT files in .NET Core applications
 // Create document
 using var odtDocument = new OdtDocument("E:/MyDocument.odt");
 
-// Write formated text into the document
+// Write a bold text
 odtDocument.Write("This is a text", TextStyle.Bold);
 
-// Write a pre-filled table into the document
+// Write ten empty lines
+odtDocument.WriteEmptyLines(10);
+
+// Write a 3x3 table and fill all cells with "Fill me"
 odtDocument.WriteTable(3, 3, "Fill me");
 
-// automatic dispose call will do the rest of the work
+// The automatic dispose call (from the using syntax) do the rest of the work
+// (save document, delete temporary folder, free all used resources)
 
 // thats it :-)
 ```

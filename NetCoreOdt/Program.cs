@@ -14,8 +14,14 @@ namespace NetCoreOdt
             odtDoucment.WriteTable(GetTable());
 
             odtDoucment.Write(long.MinValue);
+
+            odtDoucment.WriteEmptyLines(countOfEmptyLines: 5);
             odtDoucment.Write(byte.MaxValue);
+
+            odtDoucment.WriteEmptyLines(countOfEmptyLines: 2);
             odtDoucment.Write(uint.MaxValue);
+
+            odtDoucment.WriteEmptyLines(countOfEmptyLines: 1);
             odtDoucment.Write(double.NaN);
 
             odtDoucment.Write("This is a text");
@@ -45,7 +51,7 @@ namespace NetCoreOdt
             // on Dispose call the ODT document will automatic save and temporary working folder will delete
         }
 
-        static DataTable GetTable()
+        internal static DataTable GetTable()
         {
             var table = new DataTable();
 

@@ -63,6 +63,13 @@ content.Append("This is a text a very very very long text");
 odtDocument.Write(content, TextStyle.Italic | TextStyle.Underline);
 ```
 
+## Write empty lines
+
+```csharp
+/// Write the given count of empty lines
+odtDocument.WriteEmptyLines(10);
+```
+
 ## Write a unformatted table
 
 ```csharp

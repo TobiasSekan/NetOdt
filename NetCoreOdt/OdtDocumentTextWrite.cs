@@ -50,15 +50,15 @@ namespace NetCoreOdt
         /// <param name="style">The text style of the text</param>
         public void Write(in string text, in TextStyle style)
         {
-            var styleName = StyleHelper.GetStyleName(style);
-
-            if(!text.Contains("\n"))
+            if(text.Length == 0 || !text.Contains("\n"))
             {
-                TextContent.Append($"<text:p text:style-name=\"{styleName}\">");
+                TextContent.Append($"<text:p text:style-name=\"{StyleHelper.GetStyleName(style)}\">");
                 TextContent.Append(text);
                 TextContent.Append("</text:p>");
                 return;
             }
+
+            var styleName = StyleHelper.GetStyleName(style);
 
             foreach(var textBlock in text.Split('\n'))
             {
@@ -75,31 +75,33 @@ namespace NetCoreOdt
         /// <param name="style">The text style of the content</param>
         public void Write(in StringBuilder content, in TextStyle style)
         {
-            var styleName          = StyleHelper.GetStyleName(style);
-            var containsLineBreaks = false;
-
-            for(var index = 0; index < content.Length; index++)
+            if(content.Length == 0 || !StringBuilderHelper.ContainsLineBreaks(content))
             {
-                if(content[index] == '\n')
-                {
-                    containsLineBreaks = true;
-                    break;
-                }
-            }
-
-            if(!containsLineBreaks)
-            {
-                TextContent.Append($"<text:p text:style-name=\"{styleName}\">");
+                TextContent.Append($"<text:p text:style-name=\"{StyleHelper.GetStyleName(style)}\">");
                 TextContent.Append(content);
                 TextContent.Append("</text:p>");
                 return;
             }
+
+            var styleName = StyleHelper.GetStyleName(style);
 
             foreach(var contentBlock in content.ToString().Split('\n'))
             {
                 TextContent.Append($"<text:p text:style-name=\"{styleName}\">");
                 TextContent.Append(contentBlock);
                 TextContent.Append("</text:p>");
+            }
+        }
+
+        /// <summary>
+        /// Write the given count of empty lines
+        /// </summary>
+        /// <param name="countOfEmptyLines">The count of empty lines to write</param>
+        public void WriteEmptyLines(int countOfEmptyLines)
+        {
+            for(var index = 0; index < countOfEmptyLines; index++)
+            {
+                Write(string.Empty, TextStyle.Normal);
             }
         }
     }
