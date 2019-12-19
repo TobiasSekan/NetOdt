@@ -4,6 +4,41 @@
         <name>NetOdt</name>
     </assembly>
     <members>
+        <member name="T:NetOdt.Constants.FileName">
+            <summary>
+            Constants for file names
+            </summary>
+        </member>
+        <member name="P:NetOdt.Constants.FileName.UnkownFile">
+            <summary>
+            The file name for an ODT document with no name
+            </summary>
+        </member>
+        <member name="P:NetOdt.Constants.FileName.ContentFile">
+            <summary>
+            The file name for an content file of the ODT document
+            </summary>
+        </member>
+        <member name="T:NetOdt.Constants.FolderResource">
+            <summary>
+            Constants for folder resources
+            </summary>
+        </member>
+        <member name="P:NetOdt.Constants.FolderResource.TemporaryRootFolderName">
+            <summary>
+            The name of the temporary root folder name
+            </summary>
+        </member>
+        <member name="P:NetOdt.Constants.FolderResource.LocalApplicationDataPath">
+            <summary>
+            The path to the local application data
+            </summary>
+        </member>
+        <member name="P:NetOdt.Constants.FolderResource.TemporaryRootFolderPath">
+            <summary>
+            The name of the temporary root folder path
+            </summary>
+        </member>
         <member name="T:NetOdt.Enumerations.HeaderStyle">
             <summary>
             The style of a header
@@ -14,52 +49,52 @@
             Title
             </summary>
         </member>
-        <member name="F:NetOdt.Enumerations.HeaderStyle.Heading1">
+        <member name="F:NetOdt.Enumerations.HeaderStyle.HeadingLevel01">
             <summary>
             Heading level 1
             </summary>
         </member>
-        <member name="F:NetOdt.Enumerations.HeaderStyle.Heading2">
+        <member name="F:NetOdt.Enumerations.HeaderStyle.HeadingLevel02">
             <summary>
             Heading level 2
             </summary>
         </member>
-        <member name="F:NetOdt.Enumerations.HeaderStyle.Heading3">
+        <member name="F:NetOdt.Enumerations.HeaderStyle.HeadingLevel03">
             <summary>
             Heading level 3
             </summary>
         </member>
-        <member name="F:NetOdt.Enumerations.HeaderStyle.Heading4">
+        <member name="F:NetOdt.Enumerations.HeaderStyle.HeadingLevel04">
             <summary>
             Heading level 4
             </summary>
         </member>
-        <member name="F:NetOdt.Enumerations.HeaderStyle.Heading5">
+        <member name="F:NetOdt.Enumerations.HeaderStyle.HeadingLevel05">
             <summary>
             Heading level 5
             </summary>
         </member>
-        <member name="F:NetOdt.Enumerations.HeaderStyle.Heading6">
+        <member name="F:NetOdt.Enumerations.HeaderStyle.HeadingLevel06">
             <summary>
             Heading level 6
             </summary>
         </member>
-        <member name="F:NetOdt.Enumerations.HeaderStyle.Heading7">
+        <member name="F:NetOdt.Enumerations.HeaderStyle.HeadingLevel07">
             <summary>
             Heading level 7
             </summary>
         </member>
-        <member name="F:NetOdt.Enumerations.HeaderStyle.Heading8">
+        <member name="F:NetOdt.Enumerations.HeaderStyle.HeadingLevel08">
             <summary>
             Heading level 8
             </summary>
         </member>
-        <member name="F:NetOdt.Enumerations.HeaderStyle.Heading9">
+        <member name="F:NetOdt.Enumerations.HeaderStyle.HeadingLevel09">
             <summary>
             Heading level 9
             </summary>
         </member>
-        <member name="F:NetOdt.Enumerations.HeaderStyle.Heading10">
+        <member name="F:NetOdt.Enumerations.HeaderStyle.HeadingLevel10">
             <summary>
             Heading level 10
             </summary>
@@ -88,6 +123,64 @@
             <summary>
             Footnote
             </summary>
+        </member>
+        <member name="T:NetOdt.Helper.DirectoryHelper">
+            <summary>
+            Helper class to easier work with <see cref="T:System.IO.Directory"/>
+            </summary>
+        </member>
+        <member name="M:NetOdt.Helper.DirectoryHelper.CreateDirectory(System.Uri,System.String)">
+            <summary>
+            Creates all directories and subdirectories in the specified path unless they already exist.
+            </summary>
+            <param name="uriLeft">The left part of the complete path</param>
+            <param name="pathRight">The right part of the complete path</param>
+        </member>
+        <member name="T:NetOdt.Helper.FileHelper">
+            <summary>
+            Helper class to easier work with <see cref="T:System.IO.File"/>
+            </summary>
+        </member>
+        <member name="M:NetOdt.Helper.FileHelper.Exists(System.Uri)">
+            <summary>
+            Determines whether the specified file exists
+            </summary>
+            <param name="uri">The uniform resource identifier of the file to be deleted</param>
+        </member>
+        <member name="M:NetOdt.Helper.FileHelper.Delete(System.Uri)">
+            <summary>
+            Deletes the specified file
+            </summary>
+            <param name="uri">The uniform resource identifier of the file to be deleted</param>
+        </member>
+        <member name="T:NetOdt.Helper.UriHelper">
+            <summary>
+            Helper class to easier work with <see cref="T:System.Uri"/>
+            </summary>
+        </member>
+        <member name="M:NetOdt.Helper.UriHelper.Combine(System.String,System.String)">
+            <summary>
+            Combine to path and return the resulting <see cref="T:System.Uri"/>
+            </summary>
+            <param name="pathLeft">The left part for the complete path</param>
+            <param name="pathRight">The right part for the complete path</param>
+            <returns>A <see cref="T:System.Uri"/> with the complete path</returns>
+        </member>
+        <member name="M:NetOdt.Helper.UriHelper.Combine(System.Uri,System.String)">
+            <summary>
+            Combine a path and a <see cref="T:System.Uri"/> and return the resulting <see cref="T:System.Uri"/>
+            </summary>
+            <param name="uriLeft">The left part for the complete path</param>
+            <param name="pathRight">The right part for the complete path</param>
+            <returns>A <see cref="T:System.Uri"/> with the complete path</returns>
+        </member>
+        <member name="M:NetOdt.Helper.UriHelper.Combine(System.Uri,System.Uri)">
+            <summary>
+            Combine to <see cref="T:System.Uri"/> and return the resulting <see cref="T:System.Uri"/>
+            </summary>
+            <param name="uriLeft">The left part for the complete path</param>
+            <param name="uriRight">The right part for the complete path</param>
+            <returns>A <see cref="T:System.Uri"/> with the complete path</returns>
         </member>
         <member name="T:NetCoreOdt.Enumerations.TextStyle">
             <summary>
@@ -119,7 +212,7 @@
             Helper class to easier work with ODT files
             </summary>
         </member>
-        <member name="M:NetCoreOdt.Helper.OdtHelper.CreateOdtTemplate(System.String)">
+        <member name="M:NetCoreOdt.Helper.OdtHelper.CreateOdtTemplate(System.Uri@)">
             <summary>
             Create a folder with a minimum of files that are need by a ODT document
             </summary>
@@ -129,7 +222,7 @@
             Helper class to easier work with <see cref="T:System.Text.StringBuilder"/> objects
             </summary>
         </member>
-        <member name="M:NetCoreOdt.Helper.StringBuilderHelper.ContainsLineBreaks(System.Text.StringBuilder)">
+        <member name="M:NetCoreOdt.Helper.StringBuilderHelper.ContainsLineBreaks(System.Text.StringBuilder@)">
             <summary>
             Test if a given <see cref="T:System.Text.StringBuilder"/> content contains line breaks
             </summary>
@@ -140,12 +233,12 @@
             Helper class to easier work with ODT document styles
             </summary>
         </member>
-        <member name="M:NetCoreOdt.Helper.StyleHelper.AddStandardTextStyles(System.Text.StringBuilder)">
+        <member name="M:NetCoreOdt.Helper.StyleHelper.AddStandardTextStyles(System.Text.StringBuilder@)">
             <summary>
             Add all needed styles for all <see cref="T:NetCoreOdt.Enumerations.TextStyle"/> combinations to the style content
             </summary>
         </member>
-        <member name="M:NetCoreOdt.Helper.StyleHelper.AddTableStyles(System.Text.StringBuilder)">
+        <member name="M:NetCoreOdt.Helper.StyleHelper.AddTableStyles(System.Text.StringBuilder@)">
             <summary>
             Add all needed styles for simple tables
             </summary>
@@ -193,14 +286,14 @@
             Class to create and write ODT documents
             </summary>
         </member>
-        <member name="P:NetCoreOdt.OdtDocument.FilePath">
+        <member name="P:NetCoreOdt.OdtDocument.FileUri">
             <summary>
-            The full file path (directory + name for the ODT file)
+            The uniform resource identifier for the file
             </summary>
         </member>
-        <member name="P:NetCoreOdt.OdtDocument.TempWorkingPath">
+        <member name="P:NetCoreOdt.OdtDocument.TempWorkingUri">
             <summary>
-            The temporary working folder, will delete when <see cref="M:NetCoreOdt.OdtDocument.Dispose"/> is called
+            The uniform resource identifier  for the temporary working folder working folder, the folder will delete when <see cref="M:NetCoreOdt.OdtDocument.Dispose"/> is called
             </summary>
         </member>
         <member name="P:NetCoreOdt.OdtDocument.TableCount">
@@ -228,14 +321,28 @@
             <param name="filePath">The save path for the ODT document</param>
             <param name="tempWorkingPath">The temporary working path for the none zipped document files</param>
         </member>
+        <member name="M:NetCoreOdt.OdtDocument.#ctor(System.Uri@)">
+            <summary>
+            Create a new ODT document, save the ODT document into the given uniform resource identifier and use a automatic generated temporary folder
+            under the <see cref="F:System.Environment.SpecialFolder.LocalApplicationData"/> folder
+            </summary>
+            <param name="fileUri">The uniform resource identifier for the ODT document</param>
+        </member>
+        <member name="M:NetCoreOdt.OdtDocument.#ctor(System.Uri@,System.Uri@)">
+            <summary>
+            Create a new ODT document, save the ODT document into the given uniform resource identifier and use the given temporary folder on the uniform resource identifier
+            </summary>
+            <param name="fileUri">The uniform resource identifier for the ODT document</param>
+            <param name="tempWorkingUri">The uniform resource identifier  for the temporary working folder for the none zipped document files</param>
+        </member>
         <member name="M:NetCoreOdt.OdtDocument.Dispose">
             <summary>
-            Save the document (override when existing), delete the <see cref="P:NetCoreOdt.OdtDocument.TempWorkingPath"/> folder and free all resources
+            Save the document (override when existing), delete folder under the <see cref="P:NetCoreOdt.OdtDocument.TempWorkingUri"/> and free all resources
             </summary>
         </member>
         <member name="M:NetCoreOdt.OdtDocument.Dispose(System.Boolean@)">
             <summary>
-            Save the document , delete the <see cref="P:NetCoreOdt.OdtDocument.TempWorkingPath"/> folder and free all resources
+            Save the document , delete the folder under the <see cref="P:NetCoreOdt.OdtDocument.TempWorkingUri"/> and free all resources
             </summary>
         </member>
         <member name="P:NetCoreOdt.OdtDocument.ContentFile">
@@ -269,9 +376,9 @@
             The raw text content
             </summary>
         </member>
-        <member name="P:NetCoreOdt.OdtDocument.ContentFilePath">
+        <member name="P:NetCoreOdt.OdtDocument.ContentFileUri">
             <summary>
-            The path to the content file (typical inside the <see cref="P:NetCoreOdt.OdtDocument.TempWorkingPath"/>)
+            The uniform resource identifier to the content file (typical inside the <see cref="P:NetCoreOdt.OdtDocument.TempWorkingUri"/>)
             </summary>
         </member>
         <member name="M:NetCoreOdt.OdtDocument.ReadContent">
@@ -290,11 +397,24 @@
             </summary>
             <param name="filePath">The save path for the ODT document</param>
         </member>
+        <member name="M:NetCoreOdt.OdtDocument.SaveAs(System.Uri@)">
+            <summary>
+            Save the change content and create the ODT document into the uniform resource identifier and automatic override a existing file
+            </summary>
+            <param name="fileUri">The uniform resource identifier for the ODT document</param>
+        </member>
         <member name="M:NetCoreOdt.OdtDocument.SaveAs(System.String@,System.Boolean@)">
             <summary>
             Save the change content and create the ODT document into the given path
             </summary>
             <param name="filePath">The save path for the ODT document</param>
+            <param name="overrideExistingFile">Indicate that a existing file will be override</param>
+        </member>
+        <member name="M:NetCoreOdt.OdtDocument.SaveAs(System.Uri@,System.Boolean@)">
+            <summary>
+            Save the change content and create the ODT document into the uniform resource identifier
+            </summary>
+            <param name="fileUri">The uniform resource identifier for the ODT document</param>
             <param name="overrideExistingFile">Indicate that a existing file will be override</param>
         </member>
         <member name="M:NetCoreOdt.OdtDocument.Save">
@@ -338,6 +458,24 @@
             <param name="rowCount">The count of the rows</param>
             <param name="columnCount">The count of the columns</param>
             <param name="content">The content for each cell</param>
+        </member>
+        <member name="M:NetCoreOdt.OdtDocument.WriteTable(System.Collections.Generic.IEnumerable{System.Collections.Generic.IEnumerable{System.ValueType}}@)">
+            <summary>
+            Write a unformatted table and fill it with the given data from the value array
+            </summary>
+            <param name="valueArray">The array that contains the values for the table</param>
+        </member>
+        <member name="M:NetCoreOdt.OdtDocument.WriteTable(System.Collections.Generic.IEnumerable{System.Collections.Generic.IEnumerable{System.String}}@)">
+            <summary>
+            Write a unformatted table and fill it with the given data from the string array
+            </summary>
+            <param name="stringArray">The array that contains the strings for the table</param>
+        </member>
+        <member name="M:NetCoreOdt.OdtDocument.WriteTable(System.Collections.Generic.IEnumerable{System.Collections.Generic.IEnumerable{System.Text.StringBuilder}}@)">
+            <summary>
+            Write a unformatted table and fill it with the given content from the content array
+            </summary>
+            <param name="contentArray">The array that contains the contents for the table</param>
         </member>
         <member name="M:NetCoreOdt.OdtDocument.WriteTable(System.Data.DataTable@)">
             <summary>

@@ -1,6 +1,7 @@
 ﻿using NetCoreOdt.Helper;
+using NetOdt.Constants;
+using NetOdt.Helper;
 using System;
-using System.IO;
 using System.Text;
 using System.Xml;
 
@@ -14,19 +15,19 @@ namespace NetCoreOdt
         #region Public Properties
 
         /// <summary>
-        /// The full file path (directory + name for the ODT file)
+        /// The uniform resource identifier for the file
         /// </summary>
-        public string FilePath { get; private set; }
+        public Uri FileUri { get; private set; }
 
         /// <summary>
-        /// The temporary working folder, will delete when <see cref="Dispose()"/> is called
+        /// The uniform resource identifier  for the temporary working folder working folder, the folder will delete when <see cref="Dispose()"/> is called
         /// </summary>
-        public string TempWorkingPath { get; private set; }
+        public Uri TempWorkingUri { get; }
 
         /// <summary>
         /// The count of the tables
         /// </summary>
-        public int TableCount { get; private set; }
+        public byte TableCount { get; private set; }
 
         #endregion Public Properties
 
@@ -37,7 +38,7 @@ namespace NetCoreOdt
         /// under the <see cref="Environment.SpecialFolder.LocalApplicationData"/> folder
         /// </summary>
         public OdtDocument()
-            : this("Unknown.odt")
+            : this(new Uri(FileName.UnkownFile))
         {
         }
 
@@ -47,8 +48,7 @@ namespace NetCoreOdt
         /// </summary>
         /// <param name="filePath">The save path for the ODT document</param>
         public OdtDocument(in string filePath)
-            : this(filePath,
-                   Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "NetCoreOdt", Guid.NewGuid().ToString()))
+            : this(new Uri(filePath))
         {
         }
 
@@ -58,13 +58,33 @@ namespace NetCoreOdt
         /// <param name="filePath">The save path for the ODT document</param>
         /// <param name="tempWorkingPath">The temporary working path for the none zipped document files</param>
         public OdtDocument(in string filePath, in string tempWorkingPath)
+            : this(new Uri(filePath), new Uri(tempWorkingPath))
+        {
+        }
+
+        /// <summary>
+        /// Create a new ODT document, save the ODT document into the given uniform resource identifier and use a automatic generated temporary folder
+        /// under the <see cref="Environment.SpecialFolder.LocalApplicationData"/> folder
+        /// </summary>
+        /// <param name="fileUri">The uniform resource identifier for the ODT document</param>
+        public OdtDocument(in Uri fileUri)
+            : this(fileUri, UriHelper.Combine(FolderResource.TemporaryRootFolderPath, Guid.NewGuid().ToString()))
+        {
+        }
+
+        /// <summary>
+        /// Create a new ODT document, save the ODT document into the given uniform resource identifier and use the given temporary folder on the uniform resource identifier
+        /// </summary>
+        /// <param name="fileUri">The uniform resource identifier for the ODT document</param>
+        /// <param name="tempWorkingUri">The uniform resource identifier  for the temporary working folder for the none zipped document files</param>
+        public OdtDocument(in Uri fileUri, in Uri tempWorkingUri)
         {
             TableCount         = 0;
 
-            FilePath           = filePath;
-            TempWorkingPath    = tempWorkingPath;
+            FileUri            = fileUri;
+            TempWorkingUri     = tempWorkingUri;
 
-            ContentFilePath    = Path.Combine(TempWorkingPath, "content.xml");
+            ContentFileUri     = UriHelper.Combine(TempWorkingUri, FileName.ContentFile);
 
             ContentFile        = new XmlDocument();
 
@@ -74,7 +94,7 @@ namespace NetCoreOdt
             TextContent        = new StringBuilder();
             AfterTextContent   = new StringBuilder();
 
-            OdtHelper.CreateOdtTemplate(TempWorkingPath);
+            OdtHelper.CreateOdtTemplate(TempWorkingUri);
             ReadContent();
         }
 

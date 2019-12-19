@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using NetOdt.Helper;
+using System;
+using System.IO;
 using System.Reflection;
 
 namespace NetCoreOdt.Helper
@@ -11,7 +13,7 @@ namespace NetCoreOdt.Helper
         /// <summary>
         /// Create a folder with a minimum of files that are need by a ODT document
         /// </summary>
-        internal static void CreateOdtTemplate(in string tempWorkingPath)
+        internal static void CreateOdtTemplate(in Uri tempWorkingUri)
         {
             var assemblyFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             if(assemblyFolder is null)
@@ -21,20 +23,20 @@ namespace NetCoreOdt.Helper
 
             var originalFolder = Path.Combine(assemblyFolder, "Original");
 
-            Directory.CreateDirectory(Path.Combine(tempWorkingPath, "Configurations2"));
-            Directory.CreateDirectory(Path.Combine(tempWorkingPath, "META-INF"));
-            Directory.CreateDirectory(Path.Combine(tempWorkingPath, "Thumbnails"));
+            DirectoryHelper.CreateDirectory(tempWorkingUri, "Configurations2");
+            DirectoryHelper.CreateDirectory(tempWorkingUri, "META-INF");
+            DirectoryHelper.CreateDirectory(tempWorkingUri, "Thumbnails");
 
             foreach(var file in Directory.GetFiles(originalFolder))
             {
-                File.Copy(file, Path.Combine(tempWorkingPath, Path.GetFileName(file)), true);
+                File.Copy(file, Path.Combine(tempWorkingUri.AbsolutePath, Path.GetFileName(file)), true);
             }
 
             // Important: respect the uppercase letters in the folder name
-            File.Copy(Path.Combine(originalFolder, "META-INF", "manifest.xml"), Path.Combine(tempWorkingPath, "META-INF", "manifest.xml"), true);
+            File.Copy(Path.Combine(originalFolder, "META-INF", "manifest.xml"), Path.Combine(tempWorkingUri.AbsolutePath, "META-INF", "manifest.xml"), true);
 
             // Important: respect the uppercase letter in the folder name
-            File.Copy(Path.Combine(originalFolder, "Thumbnails", "thumbnail.png"), Path.Combine(tempWorkingPath, "Thumbnails", "thumbnail.png"), true);
+            File.Copy(Path.Combine(originalFolder, "Thumbnails", "thumbnail.png"), Path.Combine(tempWorkingUri.AbsolutePath, "Thumbnails", "thumbnail.png"), true);
         }
     }
 }

@@ -11,6 +11,8 @@ namespace NetOdtTest
     {
         public static void Main(string[] args)
         {
+            var uri = new Uri("E:/testTest.odt");
+
             using var odtDoucment = new OdtDocument("E:/testTest.odt");
 
             odtDoucment.Write("My Test document", HeaderStyle.Title);

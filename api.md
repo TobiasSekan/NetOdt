@@ -6,10 +6,11 @@ _More API functions will come in next time, stay tuned_
 **Don't forget to use `using` syntax or call `Dispose()` when finished.**
 
 # Best practice
-* Use `StringBuilder` for long text passages
-* Use `WriteTable(row, column, text)` when need a pre-filled table
 * Use `WriteEmptyLines(count)` when you need a amount of empty lines
+* Use `WriteTable(row, column, text)` when need a pre-filled table
 * Use `DataTable` for tables
+* Use `StringBuilder` for long text passages
+* use `Uri` instead of a `string`for path and file names
 
 ## Create a document
 
@@ -22,9 +23,20 @@ using var odtDocument = new OdtDocument();
 // and use a automatic generated temporary folder
 using var odtDocument = new OdtDocument("E:/MyDocument.odt");
 
+// Create a new ODT document, save the ODT document into the given uniform resource identifier
+// and use a automatic generated temporary folder
+var documentUri  = new Uri("E:/MyDocument.odt")
+using var odtDocument = new OdtDocument(documentUri);
+
 // Create a new ODT document, save the ODT document into the given file path
 // and use the given temporary folder
 using var odtDocument = new OdtDocument("E:/MyDocument.odt", "E:/TempFolder");
+
+// Create a new ODT document, save the ODT document into the given uniform resource identifier
+// and use the given uniform resource identifier for the temporary folder
+var documentUri  = new Uri("E:/MyDocument.odt")
+var temporaryUri = new Uri("E:/TempFolder")
+using var odtDocument = new OdtDocument(documentUri, temporaryUri);
 ```
 
 ## Write unformatted values and text into the document
@@ -94,13 +106,16 @@ odtDocument.WriteEmptyLines(10);
 // Write an empty unformatted table with the given row and cell count into the document
 odtDocument.WriteTable(3, 3);
 
-// Write an unformatted table with the given row and cell count into the document and fill each cell with the given value
+// Write an unformatted table with the given row and cell count into the document
+// and fill each cell with the given value
 odtDocument.WriteTable(3, 3, 0.00);
 
-// Write an unformatted table with the given row and cell count into the document and fill each cell with the given text
+// Write an unformatted table with the given row and cell count into the document
+// and fill each cell with the given text
 odtDocument.WriteTable(3, 3, "Fill me");
 
-// Write an unformatted table with the given row and cell count into the document and fill each cell with the given content
+// Write an unformatted table with the given row and cell count into the document
+// and fill each cell with the given content
 var content = new StringBuilder();
 content.Append("Fill me");
 odtDocument.WriteTable(3, 3, content);
@@ -129,16 +144,28 @@ odtDocument.Save(overrideExistingFile: false);
 // Save the change content and create the ODT document into the given path
 odtDocument.SaveAs("E:/MyDocument.odt");
 
-// Save the change content and create the ODT document into the given path and automatic override a existing file
+// Save the change content and create the ODT document into the given uniform resource identifier
+var documentUri = new Uri("E:/MyDocument.odt")
+odtDocument.SaveAs(documentUri);
+
+// Save the change content and create the ODT document into the given path
+// and automatic override a existing file
 odtDocument.SaveAs("E:/MyDocument.odt", overrideExistingFile: false);
+
+// Save the change content and create the ODT document into the given uniform resource identifier
+// and automatic override a existing file
+var documentUri = new Uri("E:/MyDocument.odt")
+odtDocument.SaveAs(documentUri, overrideExistingFile: false);
 ```
 
 ## Manually call Dispose method
 
 ```csharp
-// Save the document (override when existing), delete the temporary working folder and free all resources
+// Save the document (override when existing), delete the temporary working folder
+// and free all resources
 odtDocument.Dispose();
 
-// Save the document, delete the temporary working folder and free all resources
+// Save the document, delete the temporary working folder
+// and free all resources
 odtDocument.Dispose(overrideExistingFile: false);
 ```

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NetOdt.Constants;
+using System;
 using System.IO;
 using System.Xml;
 
@@ -10,19 +11,19 @@ namespace NetCoreOdt
     public sealed partial class OdtDocument : IDisposable
     {
         /// <summary>
-        /// Save the document (override when existing), delete the <see cref="TempWorkingPath"/> folder and free all resources
+        /// Save the document (override when existing), delete folder under the <see cref="TempWorkingUri"/> and free all resources
         /// </summary>
         public void Dispose()
             => Dispose(overrideExistingFile: true);
 
         /// <summary>
-        /// Save the document , delete the <see cref="TempWorkingPath"/> folder and free all resources
+        /// Save the document , delete the folder under the <see cref="TempWorkingUri"/> and free all resources
         /// </summary>
         public void Dispose(in bool overrideExistingFile)
         {
             Save(overrideExistingFile);
 
-            Directory.Delete(TempWorkingPath, true);
+            Directory.Delete(FolderResource.TemporaryRootFolderPath, true);
 
             BeforeStyleContent.Clear();
             StyleContent.Clear();
@@ -30,9 +31,10 @@ namespace NetCoreOdt
             TextContent.Clear();
             AfterTextContent.Clear();
 
-            ContentFile     = new XmlDocument();
-            TempWorkingPath = string.Empty;
-            ContentFilePath = string.Empty;
+            ContentFile = new XmlDocument();
+
+            //TempWorkingUri = null;
+            //ContentFileUri = null;
         }
     }
 }

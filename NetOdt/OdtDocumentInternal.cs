@@ -1,6 +1,5 @@
 ﻿using NetCoreOdt.Helper;
 using System;
-using System.Data;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -47,9 +46,9 @@ namespace NetCoreOdt
         internal StringBuilder AfterTextContent { get; private set; }
 
         /// <summary>
-        /// The path to the content file (typical inside the <see cref="TempWorkingPath"/>)
+        /// The uniform resource identifier to the content file (typical inside the <see cref="TempWorkingUri"/>)
         /// </summary>
-        internal string ContentFilePath { get; private set; }
+        internal Uri ContentFileUri { get; private set; }
 
         #endregion Internal Properties
 
@@ -63,11 +62,11 @@ namespace NetCoreOdt
         internal void ReadContent()
         {
             // TODO: #8 - Find a way to use XMLDocument class
-            ContentFile.Load(ContentFilePath);
+            ContentFile.Load(ContentFileUri.AbsolutePath);
 
             // don't use simple using syntax to avoid possible not closed and disposed streams
 
-            using(var fileStream = File.OpenRead(ContentFilePath))
+            using(var fileStream = File.OpenRead(ContentFileUri.AbsolutePath))
             {
 
                 using(var textReader = new StreamReader(fileStream))
@@ -98,7 +97,7 @@ namespace NetCoreOdt
 
             // don't use simple using syntax to avoid possible not closed and disposed streams
 
-            using(var fileStream = File.Create(ContentFilePath))
+            using(var fileStream = File.Create(ContentFileUri.AbsolutePath))
             {
                 using(var textWriter = new StreamWriter(fileStream))
                 {

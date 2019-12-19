@@ -1,5 +1,5 @@
-﻿using System;
-using System.IO;
+﻿using NetOdt.Helper;
+using System;
 using System.IO.Compression;
 
 namespace NetCoreOdt
@@ -14,11 +14,14 @@ namespace NetCoreOdt
         /// </summary>
         /// <param name="filePath">The save path for the ODT document</param>
         public void SaveAs(in string filePath)
-        {
-            FilePath = filePath;
+            => SaveAs(new Uri(filePath));
 
-            Save(overrideExistingFile: true);
-        }
+        /// <summary>
+        /// Save the change content and create the ODT document into the uniform resource identifier and automatic override a existing file
+        /// </summary>
+        /// <param name="fileUri">The uniform resource identifier for the ODT document</param>
+        public void SaveAs(in Uri fileUri)
+            => SaveAs(fileUri, overrideExistingFile: true);
 
         /// <summary>
         /// Save the change content and create the ODT document into the given path
@@ -26,8 +29,16 @@ namespace NetCoreOdt
         /// <param name="filePath">The save path for the ODT document</param>
         /// <param name="overrideExistingFile">Indicate that a existing file will be override</param>
         public void SaveAs(in string filePath, in bool overrideExistingFile)
+            => SaveAs(new Uri(filePath), overrideExistingFile);
+
+        /// <summary>
+        /// Save the change content and create the ODT document into the uniform resource identifier
+        /// </summary>
+        /// <param name="fileUri">The uniform resource identifier for the ODT document</param>
+        /// <param name="overrideExistingFile">Indicate that a existing file will be override</param>
+        public void SaveAs(in Uri fileUri, in bool overrideExistingFile)
         {
-            FilePath = filePath;
+            FileUri = fileUri;
 
             Save(overrideExistingFile);
         }
@@ -46,12 +57,12 @@ namespace NetCoreOdt
         {
             WriteContent();
 
-            if(overrideExistingFile && File.Exists(FilePath))
+            if(overrideExistingFile && FileHelper.Exists(FileUri))
             {
-                File.Delete(FilePath);
+               FileHelper.Delete(FileUri);
             }
 
-            ZipFile.CreateFromDirectory(TempWorkingPath, FilePath);
+            ZipFile.CreateFromDirectory(TempWorkingUri.AbsolutePath, FileUri.AbsolutePath);
         }
     }
 }
