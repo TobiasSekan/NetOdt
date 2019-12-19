@@ -1,7 +1,9 @@
 ﻿using NetCoreOdt.Enumerations;
 using NetCoreOdt.Helper;
 using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Text;
 
 namespace NetCoreOdt
@@ -130,12 +132,152 @@ namespace NetCoreOdt
         }
 
         /// <summary>
+        /// Write a unformatted table and fill it with the given data from the value array
+        /// </summary>
+        /// <param name="valueArray">The array that contains the values for the table</param>
+        public void WriteTable(in IEnumerable<IEnumerable<ValueType>> valueArray)
+        {
+            TableCount++;
+
+            TextContent.Append($"<table:table table:name=\"Tabelle{TableCount}\" table:style-name=\"Tabelle1\">");
+            TextContent.Append($"<table:table-column table:style-name=\"Tabelle1.A\" table:number-columns-repeated=\"{valueArray.Count()}\"/>");
+
+            var rowNumber = 0;
+
+            foreach(var dataRow in valueArray)
+            {
+                rowNumber++;
+
+                if(dataRow is null)
+                {
+                    continue;
+                }
+
+                TextContent.Append("<table:table-row>");
+
+                var columnCount  = dataRow.Count();
+                var columnNumber = 0;
+
+                foreach(var column in dataRow)
+                {
+                    columnNumber++;
+
+                    if(column is null)
+                    {
+                        continue;
+                    }
+
+                    TextContent.Append($"<table:table-cell table:style-name=\"Tabelle1.{StyleHelper.GetTableCellStyleName(rowNumber, columnNumber, columnCount)}\" office:value-type=\"string\">");
+                    Write(column, TextStyle.Normal);
+                    TextContent.Append($"</table:table-cell>");
+                }
+
+                TextContent.Append("</table:table-row>");
+            }
+
+            TextContent.Append("</table:table>");
+        }
+
+        /// <summary>
+        /// Write a unformatted table and fill it with the given data from the string array
+        /// </summary>
+        /// <param name="stringArray">The array that contains the strings for the table</param>
+        public void WriteTable(in IEnumerable<IEnumerable<string>> stringArray)
+        {
+            TableCount++;
+
+            TextContent.Append($"<table:table table:name=\"Tabelle{TableCount}\" table:style-name=\"Tabelle1\">");
+            TextContent.Append($"<table:table-column table:style-name=\"Tabelle1.A\" table:number-columns-repeated=\"{stringArray.Count()}\"/>");
+
+            var rowNumber = 0;
+
+            foreach(var dataRow in stringArray)
+            {
+                rowNumber++;
+
+                if(dataRow is null)
+                {
+                    continue;
+                }
+
+                TextContent.Append("<table:table-row>");
+
+                var columnCount  = dataRow.Count();
+                var columnNumber = 0;
+
+                foreach(var column in dataRow)
+                {
+                    columnNumber++;
+
+                    if(column is null)
+                    {
+                        continue;
+                    }
+
+                    TextContent.Append($"<table:table-cell table:style-name=\"Tabelle1.{StyleHelper.GetTableCellStyleName(rowNumber, columnNumber, columnCount)}\" office:value-type=\"string\">");
+                    Write(column, TextStyle.Normal);
+                    TextContent.Append($"</table:table-cell>");
+                }
+
+                TextContent.Append("</table:table-row>");
+            }
+
+            TextContent.Append("</table:table>");
+        }
+
+        /// <summary>
+        /// Write a unformatted table and fill it with the given content from the content array
+        /// </summary>
+        /// <param name="contentArray">The array that contains the contents for the table</param>
+        public void WriteTable(in IEnumerable<IEnumerable<StringBuilder>> contentArray)
+        {
+            TableCount++;
+
+            TextContent.Append($"<table:table table:name=\"Tabelle{TableCount}\" table:style-name=\"Tabelle1\">");
+            TextContent.Append($"<table:table-column table:style-name=\"Tabelle1.A\" table:number-columns-repeated=\"{contentArray.Count()}\"/>");
+
+            var rowNumber = 0;
+
+            foreach(var dataRow in contentArray)
+            {
+                rowNumber++;
+
+                if(dataRow is null)
+                {
+                    continue;
+                }
+
+                TextContent.Append("<table:table-row>");
+
+                var columnCount  = dataRow.Count();
+                var columnNumber = 0;
+
+                foreach(var column in dataRow)
+                {
+                    columnNumber++;
+
+                    if(column is null)
+                    {
+                        continue;
+                    }
+
+                    TextContent.Append($"<table:table-cell table:style-name=\"Tabelle1.{StyleHelper.GetTableCellStyleName(rowNumber, columnNumber, columnCount)}\" office:value-type=\"string\">");
+                    Write(column, TextStyle.Normal);
+                    TextContent.Append($"</table:table-cell>");
+                }
+
+                TextContent.Append("</table:table-row>");
+            }
+
+            TextContent.Append("</table:table>");
+        }
+
+        /// <summary>
         /// Write a unformatted table and fill it with the given data from the <see cref="DataTable"/>
         /// </summary>
         /// <param name="dataTable">The <see cref="DataTable"/> that contains the data for the table</param>
         public void WriteTable(in DataTable dataTable)
         {
-
             TableCount++;
 
             TextContent.Append($"<table:table table:name=\"Tabelle{TableCount}\" table:style-name=\"Tabelle1\">");
