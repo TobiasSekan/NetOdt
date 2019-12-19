@@ -11,7 +11,7 @@ namespace NetCoreOdt.Helper
         /// <summary>
         /// Create a folder with a minimum of files that are need by a ODT document
         /// </summary>
-        internal static void CreateOdtTemplate(string tempWorkingPath)
+        internal static void CreateOdtTemplate(in string tempWorkingPath)
         {
             var assemblyFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             if(assemblyFolder is null)

@@ -13,7 +13,7 @@ namespace NetCoreOdt.Helper
         /// <summary>
         /// Add all needed styles for all <see cref="TextStyle"/> combinations to the style content
         /// </summary>
-        internal static void AddStandardTextStyles(StringBuilder StyleContent)
+        internal static void AddStandardTextStyles(in StringBuilder StyleContent)
         {
             // P1 - Normal - 000
             StyleContent.Append("<style:style style:name=\"P1\" style:family=\"paragraph\" style:parent-style-name=\"Standard\"><style:text-properties/></style:style>");
@@ -43,7 +43,7 @@ namespace NetCoreOdt.Helper
         /// <summary>
         /// Add all needed styles for simple tables
         /// </summary>
-        internal static void AddTableStyles(StringBuilder StyleContent)
+        internal static void AddTableStyles(in StringBuilder StyleContent)
         {
             StyleContent.Append("<style:style style:name=\"Tabelle1\" style:family=\"table\">");
             StyleContent.Append("<style:table-properties style:width=\"17cm\" table:align=\"margins\"/>");
