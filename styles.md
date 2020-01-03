@@ -11,7 +11,7 @@ TextStyle.Bold | TextStyle.Italic | TextStyle.Underline
 * Underline (simple)
 
 ## Supported header styles
-
+You can only use one style for a header.
 * Title
 * Heading level 1
 * Heading level 2

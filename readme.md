@@ -3,20 +3,20 @@ Easy API to create ODT documents in .NET
 
 ## Simple API usage
 ```csharp
-// Create document
+// Create document (C# 8.0 syntax)
 using var odtDocument = new OdtDocument("E:/MyDocument.odt");
 
-// Write a title
-odtDocument.Write("My document", HeaderStyle.Title);
+// Append a title
+odtDocument.Append("My document", HeaderStyle.Title);
 
-// Write a bold text
-odtDocument.Write("This is a text", TextStyle.Bold);
+// Append a bold text
+odtDocument.Append("This is a text", TextStyle.Bold);
 
-// Write ten empty lines
-odtDocument.WriteEmptyLines(10);
+// Append ten empty lines
+odtDocument.AppendEmptyLines(10);
 
-// Write a 3x3 table and fill all cells with "Fill me"
-odtDocument.WriteTable(3, 3, "Fill me");
+// Append a 3x3 table and fill all cells with "Fill me"
+odtDocument.AppendTable(3, 3, "Fill me");
 
 // The automatic dispose call (from the using syntax) do the rest of the work
 // (save document, delete temporary folder, free all used resources)
@@ -32,9 +32,9 @@ odtDocument.WriteTable(3, 3, "Fill me");
 * ...
 
 ## Bugs report and feature requests
-Please use the GitHub issues tracker
+[Please use the GitHub issues tracker](https://github.com/TobiasSekan/NetOdt/issues)
 
-## Supported stylings
+## Supported styles
 [All supported styles can find here](./styles.md)
 
 ## Goals

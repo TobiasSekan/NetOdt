@@ -10,14 +10,16 @@ namespace NetCoreOdt
     public sealed partial class OdtDocument : IDisposable
     {
         /// <summary>
-        /// Save the change content and create the ODT document into the given path and automatic override a existing file
+        /// Save the change content and create the ODT document into the given path
+        /// and automatic override a existing file
         /// </summary>
         /// <param name="filePath">The save path for the ODT document</param>
         public void SaveAs(in string filePath)
             => SaveAs(new Uri(filePath));
 
         /// <summary>
-        /// Save the change content and create the ODT document into the uniform resource identifier and automatic override a existing file
+        /// Save the change content and create the ODT document into the uniform resource identifier
+        /// and automatic override a existing file
         /// </summary>
         /// <param name="fileUri">The uniform resource identifier for the ODT document</param>
         public void SaveAs(in Uri fileUri)

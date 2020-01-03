@@ -12,54 +12,56 @@ namespace NetCoreOdt
     public sealed partial class OdtDocument
     {
         /// <summary>
-        /// Write a single line with a unformatted value to the document
+        /// Append a single line with a unformatted value to the document
         /// </summary>
         /// <param name="value">The value to write into the document</param>
-        public void Write(in ValueType value)
-            => Write(value, TextStyle.Normal);
+        public void Append(in ValueType value)
+            => Append(value, TextStyle.Normal);
 
         /// <summary>
-        /// Write a single line with a unformatted text to the document (Note: line breaks "\n" will currently not working)
+        /// Append a single line with a unformatted text to the document (Note: line breaks "\n" will currently not working)
         /// </summary>
         /// <param name="text">The text to write into the document</param>
-        public void Write(in string text)
-            => Write(text, TextStyle.Normal);
+        public void Append(in string text)
+            => Append(text, TextStyle.Normal);
 
         /// <summary>
-        /// Write the content of the given <see cref="StringBuilder"/> as unformatted text into the document (Note: line breaks "\n" will currently not working)
+        /// Append the content of the given <see cref="StringBuilder"/> as unformatted text into the document (Note: line breaks "\n" will currently not working)
         /// </summary>
         /// <param name="content">The <see cref="StringBuilder"/> that contains the content for the document</param>
-        public void Write(in StringBuilder content)
-            => Write(content, TextStyle.Normal);
+        public void Append(in StringBuilder content)
+            => Append(content, TextStyle.Normal);
 
         /// <summary>
-        /// Write a single line with a styled value to the document
+        /// Append a single line with a styled value to the document
         /// </summary>
         /// <param name="value">The value to write into the document</param>
         /// <param name="style">The text style of the value</param>
-        public void Write(in ValueType value, in TextStyle style)
+        public void Append(in ValueType value, in TextStyle style)
         {
-            TextContent.Append($"<text:p text:style-name=\"{StyleHelper.GetStyleName(style)}\">");
+            var styleName = StyleHelper.GetStyleName(style);
+
+            TextContent.Append($"<text:p text:style-name=\"{styleName}\">");
             TextContent.Append(value);
             TextContent.Append("</text:p>");
         }
 
         /// <summary>
-        /// Write a single line with a styled text to the document (Note: line breaks "\n" will currently not working)
+        /// Append a single line with a styled text to the document (Note: line breaks "\n" will currently not working)
         /// </summary>
         /// <param name="text">The text to write into the document</param>
         /// <param name="style">The text style of the text</param>
-        public void Write(in string text, in TextStyle style)
+        public void Append(in string text, in TextStyle style)
         {
+            var styleName = StyleHelper.GetStyleName(style);
+
             if(text.Length == 0 || !text.Contains("\n"))
             {
-                TextContent.Append($"<text:p text:style-name=\"{StyleHelper.GetStyleName(style)}\">");
+                TextContent.Append($"<text:p text:style-name=\"{styleName}\">");
                 TextContent.Append(text);
                 TextContent.Append("</text:p>");
                 return;
             }
-
-            var styleName = StyleHelper.GetStyleName(style);
 
             foreach(var textBlock in text.Split('\n'))
             {
@@ -70,21 +72,21 @@ namespace NetCoreOdt
         }
 
         /// <summary>
-        /// Write the content of the given <see cref="StringBuilder"/> as styled text the document (Note: line breaks "\n" will currently not working)
+        /// Append the content of the given <see cref="StringBuilder"/> as styled text the document (Note: line breaks "\n" will currently not working)
         /// </summary>
         /// <param name="content">The <see cref="StringBuilder"/> that contains the content for the document</param>
         /// <param name="style">The text style of the content</param>
-        public void Write(in StringBuilder content, in TextStyle style)
+        public void Append(in StringBuilder content, in TextStyle style)
         {
+            var styleName = StyleHelper.GetStyleName(style);
+
             if(content.Length == 0 || !StringBuilderHelper.ContainsLineBreaks(content))
             {
-                TextContent.Append($"<text:p text:style-name=\"{StyleHelper.GetStyleName(style)}\">");
+                TextContent.Append($"<text:p text:style-name=\"{styleName}\">");
                 TextContent.Append(content);
                 TextContent.Append("</text:p>");
                 return;
             }
-
-            var styleName = StyleHelper.GetStyleName(style);
 
             foreach(var contentBlock in content.ToString().Split('\n'))
             {
@@ -95,24 +97,26 @@ namespace NetCoreOdt
         }
 
         /// <summary>
-        /// Write the given count of empty lines
+        /// Append the given count of empty lines
         /// </summary>
         /// <param name="countOfEmptyLines">The count of empty lines to write</param>
-        public void WriteEmptyLines(int countOfEmptyLines)
+        public void AppendEmptyLines(int countOfEmptyLines)
         {
             for(var index = 0; index < countOfEmptyLines; index++)
             {
-                Write(string.Empty, TextStyle.Normal);
+                Append(string.Empty, TextStyle.Normal);
             }
         }
 
         /// <summary>
-        /// Write a value with the given header style
+        /// Append a value with the given header style
         /// </summary>
         /// <param name="value">The value for the header</param>
         /// <param name="style">The style of the header</param>
-        public void Write(in ValueType value, in HeaderStyle style)
+        public void Append(in ValueType value, in HeaderStyle style)
         {
+            var styleName = StyleHelper.GetStyleName(style);
+
             switch(style)
             {
                 case HeaderStyle.Title:
@@ -121,7 +125,7 @@ namespace NetCoreOdt
                 case HeaderStyle.Quotations:
                 case HeaderStyle.Endnote:
                 case HeaderStyle.Footnote:
-                    TextContent.Append($"<text:p text:style-name=\"{StyleHelper.GetStyleName(style)}\">");
+                    TextContent.Append($"<text:p text:style-name=\"{styleName}\">");
                     TextContent.Append(value);
                     TextContent.Append("</text:p>");
                     break;
@@ -136,7 +140,7 @@ namespace NetCoreOdt
                 case HeaderStyle.HeadingLevel08:
                 case HeaderStyle.HeadingLevel09:
                 case HeaderStyle.HeadingLevel10:
-                    TextContent.Append($"<text:h text:style-name=\"{StyleHelper.GetStyleName(style)}\" text:outline-level=\"{(int)style}\">");
+                    TextContent.Append($"<text:h text:style-name=\"{styleName}\" text:outline-level=\"{(int)style}\">");
                     TextContent.Append(value);
                     TextContent.Append("</text:h>");
                     break;
@@ -144,12 +148,14 @@ namespace NetCoreOdt
         }
 
         /// <summary>
-        /// Write a text with the given header style
+        /// Append a text with the given header style
         /// </summary>
         /// <param name="text">The text for the header</param>
         /// <param name="style">The style of the header</param>
-        public void Write(in string text, in HeaderStyle style)
+        public void Append(in string text, in HeaderStyle style)
         {
+            var styleName = StyleHelper.GetStyleName(style);
+
             switch(style)
             {
                 case HeaderStyle.Title:
@@ -158,7 +164,7 @@ namespace NetCoreOdt
                 case HeaderStyle.Quotations:
                 case HeaderStyle.Endnote:
                 case HeaderStyle.Footnote:
-                    TextContent.Append($"<text:p text:style-name=\"{StyleHelper.GetStyleName(style)}\">");
+                    TextContent.Append($"<text:p text:style-name=\"{styleName}\">");
                     TextContent.Append(text);
                     TextContent.Append("</text:p>");
                     break;
@@ -173,7 +179,7 @@ namespace NetCoreOdt
                 case HeaderStyle.HeadingLevel08:
                 case HeaderStyle.HeadingLevel09:
                 case HeaderStyle.HeadingLevel10:
-                    TextContent.Append($"<text:h text:style-name=\"{StyleHelper.GetStyleName(style)}\" text:outline-level=\"{(int)style}\">");
+                    TextContent.Append($"<text:h text:style-name=\"{styleName}\" text:outline-level=\"{(int)style}\">");
                     TextContent.Append(text);
                     TextContent.Append("</text:h>");
                     break;
@@ -181,13 +187,15 @@ namespace NetCoreOdt
         }
 
         /// <summary>
-        /// Write a content with the given header style
+        /// Append a content with the given header style
         /// </summary>
         /// <param name="content">The content for the header</param>
         /// <param name="style">The style of the header</param>
-        public void Write(in StringBuilder content, in HeaderStyle style)
+        public void Append(in StringBuilder content, in HeaderStyle style)
         {
-            switch(style)
+            var styleName = StyleHelper.GetStyleName(style);
+
+            switch (style)
             {
                 case HeaderStyle.Title:
                 case HeaderStyle.Subtitle:
@@ -195,7 +203,7 @@ namespace NetCoreOdt
                 case HeaderStyle.Quotations:
                 case HeaderStyle.Endnote:
                 case HeaderStyle.Footnote:
-                    TextContent.Append($"<text:p text:style-name=\"{StyleHelper.GetStyleName(style)}\">");
+                    TextContent.Append($"<text:p text:style-name=\"{styleName}\">");
                     TextContent.Append(content);
                     TextContent.Append("</text:p>");
                     break;
@@ -210,7 +218,7 @@ namespace NetCoreOdt
                 case HeaderStyle.HeadingLevel08:
                 case HeaderStyle.HeadingLevel09:
                 case HeaderStyle.HeadingLevel10:
-                    TextContent.Append($"<text:h text:style-name=\"{StyleHelper.GetStyleName(style)}\" text:outline-level=\"{(int)style}\">");
+                    TextContent.Append($"<text:h text:style-name=\"{styleName}\" text:outline-level=\"{(int)style}\">");
                     TextContent.Append(content);
                     TextContent.Append("</text:h>");
                     break;

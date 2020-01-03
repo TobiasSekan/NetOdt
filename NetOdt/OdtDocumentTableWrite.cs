@@ -14,11 +14,11 @@ namespace NetCoreOdt
     public sealed partial class OdtDocument : IDisposable
     {
         /// <summary>
-        /// Write an empty unformatted table with the given row and cell count into the document
+        /// Append an empty unformatted table with the given row and cell count into the document
         /// </summary>
         /// <param name="rowCount">The count of the rows</param>
         /// <param name="columnCount">The count of the columns</param>
-        public void WriteTable(in int rowCount, in int columnCount)
+        public void AppendTable(in int rowCount, in int columnCount)
         {
             TableCount++;
 
@@ -42,12 +42,12 @@ namespace NetCoreOdt
         }
 
         /// <summary>
-        /// Write an unformatted table with the given row and cell count into the document and fill each cell with the given value
+        /// Append a unformatted table with the given row and cell count into the document and fill each cell with the given value
         /// </summary>
         /// <param name="rowCount">The count of the rows</param>
         /// <param name="columnCount">The count of the columns</param>
         /// <param name="value">The value for each cell</param>
-        public void WriteTable(in int rowCount, in int columnCount, in ValueType value)
+        public void AppendTable(in int rowCount, in int columnCount, in ValueType value)
         {
             TableCount++;
 
@@ -61,7 +61,7 @@ namespace NetCoreOdt
                 for(var columnNumber = 1; columnNumber <= columnCount; columnNumber++)
                 {
                     TextContent.Append($"<table:table-cell table:style-name=\"Tabelle1.{StyleHelper.GetTableCellStyleName(rowNumber, columnNumber, columnCount)}\" office:value-type=\"string\">");
-                    Write(value);
+                    Append(value);
                     TextContent.Append($"</table:table-cell>");
                 }
 
@@ -72,12 +72,12 @@ namespace NetCoreOdt
         }
 
         /// <summary>
-        /// Write an unformatted table with the given row and cell count into the document and fill each cell with the given text
+        /// Append a unformatted table with the given row and cell count into the document and fill each cell with the given text
         /// </summary>
         /// <param name="rowCount">The count of the rows</param>
         /// <param name="columnCount">The count of the columns</param>
         /// <param name="text">The text for each cell</param>
-        public void WriteTable(in int rowCount, in int columnCount, in string text)
+        public void AppendTable(in int rowCount, in int columnCount, in string text)
         {
             TableCount++;
 
@@ -91,7 +91,7 @@ namespace NetCoreOdt
                 for(var columnNumber = 1; columnNumber <= columnCount; columnNumber++)
                 {
                     TextContent.Append($"<table:table-cell table:style-name=\"Tabelle1.{StyleHelper.GetTableCellStyleName(rowNumber, columnNumber, columnCount)}\" office:value-type=\"string\">");
-                    Write(text);
+                    Append(text);
                     TextContent.Append($"</table:table-cell>");
                 }
 
@@ -102,12 +102,12 @@ namespace NetCoreOdt
         }
 
         /// <summary>
-        /// Write an unformatted table with the given row and cell count into the document and fill each cell with the given content
+        /// Append a unformatted table with the given row and cell count into the document and fill each cell with the given content
         /// </summary>
         /// <param name="rowCount">The count of the rows</param>
         /// <param name="columnCount">The count of the columns</param>
         /// <param name="content">The content for each cell</param>
-        public void WriteTable(in int rowCount, in int columnCount, in StringBuilder content)
+        public void AppendTable(in int rowCount, in int columnCount, in StringBuilder content)
         {
             TableCount++;
 
@@ -121,7 +121,7 @@ namespace NetCoreOdt
                 for(var columnNumber = 1; columnNumber <= columnCount; columnNumber++)
                 {
                     TextContent.Append($"<table:table-cell table:style-name=\"Tabelle1.{StyleHelper.GetTableCellStyleName(rowNumber, columnNumber, columnCount)}\" office:value-type=\"string\">");
-                    Write(content);
+                    Append(content);
                     TextContent.Append($"</table:table-cell>");
                 }
 
@@ -132,10 +132,10 @@ namespace NetCoreOdt
         }
 
         /// <summary>
-        /// Write a unformatted table and fill it with the given data from the value array
+        /// Append a unformatted table and fill it with the given data from the value array
         /// </summary>
         /// <param name="valueArray">The array that contains the values for the table</param>
-        public void WriteTable(in IEnumerable<IEnumerable<ValueType>> valueArray)
+        public void AppendTable(in IEnumerable<IEnumerable<ValueType>> valueArray)
         {
             TableCount++;
 
@@ -168,7 +168,7 @@ namespace NetCoreOdt
                     }
 
                     TextContent.Append($"<table:table-cell table:style-name=\"Tabelle1.{StyleHelper.GetTableCellStyleName(rowNumber, columnNumber, columnCount)}\" office:value-type=\"string\">");
-                    Write(column, TextStyle.Normal);
+                    Append(column, TextStyle.Normal);
                     TextContent.Append($"</table:table-cell>");
                 }
 
@@ -179,10 +179,10 @@ namespace NetCoreOdt
         }
 
         /// <summary>
-        /// Write a unformatted table and fill it with the given data from the string array
+        /// Append a unformatted table and fill it with the given data from the string array
         /// </summary>
         /// <param name="stringArray">The array that contains the strings for the table</param>
-        public void WriteTable(in IEnumerable<IEnumerable<string>> stringArray)
+        public void AppendTable(in IEnumerable<IEnumerable<string>> stringArray)
         {
             TableCount++;
 
@@ -215,7 +215,7 @@ namespace NetCoreOdt
                     }
 
                     TextContent.Append($"<table:table-cell table:style-name=\"Tabelle1.{StyleHelper.GetTableCellStyleName(rowNumber, columnNumber, columnCount)}\" office:value-type=\"string\">");
-                    Write(column, TextStyle.Normal);
+                    Append(column, TextStyle.Normal);
                     TextContent.Append($"</table:table-cell>");
                 }
 
@@ -226,10 +226,10 @@ namespace NetCoreOdt
         }
 
         /// <summary>
-        /// Write a unformatted table and fill it with the given content from the content array
+        /// Append a unformatted table and fill it with the given content from the content array
         /// </summary>
         /// <param name="contentArray">The array that contains the contents for the table</param>
-        public void WriteTable(in IEnumerable<IEnumerable<StringBuilder>> contentArray)
+        public void AppendTable(in IEnumerable<IEnumerable<StringBuilder>> contentArray)
         {
             TableCount++;
 
@@ -262,7 +262,7 @@ namespace NetCoreOdt
                     }
 
                     TextContent.Append($"<table:table-cell table:style-name=\"Tabelle1.{StyleHelper.GetTableCellStyleName(rowNumber, columnNumber, columnCount)}\" office:value-type=\"string\">");
-                    Write(column, TextStyle.Normal);
+                    Append(column, TextStyle.Normal);
                     TextContent.Append($"</table:table-cell>");
                 }
 
@@ -273,10 +273,10 @@ namespace NetCoreOdt
         }
 
         /// <summary>
-        /// Write a unformatted table and fill it with the given data from the <see cref="DataTable"/>
+        /// Append a unformatted table and fill it with the given data from the <see cref="DataTable"/>
         /// </summary>
         /// <param name="dataTable">The <see cref="DataTable"/> that contains the data for the table</param>
-        public void WriteTable(in DataTable dataTable)
+        public void AppendTable(in DataTable dataTable)
         {
             TableCount++;
 
@@ -309,7 +309,7 @@ namespace NetCoreOdt
                     }
 
                     TextContent.Append($"<table:table-cell table:style-name=\"Tabelle1.{StyleHelper.GetTableCellStyleName(rowNumber, columnNumber, columnCount)}\" office:value-type=\"string\">");
-                    Write(column.ToString() ?? string.Empty, TextStyle.Normal);
+                    Append(column.ToString() ?? string.Empty, TextStyle.Normal);
                     TextContent.Append($"</table:table-cell>");
                 }
 

@@ -7,7 +7,7 @@ using System.Text;
 
 namespace NetOdtTest
 {
-    public class Program
+    public static class Program
     {
         public static void Main(string[] args)
         {
@@ -15,53 +15,53 @@ namespace NetOdtTest
 
             using var odtDoucment = new OdtDocument("E:/testTest.odt");
 
-            odtDoucment.Write("My Test document", HeaderStyle.Title);
+            odtDoucment.Append("My Test document", HeaderStyle.Title);
 
-            odtDoucment.WriteTable(GetTable());
+            odtDoucment.AppendTable(GetTable());
 
             // TODO: need changes inside the "/MATA-INF/mainfest.xml"
-            odtDoucment.Write("E:/picture1.jpg", 14.9, 9.8);
+            odtDoucment.Append("E:/picture1.jpg", 14.9, 9.8);
 
-            odtDoucment.Write("Unformatted", HeaderStyle.HeadingLevel01);
+            odtDoucment.Append("Unformatted", HeaderStyle.HeadingLevel01);
 
-            odtDoucment.Write(long.MinValue);
+            odtDoucment.Append(long.MinValue);
 
-            odtDoucment.WriteEmptyLines(countOfEmptyLines: 5);
-            odtDoucment.Write(byte.MaxValue);
+            odtDoucment.AppendEmptyLines(countOfEmptyLines: 5);
+            odtDoucment.Append(byte.MaxValue);
 
-            odtDoucment.WriteEmptyLines(countOfEmptyLines: 2);
-            odtDoucment.Write(uint.MaxValue);
+            odtDoucment.AppendEmptyLines(countOfEmptyLines: 2);
+            odtDoucment.Append(uint.MaxValue);
 
-            odtDoucment.WriteEmptyLines(countOfEmptyLines: 1);
-            odtDoucment.Write(double.NaN);
+            odtDoucment.AppendEmptyLines(countOfEmptyLines: 1);
+            odtDoucment.Append(double.NaN);
 
-            odtDoucment.Write("This is a text");
+            odtDoucment.Append("This is a text");
 
             var content = new StringBuilder();
             content.Append("This is a text a very very very long text");
-            odtDoucment.Write(content);
+            odtDoucment.Append(content);
 
-            odtDoucment.WriteTable(GetTable());
+            odtDoucment.AppendTable(GetTable());
 
-            odtDoucment.Write("Formatted", HeaderStyle.HeadingLevel01);
+            odtDoucment.Append("Formatted", HeaderStyle.HeadingLevel01);
 
             // Write a single line with a styled value to the document
-            odtDoucment.Write(long.MinValue, TextStyle.Bold);
-            odtDoucment.Write(byte.MaxValue, TextStyle.Italic);
-            odtDoucment.Write(uint.MaxValue, TextStyle.Underline);
-            odtDoucment.Write(double.NaN, TextStyle.Bold | TextStyle.Italic | TextStyle.Underline);
+            odtDoucment.Append(long.MinValue, TextStyle.Bold);
+            odtDoucment.Append(byte.MaxValue, TextStyle.Italic);
+            odtDoucment.Append(uint.MaxValue, TextStyle.Underline);
+            odtDoucment.Append(double.NaN, TextStyle.Bold | TextStyle.Italic | TextStyle.Underline);
 
             // Write a single line with a unformatted text to the document (Note: line breaks "\n" will currently not working)
-            odtDoucment.Write("This\n\n\nis\n\n\na\n\n\ntext", TextStyle.Bold | TextStyle.Underline);
+            odtDoucment.Append("This\n\n\nis\n\n\na\n\n\ntext", TextStyle.Bold | TextStyle.Underline);
 
             var contentTwo = new StringBuilder();
             content.Append("This is a text a\n very\n\n\nvery very\n\n\nlong text");
-            odtDoucment.Write(content, TextStyle.Italic | TextStyle.Underline);
+            odtDoucment.Append(content, TextStyle.Italic | TextStyle.Underline);
 
-            odtDoucment.Write("sub-sub-sub-sub", HeaderStyle.Subtitle);
+            odtDoucment.Append("sub-sub-sub-sub", HeaderStyle.Subtitle);
 
-            odtDoucment.WriteTable(3, 3, "Fill me");
-            odtDoucment.WriteTable(3, 3, 0.00);
+            odtDoucment.AppendTable(3, 3, "Fill me");
+            odtDoucment.AppendTable(3, 3, 0.00);
 
             // on Dispose call the ODT document will automatic save and temporary working folder will delete
         }

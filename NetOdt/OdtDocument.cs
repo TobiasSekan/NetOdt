@@ -20,7 +20,7 @@ namespace NetCoreOdt
         public Uri FileUri { get; private set; }
 
         /// <summary>
-        /// The uniform resource identifier  for the temporary working folder working folder, the folder will delete when <see cref="Dispose()"/> is called
+        /// The uniform resource identifier for the temporary working folder working folder, the folder will delete when <see cref="Dispose()"/> is called
         /// </summary>
         public Uri TempWorkingUri { get; }
 

@@ -17,7 +17,7 @@ namespace NetCoreOdt
             => Dispose(overrideExistingFile: true);
 
         /// <summary>
-        /// Save the document , delete the folder under the <see cref="TempWorkingUri"/> and free all resources
+        /// Save the document, delete the folder under the <see cref="TempWorkingUri"/> and free all resources
         /// </summary>
         public void Dispose(in bool overrideExistingFile)
         {
