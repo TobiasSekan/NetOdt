@@ -1,6 +1,7 @@
 ﻿using NetOdt.Constants;
 using NetOdt.Helper;
 using System;
+using System.Globalization;
 using System.IO;
 
 namespace NetCoreOdt
@@ -11,12 +12,12 @@ namespace NetCoreOdt
     public sealed partial class OdtDocument
     {
         /// <summary>
-        /// Append a picture to the document
+        /// Append a image to the document
         /// </summary>
         /// <param name="imagePath">The full path to image</param>
         /// <param name="width">The width of the picture in centimeter (cm)</param>
         /// <param name="height">The height of the picture in centimeter (cm)</param>
-        public void Append(string imagePath, double width, double height)
+        public void AppendImage(string imagePath, double width, double height)
         {
             PictureCount++;
 
@@ -26,20 +27,22 @@ namespace NetCoreOdt
 
             FileHelper.Copy(imagePath, UriHelper.Combine(TempWorkingUri, picturePath));
 
-            TextContent.Append($"<draw:frame draw:style-name=\"fr1\" draw:name=\"Picture{PictureCount}\" text:anchor-type=\"paragraph\" svg:width=\"{width}cm\" svg:height=\"{height}cm\" draw:z-index=\"0\">");
+            TextContent.Append($"<text:p text:style-name=\"Standard\">");
+            TextContent.Append($"<draw:frame draw:style-name=\"fr1\" draw:name=\"Picture{PictureCount}\" text:anchor-type=\"paragraph\" svg:width=\"{width.ToString(CultureInfo.InvariantCulture)}cm\" svg:height=\"{height.ToString(CultureInfo.InvariantCulture)}cm\" draw:z-index=\"0\">");
             TextContent.Append($"<draw:image xlink:href=\"{picturePath}\" xlink:type=\"simple\" xlink:show=\"embed\" xlink:actuate=\"onLoad\" loext:mime-type=\"{mineType}\"/>");
             TextContent.Append($"</draw:frame>");
+            TextContent.Append($"</text:p>");
 
-            // TODO: Add image path to "\META-INF\manifest.xml"
+            ManifestContent.Append($"<manifest:file-entry manifest:full-path=\"{picturePath}\" manifest:media-type=\"{mineType}\"/>");
         }
 
         /// <summary>
-        /// Append a picture to the document
+        /// Append a image to the document
         /// </summary>
         /// <param name="imageUri">The <see cref="Uri"/> of the image</param>
         /// <param name="width">The width of the picture in centimeter (cm)</param>
         /// <param name="height">The height of the picture in centimeter (cm)</param>
-        public void Append(Uri imageUri, double width, double height)
+        public void AppendImage(Uri imageUri, double width, double height)
         {
             var pictureExtension = PathHelper.GetExtension(imageUri);
             var mineType         = FileHelper.GetMineType(imageUri.AbsolutePath);
@@ -47,11 +50,13 @@ namespace NetCoreOdt
 
             FileHelper.Copy(imageUri, UriHelper.Combine(TempWorkingUri, picturePath));
 
+            TextContent.Append($"<text:p text:style-name=\"Standard\">");
             TextContent.Append($"<draw:frame draw:style-name=\"fr1\" draw:name=\"Picture{PictureCount}\" text:anchor-type=\"paragraph\" svg:width=\"{width}cm\" svg:height=\"{height}cm\" draw:z-index=\"0\">");
             TextContent.Append($"<draw:image xlink:href=\"{picturePath}\" xlink:type=\"simple\" xlink:show=\"embed\" xlink:actuate=\"onLoad\" loext:mime-type=\"{mineType}\"/>");
             TextContent.Append($"</draw:frame>");
+            TextContent.Append($"</text:p>");
 
-            // TODO: Add image path to "\META-INF\manifest.xml"
+            ManifestContent.Append($"<manifest:file-entry manifest:full-path=\"{picturePath}\" manifest:media-type=\"{mineType}\"/>");
         }
     }
 }

@@ -23,7 +23,7 @@ namespace NetCoreOdt
         internal XmlDocument ContentFile { get; private set; }
 
         /// <summary>
-        /// The raw content before the style content
+        /// The raw content before the <see cref="StyleContent"/>
         /// </summary>
         internal StringBuilder BeforeStyleContent { get; private set; }
 
@@ -33,24 +33,39 @@ namespace NetCoreOdt
         internal StringBuilder StyleContent { get; private set; }
 
         /// <summary>
-        /// The raw content after the style content and before the text content
+        /// The raw content after the <see cref="StyleContent"/> and before the <see cref="TextContent"/>
         /// </summary>
         internal StringBuilder AfterStyleContent { get; private set; }
 
         /// <summary>
-        /// The raw content after the text content
+        /// The raw text content
         /// </summary>
         internal StringBuilder TextContent { get; private set; }
 
         /// <summary>
-        /// The raw text content
+        /// The raw content after the <see cref="TextContent"/>
         /// </summary>
         internal StringBuilder AfterTextContent { get; private set; }
+
+        /// <summary>
+        /// The raw content before the <see cref="ManifestContent"/>
+        /// </summary>
+        internal StringBuilder BeforeManifestContent { get; private set; }
+
+        /// <summary>
+        /// The raw manifest content
+        /// </summary>
+        internal StringBuilder ManifestContent { get; private set; }
 
         /// <summary>
         /// The uniform resource identifier to the content file (typical inside the <see cref="TempWorkingUri"/>)
         /// </summary>
         internal Uri ContentFileUri { get; private set; }
+
+        /// <summary>
+        /// The uniform resource identifier to the manifest file (typical inside the <see cref="TempWorkingUri"/>)
+        /// </summary>
+        internal Uri ManifestFileUri { get; private set; }
 
         #endregion Internal Properties
 
@@ -70,16 +85,26 @@ namespace NetCoreOdt
 
             using(var fileStream = File.OpenRead(ContentFileUri.AbsolutePath))
             {
-
                 using(var textReader = new StreamReader(fileStream))
                 {
                     var rawFileContent    = textReader.ReadToEnd();
                     var textContentSplit  = rawFileContent.Split(new string[] { "<text:p text:style-name=\"Standard\"/>" }, StringSplitOptions.None);
                     var styleContentSplit = textContentSplit[0].Split(new string[] { "<office:automatic-styles/>" }, StringSplitOptions.None);
 
-                    BeforeStyleContent.Append(styleContentSplit.ElementAtOrDefault(0) ?? string.Empty);
-                    AfterStyleContent.Append(styleContentSplit.ElementAtOrDefault(1) ?? string.Empty);
-                    AfterTextContent.Append(textContentSplit.ElementAtOrDefault(1) ?? string.Empty);
+                    BeforeStyleContent.Append(styleContentSplit.FirstOrDefault() ?? string.Empty);
+                    AfterStyleContent.Append(styleContentSplit.LastOrDefault() ?? string.Empty);
+                    AfterTextContent.Append(textContentSplit.LastOrDefault() ?? string.Empty);
+                }
+            }
+
+            using(var fileStream = File.OpenRead(ManifestFileUri.AbsolutePath))
+            {
+                using(var textReader = new StreamReader(fileStream))
+                {
+                    var rawFileContent       = textReader.ReadToEnd();
+                    var mainfestContentSplit = rawFileContent.Split(new string[] { "</manifest:manifest>" }, StringSplitOptions.None);
+
+                    BeforeManifestContent.Append(mainfestContentSplit.FirstOrDefault() ?? string.Empty);
                 }
             }
         }
@@ -120,6 +145,16 @@ namespace NetCoreOdt
                     textWriter.Write(AfterStyleContent);
                     textWriter.Write(TextContent);
                     textWriter.Write(AfterTextContent);
+                }
+            }
+
+            using(var fileStream = File.Create(ManifestFileUri.AbsolutePath))
+            {
+                using(var textWriter = new StreamWriter(fileStream))
+                {
+                    textWriter.Write(BeforeManifestContent);
+                    textWriter.Write(ManifestContent);
+                    textWriter.Write("</manifest:manifest>");
                 }
             }
         }

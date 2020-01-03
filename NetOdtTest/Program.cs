@@ -20,7 +20,7 @@ namespace NetOdtTest
             odtDoucment.AppendTable(GetTable());
 
             // TODO: need changes inside the "/MATA-INF/mainfest.xml"
-            odtDoucment.Append("E:/picture1.jpg", 14.9, 9.8);
+            odtDoucment.AppendImage("E:/picture1.jpg", 14.9, 9.8);
 
             odtDoucment.Append("Unformatted", HeaderStyle.HeadingLevel01);
 

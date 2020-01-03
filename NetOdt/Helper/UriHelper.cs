@@ -30,6 +30,17 @@ namespace NetOdt.Helper
             => new Uri(Path.Combine(uriLeft.AbsolutePath, pathRight));
 
         /// <summary>
+        /// Combine a path and a <see cref="Uri"/> and return the resulting <see cref="Uri"/>
+        /// </summary>
+        /// <param name="uriLeft">The left part for the complete path</param>
+        /// <param name="pathMiddle">The middle part for the complete path</param>
+        /// <param name="pathRight">The right part for the complete path</param>
+        /// <returns>A <see cref="Uri"/> with the complete path</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        internal static Uri Combine(Uri uriLeft, string pathMiddle, string pathRight)
+            => new Uri(Path.Combine(uriLeft.AbsolutePath, pathMiddle, pathRight));
+
+        /// <summary>
         /// Combine to <see cref="Uri"/> and return the resulting <see cref="Uri"/>
         /// </summary>
         /// <param name="uriLeft">The left part for the complete path</param>

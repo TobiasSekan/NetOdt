@@ -132,6 +132,16 @@ odtDocument.AppendTable(dataTable);
 
 Examples for `DataTable`  usage can be found here [C# DataTable Examples](https://www.dotnetperls.com/datatable)
 
+## Append a image
+```csharp
+// Append a image to the document that is located in the path
+odtDocument.AppendImage("E:/picture1.jpg", 22.5, 14.1);
+
+// Append a image to the document that is located in the uniform resource identifier
+var uri = new Uri("E:/picture1.jpg");
+odtDocument.AppendImage(uri, 22.5, 14.1);
+```
+
 ## Manually save the document
 
 ```csharp

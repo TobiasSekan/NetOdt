@@ -43,7 +43,7 @@ namespace NetCoreOdt
         /// under the <see cref="Environment.SpecialFolder.LocalApplicationData"/> folder
         /// </summary>
         public OdtDocument()
-            : this(new Uri(FileName.UnkownFile))
+            : this(new Uri(FileName.UnkownOdtFile))
         {
         }
 
@@ -84,21 +84,26 @@ namespace NetCoreOdt
         /// <param name="tempWorkingUri">The uniform resource identifier  for the temporary working folder for the none zipped document files</param>
         public OdtDocument(in Uri fileUri, in Uri tempWorkingUri)
         {
-            TableCount         = 0;
-            PictureCount       = 0;
+            TableCount            = 0;
+            PictureCount          = 0;
+                                 
+            FileUri               = fileUri;
+            TempWorkingUri        = tempWorkingUri;
+                                 
+            ContentFileUri        = UriHelper.Combine(TempWorkingUri, FileName.ContentFile);
+            ManifestFileUri       = UriHelper.Combine(TempWorkingUri,
+                                                      FolderResource.MainfestFolderName,
+                                                      FileName.ManifestFile);
 
-            FileUri            = fileUri;
-            TempWorkingUri     = tempWorkingUri;
+            ContentFile           = new XmlDocument();
 
-            ContentFileUri     = UriHelper.Combine(TempWorkingUri, FileName.ContentFile);
-
-            ContentFile        = new XmlDocument();
-
-            BeforeStyleContent = new StringBuilder();
-            StyleContent       = new StringBuilder();
-            AfterStyleContent  = new StringBuilder();
-            TextContent        = new StringBuilder();
-            AfterTextContent   = new StringBuilder();
+            BeforeStyleContent    = new StringBuilder();
+            StyleContent          = new StringBuilder();
+            AfterStyleContent     = new StringBuilder();
+            TextContent           = new StringBuilder();
+            AfterTextContent      = new StringBuilder();
+            BeforeManifestContent = new StringBuilder();
+            ManifestContent       = new StringBuilder();
 
             OdtHelper.CreateOdtTemplate(TempWorkingUri);
             ReadContent();

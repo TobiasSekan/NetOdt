@@ -1,4 +1,8 @@
-﻿using System;
+﻿/*
+ * Important: Double check the case-sensitive of the file paths
+ */
+
+using System;
 using System.IO;
 
 namespace NetOdt.Constants
@@ -28,5 +32,9 @@ namespace NetOdt.Constants
         /// </summary>
         internal static string PictureFolderName { get; } = "Pictures";
 
+        /// <summary>
+        /// The name of the picture folder inside the ODT document
+        /// </summary>
+        internal static string MainfestFolderName { get; } = "META-INF";
     }
 }
