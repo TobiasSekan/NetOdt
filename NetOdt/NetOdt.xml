@@ -351,12 +351,12 @@
             Add all needed styles for simple pictures
             </summary>
         </member>
-        <member name="M:NetCoreOdt.Helper.StyleHelper.GetStyleName``1(``0@)">
+        <member name="M:NetCoreOdt.Helper.StyleHelper.GetStyleAndOutline``1(``0@)">
             <summary>
-            Return the style name of a given text style
+            Return the style name and the outline level of a given text style
             </summary>
             <param name="style">The text style for the style name</param>
-            <returns>A style name</returns>
+            <returns>The style name and the outline level</returns>
         </member>
         <member name="M:NetCoreOdt.Helper.StyleHelper.GetTableCellStyleName(System.Int32@,System.Int32@,System.Int32@)">
             <summary>
@@ -625,44 +625,18 @@
             </summary>
             <param name="dataTable">The <see cref="T:System.Data.DataTable"/> that contains the data for the table</param>
         </member>
-        <member name="M:NetCoreOdt.OdtDocument.Append(System.ValueType@)">
+        <member name="M:NetCoreOdt.OdtDocument.Append``1(``0@)">
             <summary>
             Append a single line with a unformatted value to the document
             </summary>
             <param name="value">The value to write into the document</param>
         </member>
-        <member name="M:NetCoreOdt.OdtDocument.Append(System.String@)">
-            <summary>
-            Append a single line with a unformatted text to the document
-            </summary>
-            <param name="text">The text to write into the document</param>
-        </member>
-        <member name="M:NetCoreOdt.OdtDocument.Append(System.Text.StringBuilder@)">
-            <summary>
-            Append the content of the given <see cref="T:System.Text.StringBuilder"/> as unformatted text into the document
-            </summary>
-            <param name="content">The <see cref="T:System.Text.StringBuilder"/> that contains the content for the document</param>
-        </member>
-        <member name="M:NetCoreOdt.OdtDocument.Append``1(System.ValueType@,``0@)">
+        <member name="M:NetCoreOdt.OdtDocument.Append``2(``0@,``1@)">
             <summary>
             Append a single line with a styled value to the document
             </summary>
             <param name="value">The value to write into the document</param>
-            <param name="style">The text style of the value</param>
-        </member>
-        <member name="M:NetCoreOdt.OdtDocument.Append``1(System.String@,``0@)">
-            <summary>
-            Append a single line with a styled text to the document
-            </summary>
-            <param name="text">The text to write into the document</param>
-            <param name="style">The text style of the text</param>
-        </member>
-        <member name="M:NetCoreOdt.OdtDocument.Append``1(System.Text.StringBuilder@,``0@)">
-            <summary>
-            Append the content of the given <see cref="T:System.Text.StringBuilder"/> as styled text the document
-            </summary>
-            <param name="content">The <see cref="T:System.Text.StringBuilder"/> that contains the content for the document</param>
-            <param name="style">The text style of the content</param>
+            <param name="style">The style of the value</param>
         </member>
         <member name="M:NetCoreOdt.OdtDocument.AppendEmptyLines(System.Int32)">
             <summary>
@@ -670,19 +644,24 @@
             </summary>
             <param name="countOfEmptyLines">The count of empty lines to write</param>
         </member>
-        <member name="M:NetCoreOdt.OdtDocument.GetXmlTextStart``1(``0@)">
+        <member name="M:NetCoreOdt.OdtDocument.AppendXmlTextStart``1(``0@)">
             <summary>
-            Return a XML start element for a text passage
+            Append a XML start element for a text passage
             </summary>
             <typeparam name="TStyle">The <see cref="T:System.Type"/> of the style for the text passage</typeparam>
             <param name="style">The style for the text passage</param>
-            <returns>A XML start element for a text passage</returns>
         </member>
-        <member name="M:NetCoreOdt.OdtDocument.GetXmlTextEnd``1(``0@)">
+        <member name="M:NetCoreOdt.OdtDocument.AppendValue``1(``0@)">
             <summary>
-            Return a XML end element for a text passage
+            Append the value of a text passage
             </summary>
-            <returns></returns>
+            <typeparam name="TValue">The <see cref="T:System.Type"/> of the value</typeparam>
+            <param name="value">The value for the text passage</param>
+        </member>
+        <member name="M:NetCoreOdt.OdtDocument.AppendXmlTextEnd``1(``0@)">
+            <summary>
+            Append a XML end element for a text passage
+            </summary>
         </member>
     </members>
 </doc>

@@ -19,7 +19,7 @@ namespace NetOdtTest
 
             odtDoucment.AppendTable(GetTable());
 
-            odtDoucment.AppendImage("E:/picture1.jpg", width: 9.0, height: 8.0);
+            odtDoucment.AppendImage("E:/picture1.jpg", width: 10.5, height: 8.0);
 
             odtDoucment.Append("Unformatted", HeaderStyle.HeadingLevel01);
 
