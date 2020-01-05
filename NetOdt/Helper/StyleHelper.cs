@@ -57,6 +57,32 @@ namespace NetCoreOdt.Helper
         }
 
         /// <summary>
+        /// Add all needed styles for all <see cref="TextAlignment"/> combinations to the style content
+        /// </summary>
+        internal static void AddTextAlignmentStyles(in StringBuilder styleContent)
+        {
+            // Left text alignment
+            styleContent.Append("<style:style style:name=\"P21\" style:family=\"paragraph\" style:parent-style-name=\"Standard\">");
+            styleContent.Append("<style:paragraph-properties fo:text-align=\"start\" style:justify-single-word=\"false\"/>");
+            styleContent.Append("</style:style>");
+
+            // Centered text
+            styleContent.Append("<style:style style:name=\"P22\" style:family=\"paragraph\" style:parent-style-name=\"Standard\">");
+            styleContent.Append("<style:paragraph-properties fo:text-align=\"center\" style:justify-single-word=\"false\"/>");
+            styleContent.Append("</style:style>");
+
+            // Right text alignment
+            styleContent.Append("<style:style style:name=\"P23\" style:family=\"paragraph\" style:parent-style-name=\"Standard\">");
+            styleContent.Append("<style:paragraph-properties fo:text-align=\"end\" style:justify-single-word=\"false\"/>");
+            styleContent.Append("</style:style>");
+
+            // Full justification
+            styleContent.Append("<style:style style:name=\"P24\" style:family=\"paragraph\" style:parent-style-name=\"Standard\">");
+            styleContent.Append("<style:paragraph-properties fo:text-align=\"justify\" style:justify-single-word=\"false\"/>");
+            styleContent.Append("</style:style>");
+        }
+
+        /// <summary>
         /// Add all needed styles for simple tables
         /// </summary>
         internal static void AddTableStyles(in StringBuilder styleContent)
@@ -70,19 +96,19 @@ namespace NetCoreOdt.Helper
             styleContent.Append("</style:style>");
 
             styleContent.Append("<style:style style:name=\"Tabelle1.A1\" style:family=\"table-cell\">");
-            styleContent.Append("<style:table-cell-properties fo:padding=\"0.097cm\" fo:border-left=\"0.05pt solid #000000\" fo:border-right=\"none\" fo:border-top=\"0.05pt solid #000000\" fo:border-bottom=\"0.05pt solid #000000\">");
+            styleContent.Append("<style:table-cell-properties fo:padding=\"0.097cm\" fo:border-left=\"0.05pt solid #000000\" fo:border-right=\"none\" fo:border-top=\"0.05pt solid #000000\" fo:border-bottom=\"0.05pt solid #000000\"/>");
             styleContent.Append("</style:style>");
 
-            styleContent.Append("<style:style style:name=\"Tabelle1.E1\" style:family=\"table-cell\"><style:table-cell-properties fo:padding=\"0.097cm\" fo:border=\"0.05pt solid #000000\">");
+            styleContent.Append("<style:style style:name=\"Tabelle1.E1\" style:family=\"table-cell\">");
+            styleContent.Append("<style:table-cell-properties fo:padding=\"0.097cm\" fo:border=\"0.05pt solid #000000\"/>");
             styleContent.Append("</style:style>");
 
-            styleContent.Append("<style:style style:name=\"Tabelle1.A2\" style:family=\"table-cell\"><style:table-cell-properties fo:padding=\"0.097cm\" fo:border-left=\"0.05pt solid #000000\" fo:border-right=\"none\" fo:border-top=\"none\" fo:border-bottom=\"0.05pt solid #000000\">");
+            styleContent.Append("<style:style style:name=\"Tabelle1.A2\" style:family=\"table-cell\">");
+            styleContent.Append("<style:table-cell-properties fo:padding=\"0.097cm\" fo:border-left=\"0.05pt solid #000000\" fo:border-right=\"none\" fo:border-top=\"none\" fo:border-bottom=\"0.05pt solid #000000\"/>");
             styleContent.Append("</style:style>");
 
-            styleContent.Append("<style:style style:name=\"Tabelle1.E2\" style:family=\"table-cell\"><style:table-cell-properties fo:padding=\"0.097cm\" fo:border-left=\"0.05pt solid #000000\" fo:border-right=\"0.05pt solid #000000\" fo:border-top=\"none\" fo:border-bottom=\"0.05pt solid #000000\">");
-            styleContent.Append("</style:style>");
-
-            styleContent.Append("<style:style style:name=\"P1\" style:family=\"paragraph\" style:parent-style-name=\"Table_20_Contents\">");
+            styleContent.Append("<style:style style:name=\"Tabelle1.E2\" style:family=\"table-cell\">");
+            styleContent.Append("<style:table-cell-properties fo:padding=\"0.097cm\" fo:border-left=\"0.05pt solid #000000\" fo:border-right=\"0.05pt solid #000000\" fo:border-top=\"none\" fo:border-bottom=\"0.05pt solid #000000\"/>");
             styleContent.Append("</style:style>");
         }
 
@@ -97,10 +123,10 @@ namespace NetCoreOdt.Helper
         }
 
         /// <summary>
-        /// Return the name representation of a given <see cref="TextStyle"/>
+        /// Return the style name of a given <see cref="TextStyle"/>
         /// </summary>
-        /// <param name="style">The text style for the style name</param>
-        /// <returns>The name representation of the <see cref="TextStyle"/> </returns>
+        /// <param name="style">The <see cref="TextStyle"/> for the style name</param>
+        /// <returns>A style name</returns>
         internal static string GetStyleName(in TextStyle style)
             => style switch
             {
@@ -117,10 +143,10 @@ namespace NetCoreOdt.Helper
             };
 
         /// <summary>
-        /// Return the name representation of a given <see cref="HeaderStyle"/>
+        /// Return the style name of a given <see cref="HeaderStyle"/>
         /// </summary>
-        /// <param name="style">The header style for the style name</param>
-        /// <returns>The name representation of the <see cref="HeaderStyle"/> </returns>
+        /// <param name="style">The <see cref="HeaderStyle"/> for the style name</param>
+        /// <returns>A style name</returns>
         internal static string GetStyleName(in HeaderStyle style)
             => style switch
             {
@@ -142,6 +168,22 @@ namespace NetCoreOdt.Helper
                 HeaderStyle.Footnote       => "Footnote",
 
                 _ => throw new NotSupportedException("Header style not supported")
+            };
+
+        /// <summary>
+        /// Return the style name of a given <see cref="TextAlignment"/>
+        /// </summary>
+        /// <param name="style">The <see cref="TextAlignment"/> for the style name</param>
+        /// <returns>A style name</returns>
+        internal static string GetStyleName(in TextAlignment style)
+            => style switch
+            {
+                TextAlignment.Left    => "P21",
+                TextAlignment.Center  => "P22",
+                TextAlignment.Right   => "P23",
+                TextAlignment.Justify => "P24",
+
+                _ => throw new NotSupportedException("Text style not supported")
             };
 
         /// <summary>

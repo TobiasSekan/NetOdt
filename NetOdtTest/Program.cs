@@ -24,13 +24,13 @@ namespace NetOdtTest
 
             odtDoucment.Append("Unformatted", HeaderStyle.HeadingLevel01);
 
-            odtDoucment.Append(long.MinValue);
+            odtDoucment.Append(long.MinValue, TextAlignment.Left);
 
             odtDoucment.AppendEmptyLines(countOfEmptyLines: 5);
-            odtDoucment.Append(byte.MaxValue);
+            odtDoucment.Append(byte.MaxValue, TextAlignment.Center);
 
             odtDoucment.AppendEmptyLines(countOfEmptyLines: 2);
-            odtDoucment.Append(uint.MaxValue);
+            odtDoucment.Append(uint.MaxValue, TextAlignment.Right);
 
             odtDoucment.AppendEmptyLines(countOfEmptyLines: 1);
             odtDoucment.Append(double.NaN);
@@ -39,7 +39,10 @@ namespace NetOdtTest
 
             var content = new StringBuilder();
             content.Append("This is a text a very very very long text");
-            odtDoucment.Append(content);
+            content.Append("This is a text a very very very long text");
+            content.Append("This is a text a very very very long text");
+            content.Append("This is a text a very very very long text");
+            odtDoucment.Append(content, TextAlignment.Justify);
 
             odtDoucment.AppendTable(GetTable());
 

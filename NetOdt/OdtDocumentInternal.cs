@@ -114,7 +114,11 @@ namespace NetCoreOdt
         /// </summary>
         internal void WriteContent()
         {
+            // TODO: Add standard text styles only when needed
             StyleHelper.AddStandardTextStyles(StyleContent);
+
+            // TODO: Add text alignment styles only when needed
+            StyleHelper.AddTextAlignmentStyles(StyleContent);
 
             // When a document has no tables, we don't need a table style
             if(TableCount > 0)

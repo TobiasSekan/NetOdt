@@ -10,7 +10,10 @@ using var odtDocument = new OdtDocument("E:/MyDocument.odt");
 odtDocument.Append("My document", HeaderStyle.Title);
 
 // Append a bold text
-odtDocument.Append("This is a text", TextStyle.Bold);
+odtDocument.Append("This is a bold text", TextStyle.Bold);
+
+// Append a align text
+odtDocument.Append("This text is centered", TextAlignment.Center);
 
 // Append ten empty lines
 odtDocument.AppendEmptyLines(10);
@@ -29,9 +32,10 @@ odtDocument.AppendImage("E:/picture1.jpg", 22.5, 14.1);
 [All API calls can find here](./api.md)
 
 ## Upcoming features
-* Simple text align support (left, center, right)
+* Header and footer
+* Combinations of text style and text alignment
 * Text color support (foreground, background)
-* Data type support for table cells
+* Data type support for table cells (currency for `decimal`, ...)
 * ...
 
 ## Bugs report and feature requests

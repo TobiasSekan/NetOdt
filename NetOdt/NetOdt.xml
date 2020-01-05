@@ -139,6 +139,31 @@
             Footnote
             </summary>
         </member>
+        <member name="T:NetOdt.Enumerations.TextAlignment">
+            <summary>
+            The alignment of a text
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.TextAlignment.Left">
+            <summary>
+            The text alignment is left
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.TextAlignment.Center">
+            <summary>
+            The text alignment is centered
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.TextAlignment.Right">
+            <summary>
+            The text alignment is right
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.TextAlignment.Justify">
+            <summary>
+            The text use full justification
+            </summary>
+        </member>
         <member name="T:NetOdt.Helper.DirectoryHelper">
             <summary>
             Helper class to easier work with <see cref="T:System.IO.Directory"/>
@@ -304,6 +329,11 @@
             Add all needed styles for all <see cref="T:NetCoreOdt.Enumerations.TextStyle"/> combinations to the style content
             </summary>
         </member>
+        <member name="M:NetCoreOdt.Helper.StyleHelper.AddTextAlignmentStyles(System.Text.StringBuilder@)">
+            <summary>
+            Add all needed styles for all <see cref="T:NetOdt.Enumerations.TextAlignment"/> combinations to the style content
+            </summary>
+        </member>
         <member name="M:NetCoreOdt.Helper.StyleHelper.AddTableStyles(System.Text.StringBuilder@)">
             <summary>
             Add all needed styles for simple tables
@@ -316,17 +346,24 @@
         </member>
         <member name="M:NetCoreOdt.Helper.StyleHelper.GetStyleName(NetCoreOdt.Enumerations.TextStyle@)">
             <summary>
-            Return the name representation of a given <see cref="T:NetCoreOdt.Enumerations.TextStyle"/>
+            Return the style name of a given <see cref="T:NetCoreOdt.Enumerations.TextStyle"/>
             </summary>
-            <param name="style">The text style for the style name</param>
-            <returns>The name representation of the <see cref="T:NetCoreOdt.Enumerations.TextStyle"/> </returns>
+            <param name="style">The <see cref="T:NetCoreOdt.Enumerations.TextStyle"/> for the style name</param>
+            <returns>A style name</returns>
         </member>
         <member name="M:NetCoreOdt.Helper.StyleHelper.GetStyleName(NetOdt.Enumerations.HeaderStyle@)">
             <summary>
-            Return the name representation of a given <see cref="T:NetOdt.Enumerations.HeaderStyle"/>
+            Return the style name of a given <see cref="T:NetOdt.Enumerations.HeaderStyle"/>
             </summary>
-            <param name="style">The header style for the style name</param>
-            <returns>The name representation of the <see cref="T:NetOdt.Enumerations.HeaderStyle"/> </returns>
+            <param name="style">The <see cref="T:NetOdt.Enumerations.HeaderStyle"/> for the style name</param>
+            <returns>A style name</returns>
+        </member>
+        <member name="M:NetCoreOdt.Helper.StyleHelper.GetStyleName(NetOdt.Enumerations.TextAlignment@)">
+            <summary>
+            Return the style name of a given <see cref="T:NetOdt.Enumerations.TextAlignment"/>
+            </summary>
+            <param name="style">The <see cref="T:NetOdt.Enumerations.TextAlignment"/> for the style name</param>
+            <returns>A style name</returns>
         </member>
         <member name="M:NetCoreOdt.Helper.StyleHelper.GetTableCellStyleName(System.Int32@,System.Int32@,System.Int32@)">
             <summary>
@@ -603,13 +640,13 @@
         </member>
         <member name="M:NetCoreOdt.OdtDocument.Append(System.String@)">
             <summary>
-            Append a single line with a unformatted text to the document (Note: line breaks "\n" will currently not working)
+            Append a single line with a unformatted text to the document
             </summary>
             <param name="text">The text to write into the document</param>
         </member>
         <member name="M:NetCoreOdt.OdtDocument.Append(System.Text.StringBuilder@)">
             <summary>
-            Append the content of the given <see cref="T:System.Text.StringBuilder"/> as unformatted text into the document (Note: line breaks "\n" will currently not working)
+            Append the content of the given <see cref="T:System.Text.StringBuilder"/> as unformatted text into the document
             </summary>
             <param name="content">The <see cref="T:System.Text.StringBuilder"/> that contains the content for the document</param>
         </member>
@@ -622,17 +659,38 @@
         </member>
         <member name="M:NetCoreOdt.OdtDocument.Append(System.String@,NetCoreOdt.Enumerations.TextStyle@)">
             <summary>
-            Append a single line with a styled text to the document (Note: line breaks "\n" will currently not working)
+            Append a single line with a styled text to the document
             </summary>
             <param name="text">The text to write into the document</param>
             <param name="style">The text style of the text</param>
         </member>
         <member name="M:NetCoreOdt.OdtDocument.Append(System.Text.StringBuilder@,NetCoreOdt.Enumerations.TextStyle@)">
             <summary>
-            Append the content of the given <see cref="T:System.Text.StringBuilder"/> as styled text the document (Note: line breaks "\n" will currently not working)
+            Append the content of the given <see cref="T:System.Text.StringBuilder"/> as styled text the document
             </summary>
             <param name="content">The <see cref="T:System.Text.StringBuilder"/> that contains the content for the document</param>
             <param name="style">The text style of the content</param>
+        </member>
+        <member name="M:NetCoreOdt.OdtDocument.Append(System.ValueType@,NetOdt.Enumerations.TextAlignment@)">
+            <summary>
+            Append a single line with a styled value to the document
+            </summary>
+            <param name="value">The value to write into the document</param>
+            <param name="style">The text alignment of the value</param>
+        </member>
+        <member name="M:NetCoreOdt.OdtDocument.Append(System.String@,NetOdt.Enumerations.TextAlignment@)">
+            <summary>
+            Append a single line with a styled text to the document
+            </summary>
+            <param name="text">The text to write into the document</param>
+            <param name="style">The text alignment of the text</param>
+        </member>
+        <member name="M:NetCoreOdt.OdtDocument.Append(System.Text.StringBuilder@,NetOdt.Enumerations.TextAlignment@)">
+            <summary>
+            Append the content of the given <see cref="T:System.Text.StringBuilder"/> as styled text the document
+            </summary>
+            <param name="content">The <see cref="T:System.Text.StringBuilder"/> that contains the content for the document</param>
+            <param name="style">The text alignment of the content</param>
         </member>
         <member name="M:NetCoreOdt.OdtDocument.AppendEmptyLines(System.Int32)">
             <summary>

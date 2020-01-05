@@ -75,6 +75,22 @@ content.Append("This is a text a very very very long text");
 odtDocument.Append(content, TextStyle.Italic | TextStyle.Underline);
 ```
 
+## Append align values and text into the document
+
+```csharp
+// Append a single line with a align value to the document
+odtDocument.Append(long.MinValue, TextAlignment.Left);
+odtDocument.Append(uint.MaxValue, TextAlignment.Right);
+
+// Append a single line with a unformatted text to the document
+odtDocument.Append("This text is centered", TextAlignment.Center);
+
+// Append the content of the given StringBuilder into the document
+var content = new StringBuilder();
+content.Append("This is a text a very very very long text");
+odtDocument.Append(content, TextAlignment.Justify);
+```
+
 ## Append headers
 
 ```csharp

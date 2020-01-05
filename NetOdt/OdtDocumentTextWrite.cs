@@ -4,6 +4,8 @@ using NetOdt.Enumerations;
 using System;
 using System.Text;
 
+// TODO: consolidate the functions of this partial class, possible use "object"
+
 namespace NetCoreOdt
 {
     /// <summary>
@@ -19,14 +21,14 @@ namespace NetCoreOdt
             => Append(value, TextStyle.Normal);
 
         /// <summary>
-        /// Append a single line with a unformatted text to the document (Note: line breaks "\n" will currently not working)
+        /// Append a single line with a unformatted text to the document
         /// </summary>
         /// <param name="text">The text to write into the document</param>
         public void Append(in string text)
             => Append(text, TextStyle.Normal);
 
         /// <summary>
-        /// Append the content of the given <see cref="StringBuilder"/> as unformatted text into the document (Note: line breaks "\n" will currently not working)
+        /// Append the content of the given <see cref="StringBuilder"/> as unformatted text into the document
         /// </summary>
         /// <param name="content">The <see cref="StringBuilder"/> that contains the content for the document</param>
         public void Append(in StringBuilder content)
@@ -47,7 +49,7 @@ namespace NetCoreOdt
         }
 
         /// <summary>
-        /// Append a single line with a styled text to the document (Note: line breaks "\n" will currently not working)
+        /// Append a single line with a styled text to the document
         /// </summary>
         /// <param name="text">The text to write into the document</param>
         /// <param name="style">The text style of the text</param>
@@ -72,11 +74,75 @@ namespace NetCoreOdt
         }
 
         /// <summary>
-        /// Append the content of the given <see cref="StringBuilder"/> as styled text the document (Note: line breaks "\n" will currently not working)
+        /// Append the content of the given <see cref="StringBuilder"/> as styled text the document
         /// </summary>
         /// <param name="content">The <see cref="StringBuilder"/> that contains the content for the document</param>
         /// <param name="style">The text style of the content</param>
         public void Append(in StringBuilder content, in TextStyle style)
+        {
+            var styleName = StyleHelper.GetStyleName(style);
+
+            if(content.Length == 0 || !StringBuilderHelper.ContainsLineBreaks(content))
+            {
+                TextContent.Append($"<text:p text:style-name=\"{styleName}\">");
+                TextContent.Append(content);
+                TextContent.Append("</text:p>");
+                return;
+            }
+
+            foreach(var contentBlock in content.ToString().Split('\n'))
+            {
+                TextContent.Append($"<text:p text:style-name=\"{styleName}\">");
+                TextContent.Append(contentBlock);
+                TextContent.Append("</text:p>");
+            }
+        }
+
+        /// <summary>
+        /// Append a single line with a styled value to the document
+        /// </summary>
+        /// <param name="value">The value to write into the document</param>
+        /// <param name="style">The text alignment of the value</param>
+        public void Append(in ValueType value, in TextAlignment style)
+        {
+            var styleName = StyleHelper.GetStyleName(style);
+
+            TextContent.Append($"<text:p text:style-name=\"{styleName}\">");
+            TextContent.Append(value);
+            TextContent.Append("</text:p>");
+        }
+
+        /// <summary>
+        /// Append a single line with a styled text to the document
+        /// </summary>
+        /// <param name="text">The text to write into the document</param>
+        /// <param name="style">The text alignment of the text</param>
+        public void Append(in string text, in TextAlignment style)
+        {
+            var styleName = StyleHelper.GetStyleName(style);
+
+            if(text.Length == 0 || !text.Contains("\n"))
+            {
+                TextContent.Append($"<text:p text:style-name=\"{styleName}\">");
+                TextContent.Append(text);
+                TextContent.Append("</text:p>");
+                return;
+            }
+
+            foreach(var textBlock in text.Split('\n'))
+            {
+                TextContent.Append($"<text:p text:style-name=\"{styleName}\">");
+                TextContent.Append(textBlock);
+                TextContent.Append("</text:p>");
+            }
+        }
+
+        /// <summary>
+        /// Append the content of the given <see cref="StringBuilder"/> as styled text the document
+        /// </summary>
+        /// <param name="content">The <see cref="StringBuilder"/> that contains the content for the document</param>
+        /// <param name="style">The text alignment of the content</param>
+        public void Append(in StringBuilder content, in TextAlignment style)
         {
             var styleName = StyleHelper.GetStyleName(style);
 
