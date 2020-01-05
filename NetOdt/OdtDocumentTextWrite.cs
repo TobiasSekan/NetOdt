@@ -3,7 +3,7 @@ using NetOdt.Helper;
 using System;
 using System.Text;
 
-namespace NetCoreOdt
+namespace NetOdt
 {
     /// <summary>
     /// Class to create and write ODT documents

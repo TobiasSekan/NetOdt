@@ -3,6 +3,10 @@ Easy API to create ODT documents in .NET
 
 ## Simple API usage
 ```csharp
+// Needed imports
+using NetOdt;
+using NetOdt.Enumerations;
+
 // Create document (C# 8.0 syntax)
 using var odtDocument = new OdtDocument("E:/MyDocument.odt");
 

@@ -2,7 +2,7 @@
 using System;
 using System.IO.Compression;
 
-namespace NetCoreOdt
+namespace NetOdt
 {
     /// <summary>
     /// Class to create and write ODT documents

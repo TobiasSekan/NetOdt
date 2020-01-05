@@ -6,7 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 
-namespace NetCoreOdt
+namespace NetOdt
 {
     /// <summary>
     /// Class to create and write ODT documents

@@ -12,6 +12,12 @@ _More API functions will come in next time, stay tuned_
 * Use `StringBuilder` for long text passages
 * use `Uri` instead of a `string` for path and file names
 
+## Needed imports
+```csharp
+using NetOdt;               // for all functions
+using NetOdt.Enumerations;  // for all styles
+```
+
 ## Create a document
 
 ```csharp
@@ -75,6 +81,8 @@ content.Append("This is a text a very very very long text");
 odtDocument.Append(content, TextStyle.Italic | TextStyle.Underline);
 ```
 
+[All supported styles can find here](./styles.md)
+
 ## Append align values and text into the document
 
 ```csharp
@@ -91,7 +99,10 @@ content.Append("This is a text a very very very long text");
 odtDocument.Append(content, TextAlignment.Justify);
 ```
 
-## Append headers
+[All supported styles can find here](./styles.md)
+
+## Append Tiles, headings, footnotes and other
+Note: Don't confuse with **Header** and **Footer**
 
 ```csharp
 // Append a value with the given header style
@@ -108,6 +119,8 @@ var content = new StringBuilder();
 content.Append("This is a very very very long footnote");
 odtDocument.Append(content, HeaderStyle.Footnote);
 ```
+
+[All supported styles can find here](./styles.md)
 
 ## Append empty lines
 
@@ -149,6 +162,7 @@ odtDocument.AppendTable(dataTable);
 Examples for `DataTable`  usage can be found here [C# DataTable Examples](https://www.dotnetperls.com/datatable)
 
 ## Append a image
+
 ```csharp
 // Append a image to the document that is located in the path
 odtDocument.AppendImage("E:/picture1.jpg", 22.5, 14.1);
@@ -161,24 +175,28 @@ odtDocument.AppendImage(uri, 22.5, 14.1);
 ## Manually save the document
 
 ```csharp
-// Save the change content and create the ODT document and automatic override a existing file
+// Save the change content and create the ODT document
+// and automatic override a existing file
 odtDocument.Save();
 
 // Save the change content and create the ODT document
 odtDocument.Save(overrideExistingFile: false);
 
-// Save the change content and create the ODT document into the given path
+// Save the change content and create the ODT document
+// into the given path
 odtDocument.SaveAs("E:/MyDocument.odt");
 
-// Save the change content and create the ODT document into the given uniform resource identifier
+// Save the change content and create the ODT document
+// into the given uniform resource identifier
 var documentUri = new Uri("E:/MyDocument.odt")
 odtDocument.SaveAs(documentUri);
 
-// Save the change content and create the ODT document into the given path
-// and automatic override a existing file
+// Save the change content and create the ODT document
+// into the given path and automatic override a existing file
 odtDocument.SaveAs("E:/MyDocument.odt", overrideExistingFile: false);
 
-// Save the change content and create the ODT document into the given uniform resource identifier
+// Save the change content and create the ODT document
+// into the given uniform resource identifier
 // and automatic override a existing file
 var documentUri = new Uri("E:/MyDocument.odt")
 odtDocument.SaveAs(documentUri, overrideExistingFile: false);
@@ -187,8 +205,8 @@ odtDocument.SaveAs(documentUri, overrideExistingFile: false);
 ## Manually call Dispose method
 
 ```csharp
-// Save the document (override when existing), delete the temporary working folder
-// and free all resources
+// Save the document (override when existing),
+// delete the temporary working folder and free all resources
 odtDocument.Dispose();
 
 // Save the document, delete the temporary working folder

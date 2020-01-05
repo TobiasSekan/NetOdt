@@ -3,7 +3,7 @@ using System;
 using System.IO;
 using System.Xml;
 
-namespace NetCoreOdt
+namespace NetOdt
 {
     /// <summary>
     /// Class to create and write ODT documents
