@@ -164,6 +164,31 @@
             The text use full justification
             </summary>
         </member>
+        <member name="T:NetOdt.Enumerations.TextStyle">
+            <summary>
+            The style of a text
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.TextStyle.Normal">
+            <summary>
+            Text without any style
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.TextStyle.Bold">
+            <summary>
+            A bold text
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.TextStyle.Italic">
+            <summary>
+            A italic text
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.TextStyle.Underline">
+            <summary>
+            A text with a underline
+            </summary>
+        </member>
         <member name="T:NetOdt.Helper.DirectoryHelper">
             <summary>
             Helper class to easier work with <see cref="T:System.IO.Directory"/>
@@ -230,6 +255,16 @@
             <returns>The mine type of a file</returns>
             <exception cref="T:System.ArgumentOutOfRangeException"></exception>
         </member>
+        <member name="T:NetOdt.Helper.OdtDocumentHelper">
+            <summary>
+            Helper class to easier work with ODT document files
+            </summary>
+        </member>
+        <member name="M:NetOdt.Helper.OdtDocumentHelper.CreateOdtTemplate(System.Uri@)">
+            <summary>
+            Create a folder with a minimum of files that are need by a ODT document
+            </summary>
+        </member>
         <member name="T:NetOdt.Helper.PathHelper">
             <summary>
             Helper class to easier work with <see cref="T:System.IO.Path"/>
@@ -241,6 +276,58 @@
             </summary>
             <param name="uri">The uniform resource identifier of the file</param>
             <returns></returns>
+        </member>
+        <member name="T:NetOdt.Helper.StringBuilderHelper">
+            <summary>
+            Helper class to easier work with <see cref="T:System.Text.StringBuilder"/> objects
+            </summary>
+        </member>
+        <member name="M:NetOdt.Helper.StringBuilderHelper.ContainsLineBreaks(System.Text.StringBuilder@)">
+            <summary>
+            Test if a given <see cref="T:System.Text.StringBuilder"/> content contains line breaks
+            </summary>
+            <returns><see langword="true"/> if the content contains line breaks, otherwise <see langword="false"/></returns>
+        </member>
+        <member name="T:NetOdt.Helper.StyleHelper">
+            <summary>
+            Helper class to easier work with ODT document styles
+            </summary>
+        </member>
+        <member name="M:NetOdt.Helper.StyleHelper.AddStandardTextStyles(System.Text.StringBuilder@)">
+            <summary>
+            Add all needed styles for all <see cref="T:NetOdt.Enumerations.TextStyle"/> combinations to the style content
+            </summary>
+        </member>
+        <member name="M:NetOdt.Helper.StyleHelper.AddTextAlignmentStyles(System.Text.StringBuilder@)">
+            <summary>
+            Add all needed styles for all <see cref="T:NetOdt.Enumerations.TextAlignment"/> combinations to the style content
+            </summary>
+        </member>
+        <member name="M:NetOdt.Helper.StyleHelper.AddTableStyles(System.Text.StringBuilder@)">
+            <summary>
+            Add all needed styles for simple tables
+            </summary>
+        </member>
+        <member name="M:NetOdt.Helper.StyleHelper.AddPictureStyle(System.Text.StringBuilder@)">
+            <summary>
+            Add all needed styles for simple pictures
+            </summary>
+        </member>
+        <member name="M:NetOdt.Helper.StyleHelper.GetStyleAndOutline``1(``0@)">
+            <summary>
+            Return the style name and the outline level of a given text style
+            </summary>
+            <param name="style">The text style for the style name</param>
+            <returns>The style name and the outline level</returns>
+        </member>
+        <member name="M:NetOdt.Helper.StyleHelper.GetTableCellStyleName(System.Int32@,System.Int32@,System.Int32@)">
+            <summary>
+            Return the name representation for a style for the given table cell
+            </summary>
+            <param name="rowNumber">The row number of the current cell</param>
+            <param name="columnNumber">The column number of the current cell</param>
+            <param name="columnCount">The column count of the current row</param>
+            <returns>The name representation of a table column</returns>
         </member>
         <member name="T:NetOdt.Helper.UriHelper">
             <summary>
@@ -279,93 +366,6 @@
             <param name="uriLeft">The left part for the complete path</param>
             <param name="uriRight">The right part for the complete path</param>
             <returns>A <see cref="T:System.Uri"/> with the complete path</returns>
-        </member>
-        <member name="T:NetCoreOdt.Enumerations.TextStyle">
-            <summary>
-            The style of a text
-            </summary>
-        </member>
-        <member name="F:NetCoreOdt.Enumerations.TextStyle.Normal">
-            <summary>
-            Text without any style
-            </summary>
-        </member>
-        <member name="F:NetCoreOdt.Enumerations.TextStyle.Bold">
-            <summary>
-            A bold text
-            </summary>
-        </member>
-        <member name="F:NetCoreOdt.Enumerations.TextStyle.Italic">
-            <summary>
-            A italic text
-            </summary>
-        </member>
-        <member name="F:NetCoreOdt.Enumerations.TextStyle.Underline">
-            <summary>
-            A text with a underline
-            </summary>
-        </member>
-        <member name="T:NetCoreOdt.Helper.OdtHelper">
-            <summary>
-            Helper class to easier work with ODT files
-            </summary>
-        </member>
-        <member name="M:NetCoreOdt.Helper.OdtHelper.CreateOdtTemplate(System.Uri@)">
-            <summary>
-            Create a folder with a minimum of files that are need by a ODT document
-            </summary>
-        </member>
-        <member name="T:NetCoreOdt.Helper.StringBuilderHelper">
-            <summary>
-            Helper class to easier work with <see cref="T:System.Text.StringBuilder"/> objects
-            </summary>
-        </member>
-        <member name="M:NetCoreOdt.Helper.StringBuilderHelper.ContainsLineBreaks(System.Text.StringBuilder@)">
-            <summary>
-            Test if a given <see cref="T:System.Text.StringBuilder"/> content contains line breaks
-            </summary>
-            <returns><see langword="true"/> if the content contains line breaks, otherwise <see langword="false"/></returns>
-        </member>
-        <member name="T:NetCoreOdt.Helper.StyleHelper">
-            <summary>
-            Helper class to easier work with ODT document styles
-            </summary>
-        </member>
-        <member name="M:NetCoreOdt.Helper.StyleHelper.AddStandardTextStyles(System.Text.StringBuilder@)">
-            <summary>
-            Add all needed styles for all <see cref="T:NetCoreOdt.Enumerations.TextStyle"/> combinations to the style content
-            </summary>
-        </member>
-        <member name="M:NetCoreOdt.Helper.StyleHelper.AddTextAlignmentStyles(System.Text.StringBuilder@)">
-            <summary>
-            Add all needed styles for all <see cref="T:NetOdt.Enumerations.TextAlignment"/> combinations to the style content
-            </summary>
-        </member>
-        <member name="M:NetCoreOdt.Helper.StyleHelper.AddTableStyles(System.Text.StringBuilder@)">
-            <summary>
-            Add all needed styles for simple tables
-            </summary>
-        </member>
-        <member name="M:NetCoreOdt.Helper.StyleHelper.AddPictureStyle(System.Text.StringBuilder@)">
-            <summary>
-            Add all needed styles for simple pictures
-            </summary>
-        </member>
-        <member name="M:NetCoreOdt.Helper.StyleHelper.GetStyleAndOutline``1(``0@)">
-            <summary>
-            Return the style name and the outline level of a given text style
-            </summary>
-            <param name="style">The text style for the style name</param>
-            <returns>The style name and the outline level</returns>
-        </member>
-        <member name="M:NetCoreOdt.Helper.StyleHelper.GetTableCellStyleName(System.Int32@,System.Int32@,System.Int32@)">
-            <summary>
-            Return the name representation for a style for the given table cell
-            </summary>
-            <param name="rowNumber">The row number of the current cell</param>
-            <param name="columnNumber">The column number of the current cell</param>
-            <param name="columnCount">The column count of the current row</param>
-            <returns>The name representation of a table column</returns>
         </member>
         <member name="T:NetCoreOdt.OdtDocument">
             <summary>

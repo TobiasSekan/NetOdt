@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace NetCoreOdt.Helper
+namespace NetOdt.Helper
 {
     /// <summary>
     /// Helper class to easier work with <see cref="StringBuilder"/> objects

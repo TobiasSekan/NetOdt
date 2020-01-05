@@ -1,5 +1,4 @@
 ﻿using NetCoreOdt;
-using NetCoreOdt.Enumerations;
 using NetOdt.Enumerations;
 using System;
 using System.Data;

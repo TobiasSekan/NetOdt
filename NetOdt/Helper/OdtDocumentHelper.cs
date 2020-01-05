@@ -1,15 +1,14 @@
 ﻿using NetOdt.Constants;
-using NetOdt.Helper;
 using System;
 using System.IO;
 using System.Reflection;
 
-namespace NetCoreOdt.Helper
+namespace NetOdt.Helper
 {
     /// <summary>
-    /// Helper class to easier work with ODT files
+    /// Helper class to easier work with ODT document files
     /// </summary>
-    internal static class OdtHelper
+    internal static class OdtDocumentHelper
     {
         /// <summary>
         /// Create a folder with a minimum of files that are need by a ODT document

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace NetCoreOdt.Enumerations
+namespace NetOdt.Enumerations
 {
     /// <summary>
     /// The style of a text

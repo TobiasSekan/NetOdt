@@ -1,5 +1,4 @@
-﻿using NetCoreOdt.Helper;
-using NetOdt.Constants;
+﻿using NetOdt.Constants;
 using NetOdt.Helper;
 using System;
 using System.Text;
@@ -105,7 +104,7 @@ namespace NetCoreOdt
             BeforeManifestContent = new StringBuilder();
             ManifestContent       = new StringBuilder();
 
-            OdtHelper.CreateOdtTemplate(TempWorkingUri);
+            OdtDocumentHelper.CreateOdtTemplate(TempWorkingUri);
             ReadContent();
         }
 

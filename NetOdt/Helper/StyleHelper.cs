@@ -1,9 +1,8 @@
-﻿using NetCoreOdt.Enumerations;
-using NetOdt.Enumerations;
+﻿using NetOdt.Enumerations;
 using System;
 using System.Text;
 
-namespace NetCoreOdt.Helper
+namespace NetOdt.Helper
 {
     /// <summary>
     /// Helper class to easier work with ODT document styles

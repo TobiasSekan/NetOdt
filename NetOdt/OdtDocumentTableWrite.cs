@@ -1,5 +1,5 @@
-﻿using NetCoreOdt.Enumerations;
-using NetCoreOdt.Helper;
+﻿using NetOdt.Enumerations;
+using NetOdt.Helper;
 using System;
 using System.Collections.Generic;
 using System.Data;
