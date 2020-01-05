@@ -27,7 +27,7 @@ using var odtDocument = new OdtDocument();
 
 // Create a new ODT document, save the ODT document into the given file path
 // and use a automatic generated temporary folder
-using var odtDocument = new OdtDocument("E:/MyDocument.odt");
+using var odtDocument = new OdtDocument(documentPath: "E:/MyDocument.odt");
 
 // Create a new ODT document, save the ODT document into the given uniform resource identifier
 // and use a automatic generated temporary folder
@@ -36,7 +36,7 @@ using var odtDocument = new OdtDocument(documentUri);
 
 // Create a new ODT document, save the ODT document into the given file path
 // and use the given temporary folder
-using var odtDocument = new OdtDocument("E:/MyDocument.odt", "E:/TempFolder");
+using var odtDocument = new OdtDocument(documentPath: "E:/MyDocument.odt", tempPath: "E:/TempFolder");
 
 // Create a new ODT document, save the ODT document into the given uniform resource identifier
 // and use the given uniform resource identifier for the temporary folder
@@ -133,21 +133,21 @@ odtDocument.AppendEmptyLines(10);
 
 ```csharp
 // Append a empty unformatted table with the given row and cell count into the document
-odtDocument.AppendTable(3, 3);
+odtDocument.AppendTable(rowCount: 3, columnCount: 3);
 
 // Append a unformatted table with the given row and cell count into the document
 // and fill each cell with the given value
-odtDocument.AppendTable(3, 3, 0.00);
+odtDocument.AppendTable(rowCount: 3, columnCount: 3, content: 0.00);
 
 // Append a unformatted table with the given row and cell count into the document
 // and fill each cell with the given text
-odtDocument.AppendTable(3, 3, "Fill me");
+odtDocument.AppendTable(rowCount: 3, columnCount: 3, content: "Fill me");
 
 // Append a unformatted table with the given row and cell count into the document
 // and fill each cell with the given content
 var content = new StringBuilder();
 content.Append("Fill me");
-odtDocument.AppendTable(3, 3, content);
+odtDocument.AppendTable(rowCount: 3, columnCount: 3, content);
 
 // Append a unformatted table and fill it with the given data from the array
 var array = new List<List<string>>();
@@ -165,11 +165,11 @@ Examples for `DataTable`  usage can be found here [C# DataTable Examples](https:
 
 ```csharp
 // Append a image to the document that is located in the path
-odtDocument.AppendImage("E:/picture1.jpg", 22.5, 14.1);
+odtDocument.AppendImage(path: "E:/picture1.jpg", width: 22.5, height: 14.1);
 
 // Append a image to the document that is located in the uniform resource identifier
 var uri = new Uri("E:/picture1.jpg");
-odtDocument.AppendImage(uri, 22.5, 14.1);
+odtDocument.AppendImage(uri, width: 22.5, height: 14.1);
 ```
 
 ## Manually save the document
@@ -184,7 +184,7 @@ odtDocument.Save(overrideExistingFile: false);
 
 // Save the change content and create the ODT document
 // into the given path
-odtDocument.SaveAs("E:/MyDocument.odt");
+odtDocument.SaveAs(path: "E:/MyDocument.odt");
 
 // Save the change content and create the ODT document
 // into the given uniform resource identifier
@@ -193,7 +193,7 @@ odtDocument.SaveAs(documentUri);
 
 // Save the change content and create the ODT document
 // into the given path and automatic override a existing file
-odtDocument.SaveAs("E:/MyDocument.odt", overrideExistingFile: false);
+odtDocument.SaveAs(path: "E:/MyDocument.odt", overrideExistingFile: false);
 
 // Save the change content and create the ODT document
 // into the given uniform resource identifier
