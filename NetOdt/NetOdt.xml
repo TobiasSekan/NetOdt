@@ -176,6 +176,13 @@
             <param name="uriLeft">The left part of the complete path</param>
             <param name="pathRight">The right part of the complete path</param>
         </member>
+        <member name="M:NetOdt.Helper.DirectoryHelper.Delete(System.Uri,System.String)">
+            <summary>
+            Deletes the specified directory
+            </summary>
+            <param name="uriLeft">The left part for the complete path</param>
+            <param name="pathRight">The right part for the complete path</param>
+        </member>
         <member name="T:NetOdt.Helper.FileHelper">
             <summary>
             Helper class to easier work with <see cref="T:System.IO.File"/>
@@ -344,25 +351,11 @@
             Add all needed styles for simple pictures
             </summary>
         </member>
-        <member name="M:NetCoreOdt.Helper.StyleHelper.GetStyleName(NetCoreOdt.Enumerations.TextStyle@)">
+        <member name="M:NetCoreOdt.Helper.StyleHelper.GetStyleName``1(``0@)">
             <summary>
-            Return the style name of a given <see cref="T:NetCoreOdt.Enumerations.TextStyle"/>
+            Return the style name of a given text style
             </summary>
-            <param name="style">The <see cref="T:NetCoreOdt.Enumerations.TextStyle"/> for the style name</param>
-            <returns>A style name</returns>
-        </member>
-        <member name="M:NetCoreOdt.Helper.StyleHelper.GetStyleName(NetOdt.Enumerations.HeaderStyle@)">
-            <summary>
-            Return the style name of a given <see cref="T:NetOdt.Enumerations.HeaderStyle"/>
-            </summary>
-            <param name="style">The <see cref="T:NetOdt.Enumerations.HeaderStyle"/> for the style name</param>
-            <returns>A style name</returns>
-        </member>
-        <member name="M:NetCoreOdt.Helper.StyleHelper.GetStyleName(NetOdt.Enumerations.TextAlignment@)">
-            <summary>
-            Return the style name of a given <see cref="T:NetOdt.Enumerations.TextAlignment"/>
-            </summary>
-            <param name="style">The <see cref="T:NetOdt.Enumerations.TextAlignment"/> for the style name</param>
+            <param name="style">The text style for the style name</param>
             <returns>A style name</returns>
         </member>
         <member name="M:NetCoreOdt.Helper.StyleHelper.GetTableCellStyleName(System.Int32@,System.Int32@,System.Int32@)">
@@ -650,47 +643,26 @@
             </summary>
             <param name="content">The <see cref="T:System.Text.StringBuilder"/> that contains the content for the document</param>
         </member>
-        <member name="M:NetCoreOdt.OdtDocument.Append(System.ValueType@,NetCoreOdt.Enumerations.TextStyle@)">
+        <member name="M:NetCoreOdt.OdtDocument.Append``1(System.ValueType@,``0@)">
             <summary>
             Append a single line with a styled value to the document
             </summary>
             <param name="value">The value to write into the document</param>
             <param name="style">The text style of the value</param>
         </member>
-        <member name="M:NetCoreOdt.OdtDocument.Append(System.String@,NetCoreOdt.Enumerations.TextStyle@)">
+        <member name="M:NetCoreOdt.OdtDocument.Append``1(System.String@,``0@)">
             <summary>
             Append a single line with a styled text to the document
             </summary>
             <param name="text">The text to write into the document</param>
             <param name="style">The text style of the text</param>
         </member>
-        <member name="M:NetCoreOdt.OdtDocument.Append(System.Text.StringBuilder@,NetCoreOdt.Enumerations.TextStyle@)">
+        <member name="M:NetCoreOdt.OdtDocument.Append``1(System.Text.StringBuilder@,``0@)">
             <summary>
             Append the content of the given <see cref="T:System.Text.StringBuilder"/> as styled text the document
             </summary>
             <param name="content">The <see cref="T:System.Text.StringBuilder"/> that contains the content for the document</param>
             <param name="style">The text style of the content</param>
-        </member>
-        <member name="M:NetCoreOdt.OdtDocument.Append(System.ValueType@,NetOdt.Enumerations.TextAlignment@)">
-            <summary>
-            Append a single line with a styled value to the document
-            </summary>
-            <param name="value">The value to write into the document</param>
-            <param name="style">The text alignment of the value</param>
-        </member>
-        <member name="M:NetCoreOdt.OdtDocument.Append(System.String@,NetOdt.Enumerations.TextAlignment@)">
-            <summary>
-            Append a single line with a styled text to the document
-            </summary>
-            <param name="text">The text to write into the document</param>
-            <param name="style">The text alignment of the text</param>
-        </member>
-        <member name="M:NetCoreOdt.OdtDocument.Append(System.Text.StringBuilder@,NetOdt.Enumerations.TextAlignment@)">
-            <summary>
-            Append the content of the given <see cref="T:System.Text.StringBuilder"/> as styled text the document
-            </summary>
-            <param name="content">The <see cref="T:System.Text.StringBuilder"/> that contains the content for the document</param>
-            <param name="style">The text alignment of the content</param>
         </member>
         <member name="M:NetCoreOdt.OdtDocument.AppendEmptyLines(System.Int32)">
             <summary>
@@ -698,26 +670,19 @@
             </summary>
             <param name="countOfEmptyLines">The count of empty lines to write</param>
         </member>
-        <member name="M:NetCoreOdt.OdtDocument.Append(System.ValueType@,NetOdt.Enumerations.HeaderStyle@)">
+        <member name="M:NetCoreOdt.OdtDocument.GetXmlTextStart``1(``0@)">
             <summary>
-            Append a value with the given header style
+            Return a XML start element for a text passage
             </summary>
-            <param name="value">The value for the header</param>
-            <param name="style">The style of the header</param>
+            <typeparam name="TStyle">The <see cref="T:System.Type"/> of the style for the text passage</typeparam>
+            <param name="style">The style for the text passage</param>
+            <returns>A XML start element for a text passage</returns>
         </member>
-        <member name="M:NetCoreOdt.OdtDocument.Append(System.String@,NetOdt.Enumerations.HeaderStyle@)">
+        <member name="M:NetCoreOdt.OdtDocument.GetXmlTextEnd``1(``0@)">
             <summary>
-            Append a text with the given header style
+            Return a XML end element for a text passage
             </summary>
-            <param name="text">The text for the header</param>
-            <param name="style">The style of the header</param>
-        </member>
-        <member name="M:NetCoreOdt.OdtDocument.Append(System.Text.StringBuilder@,NetOdt.Enumerations.HeaderStyle@)">
-            <summary>
-            Append a content with the given header style
-            </summary>
-            <param name="content">The content for the header</param>
-            <param name="style">The style of the header</param>
+            <returns></returns>
         </member>
     </members>
 </doc>

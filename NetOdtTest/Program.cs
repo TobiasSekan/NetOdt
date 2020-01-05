@@ -13,18 +13,15 @@ namespace NetOdtTest
         {
             var uri = new Uri("E:/testTest.odt");
 
-            using var odtDoucment = new OdtDocument("E:/testTest.odt");
+            using var odtDoucment = new OdtDocument(uri);
 
             odtDoucment.Append("My Test document", HeaderStyle.Title);
 
             odtDoucment.AppendTable(GetTable());
 
-            // TODO: need changes inside the "/MATA-INF/mainfest.xml"
-            odtDoucment.AppendImage("E:/picture1.jpg", 14.9, 9.8);
+            odtDoucment.AppendImage("E:/picture1.jpg", width: 9.0, height: 8.0);
 
             odtDoucment.Append("Unformatted", HeaderStyle.HeadingLevel01);
-
-            odtDoucment.Append(long.MinValue, TextAlignment.Left);
 
             odtDoucment.AppendEmptyLines(countOfEmptyLines: 5);
             odtDoucment.Append(byte.MaxValue, TextAlignment.Center);
@@ -46,15 +43,13 @@ namespace NetOdtTest
 
             odtDoucment.AppendTable(GetTable());
 
-            odtDoucment.Append("Formatted", HeaderStyle.HeadingLevel01);
+            odtDoucment.Append("Formatted", HeaderStyle.HeadingLevel04);
 
-            // Write a single line with a styled value to the document
             odtDoucment.Append(long.MinValue, TextStyle.Bold);
             odtDoucment.Append(byte.MaxValue, TextStyle.Italic);
             odtDoucment.Append(uint.MaxValue, TextStyle.Underline);
             odtDoucment.Append(double.NaN, TextStyle.Bold | TextStyle.Italic | TextStyle.Underline);
 
-            // Write a single line with a unformatted text to the document (Note: line breaks "\n" will currently not working)
             odtDoucment.Append("This\n\n\nis\n\n\na\n\n\ntext", TextStyle.Bold | TextStyle.Underline);
 
             var contentTwo = new StringBuilder();
