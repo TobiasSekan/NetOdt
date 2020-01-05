@@ -133,7 +133,7 @@ namespace NetCoreOdt
             }
             else
             {
-                FileHelper.Delete(TempWorkingUri, FolderResource.PictureFolderName);
+                DirectoryHelper.Delete(TempWorkingUri, FolderResource.PictureFolderName);
             }
 
             // don't use simple using syntax to avoid possible not closed and disposed streams

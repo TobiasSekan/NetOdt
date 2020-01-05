@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Runtime.CompilerServices;
 
 namespace NetOdt.Helper
 {
@@ -13,8 +14,17 @@ namespace NetOdt.Helper
         /// </summary>
         /// <param name="uriLeft">The left part of the complete path</param>
         /// <param name="pathRight">The right part of the complete path</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static void CreateDirectory(Uri uriLeft, string pathRight)
             => Directory.CreateDirectory(Path.Combine(uriLeft.AbsolutePath, pathRight));
 
+        /// <summary>
+        /// Deletes the specified directory
+        /// </summary>
+        /// <param name="uriLeft">The left part for the complete path</param>
+        /// <param name="pathRight">The right part for the complete path</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        internal static void Delete(Uri uriLeft, string pathRight)
+            => Directory.Delete(Path.Combine(uriLeft.AbsolutePath, pathRight));
     }
 }
