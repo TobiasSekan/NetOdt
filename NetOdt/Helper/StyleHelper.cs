@@ -15,29 +15,45 @@ namespace NetCoreOdt.Helper
         /// </summary>
         internal static void AddStandardTextStyles(in StringBuilder styleContent)
         {
-            // P1 - Normal - 000
-            styleContent.Append("<style:style style:name=\"P1\" style:family=\"paragraph\" style:parent-style-name=\"Standard\"><style:text-properties/></style:style>");
+            // P1 - 0b_000 - Normal
+            styleContent.Append("<style:style style:name=\"P1\" style:family=\"paragraph\" style:parent-style-name=\"Standard\">");
+            styleContent.Append("<style:text-properties/>");
+            styleContent.Append("</style:style>");
 
-            // P2 - Bold - 001
-            styleContent.Append("<style:style style:name=\"P2\" style:family=\"paragraph\" style:parent-style-name=\"Standard\"><style:text-properties fo:font-weight=\"bold\" style:font-weight-asian=\"bold\" style:font-weight-complex=\"bold\"/></style:style>");
+            // P2 - 0b_001 - Bold
+            styleContent.Append("<style:style style:name=\"P2\" style:family=\"paragraph\" style:parent-style-name=\"Standard\">");
+            styleContent.Append("<style:text-properties fo:font-weight=\"bold\" style:font-weight-asian=\"bold\" style:font-weight-complex=\"bold\"/>");
+            styleContent.Append("</style:style>");
 
-            // P3 - Italic -010
-            styleContent.Append("<style:style style:name=\"P3\" style:family=\"paragraph\" style:parent-style-name=\"Standard\"><style:text-properties fo:font-style=\"italic\" style:font-style-asian=\"italic\" style:font-style-complex=\"italic\"/></style:style>");
+            // P3 - 0b_010 - Italic
+            styleContent.Append("<style:style style:name=\"P3\" style:family=\"paragraph\" style:parent-style-name=\"Standard\">");
+            styleContent.Append("<style:text-properties fo:font-style=\"italic\" style:font-style-asian=\"italic\" style:font-style-complex=\"italic\"/>");
+            styleContent.Append("</style:style>");
 
-            // P4 - Bold + Italic - 011
-            styleContent.Append("<style:style style:name=\"P4\" style:family=\"paragraph\" style:parent-style-name=\"Standard\"><style:text-properties fo:font-style=\"italic\" fo:font-weight=\"bold\" style:font-style-asian=\"italic\" style:font-weight-asian=\"bold\" style:font-style-complex=\"italic\" style:font-weight-complex=\"bold\"/></style:style>");
+            // P4 - 0b_011 - Bold + Italic
+            styleContent.Append("<style:style style:name=\"P4\" style:family=\"paragraph\" style:parent-style-name=\"Standard\">");
+            styleContent.Append("<style:text-properties fo:font-style=\"italic\" fo:font-weight=\"bold\" style:font-style-asian=\"italic\" style:font-weight-asian=\"bold\" style:font-style-complex=\"italic\" style:font-weight-complex=\"bold\"/>");
+            styleContent.Append("</style:style>");
 
             // P5 0b_100 - Underline
-            styleContent.Append("<style:style style:name=\"P5\" style:family=\"paragraph\" style:parent-style-name=\"Standard\"><style:text-properties style:text-underline-style=\"solid\" style:text-underline-width=\"auto\" style:text-underline-color=\"font-color\"/></style:style>");
+            styleContent.Append("<style:style style:name=\"P5\" style:family=\"paragraph\" style:parent-style-name=\"Standard\">");
+            styleContent.Append("<style:text-properties style:text-underline-style=\"solid\" style:text-underline-width=\"auto\" style:text-underline-color=\"font-color\"/>");
+            styleContent.Append("</style:style>");
 
             // P6 - 0b_101 - Bold + Underline
-            styleContent.Append("<style:style style:name=\"P6\" style:family=\"paragraph\" style:parent-style-name=\"Standard\"><style:text-properties style:text-underline-style=\"solid\" style:text-underline-width=\"auto\" style:text-underline-color=\"font-color\" fo:font-weight=\"bold\" style:font-weight-asian=\"bold\" style:font-weight-complex=\"bold\"/></style:style>");
+            styleContent.Append("<style:style style:name=\"P6\" style:family=\"paragraph\" style:parent-style-name=\"Standard\">");
+            styleContent.Append("<style:text-properties style:text-underline-style=\"solid\" style:text-underline-width=\"auto\" style:text-underline-color=\"font-color\" fo:font-weight=\"bold\" style:font-weight-asian=\"bold\" style:font-weight-complex=\"bold\"/>");
+            styleContent.Append("</style:style>");
 
             // P7 - 0b_110 - Italic + Underline
-            styleContent.Append("<style:style style:name=\"P7\" style:family=\"paragraph\" style:parent-style-name=\"Standard\"><style:text-properties fo:font-style=\"italic\" style:text-underline-style=\"solid\" style:text-underline-width=\"auto\" style:text-underline-color=\"font-color\" style:font-style-asian=\"italic\" style:font-style-complex=\"italic\"/></style:style>");
+            styleContent.Append("<style:style style:name=\"P7\" style:family=\"paragraph\" style:parent-style-name=\"Standard\">");
+            styleContent.Append("<style:text-properties fo:font-style=\"italic\" style:text-underline-style=\"solid\" style:text-underline-width=\"auto\" style:text-underline-color=\"font-color\" style:font-style-asian=\"italic\" style:font-style-complex=\"italic\"/>");
+            styleContent.Append("</style:style>");
 
             // P8 - 0b_111 - Bold + Italic + Underline
-            styleContent.Append("<style:style style:name=\"P8\" style:family=\"paragraph\" style:parent-style-name=\"Standard\"><style:text-properties fo:font-style=\"italic\" style:text-underline-style=\"solid\" style:text-underline-width=\"auto\" style:text-underline-color=\"font-color\" fo:font-weight=\"bold\" style:font-style-asian=\"italic\" style:font-weight-asian=\"bold\" style:font-style-complex=\"italic\" style:font-weight-complex=\"bold\"/></style:style>");
+            styleContent.Append("<style:style style:name=\"P8\" style:family=\"paragraph\" style:parent-style-name=\"Standard\">");
+            styleContent.Append("<style:text-properties fo:font-style=\"italic\" style:text-underline-style=\"solid\" style:text-underline-width=\"auto\" style:text-underline-color=\"font-color\" fo:font-weight=\"bold\" style:font-style-asian=\"italic\" style:font-weight-asian=\"bold\" style:font-style-complex=\"italic\" style:font-weight-complex=\"bold\"/>");
+            styleContent.Append("</style:style>");
         }
 
         /// <summary>
@@ -48,18 +64,24 @@ namespace NetCoreOdt.Helper
             styleContent.Append("<style:style style:name=\"Tabelle1\" style:family=\"table\">");
             styleContent.Append("<style:table-properties style:width=\"17cm\" table:align=\"margins\"/>");
             styleContent.Append("</style:style>");
+
             styleContent.Append("<style:style style:name=\"Tabelle1.A\" style:family=\"table-column\">");
             styleContent.Append("<style:table-column-properties style:column-width=\"3.401cm\" style:rel-column-width=\"13107*\"/>");
             styleContent.Append("</style:style>");
+
             styleContent.Append("<style:style style:name=\"Tabelle1.A1\" style:family=\"table-cell\">");
-            styleContent.Append("<style:table-cell-properties fo:padding=\"0.097cm\" fo:border-left=\"0.05pt solid #000000\" fo:border-right=\"none\" fo:border-top=\"0.05pt solid #000000\" fo:border-bottom=\"0.05pt solid #000000\"/>");
+            styleContent.Append("<style:table-cell-properties fo:padding=\"0.097cm\" fo:border-left=\"0.05pt solid #000000\" fo:border-right=\"none\" fo:border-top=\"0.05pt solid #000000\" fo:border-bottom=\"0.05pt solid #000000\">");
             styleContent.Append("</style:style>");
-            styleContent.Append("<style:style style:name=\"Tabelle1.E1\" style:family=\"table-cell\"><style:table-cell-properties fo:padding=\"0.097cm\" fo:border=\"0.05pt solid #000000\"/>");
+
+            styleContent.Append("<style:style style:name=\"Tabelle1.E1\" style:family=\"table-cell\"><style:table-cell-properties fo:padding=\"0.097cm\" fo:border=\"0.05pt solid #000000\">");
             styleContent.Append("</style:style>");
-            styleContent.Append("<style:style style:name=\"Tabelle1.A2\" style:family=\"table-cell\"><style:table-cell-properties fo:padding=\"0.097cm\" fo:border-left=\"0.05pt solid #000000\" fo:border-right=\"none\" fo:border-top=\"none\" fo:border-bottom=\"0.05pt solid #000000\"/>");
+
+            styleContent.Append("<style:style style:name=\"Tabelle1.A2\" style:family=\"table-cell\"><style:table-cell-properties fo:padding=\"0.097cm\" fo:border-left=\"0.05pt solid #000000\" fo:border-right=\"none\" fo:border-top=\"none\" fo:border-bottom=\"0.05pt solid #000000\">");
             styleContent.Append("</style:style>");
-            styleContent.Append("<style:style style:name=\"Tabelle1.E2\" style:family=\"table-cell\"><style:table-cell-properties fo:padding=\"0.097cm\" fo:border-left=\"0.05pt solid #000000\" fo:border-right=\"0.05pt solid #000000\" fo:border-top=\"none\" fo:border-bottom=\"0.05pt solid #000000\"/>");
+
+            styleContent.Append("<style:style style:name=\"Tabelle1.E2\" style:family=\"table-cell\"><style:table-cell-properties fo:padding=\"0.097cm\" fo:border-left=\"0.05pt solid #000000\" fo:border-right=\"0.05pt solid #000000\" fo:border-top=\"none\" fo:border-bottom=\"0.05pt solid #000000\">");
             styleContent.Append("</style:style>");
+
             styleContent.Append("<style:style style:name=\"P1\" style:family=\"paragraph\" style:parent-style-name=\"Table_20_Contents\">");
             styleContent.Append("</style:style>");
         }
@@ -102,22 +124,22 @@ namespace NetCoreOdt.Helper
         internal static string GetStyleName(in HeaderStyle style)
             => style switch
             {
-                HeaderStyle.Title      => "Title",
-                HeaderStyle.HeadingLevel01   => "Heading_20_1",
-                HeaderStyle.HeadingLevel02   => "Heading_20_2",
-                HeaderStyle.HeadingLevel03   => "Heading_20_3",
-                HeaderStyle.HeadingLevel04   => "Heading_20_4",
-                HeaderStyle.HeadingLevel05   => "Heading_20_5",
-                HeaderStyle.HeadingLevel06   => "Heading_20_6",
-                HeaderStyle.HeadingLevel07   => "Heading_20_7",
-                HeaderStyle.HeadingLevel08   => "Heading_20_8",
-                HeaderStyle.HeadingLevel09   => "Heading_20_9",
-                HeaderStyle.HeadingLevel10  => "Heading_20_10",
-                HeaderStyle.Subtitle   => "Subtitle",
-                HeaderStyle.Signature  => "Signature",
-                HeaderStyle.Quotations => "Quotations",
-                HeaderStyle.Endnote    => "Endnote",
-                HeaderStyle.Footnote   => "Footnote",
+                HeaderStyle.Title          => "Title",
+                HeaderStyle.HeadingLevel01 => "Heading_20_1",
+                HeaderStyle.HeadingLevel02 => "Heading_20_2",
+                HeaderStyle.HeadingLevel03 => "Heading_20_3",
+                HeaderStyle.HeadingLevel04 => "Heading_20_4",
+                HeaderStyle.HeadingLevel05 => "Heading_20_5",
+                HeaderStyle.HeadingLevel06 => "Heading_20_6",
+                HeaderStyle.HeadingLevel07 => "Heading_20_7",
+                HeaderStyle.HeadingLevel08 => "Heading_20_8",
+                HeaderStyle.HeadingLevel09 => "Heading_20_9",
+                HeaderStyle.HeadingLevel10 => "Heading_20_10",
+                HeaderStyle.Subtitle       => "Subtitle",
+                HeaderStyle.Signature      => "Signature",
+                HeaderStyle.Quotations     => "Quotations",
+                HeaderStyle.Endnote        => "Endnote",
+                HeaderStyle.Footnote       => "Footnote",
 
                 _ => throw new NotSupportedException("Header style not supported")
             };
@@ -132,12 +154,9 @@ namespace NetCoreOdt.Helper
         internal static string GetTableCellStyleName(in int rowNumber, in int columnNumber, in int columnCount)
         {
             var number = rowNumber == 1 ? "1" : "2";
-
             var prefix = columnCount == columnNumber ? "E" : "A";
 
             return prefix + number;
         }
-
-
     }
 }
