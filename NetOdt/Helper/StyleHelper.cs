@@ -12,114 +12,161 @@ namespace NetOdt.Helper
         /// <summary>
         /// Add all needed styles for all <see cref="TextStyle"/> combinations to the style content
         /// </summary>
+        /// <param name="styleContent">The content container for the style informations</param>
         internal static void AddStandardTextStyles(in StringBuilder styleContent)
         {
             // P1 - 0b_000 - Normal
-            styleContent.Append("<style:style style:name=\"P1\" style:family=\"paragraph\" style:parent-style-name=\"Standard\">");
+            AppendXmlStyleStart(styleContent, "P1", StyleFamily.Paragraph);
             styleContent.Append("<style:text-properties/>");
-            styleContent.Append("</style:style>");
+            AppendXmlStyleEnd(styleContent);
 
             // P2 - 0b_001 - Bold
-            styleContent.Append("<style:style style:name=\"P2\" style:family=\"paragraph\" style:parent-style-name=\"Standard\">");
+            AppendXmlStyleStart(styleContent, "P2", StyleFamily.Paragraph);
             styleContent.Append("<style:text-properties fo:font-weight=\"bold\" style:font-weight-asian=\"bold\" style:font-weight-complex=\"bold\"/>");
-            styleContent.Append("</style:style>");
+            AppendXmlStyleEnd(styleContent);
 
             // P3 - 0b_010 - Italic
-            styleContent.Append("<style:style style:name=\"P3\" style:family=\"paragraph\" style:parent-style-name=\"Standard\">");
+            AppendXmlStyleStart(styleContent, "P3", StyleFamily.Paragraph);
             styleContent.Append("<style:text-properties fo:font-style=\"italic\" style:font-style-asian=\"italic\" style:font-style-complex=\"italic\"/>");
-            styleContent.Append("</style:style>");
+            AppendXmlStyleEnd(styleContent);
 
             // P4 - 0b_011 - Bold + Italic
-            styleContent.Append("<style:style style:name=\"P4\" style:family=\"paragraph\" style:parent-style-name=\"Standard\">");
+            AppendXmlStyleStart(styleContent, "P4", StyleFamily.Paragraph);
             styleContent.Append("<style:text-properties fo:font-style=\"italic\" fo:font-weight=\"bold\" style:font-style-asian=\"italic\" style:font-weight-asian=\"bold\" style:font-style-complex=\"italic\" style:font-weight-complex=\"bold\"/>");
-            styleContent.Append("</style:style>");
+            AppendXmlStyleEnd(styleContent);
 
             // P5 0b_100 - Underline
-            styleContent.Append("<style:style style:name=\"P5\" style:family=\"paragraph\" style:parent-style-name=\"Standard\">");
+            AppendXmlStyleStart(styleContent, "P5", StyleFamily.Paragraph);
             styleContent.Append("<style:text-properties style:text-underline-style=\"solid\" style:text-underline-width=\"auto\" style:text-underline-color=\"font-color\"/>");
-            styleContent.Append("</style:style>");
+            AppendXmlStyleEnd(styleContent);
 
             // P6 - 0b_101 - Bold + Underline
-            styleContent.Append("<style:style style:name=\"P6\" style:family=\"paragraph\" style:parent-style-name=\"Standard\">");
+            AppendXmlStyleStart(styleContent, "P6", StyleFamily.Paragraph);
             styleContent.Append("<style:text-properties style:text-underline-style=\"solid\" style:text-underline-width=\"auto\" style:text-underline-color=\"font-color\" fo:font-weight=\"bold\" style:font-weight-asian=\"bold\" style:font-weight-complex=\"bold\"/>");
-            styleContent.Append("</style:style>");
+            AppendXmlStyleEnd(styleContent);
 
             // P7 - 0b_110 - Italic + Underline
-            styleContent.Append("<style:style style:name=\"P7\" style:family=\"paragraph\" style:parent-style-name=\"Standard\">");
+            AppendXmlStyleStart(styleContent, "P7", StyleFamily.Paragraph);
             styleContent.Append("<style:text-properties fo:font-style=\"italic\" style:text-underline-style=\"solid\" style:text-underline-width=\"auto\" style:text-underline-color=\"font-color\" style:font-style-asian=\"italic\" style:font-style-complex=\"italic\"/>");
-            styleContent.Append("</style:style>");
+            AppendXmlStyleEnd(styleContent);
 
             // P8 - 0b_111 - Bold + Italic + Underline
-            styleContent.Append("<style:style style:name=\"P8\" style:family=\"paragraph\" style:parent-style-name=\"Standard\">");
+            AppendXmlStyleStart(styleContent, "P8", StyleFamily.Paragraph);
             styleContent.Append("<style:text-properties fo:font-style=\"italic\" style:text-underline-style=\"solid\" style:text-underline-width=\"auto\" style:text-underline-color=\"font-color\" fo:font-weight=\"bold\" style:font-style-asian=\"italic\" style:font-weight-asian=\"bold\" style:font-style-complex=\"italic\" style:font-weight-complex=\"bold\"/>");
-            styleContent.Append("</style:style>");
+            AppendXmlStyleEnd(styleContent);
         }
 
         /// <summary>
         /// Add all needed styles for all <see cref="TextAlignment"/> combinations to the style content
         /// </summary>
+        /// <param name="styleContent">The content container for the style informations</param>
         internal static void AddTextAlignmentStyles(in StringBuilder styleContent)
         {
             // Left text alignment
-            styleContent.Append("<style:style style:name=\"P21\" style:family=\"paragraph\" style:parent-style-name=\"Standard\">");
+            AppendXmlStyleStart(styleContent, "P21", StyleFamily.Paragraph);
             styleContent.Append("<style:paragraph-properties fo:text-align=\"start\" style:justify-single-word=\"false\"/>");
-            styleContent.Append("</style:style>");
+            AppendXmlStyleEnd(styleContent);
 
             // Centered text
-            styleContent.Append("<style:style style:name=\"P22\" style:family=\"paragraph\" style:parent-style-name=\"Standard\">");
+            AppendXmlStyleStart(styleContent, "P22", StyleFamily.Paragraph);
             styleContent.Append("<style:paragraph-properties fo:text-align=\"center\" style:justify-single-word=\"false\"/>");
-            styleContent.Append("</style:style>");
+            AppendXmlStyleEnd(styleContent);
 
             // Right text alignment
-            styleContent.Append("<style:style style:name=\"P23\" style:family=\"paragraph\" style:parent-style-name=\"Standard\">");
+            AppendXmlStyleStart(styleContent, "P23", StyleFamily.Paragraph);
             styleContent.Append("<style:paragraph-properties fo:text-align=\"end\" style:justify-single-word=\"false\"/>");
-            styleContent.Append("</style:style>");
+            AppendXmlStyleEnd(styleContent);
 
             // Full justification
-            styleContent.Append("<style:style style:name=\"P24\" style:family=\"paragraph\" style:parent-style-name=\"Standard\">");
+            AppendXmlStyleStart(styleContent, "P24", StyleFamily.Paragraph);
             styleContent.Append("<style:paragraph-properties fo:text-align=\"justify\" style:justify-single-word=\"false\"/>");
-            styleContent.Append("</style:style>");
+            AppendXmlStyleEnd(styleContent);
         }
 
         /// <summary>
         /// Add all needed styles for simple tables
         /// </summary>
+        /// <param name="styleContent">The content container for the style informations</param>
         internal static void AddTableStyles(in StringBuilder styleContent)
         {
-            styleContent.Append("<style:style style:name=\"Tabelle1\" style:family=\"table\">");
+            AppendXmlStyleStart(styleContent, "Tabelle1", StyleFamily.Table);
             styleContent.Append("<style:table-properties style:width=\"17cm\" table:align=\"margins\"/>");
-            styleContent.Append("</style:style>");
+            AppendXmlStyleEnd(styleContent);
 
-            styleContent.Append("<style:style style:name=\"Tabelle1.A\" style:family=\"table-column\">");
+            AppendXmlStyleStart(styleContent, "Tabelle1.A", StyleFamily.TableColumn);
             styleContent.Append("<style:table-column-properties style:column-width=\"3.401cm\" style:rel-column-width=\"13107*\"/>");
-            styleContent.Append("</style:style>");
+            AppendXmlStyleEnd(styleContent);
 
-            styleContent.Append("<style:style style:name=\"Tabelle1.A1\" style:family=\"table-cell\">");
+            AppendXmlStyleStart(styleContent, "Tabelle1.A1", StyleFamily.TableCell);
             styleContent.Append("<style:table-cell-properties fo:padding=\"0.097cm\" fo:border-left=\"0.05pt solid #000000\" fo:border-right=\"none\" fo:border-top=\"0.05pt solid #000000\" fo:border-bottom=\"0.05pt solid #000000\"/>");
-            styleContent.Append("</style:style>");
+            AppendXmlStyleEnd(styleContent);
 
-            styleContent.Append("<style:style style:name=\"Tabelle1.E1\" style:family=\"table-cell\">");
+            AppendXmlStyleStart(styleContent, "Tabelle1.E1", StyleFamily.TableCell);
             styleContent.Append("<style:table-cell-properties fo:padding=\"0.097cm\" fo:border=\"0.05pt solid #000000\"/>");
-            styleContent.Append("</style:style>");
+            AppendXmlStyleEnd(styleContent);
 
-            styleContent.Append("<style:style style:name=\"Tabelle1.A2\" style:family=\"table-cell\">");
+            AppendXmlStyleStart(styleContent, "Tabelle1.A2", StyleFamily.TableCell);
             styleContent.Append("<style:table-cell-properties fo:padding=\"0.097cm\" fo:border-left=\"0.05pt solid #000000\" fo:border-right=\"none\" fo:border-top=\"none\" fo:border-bottom=\"0.05pt solid #000000\"/>");
-            styleContent.Append("</style:style>");
+            AppendXmlStyleEnd(styleContent);
 
-            styleContent.Append("<style:style style:name=\"Tabelle1.E2\" style:family=\"table-cell\">");
+            AppendXmlStyleStart(styleContent, "Tabelle1.E2", StyleFamily.TableCell);
             styleContent.Append("<style:table-cell-properties fo:padding=\"0.097cm\" fo:border-left=\"0.05pt solid #000000\" fo:border-right=\"0.05pt solid #000000\" fo:border-top=\"none\" fo:border-bottom=\"0.05pt solid #000000\"/>");
-            styleContent.Append("</style:style>");
+            AppendXmlStyleEnd(styleContent);
         }
 
         /// <summary>
         /// Add all needed styles for simple pictures
         /// </summary>
+        /// <param name="styleContent">The content container for the style informations</param>
         internal static void AddPictureStyle(in StringBuilder styleContent)
         {
-            styleContent.Append("<style:style style:name=\"fr1\" style:family=\"graphic\" style:parent-style-name=\"Graphics\">");
+            AppendXmlStyleStart(styleContent, "fr1", StyleFamily.Graphic);
             styleContent.Append("<style:graphic-properties style:mirror=\"none\" fo:clip=\"rect(0cm, 0cm, 0cm, 0cm)\" draw:luminance=\"0%\" draw:contrast=\"0%\" draw:red=\"0%\" draw:green=\"0%\" draw:blue=\"0%\" draw:gamma=\"100%\" draw:color-inversion=\"false\" draw:image-opacity=\"100%\" draw:color-mode=\"standard\"/>");
-            styleContent.Append("</style:style>");
+            AppendXmlStyleEnd(styleContent);
         }
+
+        /// <summary>
+        /// Append a XML start element for style informations
+        /// </summary>
+        /// <param name="styleContent">The content container for the style informations</param>
+        /// <param name="styleName">The name for the style</param>
+        /// <param name="styleFamily">The family of the style</param>
+        /// <exception cref="ArgumentOutOfRangeException">Style family not supported</exception>
+        internal static void AppendXmlStyleStart(in StringBuilder styleContent, in string styleName, in StyleFamily styleFamily)
+        {
+            switch(styleFamily)
+            {
+                case StyleFamily.Paragraph:
+                    styleContent.Append($"<style:style style:name=\"{styleName}\" style:family=\"paragraph\" style:parent-style-name=\"Standard\">");
+                    break;
+
+                case StyleFamily.Table:
+                    styleContent.Append($"<style:style style:name=\"{styleName}\" style:family=\"table\">");
+                    break;
+
+                case StyleFamily.TableColumn:
+                    styleContent.Append($"<style:style style:name=\"{styleName}\" style:family=\"table-column\">");
+                    break;
+
+                case StyleFamily.TableCell:
+                    styleContent.Append($"<style:style style:name=\"{styleName}\" style:family=\"table-cell\">");
+                    break;
+
+                case StyleFamily.Graphic:
+                    styleContent.Append($"<style:style style:name=\"{styleName}\" style:family=\"graphic\" style:parent-style-name=\"Graphics\">");
+                    break;
+
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(styleFamily), styleFamily, "Style family not supported");
+            }
+        }
+
+        /// <summary>
+        /// Append a XML end element for style informations
+        /// </summary>
+        /// <param name="styleContent">The content container for the style informations</param>
+        internal static void AppendXmlStyleEnd(in StringBuilder styleContent)
+            => styleContent.Append("</style:style>");
 
         /// <summary>
         /// Return the outline level and style name of a given text style
