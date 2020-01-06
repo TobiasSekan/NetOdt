@@ -87,16 +87,16 @@ odtDocument.Append(content, TextStyle.Italic | TextStyle.Underline);
 
 ```csharp
 // Append a single line with a align value to the document
-odtDocument.Append(long.MinValue, TextAlignment.Left);
-odtDocument.Append(uint.MaxValue, TextAlignment.Right);
+odtDocument.Append(long.MinValue, TextStyle.Left);
+odtDocument.Append(uint.MaxValue, TextStyle.Right);
 
 // Append a single line with a unformatted text to the document
-odtDocument.Append("This text is centered", TextAlignment.Center);
+odtDocument.Append("This text is centered", TextStyle.Center);
 
 // Append the content of the given StringBuilder into the document
 var content = new StringBuilder();
 content.Append("This is a text a very very very long text");
-odtDocument.Append(content, TextAlignment.Justify);
+odtDocument.Append(content, TextStyle.Justify);
 ```
 
 [All supported styles can find here](./styles.md)

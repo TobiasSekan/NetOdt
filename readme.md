@@ -16,8 +16,8 @@ odtDocument.Append("My document", HeaderStyle.Title);
 // Append a bold text
 odtDocument.Append("This is a bold text", TextStyle.Bold);
 
-// Append a align text
-odtDocument.Append("This text is centered", TextAlignment.Center);
+// Append a centered text
+odtDocument.Append("This text is centered", TextStyle.Center);
 
 // Append ten empty lines
 odtDocument.AppendEmptyLines(lines: 10);

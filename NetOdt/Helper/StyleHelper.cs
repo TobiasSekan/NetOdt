@@ -12,7 +12,7 @@ namespace NetOdt.Helper
         /// <summary>
         /// Add all needed styles for all <see cref="TextStyle"/> combinations to the style content
         /// </summary>
-        /// <param name="styleContent">The content container for the style informations</param>
+        /// <param name="styleContent">The content container for the XML style informations</param>
         internal static void AddStandardTextStyles(in StringBuilder styleContent)
         {
             AppendXmlStyleStart(styleContent, "P1", StyleFamily.Paragraph);
@@ -23,68 +23,51 @@ namespace NetOdt.Helper
             AppendXmlStyle(styleContent, TextStyle.Bold);
             AppendXmlStyleEnd(styleContent);
 
-            // P3 - 0b_010 - Italic
             AppendXmlStyleStart(styleContent, "P3", StyleFamily.Paragraph);
             AppendXmlStyle(styleContent, TextStyle.Italic);
             AppendXmlStyleEnd(styleContent);
 
-            // P4 - 0b_011 - Bold + Italic
             AppendXmlStyleStart(styleContent, "P4", StyleFamily.Paragraph);
             AppendXmlStyle(styleContent, TextStyle.Bold | TextStyle.Italic);
             AppendXmlStyleEnd(styleContent);
 
-            // P5 0b_100 - Underline
             AppendXmlStyleStart(styleContent, "P5", StyleFamily.Paragraph);
             AppendXmlStyle(styleContent, TextStyle.Underline);
             AppendXmlStyleEnd(styleContent);
 
-            // P6 - 0b_101 - Bold + Underline
             AppendXmlStyleStart(styleContent, "P6", StyleFamily.Paragraph);
             AppendXmlStyle(styleContent, TextStyle.Bold | TextStyle.Underline);
             AppendXmlStyleEnd(styleContent);
 
-            // P7 - 0b_110 - Italic + Underline
             AppendXmlStyleStart(styleContent, "P7", StyleFamily.Paragraph);
             AppendXmlStyle(styleContent, TextStyle.Italic | TextStyle.Underline);
             AppendXmlStyleEnd(styleContent);
 
-            // P8 - 0b_111 - Bold + Italic + Underline
             AppendXmlStyleStart(styleContent, "P8", StyleFamily.Paragraph);
             AppendXmlStyle(styleContent, TextStyle.Bold | TextStyle.Italic | TextStyle.Underline);
             AppendXmlStyleEnd(styleContent);
-        }
 
-        /// <summary>
-        /// Add all needed styles for all <see cref="TextAlignment"/> combinations to the style content
-        /// </summary>
-        /// <param name="styleContent">The content container for the style informations</param>
-        internal static void AddTextAlignmentStyles(in StringBuilder styleContent)
-        {
-            // Left text alignment
             AppendXmlStyleStart(styleContent, "P21", StyleFamily.Paragraph);
-            styleContent.Append("<style:paragraph-properties fo:text-align=\"start\" style:justify-single-word=\"false\"/>");
+            AppendXmlStyle(styleContent, TextStyle.Left);
             AppendXmlStyleEnd(styleContent);
 
-            // Centered text
             AppendXmlStyleStart(styleContent, "P22", StyleFamily.Paragraph);
-            styleContent.Append("<style:paragraph-properties fo:text-align=\"center\" style:justify-single-word=\"false\"/>");
+            AppendXmlStyle(styleContent, TextStyle.Center);
             AppendXmlStyleEnd(styleContent);
 
-            // Right text alignment
             AppendXmlStyleStart(styleContent, "P23", StyleFamily.Paragraph);
-            styleContent.Append("<style:paragraph-properties fo:text-align=\"end\" style:justify-single-word=\"false\"/>");
+            AppendXmlStyle(styleContent, TextStyle.Right);
             AppendXmlStyleEnd(styleContent);
 
-            // Full justification
             AppendXmlStyleStart(styleContent, "P24", StyleFamily.Paragraph);
-            styleContent.Append("<style:paragraph-properties fo:text-align=\"justify\" style:justify-single-word=\"false\"/>");
+            AppendXmlStyle(styleContent, TextStyle.Justify);
             AppendXmlStyleEnd(styleContent);
         }
 
         /// <summary>
         /// Add all needed styles for simple tables
         /// </summary>
-        /// <param name="styleContent">The content container for the style informations</param>
+        /// <param name="styleContent">The content container for the XML style informations</param>
         internal static void AddTableStyles(in StringBuilder styleContent)
         {
             AppendXmlStyleStart(styleContent, "Tabelle1", StyleFamily.Table);
@@ -115,7 +98,7 @@ namespace NetOdt.Helper
         /// <summary>
         /// Add all needed styles for simple pictures
         /// </summary>
-        /// <param name="styleContent">The content container for the style informations</param>
+        /// <param name="styleContent">The content container for the XML style informations</param>
         internal static void AddPictureStyle(in StringBuilder styleContent)
         {
             AppendXmlStyleStart(styleContent, "fr1", StyleFamily.Graphic);
@@ -124,9 +107,9 @@ namespace NetOdt.Helper
         }
 
         /// <summary>
-        /// Append a XML start element for style informations
+        /// Append a XML start element for XML style informations
         /// </summary>
-        /// <param name="styleContent">The content container for the style informations</param>
+        /// <param name="styleContent">The content container for the XML style informations</param>
         /// <param name="styleName">The name for the style</param>
         /// <param name="styleFamily">The family of the style</param>
         /// <exception cref="ArgumentOutOfRangeException">Style family not supported</exception>
@@ -160,12 +143,30 @@ namespace NetOdt.Helper
         }
 
         /// <summary>
-        /// Append the given text style to the style informations
+        /// Append the given text style to the XML style informations
         /// </summary>
-        /// <param name="styleContent">The content container for the style informations</param>
+        /// <param name="styleContent">The content container for the XML style informations</param>
         /// <param name="style">The style for the style informations</param>
         internal static void AppendXmlStyle(in StringBuilder styleContent, TextStyle style)
         {
+            AppendTextProperties(styleContent, style);
+            AppendParagraphProperties(styleContent, style);
+        }
+
+        /// <summary>
+        /// Append the given text properties to the XML style informations
+        /// </summary>
+        /// <param name="styleContent">The content container for the XML style informations</param>
+        /// <param name="style">The style for the style informations</param>
+        internal static void AppendTextProperties(in StringBuilder styleContent, TextStyle style)
+        {
+            if(!style.HasFlag(TextStyle.Bold)
+            && !style.HasFlag(TextStyle.Italic)
+            && !style.HasFlag(TextStyle.Underline))
+            {
+                return;
+            }
+
             // Note: Don't forget the spaces between the XML properties
 
             styleContent.Append("<");
@@ -212,9 +213,56 @@ namespace NetOdt.Helper
         }
 
         /// <summary>
-        /// Append a XML end element for style informations
+        /// Append the given paragraph properties to the XML style informations
         /// </summary>
-        /// <param name="styleContent">The content container for the style informations</param>
+        /// <param name="styleContent">The content container for the XML style informations</param>
+        /// <param name="style">The style for the style informations</param>
+        internal static void AppendParagraphProperties(in StringBuilder styleContent, TextStyle style)
+        {
+            if(!style.HasFlag(TextStyle.Left)
+            && !style.HasFlag(TextStyle.Center)
+            && !style.HasFlag(TextStyle.Right)
+            && !style.HasFlag(TextStyle.Justify))
+            {
+                return;
+            }
+
+            // Note: Don't forget the spaces between the XML properties
+
+            styleContent.Append("<");
+            styleContent.Append("style:paragraph-properties");
+
+            if(style.HasFlag(TextStyle.Left))
+            {
+                styleContent.Append(" fo:text-align=\"start\"");
+                styleContent.Append(" style:justify-single-word=\"false\"");
+            }
+
+            if(style.HasFlag(TextStyle.Center))
+            {
+                styleContent.Append(" fo:text-align=\"center\"");
+                styleContent.Append(" style:justify-single-word=\"false\"");
+            }
+
+            if(style.HasFlag(TextStyle.Right))
+            {
+                styleContent.Append(" fo:text-align=\"end\"");
+                styleContent.Append(" style:justify-single-word=\"false\"");
+            }
+
+            if(style.HasFlag(TextStyle.Justify))
+            {
+                styleContent.Append(" fo:text-align=\"justify\"");
+                styleContent.Append(" style:justify-single-word=\"false\"");
+            }
+
+            styleContent.Append("/>");
+        }
+
+        /// <summary>
+        /// Append a XML end element for XML style informations
+        /// </summary>
+        /// <param name="styleContent">The content container for the XML style informations</param>
         internal static void AppendXmlStyleEnd(in StringBuilder styleContent)
             => styleContent.Append("</style:style>");
 
@@ -237,10 +285,10 @@ namespace NetOdt.Helper
                 TextStyle.Italic | TextStyle.Underline                  => (00, "P7"),
                 TextStyle.Bold | TextStyle.Italic | TextStyle.Underline => (00, "P8"),
 
-                TextAlignment.Left                                      => (00, "P21"),
-                TextAlignment.Center                                    => (00, "P22"),
-                TextAlignment.Right                                     => (00, "P23"),
-                TextAlignment.Justify                                   => (00, "P24"),
+                TextStyle.Left                                          => (00, "P21"),
+                TextStyle.Center                                        => (00, "P22"),
+                TextStyle.Right                                         => (00, "P23"),
+                TextStyle.Justify                                       => (00, "P24"),
 
                 HeaderStyle.Title                                       => (00, "Title"),
                 HeaderStyle.Subtitle                                    => (00, "Subtitle"),
