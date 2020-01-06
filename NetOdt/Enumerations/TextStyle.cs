@@ -16,7 +16,7 @@ namespace NetOdt.Enumerations
         /// <summary>
         /// A bold text
         /// </summary>
-        Bold = 1,
+        Bold = 1 << 0,
 
         /// <summary>
         /// A italic text
