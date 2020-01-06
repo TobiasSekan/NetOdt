@@ -174,7 +174,7 @@
             The style of a text
             </summary>
         </member>
-        <member name="F:NetOdt.Enumerations.TextStyle.Normal">
+        <member name="F:NetOdt.Enumerations.TextStyle.None">
             <summary>
             Text without any style
             </summary>
@@ -191,7 +191,52 @@
         </member>
         <member name="F:NetOdt.Enumerations.TextStyle.UnderlineSingle">
             <summary>
-            A text with a underline (single stroke)
+            A text with a single underline
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.TextStyle.UnderlineDouble">
+            <summary>
+            A text with a double underline
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.TextStyle.UnderlineBold">
+            <summary>
+            A text with a bold underline
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.TextStyle.UnderlineDotted">
+            <summary>
+            A text with a dotted underline
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.TextStyle.UnderlineDottedBold">
+            <summary>
+            A text with a bold dotted underline
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.TextStyle.UnderlineDash">
+            <summary>
+            A text with a dash underline
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.TextStyle.UnderlineLongDash">
+            <summary>
+            A text with a long-dash underline
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.TextStyle.UnderlineDotDash">
+            <summary>
+            A text with a dot-dash underline
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.TextStyle.UnderlineDotDotDash">
+            <summary>
+            A text with a dot-dot-dash underline
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.TextStyle.UnderlineWave">
+            <summary>
+            A text with a wave underline
             </summary>
         </member>
         <member name="F:NetOdt.Enumerations.TextStyle.Stroke">
@@ -724,13 +769,13 @@
             </summary>
             <param name="dataTable">The <see cref="T:System.Data.DataTable"/> that contains the data for the table</param>
         </member>
-        <member name="M:NetOdt.OdtDocument.Append``1(``0@)">
+        <member name="M:NetOdt.OdtDocument.AppendLine``1(``0@)">
             <summary>
             Append a single line with a unformatted value to the document
             </summary>
             <param name="value">The value to write into the document</param>
         </member>
-        <member name="M:NetOdt.OdtDocument.Append``2(``0@,``1@)">
+        <member name="M:NetOdt.OdtDocument.AppendLine``2(``0@,``1@)">
             <summary>
             Append a single line with a styled value to the document
             </summary>

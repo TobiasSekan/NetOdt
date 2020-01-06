@@ -14,16 +14,16 @@ namespace NetOdt
         /// Append a single line with a unformatted value to the document
         /// </summary>
         /// <param name="value">The value to write into the document</param>
-        public void Append<TValue>(in TValue value)
+        public void AppendLine<TValue>(in TValue value)
             where TValue : notnull
-            => Append(value, TextStyle.None);
+            => AppendLine(value, TextStyle.None);
 
         /// <summary>
         /// Append a single line with a styled value to the document
         /// </summary>
         /// <param name="value">The value to write into the document</param>
         /// <param name="style">The style of the value</param>
-        public void Append<TValue, TStyle>(in TValue value, in TStyle style)
+        public void AppendLine<TValue, TStyle>(in TValue value, in TStyle style)
             where TValue : notnull
             where TStyle : notnull, Enum
         {
@@ -80,7 +80,7 @@ namespace NetOdt
         {
             for(var count = 0; count < countOfEmptyLines; count++)
             {
-                Append(string.Empty, TextStyle.None);
+                AppendLine(string.Empty, TextStyle.None);
             }
         }
 

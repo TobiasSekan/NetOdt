@@ -11,10 +11,10 @@ using NetOdt.Enumerations;
 using var odtDocument = new OdtDocument(path: "E:/MyDocument.odt");
 
 // Append a title
-odtDocument.Append("My document", HeaderStyle.Title);
+odtDocument.AppendLine("My document", HeaderStyle.Title);
 
 // Append a centered bold text
-odtDocument.Append("This is a bold text", TextStyle.Center | TextStyle.Bold);
+odtDocument.AppendLine("This is a bold text", TextStyle.Center | TextStyle.Bold);
 
 // Append ten empty lines
 odtDocument.AppendEmptyLines(lines: 10);

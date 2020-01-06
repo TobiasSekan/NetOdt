@@ -49,36 +49,36 @@ using var odtDocument = new OdtDocument(documentUri, temporaryUri);
 
 ```csharp
 // Append a single line with a unformatted value to the document
-odtDocument.Append(long.MinValue);
-odtDocument.Append(byte.MaxValue);
-odtDocument.Append(uint.MaxValue);
-odtDocument.Append(double.NaN);
+odtDocument.AppendLine(long.MinValue);
+odtDocument.AppendLine(byte.MaxValue);
+odtDocument.AppendLine(uint.MaxValue);
+odtDocument.AppendLine(double.NaN);
 
 // Append a single line with a unformatted text to the document
-odtDocument.Append("This is a text");
+odtDocument.AppendLine("This is a text");
 
 // Append the content of the given StringBuilder into the document
 var content = new StringBuilder();
 content.Append("This is a text a very very very long text");
-odtDocument.Append(content);
+odtDocument.AppendLine(content);
 ```
 
 ## Append formatted values and text into the document
 
 ```csharp
 // Append a single line with a styled value to the document
-odtDocument.Append(long.MinValue, TextStyle.Bold);
-odtDocument.Append(byte.MaxValue, TextStyle.Italic);
-odtDocument.Append(uint.MaxValue, TextStyle.UnderlineSingle);
-odtDocument.Append(double.NaN,    TextStyle.Superscript);
+odtDocument.AppendLine(long.MinValue, TextStyle.Bold);
+odtDocument.AppendLine(byte.MaxValue, TextStyle.Italic);
+odtDocument.AppendLine(uint.MaxValue, TextStyle.UnderlineSingle);
+odtDocument.AppendLine(double.NaN,    TextStyle.Superscript);
 
 // Append a single line with a unformatted text to the document
-odtDocument.Append("This is a stroked text", TextStyle.Stroke);
+odtDocument.AppendLine("This is a stroked text", TextStyle.Stroke);
 
 // Append the content of the given StringBuilder into the document
 var content = new StringBuilder();
 content.Append("This is a text a very very very long text");
-odtDocument.Append(content, TextStyle.Bold | TextStyle.Italic | TextStyle.UnderlineSingle);
+odtDocument.AppendLine(content, TextStyle.Bold | TextStyle.Italic | TextStyle.UnderlineSingle);
 ```
 
 [All supported styles can find here](./styles.md)
@@ -87,16 +87,16 @@ odtDocument.Append(content, TextStyle.Bold | TextStyle.Italic | TextStyle.Underl
 
 ```csharp
 // Append a single line with a align value to the document
-odtDocument.Append(long.MinValue, TextStyle.Left);
-odtDocument.Append(uint.MaxValue, TextStyle.Right);
+odtDocument.AppendLine(long.MinValue, TextStyle.Left);
+odtDocument.AppendLine(uint.MaxValue, TextStyle.Right);
 
 // Append a single line with a unformatted text to the document
-odtDocument.Append("This text is centered", TextStyle.Center);
+odtDocument.AppendLine("This text is centered", TextStyle.Center);
 
 // Append the content of the given StringBuilder into the document
 var content = new StringBuilder();
 content.Append("This is a text a very very very long text");
-odtDocument.Append(content, TextStyle.Justify);
+odtDocument.AppendLine(content, TextStyle.Justify);
 ```
 
 [All supported styles can find here](./styles.md)
@@ -106,18 +106,18 @@ Note: Don't confuse with **Header** and **Footer**
 
 ```csharp
 // Append a value with the given header style
-odtDocument.Append(long.MinValue, HeaderStyle.HeadingLevel01);
-odtDocument.Append(byte.MaxValue, HeaderStyle.HeadingLevel02);
-odtDocument.Append(uint.MaxValue, HeaderStyle.HeadingLevel03);
-odtDocument.Append(double.NaN,    HeaderStyle.HeadingLevel04);
+odtDocument.AppendLine(long.MinValue, HeaderStyle.HeadingLevel01);
+odtDocument.AppendLine(byte.MaxValue, HeaderStyle.HeadingLevel02);
+odtDocument.AppendLine(uint.MaxValue, HeaderStyle.HeadingLevel03);
+odtDocument.AppendLine(double.NaN,    HeaderStyle.HeadingLevel04);
 
 // Append a value with the given header style
-odtDocument.Append("This is a title",  HeaderStyle.Title);
+odtDocument.AppendLine("This is a title",  HeaderStyle.Title);
 
 // Append a content with the given header style
 var content = new StringBuilder();
 content.Append("This is a very very very long footnote");
-odtDocument.Append(content, HeaderStyle.Footnote);
+odtDocument.AppendLine(content, HeaderStyle.Footnote);
 ```
 
 [All supported styles can find here](./styles.md)
