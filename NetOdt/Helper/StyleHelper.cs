@@ -122,45 +122,45 @@ namespace NetOdt.Helper
         }
 
         /// <summary>
-        /// Return the style name and the outline level of a given text style
+        /// Return the outline level and style name of a given text style
         /// </summary>
         /// <param name="style">The text style for the style name</param>
-        /// <returns>The style name and the outline level</returns>
-        internal static (string Name, byte Level) GetStyleAndOutline<TStyle>(in TStyle style)
+        /// <returns>The outline level and style name and </returns>
+        internal static (byte outlineLevel, string styleName) GetStyleAndOutline<TStyle>(in TStyle style)
             where TStyle : notnull, Enum
             => style switch
             {
-                TextStyle.Normal                                        => ("P1", 0),
-                TextStyle.Bold                                          => ("P2", 0),
-                TextStyle.Italic                                        => ("P3", 0),
-                TextStyle.Bold | TextStyle.Italic                       => ("P4", 0),
-                TextStyle.Underline                                     => ("P5", 0),
-                TextStyle.Bold | TextStyle.Underline                    => ("P6", 0),
-                TextStyle.Italic | TextStyle.Underline                  => ("P7", 0),
-                TextStyle.Bold | TextStyle.Italic | TextStyle.Underline => ("P8", 0),
+                TextStyle.Normal                                        => (00, "P1"),
+                TextStyle.Bold                                          => (00, "P2"),
+                TextStyle.Italic                                        => (00, "P3"),
+                TextStyle.Bold | TextStyle.Italic                       => (00, "P4"),
+                TextStyle.Underline                                     => (00, "P5"),
+                TextStyle.Bold | TextStyle.Underline                    => (00, "P6"),
+                TextStyle.Italic | TextStyle.Underline                  => (00, "P7"),
+                TextStyle.Bold | TextStyle.Italic | TextStyle.Underline => (00, "P8"),
 
-                TextAlignment.Left                                      => ("P21", 0),
-                TextAlignment.Center                                    => ("P22", 0),
-                TextAlignment.Right                                     => ("P23", 0),
-                TextAlignment.Justify                                   => ("P24", 0),
+                TextAlignment.Left                                      => (00, "P21"),
+                TextAlignment.Center                                    => (00, "P22"),
+                TextAlignment.Right                                     => (00, "P23"),
+                TextAlignment.Justify                                   => (00, "P24"),
 
-                HeaderStyle.Title                                       => ("Title", 0),
-                HeaderStyle.Subtitle                                    => ("Subtitle", 0),
-                HeaderStyle.Signature                                   => ("Signature", 0),
-                HeaderStyle.Quotations                                  => ("Quotations", 0),
-                HeaderStyle.Endnote                                     => ("Endnote", 0),
-                HeaderStyle.Footnote                                    => ("Footnote", 0),
+                HeaderStyle.Title                                       => (00, "Title"),
+                HeaderStyle.Subtitle                                    => (00, "Subtitle"),
+                HeaderStyle.Signature                                   => (00, "Signature"),
+                HeaderStyle.Quotations                                  => (00, "Quotations"),
+                HeaderStyle.Endnote                                     => (00, "Endnote"),
+                HeaderStyle.Footnote                                    => (00, "Footnote"),
 
-                HeaderStyle.HeadingLevel01                              => ("Heading_20_1", 1),
-                HeaderStyle.HeadingLevel02                              => ("Heading_20_2", 2),
-                HeaderStyle.HeadingLevel03                              => ("Heading_20_3", 3),
-                HeaderStyle.HeadingLevel04                              => ("Heading_20_4", 4),
-                HeaderStyle.HeadingLevel05                              => ("Heading_20_5", 5),
-                HeaderStyle.HeadingLevel06                              => ("Heading_20_6", 6),
-                HeaderStyle.HeadingLevel07                              => ("Heading_20_7", 7),
-                HeaderStyle.HeadingLevel08                              => ("Heading_20_8", 8),
-                HeaderStyle.HeadingLevel09                              => ("Heading_20_9", 9),
-                HeaderStyle.HeadingLevel10                              => ("Heading_20_10", 10),
+                HeaderStyle.HeadingLevel01                              => (01, "Heading_20_1"),
+                HeaderStyle.HeadingLevel02                              => (02, "Heading_20_2"),
+                HeaderStyle.HeadingLevel03                              => (03, "Heading_20_3"),
+                HeaderStyle.HeadingLevel04                              => (04, "Heading_20_4"),
+                HeaderStyle.HeadingLevel05                              => (05, "Heading_20_5"),
+                HeaderStyle.HeadingLevel06                              => (06, "Heading_20_6"),
+                HeaderStyle.HeadingLevel07                              => (07, "Heading_20_7"),
+                HeaderStyle.HeadingLevel08                              => (08, "Heading_20_8"),
+                HeaderStyle.HeadingLevel09                              => (09, "Heading_20_9"),
+                HeaderStyle.HeadingLevel10                              => (10, "Heading_20_10"),
 
                 _ => throw new NotSupportedException("Text style not supported")
             };

@@ -91,7 +91,7 @@ namespace NetOdt
         /// <param name="style">The style for the text passage</param>
         internal void AppendXmlTextStart<TStyle>(in TStyle style) where TStyle : notnull, Enum
         {
-            var styleData = StyleHelper.GetStyleAndOutline(style);
+            var (outlineLevel, styleName) = StyleHelper.GetStyleAndOutline(style);
 
             switch(style)
             {
@@ -105,11 +105,11 @@ namespace NetOdt
                 case HeaderStyle.HeadingLevel08:
                 case HeaderStyle.HeadingLevel09:
                 case HeaderStyle.HeadingLevel10:
-                    TextContent.Append($"<text:h text:style-name=\"{styleData.Name}\" text:outline-level=\"{styleData.Level}\">");
+                    TextContent.Append($"<text:h text:style-name=\"{styleName}\" text:outline-level=\"{outlineLevel}\">");
                     break;
 
                 default:
-                    TextContent.Append($"<text:p text:style-name=\"{styleData.Name}\">");
+                    TextContent.Append($"<text:p text:style-name=\"{styleName}\">");
                     break;
             }
         }
