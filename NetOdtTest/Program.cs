@@ -49,14 +49,14 @@ namespace NetOdtTest
 
             odtDoucment.Append(long.MinValue, TextStyle.Bold);
             odtDoucment.Append(byte.MaxValue, TextStyle.Italic);
-            odtDoucment.Append(uint.MaxValue, TextStyle.Underline);
-            odtDoucment.Append(double.NaN, TextStyle.Bold | TextStyle.Italic | TextStyle.Underline | TextStyle.Justify);
+            odtDoucment.Append(uint.MaxValue, TextStyle.UnderlineSingle);
+            odtDoucment.Append(double.NaN, TextStyle.Bold | TextStyle.Italic | TextStyle.UnderlineSingle | TextStyle.Justify);
 
-            odtDoucment.Append("This\n\n\nis\n\n\na\n\n\ntext", TextStyle.Bold | TextStyle.Underline);
+            odtDoucment.Append("This\n\n\nis\n\n\na\n\n\ntext", TextStyle.Bold | TextStyle.UnderlineSingle);
 
             var contentTwo = new StringBuilder();
             content.Append("This is a text a\n very\n\n\nvery very\n\n\nlong text");
-            odtDoucment.Append(content, TextStyle.Italic | TextStyle.Underline);
+            odtDoucment.Append(content, TextStyle.Italic | TextStyle.UnderlineSingle);
 
             odtDoucment.Append("sub-sub-sub-sub", HeaderStyle.Subtitle);
 

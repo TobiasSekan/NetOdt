@@ -11,41 +11,56 @@ namespace NetOdt.Enumerations
         /// <summary>
         /// Text without any style
         /// </summary>
-        Normal = 0b_0000_0000,
+        Normal = 0,
 
         /// <summary>
         /// A bold text
         /// </summary>
-        Bold = 0b_0000_0001,
+        Bold = 1,
 
         /// <summary>
         /// A italic text
         /// </summary>
-        Italic = 0b_0000_0010,
+        Italic = 1 << 1,
 
         /// <summary>
-        /// A text with a underline
+        /// A text with a underline (single stroke)
         /// </summary>
-        Underline = 0x_0000_0100,
+        UnderlineSingle = 1 << 2,
+
+        /// <summary>
+        /// A stroked text
+        /// </summary>
+        Stroke = 1 << 3,
+
+        /// <summary>
+        /// A subscript text
+        /// </summary>
+        Subscript = 1 << 4,
+
+        /// <summary>
+        /// A superscript text
+        /// </summary>
+        Superscript = 1 << 5,
 
         /// <summary>
         /// The text alignment is left
         /// </summary>
-        Left = 0x_0001_0000,
+        Left = 1 << 6,
 
         /// <summary>
         /// The text alignment is centered
         /// </summary>
-        Center = 0x_0010_0000,
+        Center = 1 << 7,
 
         /// <summary>
         /// The text alignment is right
         /// </summary>
-        Right = 0x_0100_0000,
+        Right = 1 << 8,
 
         /// <summary>
         /// The text use full justification
         /// </summary>
-        Justify = 0x_1000_0000,
+        Justify = 1 << 9,
     }
 }

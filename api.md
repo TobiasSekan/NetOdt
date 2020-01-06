@@ -69,16 +69,16 @@ odtDocument.Append(content);
 // Append a single line with a styled value to the document
 odtDocument.Append(long.MinValue, TextStyle.Bold);
 odtDocument.Append(byte.MaxValue, TextStyle.Italic);
-odtDocument.Append(uint.MaxValue, TextStyle.Underline);
-odtDocument.Append(double.NaN,    TextStyle.Bold | TextStyle.Italic | TextStyle.Underline);
+odtDocument.Append(uint.MaxValue, TextStyle.UnderlineSingle);
+odtDocument.Append(double.NaN,    TextStyle.Bold | TextStyle.Italic | TextStyle.UnderlineSingle);
 
 // Append a single line with a unformatted text to the document
-odtDocument.Append("This is a text", TextStyle.Bold | TextStyle.Underline);
+odtDocument.Append("This is a text", TextStyle.Bold | TextStyle.UnderlineSingle);
 
 // Append the content of the given StringBuilder into the document
 var content = new StringBuilder();
 content.Append("This is a text a very very very long text");
-odtDocument.Append(content, TextStyle.Italic | TextStyle.Underline);
+odtDocument.Append(content, TextStyle.Italic | TextStyle.UnderlineSingle);
 ```
 
 [All supported styles can find here](./styles.md)

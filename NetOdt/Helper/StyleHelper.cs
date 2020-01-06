@@ -23,54 +23,6 @@ namespace NetOdt.Helper
                 AppendXmlStyle(styleContent, style.Key);
                 AppendXmlStyleEnd(styleContent);
             }
-
-            // AppendXmlStyleStart(styleContent, "P1", StyleFamily.Paragraph);
-            // AppendXmlStyle(styleContent, TextStyle.Normal);
-            // AppendXmlStyleEnd(styleContent);
-
-            //AppendXmlStyleStart(styleContent, "P2", StyleFamily.Paragraph);
-            //AppendXmlStyle(styleContent, TextStyle.Bold);
-            //AppendXmlStyleEnd(styleContent);
-
-            //AppendXmlStyleStart(styleContent, "P3", StyleFamily.Paragraph);
-            //AppendXmlStyle(styleContent, TextStyle.Italic);
-            //AppendXmlStyleEnd(styleContent);
-
-            //AppendXmlStyleStart(styleContent, "P4", StyleFamily.Paragraph);
-            //AppendXmlStyle(styleContent, TextStyle.Bold | TextStyle.Italic);
-            //AppendXmlStyleEnd(styleContent);
-
-            //AppendXmlStyleStart(styleContent, "P5", StyleFamily.Paragraph);
-            //AppendXmlStyle(styleContent, TextStyle.Underline);
-            //AppendXmlStyleEnd(styleContent);
-
-            //AppendXmlStyleStart(styleContent, "P6", StyleFamily.Paragraph);
-            //AppendXmlStyle(styleContent, TextStyle.Bold | TextStyle.Underline);
-            //AppendXmlStyleEnd(styleContent);
-
-            //AppendXmlStyleStart(styleContent, "P7", StyleFamily.Paragraph);
-            //AppendXmlStyle(styleContent, TextStyle.Italic | TextStyle.Underline);
-            //AppendXmlStyleEnd(styleContent);
-
-            //AppendXmlStyleStart(styleContent, "P8", StyleFamily.Paragraph);
-            //AppendXmlStyle(styleContent, TextStyle.Bold | TextStyle.Italic | TextStyle.Underline);
-            //AppendXmlStyleEnd(styleContent);
-
-            //AppendXmlStyleStart(styleContent, "P21", StyleFamily.Paragraph);
-            //AppendXmlStyle(styleContent, TextStyle.Left);
-            //AppendXmlStyleEnd(styleContent);
-
-            //AppendXmlStyleStart(styleContent, "P22", StyleFamily.Paragraph);
-            //AppendXmlStyle(styleContent, TextStyle.Center);
-            //AppendXmlStyleEnd(styleContent);
-
-            //AppendXmlStyleStart(styleContent, "P23", StyleFamily.Paragraph);
-            //AppendXmlStyle(styleContent, TextStyle.Right);
-            //AppendXmlStyleEnd(styleContent);
-
-            //AppendXmlStyleStart(styleContent, "P24", StyleFamily.Paragraph);
-            //AppendXmlStyle(styleContent, TextStyle.Justify);
-            //AppendXmlStyleEnd(styleContent);
         }
 
         /// <summary>
@@ -171,7 +123,7 @@ namespace NetOdt.Helper
         {
             if(!style.HasFlag(TextStyle.Bold)
             && !style.HasFlag(TextStyle.Italic)
-            && !style.HasFlag(TextStyle.Underline))
+            && !style.HasFlag(TextStyle.UnderlineSingle))
             {
                 return;
             }
@@ -186,7 +138,7 @@ namespace NetOdt.Helper
                 styleContent.Append(" fo:font-style=\"italic\"");
             }
 
-            if(style.HasFlag(TextStyle.Underline))
+            if(style.HasFlag(TextStyle.UnderlineSingle))
             {
                 styleContent.Append(" style:text-underline-style=\"solid\"");
                 styleContent.Append(" style:text-underline-width=\"auto\"");

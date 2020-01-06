@@ -37,8 +37,23 @@ odtDocument.AppendImage(path: "E:/picture1.jpg", width: 22.5, height: 14.1);
 [All API calls can find here](./api.md)
 
 ## Upcoming features
+* More text styles
+  * stroke
+  * superscript
+  * subscript
 * Header and footer
-* Combinations of text style and text alignment
+* Font and font size
+* Page break
+* More underline text styles
+  * double
+  * bold
+  * dotted
+  * bold dotted
+  * stroke
+  * stroke long
+  * dot stroke
+  * dot dot stroke
+  * wave
 * Text color support (foreground, background)
 * Data type support for table cells (currency for `decimal`, ...)
 * ...

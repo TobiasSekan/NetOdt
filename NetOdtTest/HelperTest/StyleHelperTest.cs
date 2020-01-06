@@ -25,13 +25,13 @@ namespace NetOdtTest.HelperTest
         [TestCase(TextStyle.Normal,    "")]
         [TestCase(TextStyle.Bold,      "<style:text-properties fo:font-weight=\"bold\" style:font-weight-asian=\"bold\" style:font-weight-complex=\"bold\"/>")]
         [TestCase(TextStyle.Italic,    "<style:text-properties fo:font-style=\"italic\" style:font-style-asian=\"italic\" style:font-style-complex=\"italic\"/>")]
-        [TestCase(TextStyle.Underline, "<style:text-properties style:text-underline-style=\"solid\" style:text-underline-width=\"auto\" style:text-underline-color=\"font-color\"/>")]
+        [TestCase(TextStyle.UnderlineSingle, "<style:text-properties style:text-underline-style=\"solid\" style:text-underline-width=\"auto\" style:text-underline-color=\"font-color\"/>")]
 
         [TestCase(TextStyle.Bold | TextStyle.Italic,      "<style:text-properties fo:font-style=\"italic\" fo:font-weight=\"bold\" style:font-style-asian=\"italic\" style:font-weight-asian=\"bold\" style:font-style-complex=\"italic\" style:font-weight-complex=\"bold\"/>")]
-        [TestCase(TextStyle.Bold | TextStyle.Underline,   "<style:text-properties style:text-underline-style=\"solid\" style:text-underline-width=\"auto\" style:text-underline-color=\"font-color\" fo:font-weight=\"bold\" style:font-weight-asian=\"bold\" style:font-weight-complex=\"bold\"/>")]
-        [TestCase(TextStyle.Italic | TextStyle.Underline, "<style:text-properties fo:font-style=\"italic\" style:text-underline-style=\"solid\" style:text-underline-width=\"auto\" style:text-underline-color=\"font-color\" style:font-style-asian=\"italic\" style:font-style-complex=\"italic\"/>")]
+        [TestCase(TextStyle.Bold | TextStyle.UnderlineSingle,   "<style:text-properties style:text-underline-style=\"solid\" style:text-underline-width=\"auto\" style:text-underline-color=\"font-color\" fo:font-weight=\"bold\" style:font-weight-asian=\"bold\" style:font-weight-complex=\"bold\"/>")]
+        [TestCase(TextStyle.Italic | TextStyle.UnderlineSingle, "<style:text-properties fo:font-style=\"italic\" style:text-underline-style=\"solid\" style:text-underline-width=\"auto\" style:text-underline-color=\"font-color\" style:font-style-asian=\"italic\" style:font-style-complex=\"italic\"/>")]
 
-        [TestCase(TextStyle.Bold | TextStyle.Italic | TextStyle.Underline, "<style:text-properties fo:font-style=\"italic\" style:text-underline-style=\"solid\" style:text-underline-width=\"auto\" style:text-underline-color=\"font-color\" fo:font-weight=\"bold\" style:font-style-asian=\"italic\" style:font-weight-asian=\"bold\" style:font-style-complex=\"italic\" style:font-weight-complex=\"bold\"/>")]
+        [TestCase(TextStyle.Bold | TextStyle.Italic | TextStyle.UnderlineSingle, "<style:text-properties fo:font-style=\"italic\" style:text-underline-style=\"solid\" style:text-underline-width=\"auto\" style:text-underline-color=\"font-color\" fo:font-weight=\"bold\" style:font-style-asian=\"italic\" style:font-weight-asian=\"bold\" style:font-style-complex=\"italic\" style:font-weight-complex=\"bold\"/>")]
 
         [TestCase(TextStyle.Left    , "<style:paragraph-properties fo:text-align=\"start\" style:justify-single-word=\"false\"/>")]
         [TestCase(TextStyle.Center  , "<style:paragraph-properties fo:text-align=\"center\" style:justify-single-word=\"false\"/>")]

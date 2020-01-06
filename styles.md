@@ -4,7 +4,7 @@
 
 * Bold
 * Italic
-* Underline (one straight line)
+* Underline (single stroke)
 
 * Left
 * Center
