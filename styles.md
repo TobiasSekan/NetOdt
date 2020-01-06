@@ -1,26 +1,25 @@
 # Supported styles
 
-## Supported text styles
+## Supported text styles and alignments
 
 * Bold
 * Italic
 * Underline (one straight line)
-
-For style combinations you must combine the text styling via a bitwise or `|`, like
-```
-TextStyle.Bold | TextStyle.Italic | TextStyle.Underline
-```
-
-## Supported text alignments
 
 * Left
 * Center
 * Right
 * Justify
 
-Note: A combination from text alignment and a text style is currently not supported
+For style combinations you must combine the text styling via a bitwise or `|`, like
+```
+TextStyle.Center | TextStyle.Bold
+
+TextStyle.Bold | TextStyle.Italic | TextStyle.Underline
+```
 
 ## Supported header styles
+
 You can only use one style for a header.
 * Title
 * Heading level 1

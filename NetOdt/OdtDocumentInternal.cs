@@ -1,6 +1,8 @@
 ﻿using NetOdt.Constants;
+using NetOdt.Enumerations;
 using NetOdt.Helper;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -66,6 +68,11 @@ namespace NetOdt
         /// </summary>
         internal Uri ManifestFileUri { get; private set; }
 
+        /// <summary>
+        /// List that contains all need styles and style names
+        /// </summary>
+        internal IDictionary<TextStyle, string> NeededStyles;
+
         #endregion Internal Properties
 
         #region Internal Methods
@@ -114,7 +121,7 @@ namespace NetOdt
         internal void WriteContent()
         {
             // TODO: Add standard text styles only when needed
-            StyleHelper.AddStandardTextStyles(StyleContent);
+            StyleHelper.AddStandardTextStyles(StyleContent, NeededStyles);
 
             // When a document has no tables, we don't need a table style
             if(TableCount > 0)
@@ -160,6 +167,56 @@ namespace NetOdt
         }
 
 #pragma warning restore IDE0063 // don't use simple using syntax to avoid possible not closed and disposed streams
+
+        /// <summary>
+        /// Try to add a new style to the style list and return a style name for the style
+        /// </summary>
+        /// <param name="style">The style to add to the style list</param>
+        internal string TryToAddStyle(TextStyle style)
+        {
+            CheckAcceptStyles(style);
+
+            string styleName;
+
+            if(NeededStyles.ContainsKey(style))
+            {
+                NeededStyles.TryGetValue(style, out styleName);
+            }
+            else
+            {
+                StyleCount++;
+                styleName = $"P{StyleCount}";
+                NeededStyles.Add(style, styleName);
+            }
+
+            return styleName;
+        }
+
+        /// <summary>
+        /// Check if the style combination is possible
+        /// </summary>
+        /// <param name="style">The style to check</param>
+        internal void CheckAcceptStyles(TextStyle style)
+        {
+            switch(style)
+            {
+                case TextStyle.Left | TextStyle.Center:
+                case TextStyle.Left | TextStyle.Right:
+                case TextStyle.Left | TextStyle.Justify:
+                case TextStyle.Center | TextStyle.Right:
+                case TextStyle.Center | TextStyle.Justify:
+                case TextStyle.Right | TextStyle.Justify:
+                case TextStyle.Left | TextStyle.Center | TextStyle.Right:
+                case TextStyle.Left | TextStyle.Center | TextStyle.Justify:
+                case TextStyle.Left | TextStyle.Right | TextStyle.Justify:
+                case TextStyle.Center | TextStyle.Right | TextStyle.Justify:
+                case TextStyle.Left | TextStyle.Center | TextStyle.Right | TextStyle.Justify:
+                    throw new ArgumentOutOfRangeException(nameof(style), style, "Only one alignment can be used at same time");
+
+                default:
+                    return;
+            }
+        }
 
         #endregion Internal Methods
     }

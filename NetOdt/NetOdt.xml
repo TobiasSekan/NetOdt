@@ -319,11 +319,12 @@
             Helper class to easier work with ODT document styles
             </summary>
         </member>
-        <member name="M:NetOdt.Helper.StyleHelper.AddStandardTextStyles(System.Text.StringBuilder@)">
+        <member name="M:NetOdt.Helper.StyleHelper.AddStandardTextStyles(System.Text.StringBuilder@,System.Collections.Generic.IDictionary{NetOdt.Enumerations.TextStyle,System.String})">
             <summary>
             Add all needed styles for all <see cref="T:NetOdt.Enumerations.TextStyle"/> combinations to the style content
             </summary>
             <param name="styleContent">The content container for the XML style informations</param>
+            <param name="neededStyles">List that contains all needed styles</param>
         </member>
         <member name="M:NetOdt.Helper.StyleHelper.AddTableStyles(System.Text.StringBuilder@)">
             <summary>
@@ -471,6 +472,11 @@
             The count of picture
             </summary>
         </member>
+        <member name="P:NetOdt.OdtDocument.StyleCount">
+            <summary>
+            The count of styles
+            </summary>
+        </member>
         <member name="M:NetOdt.OdtDocument.#ctor">
             <summary>
             Create a new ODT document, save the ODT document as "Unknown.odt" and use a automatic generated temporary folder
@@ -582,6 +588,11 @@
             The uniform resource identifier to the manifest file (typical inside the <see cref="P:NetOdt.OdtDocument.TempWorkingUri"/>)
             </summary>
         </member>
+        <member name="F:NetOdt.OdtDocument.NeededStyles">
+            <summary>
+            List that contains all need styles and style names
+            </summary>
+        </member>
         <member name="M:NetOdt.OdtDocument.ReadContent">
             <summary>
             Read the complete content of the content file
@@ -591,6 +602,18 @@
             <summary>
             Write the complete content to the content file (overwrite the existing file)
             </summary>
+        </member>
+        <member name="M:NetOdt.OdtDocument.TryToAddStyle(NetOdt.Enumerations.TextStyle)">
+            <summary>
+            Try to add a new style to the style list and return a style name for the style
+            </summary>
+            <param name="style">The style to add to the style list</param>
+        </member>
+        <member name="M:NetOdt.OdtDocument.CheckAcceptStyles(NetOdt.Enumerations.TextStyle)">
+            <summary>
+            Check if the style combination is possible
+            </summary>
+            <param name="style">The style to check</param>
         </member>
         <member name="M:NetOdt.OdtDocument.SaveAs(System.String@)">
             <summary>

@@ -1,6 +1,8 @@
 ﻿using NetOdt.Constants;
+using NetOdt.Enumerations;
 using NetOdt.Helper;
 using System;
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Xml;
@@ -35,6 +37,11 @@ namespace NetOdt
         /// The count of picture
         /// </summary>
         public byte PictureCount { get; private set; }
+
+        /// <summary>
+        /// The count of styles
+        /// </summary>
+        public byte StyleCount { get; private set; }
 
         #endregion Public Properties
 
@@ -106,6 +113,8 @@ namespace NetOdt
             AfterTextContent      = new StringBuilder();
             BeforeManifestContent = new StringBuilder();
             ManifestContent       = new StringBuilder();
+
+            NeededStyles          = new Dictionary<TextStyle, string>();
 
             OdtDocumentHelper.CreateOdtTemplate(TempWorkingUri);
             ReadContent();

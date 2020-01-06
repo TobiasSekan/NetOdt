@@ -1,5 +1,6 @@
 ﻿using NetOdt.Enumerations;
 using System;
+using System.Collections.Generic;
 using System.Text;
 
 namespace NetOdt.Helper
@@ -13,55 +14,63 @@ namespace NetOdt.Helper
         /// Add all needed styles for all <see cref="TextStyle"/> combinations to the style content
         /// </summary>
         /// <param name="styleContent">The content container for the XML style informations</param>
-        internal static void AddStandardTextStyles(in StringBuilder styleContent)
+        /// <param name="neededStyles">List that contains all needed styles</param>
+        internal static void AddStandardTextStyles(in StringBuilder styleContent, IDictionary<TextStyle, string> neededStyles)
         {
-            AppendXmlStyleStart(styleContent, "P1", StyleFamily.Paragraph);
-            AppendXmlStyle(styleContent, TextStyle.Normal);
-            AppendXmlStyleEnd(styleContent);
+            foreach(var style in neededStyles)
+            {
+                AppendXmlStyleStart(styleContent, style.Value, StyleFamily.Paragraph);
+                AppendXmlStyle(styleContent, style.Key);
+                AppendXmlStyleEnd(styleContent);
+            }
 
-            AppendXmlStyleStart(styleContent, "P2", StyleFamily.Paragraph);
-            AppendXmlStyle(styleContent, TextStyle.Bold);
-            AppendXmlStyleEnd(styleContent);
+            // AppendXmlStyleStart(styleContent, "P1", StyleFamily.Paragraph);
+            // AppendXmlStyle(styleContent, TextStyle.Normal);
+            // AppendXmlStyleEnd(styleContent);
 
-            AppendXmlStyleStart(styleContent, "P3", StyleFamily.Paragraph);
-            AppendXmlStyle(styleContent, TextStyle.Italic);
-            AppendXmlStyleEnd(styleContent);
+            //AppendXmlStyleStart(styleContent, "P2", StyleFamily.Paragraph);
+            //AppendXmlStyle(styleContent, TextStyle.Bold);
+            //AppendXmlStyleEnd(styleContent);
 
-            AppendXmlStyleStart(styleContent, "P4", StyleFamily.Paragraph);
-            AppendXmlStyle(styleContent, TextStyle.Bold | TextStyle.Italic);
-            AppendXmlStyleEnd(styleContent);
+            //AppendXmlStyleStart(styleContent, "P3", StyleFamily.Paragraph);
+            //AppendXmlStyle(styleContent, TextStyle.Italic);
+            //AppendXmlStyleEnd(styleContent);
 
-            AppendXmlStyleStart(styleContent, "P5", StyleFamily.Paragraph);
-            AppendXmlStyle(styleContent, TextStyle.Underline);
-            AppendXmlStyleEnd(styleContent);
+            //AppendXmlStyleStart(styleContent, "P4", StyleFamily.Paragraph);
+            //AppendXmlStyle(styleContent, TextStyle.Bold | TextStyle.Italic);
+            //AppendXmlStyleEnd(styleContent);
 
-            AppendXmlStyleStart(styleContent, "P6", StyleFamily.Paragraph);
-            AppendXmlStyle(styleContent, TextStyle.Bold | TextStyle.Underline);
-            AppendXmlStyleEnd(styleContent);
+            //AppendXmlStyleStart(styleContent, "P5", StyleFamily.Paragraph);
+            //AppendXmlStyle(styleContent, TextStyle.Underline);
+            //AppendXmlStyleEnd(styleContent);
 
-            AppendXmlStyleStart(styleContent, "P7", StyleFamily.Paragraph);
-            AppendXmlStyle(styleContent, TextStyle.Italic | TextStyle.Underline);
-            AppendXmlStyleEnd(styleContent);
+            //AppendXmlStyleStart(styleContent, "P6", StyleFamily.Paragraph);
+            //AppendXmlStyle(styleContent, TextStyle.Bold | TextStyle.Underline);
+            //AppendXmlStyleEnd(styleContent);
 
-            AppendXmlStyleStart(styleContent, "P8", StyleFamily.Paragraph);
-            AppendXmlStyle(styleContent, TextStyle.Bold | TextStyle.Italic | TextStyle.Underline);
-            AppendXmlStyleEnd(styleContent);
+            //AppendXmlStyleStart(styleContent, "P7", StyleFamily.Paragraph);
+            //AppendXmlStyle(styleContent, TextStyle.Italic | TextStyle.Underline);
+            //AppendXmlStyleEnd(styleContent);
 
-            AppendXmlStyleStart(styleContent, "P21", StyleFamily.Paragraph);
-            AppendXmlStyle(styleContent, TextStyle.Left);
-            AppendXmlStyleEnd(styleContent);
+            //AppendXmlStyleStart(styleContent, "P8", StyleFamily.Paragraph);
+            //AppendXmlStyle(styleContent, TextStyle.Bold | TextStyle.Italic | TextStyle.Underline);
+            //AppendXmlStyleEnd(styleContent);
 
-            AppendXmlStyleStart(styleContent, "P22", StyleFamily.Paragraph);
-            AppendXmlStyle(styleContent, TextStyle.Center);
-            AppendXmlStyleEnd(styleContent);
+            //AppendXmlStyleStart(styleContent, "P21", StyleFamily.Paragraph);
+            //AppendXmlStyle(styleContent, TextStyle.Left);
+            //AppendXmlStyleEnd(styleContent);
 
-            AppendXmlStyleStart(styleContent, "P23", StyleFamily.Paragraph);
-            AppendXmlStyle(styleContent, TextStyle.Right);
-            AppendXmlStyleEnd(styleContent);
+            //AppendXmlStyleStart(styleContent, "P22", StyleFamily.Paragraph);
+            //AppendXmlStyle(styleContent, TextStyle.Center);
+            //AppendXmlStyleEnd(styleContent);
 
-            AppendXmlStyleStart(styleContent, "P24", StyleFamily.Paragraph);
-            AppendXmlStyle(styleContent, TextStyle.Justify);
-            AppendXmlStyleEnd(styleContent);
+            //AppendXmlStyleStart(styleContent, "P23", StyleFamily.Paragraph);
+            //AppendXmlStyle(styleContent, TextStyle.Right);
+            //AppendXmlStyleEnd(styleContent);
+
+            //AppendXmlStyleStart(styleContent, "P24", StyleFamily.Paragraph);
+            //AppendXmlStyle(styleContent, TextStyle.Justify);
+            //AppendXmlStyleEnd(styleContent);
         }
 
         /// <summary>
@@ -276,37 +285,23 @@ namespace NetOdt.Helper
             where TStyle : notnull, Enum
             => style switch
             {
-                TextStyle.Normal                                        => (00, "P1"),
-                TextStyle.Bold                                          => (00, "P2"),
-                TextStyle.Italic                                        => (00, "P3"),
-                TextStyle.Bold | TextStyle.Italic                       => (00, "P4"),
-                TextStyle.Underline                                     => (00, "P5"),
-                TextStyle.Bold | TextStyle.Underline                    => (00, "P6"),
-                TextStyle.Italic | TextStyle.Underline                  => (00, "P7"),
-                TextStyle.Bold | TextStyle.Italic | TextStyle.Underline => (00, "P8"),
+                HeaderStyle.Title          => (00, "Title"),
+                HeaderStyle.Subtitle       => (00, "Subtitle"),
+                HeaderStyle.Signature      => (00, "Signature"),
+                HeaderStyle.Quotations     => (00, "Quotations"),
+                HeaderStyle.Endnote        => (00, "Endnote"),
+                HeaderStyle.Footnote       => (00, "Footnote"),
 
-                TextStyle.Left                                          => (00, "P21"),
-                TextStyle.Center                                        => (00, "P22"),
-                TextStyle.Right                                         => (00, "P23"),
-                TextStyle.Justify                                       => (00, "P24"),
-
-                HeaderStyle.Title                                       => (00, "Title"),
-                HeaderStyle.Subtitle                                    => (00, "Subtitle"),
-                HeaderStyle.Signature                                   => (00, "Signature"),
-                HeaderStyle.Quotations                                  => (00, "Quotations"),
-                HeaderStyle.Endnote                                     => (00, "Endnote"),
-                HeaderStyle.Footnote                                    => (00, "Footnote"),
-
-                HeaderStyle.HeadingLevel01                              => (01, "Heading_20_1"),
-                HeaderStyle.HeadingLevel02                              => (02, "Heading_20_2"),
-                HeaderStyle.HeadingLevel03                              => (03, "Heading_20_3"),
-                HeaderStyle.HeadingLevel04                              => (04, "Heading_20_4"),
-                HeaderStyle.HeadingLevel05                              => (05, "Heading_20_5"),
-                HeaderStyle.HeadingLevel06                              => (06, "Heading_20_6"),
-                HeaderStyle.HeadingLevel07                              => (07, "Heading_20_7"),
-                HeaderStyle.HeadingLevel08                              => (08, "Heading_20_8"),
-                HeaderStyle.HeadingLevel09                              => (09, "Heading_20_9"),
-                HeaderStyle.HeadingLevel10                              => (10, "Heading_20_10"),
+                HeaderStyle.HeadingLevel01 => (01, "Heading_20_1"),
+                HeaderStyle.HeadingLevel02 => (02, "Heading_20_2"),
+                HeaderStyle.HeadingLevel03 => (03, "Heading_20_3"),
+                HeaderStyle.HeadingLevel04 => (04, "Heading_20_4"),
+                HeaderStyle.HeadingLevel05 => (05, "Heading_20_5"),
+                HeaderStyle.HeadingLevel06 => (06, "Heading_20_6"),
+                HeaderStyle.HeadingLevel07 => (07, "Heading_20_7"),
+                HeaderStyle.HeadingLevel08 => (08, "Heading_20_8"),
+                HeaderStyle.HeadingLevel09 => (09, "Heading_20_9"),
+                HeaderStyle.HeadingLevel10 => (10, "Heading_20_10"),
 
                 _ => throw new ArgumentOutOfRangeException(nameof(style), style, "Text style not supported")
             };

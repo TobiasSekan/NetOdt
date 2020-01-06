@@ -26,10 +26,10 @@ namespace NetOdtTest
             odtDoucment.Append("Unformatted", HeaderStyle.HeadingLevel01);
 
             odtDoucment.AppendEmptyLines(countOfEmptyLines: 5);
-            odtDoucment.Append(byte.MaxValue, TextStyle.Center);
+            odtDoucment.Append(byte.MaxValue, TextStyle.Center | TextStyle.Justify);
 
             odtDoucment.AppendEmptyLines(countOfEmptyLines: 2);
-            odtDoucment.Append(uint.MaxValue, TextStyle.Right);
+            odtDoucment.Append(uint.MaxValue, TextStyle.Right | TextStyle.Italic);
 
             odtDoucment.AppendEmptyLines(countOfEmptyLines: 1);
             odtDoucment.Append(double.NaN);
@@ -50,7 +50,7 @@ namespace NetOdtTest
             odtDoucment.Append(long.MinValue, TextStyle.Bold);
             odtDoucment.Append(byte.MaxValue, TextStyle.Italic);
             odtDoucment.Append(uint.MaxValue, TextStyle.Underline);
-            odtDoucment.Append(double.NaN, TextStyle.Bold | TextStyle.Italic | TextStyle.Underline);
+            odtDoucment.Append(double.NaN, TextStyle.Bold | TextStyle.Italic | TextStyle.Underline | TextStyle.Justify);
 
             odtDoucment.Append("This\n\n\nis\n\n\na\n\n\ntext", TextStyle.Bold | TextStyle.Underline);
 

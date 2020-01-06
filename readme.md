@@ -13,11 +13,8 @@ using var odtDocument = new OdtDocument(path: "E:/MyDocument.odt");
 // Append a title
 odtDocument.Append("My document", HeaderStyle.Title);
 
-// Append a bold text
-odtDocument.Append("This is a bold text", TextStyle.Bold);
-
-// Append a centered text
-odtDocument.Append("This text is centered", TextStyle.Center);
+// Append a centered bold text
+odtDocument.Append("This is a bold text", TextStyle.Center | TextStyle.Bold);
 
 // Append ten empty lines
 odtDocument.AppendEmptyLines(lines: 10);
@@ -33,6 +30,10 @@ odtDocument.AppendImage(path: "E:/picture1.jpg", width: 22.5, height: 14.1);
 
 // thats it :-)
 ```
+
+## Documentation
+
+[All supported styles can find here](./styles.md)
 [All API calls can find here](./api.md)
 
 ## Upcoming features
@@ -44,9 +45,6 @@ odtDocument.AppendImage(path: "E:/picture1.jpg", width: 22.5, height: 14.1);
 
 ## Bugs report and feature requests
 [Please use the GitHub issues tracker](https://github.com/TobiasSekan/NetOdt/issues)
-
-## Supported styles
-[All supported styles can find here](./styles.md)
 
 ## Goals
 * Simple to use API
