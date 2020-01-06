@@ -158,6 +158,60 @@ namespace NetOdt.Helper
                 styleContent.Append(" style:text-underline-width=\"auto\"");
                 styleContent.Append(" style:text-underline-color=\"font-color\"");
             }
+            else if(style.HasFlag(TextStyle.UnderlineDouble))
+            {
+                styleContent.Append(" style:text-underline-style=\"double\"");
+                styleContent.Append(" style:text-underline-width=\"auto\"");
+                styleContent.Append(" style:text-underline-color=\"font-color\"");
+            }
+            else if(style.HasFlag(TextStyle.UnderlineBold))
+            {
+                styleContent.Append(" style:text-underline-style=\"solid\"");
+                styleContent.Append(" style:text-underline-width=\"bold\"");
+                styleContent.Append(" style:text-underline-color=\"font-color\"");
+            }
+            else if(style.HasFlag(TextStyle.UnderlineDotted))
+            {
+                styleContent.Append(" style:text-underline-style=\"dotted\"");
+                styleContent.Append(" style:text-underline-width=\"auto\"");
+                styleContent.Append(" style:text-underline-color=\"font-color\"");
+            }
+            else if(style.HasFlag(TextStyle.UnderlineDottedBold))
+            {
+                styleContent.Append(" style:text-underline-style=\"dotted\"");
+                styleContent.Append(" style:text-underline-width=\"bold\"");
+                styleContent.Append(" style:text-underline-color=\"font-color\"");
+            }
+            else if(style.HasFlag(TextStyle.UnderlineDash))
+            {
+                styleContent.Append(" style:text-underline-style=\"dash\"");
+                styleContent.Append(" style:text-underline-width=\"auto\"");
+                styleContent.Append(" style:text-underline-color=\"font-color\"");
+            }
+            else if(style.HasFlag(TextStyle.UnderlineLongDash))
+            {
+                styleContent.Append(" style:text-underline-style=\"long-dash\"");
+                styleContent.Append(" style:text-underline-width=\"auto\"");
+                styleContent.Append(" style:text-underline-color=\"font-color\"");
+            }
+            else if(style.HasFlag(TextStyle.UnderlineDotDash))
+            {
+                styleContent.Append(" style:text-underline-style=\"dot-dash\"");
+                styleContent.Append(" style:text-underline-width=\"auto\"");
+                styleContent.Append(" style:text-underline-color=\"font-color\"");
+            }
+            else if(style.HasFlag(TextStyle.UnderlineDotDotDash))
+            {
+                styleContent.Append(" style:text-underline-style=\"dot-dot-dash\"");
+                styleContent.Append(" style:text-underline-width=\"auto\"");
+                styleContent.Append(" style:text-underline-color=\"font-color\"");
+            }
+            else if(style.HasFlag(TextStyle.UnderlineWave))
+            {
+                styleContent.Append(" style:text-underline-style=\"wave\"");
+                styleContent.Append(" style:text-underline-width=\"auto\"");
+                styleContent.Append(" style:text-underline-color=\"font-color\"");
+            }
             else
             {
                 styleContent.Append(" style:text-underline-style=\"none\"");

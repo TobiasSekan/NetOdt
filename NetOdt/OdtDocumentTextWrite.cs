@@ -16,7 +16,7 @@ namespace NetOdt
         /// <param name="value">The value to write into the document</param>
         public void Append<TValue>(in TValue value)
             where TValue : notnull
-            => Append(value, TextStyle.Normal);
+            => Append(value, TextStyle.None);
 
         /// <summary>
         /// Append a single line with a styled value to the document
@@ -80,7 +80,7 @@ namespace NetOdt
         {
             for(var count = 0; count < countOfEmptyLines; count++)
             {
-                Append(string.Empty, TextStyle.Normal);
+                Append(string.Empty, TextStyle.None);
             }
         }
 
@@ -121,7 +121,7 @@ namespace NetOdt
                     break;
 
                 default:
-                    styleName = TryToAddStyle((style as TextStyle?) ?? TextStyle.Normal);
+                    styleName = TryToAddStyle((style as TextStyle?) ?? TextStyle.None);
                     TextContent.Append($"<text:p text:style-name=\"{styleName}\">");
                     break;
             }

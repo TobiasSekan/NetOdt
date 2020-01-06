@@ -38,21 +38,22 @@ odtDocument.AppendImage(path: "E:/picture1.jpg", width: 22.5, height: 14.1);
 [All API calls can find here](./api.md)
 
 ## Upcoming features
-* Header and footer
+Next time, when possible:
 * Font and font size
-* Page break
-* More underline text styles
-  * double
-  * bold
-  * dotted
-  * bold dotted
-  * stroke
-  * stroke long
-  * dot stroke
-  * dot dot stroke
-  * wave
 * Text color support (foreground, background)
+* Additional standard style-sheets
+  * Sender
+  * Receiver
+  * Salutation
+  * Pre-formated text
+  * Horizontal line
+* Page break
 * Data type support for table cells (currency for `decimal`, ...)
+
+Later, need more work:
+* Header and footer
+  * need a lot of work on sytles.xml
+  * investigation into split styles informations
 * ...
 
 ## Bugs report and feature requests

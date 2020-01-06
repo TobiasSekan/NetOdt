@@ -22,15 +22,15 @@ namespace NetOdtTest.HelperTest
             Assert.That(styleContent.ToString(), Is.EqualTo(result));
         }
 
-        [TestCase(TextStyle.Normal, "fo:font-weight=\"normal\"")]
-        [TestCase(TextStyle.Normal, "style:font-weight-asian=\"normal\"")]
-        [TestCase(TextStyle.Normal, "style:font-weight-complex=\"normal\"")]
-        [TestCase(TextStyle.Normal, "fo:font-style=\"normal\"")]
-        [TestCase(TextStyle.Normal, "style:font-style-asian=\"normal\"")]
-        [TestCase(TextStyle.Normal, "style:font-style-complex=\"normal\"")]
-        [TestCase(TextStyle.Normal, "style:text-underline-style=\"none\"")]
-        [TestCase(TextStyle.Normal, "style:text-line-through-style=\"none\"")]
-        [TestCase(TextStyle.Normal, "style:text-line-through-type=\"none\"")]
+        [TestCase(TextStyle.None, "fo:font-weight=\"normal\"")]
+        [TestCase(TextStyle.None, "style:font-weight-asian=\"normal\"")]
+        [TestCase(TextStyle.None, "style:font-weight-complex=\"normal\"")]
+        [TestCase(TextStyle.None, "fo:font-style=\"normal\"")]
+        [TestCase(TextStyle.None, "style:font-style-asian=\"normal\"")]
+        [TestCase(TextStyle.None, "style:font-style-complex=\"normal\"")]
+        [TestCase(TextStyle.None, "style:text-underline-style=\"none\"")]
+        [TestCase(TextStyle.None, "style:text-line-through-style=\"none\"")]
+        [TestCase(TextStyle.None, "style:text-line-through-type=\"none\"")]
 
         [TestCase(TextStyle.Bold, "fo:font-weight=\"bold\"")]
         [TestCase(TextStyle.Bold, "style:font-weight-asian=\"bold\"")]

@@ -168,7 +168,7 @@ namespace NetOdt
                     }
 
                     TextContent.Append($"<table:table-cell table:style-name=\"Tabelle1.{StyleHelper.GetTableCellStyleName(rowNumber, columnNumber, columnCount)}\" office:value-type=\"string\">");
-                    Append(column, TextStyle.Normal);
+                    Append(column, TextStyle.None);
                     TextContent.Append($"</table:table-cell>");
                 }
 
@@ -215,7 +215,7 @@ namespace NetOdt
                     }
 
                     TextContent.Append($"<table:table-cell table:style-name=\"Tabelle1.{StyleHelper.GetTableCellStyleName(rowNumber, columnNumber, columnCount)}\" office:value-type=\"string\">");
-                    Append(column, TextStyle.Normal);
+                    Append(column, TextStyle.None);
                     TextContent.Append($"</table:table-cell>");
                 }
 
@@ -262,7 +262,7 @@ namespace NetOdt
                     }
 
                     TextContent.Append($"<table:table-cell table:style-name=\"Tabelle1.{StyleHelper.GetTableCellStyleName(rowNumber, columnNumber, columnCount)}\" office:value-type=\"string\">");
-                    Append(column, TextStyle.Normal);
+                    Append(column, TextStyle.None);
                     TextContent.Append($"</table:table-cell>");
                 }
 
@@ -309,7 +309,7 @@ namespace NetOdt
                     }
 
                     TextContent.Append($"<table:table-cell table:style-name=\"Tabelle1.{StyleHelper.GetTableCellStyleName(rowNumber, columnNumber, columnCount)}\" office:value-type=\"string\">");
-                    Append(column.ToString() ?? string.Empty, TextStyle.Normal);
+                    Append(column.ToString() ?? string.Empty, TextStyle.None);
                     TextContent.Append($"</table:table-cell>");
                 }
 

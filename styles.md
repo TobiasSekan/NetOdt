@@ -4,30 +4,39 @@
 
 * Bold
 * Italic
-* Underline (single stroke)
+* Underline
+  * Simple
+  * Double
+  * Bold
+  * Dotted
+  * Dotted bold
+  * Dash
+  * Long-dash
+  * Dot-dash
+  * Dot-dot-dash
+  * Wave
 * Stroke
 * Superscript
 * Subscript
 
-* Left
-* Center
-* Right
-* Justify
+1. Left
+2. Center
+3. Right
+4. Justify
 
 For style combinations you must combine the text styling via a bitwise or `|`, like
 ```
 TextStyle.Center | TextStyle.Bold
 
-TextStyle.Bold | TextStyle.Italic | TextStyle.Underline
+TextStyle.Bold | TextStyle.Italic | TextStyle.UnderlineSimple
 ```
 
-Note: You can't combine different alignments, like
+Note: You can't combine different underlines, alignments and scripts, like
 ```
 TextStyle.Left | TextStyle.Right
-```
 
-Note: You can't combine superscript and subscript
-```
+TextStyle.UnderlineBold | TextStyle.UnderlineWave
+
 TextStyle.Superscript | TextStyle.Subscript
 ```
 

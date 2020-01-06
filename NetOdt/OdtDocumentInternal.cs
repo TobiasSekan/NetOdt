@@ -174,8 +174,6 @@ namespace NetOdt
         /// <param name="style">The style to add to the style list</param>
         internal string TryToAddStyle(TextStyle style)
         {
-            CheckAcceptStyles(style);
-
             string styleName;
 
             if(NeededStyles.ContainsKey(style))
@@ -184,6 +182,7 @@ namespace NetOdt
             }
             else
             {
+                CheckAcceptStyles(style);
                 StyleCount++;
                 styleName = $"P{StyleCount}";
                 NeededStyles.Add(style, styleName);
@@ -216,8 +215,7 @@ namespace NetOdt
                 case TextStyle.Subscript | TextStyle.Superscript:
                     throw new ArgumentOutOfRangeException(nameof(style), style, "Superscript and subscript can't used at same time");
 
-                default:
-                    return;
+                // TODO: avoid underline combinations (find better way to do this)
             }
         }
 
