@@ -139,6 +139,36 @@
             Footnote
             </summary>
         </member>
+        <member name="T:NetOdt.Enumerations.StyleFamily">
+            <summary>
+            The style type for a passage
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.StyleFamily.Paragraph">
+            <summary>
+            Style for a text paragraph
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.StyleFamily.Table">
+            <summary>
+            Style for a table
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.StyleFamily.TableColumn">
+            <summary>
+            Style for a table column
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.StyleFamily.TableCell">
+            <summary>
+            Style for a table cell
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.StyleFamily.Graphic">
+            <summary>
+            Style for a graphic (e.g. images)
+            </summary>
+        </member>
         <member name="T:NetOdt.Enumerations.TextAlignment">
             <summary>
             The alignment of a text
@@ -253,7 +283,7 @@
             </summary>
             <param name="path">The path to the file or the filename</param>
             <returns>The mine type of a file</returns>
-            <exception cref="T:System.ArgumentOutOfRangeException"></exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">Mine type of file inside the path not supported</exception>
         </member>
         <member name="T:NetOdt.Helper.OdtDocumentHelper">
             <summary>
@@ -264,6 +294,7 @@
             <summary>
             Create a folder with a minimum of files that are need by a ODT document
             </summary>
+            <exception cref="T:System.IO.DirectoryNotFoundException">Assembly directory not found</exception>
         </member>
         <member name="T:NetOdt.Helper.PathHelper">
             <summary>
@@ -297,28 +328,48 @@
             <summary>
             Add all needed styles for all <see cref="T:NetOdt.Enumerations.TextStyle"/> combinations to the style content
             </summary>
+            <param name="styleContent">The content container for the style informations</param>
         </member>
         <member name="M:NetOdt.Helper.StyleHelper.AddTextAlignmentStyles(System.Text.StringBuilder@)">
             <summary>
             Add all needed styles for all <see cref="T:NetOdt.Enumerations.TextAlignment"/> combinations to the style content
             </summary>
+            <param name="styleContent">The content container for the style informations</param>
         </member>
         <member name="M:NetOdt.Helper.StyleHelper.AddTableStyles(System.Text.StringBuilder@)">
             <summary>
             Add all needed styles for simple tables
             </summary>
+            <param name="styleContent">The content container for the style informations</param>
         </member>
         <member name="M:NetOdt.Helper.StyleHelper.AddPictureStyle(System.Text.StringBuilder@)">
             <summary>
             Add all needed styles for simple pictures
             </summary>
+            <param name="styleContent">The content container for the style informations</param>
+        </member>
+        <member name="M:NetOdt.Helper.StyleHelper.AppendXmlStyleStart(System.Text.StringBuilder@,System.String@,NetOdt.Enumerations.StyleFamily@)">
+            <summary>
+            Append a XML start element for style informations
+            </summary>
+            <param name="styleContent">The content container for the style informations</param>
+            <param name="styleName">The name for the style</param>
+            <param name="styleFamily">The family of the style</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">Style family not supported</exception>
+        </member>
+        <member name="M:NetOdt.Helper.StyleHelper.AppendXmlStyleEnd(System.Text.StringBuilder@)">
+            <summary>
+            Append a XML end element for style informations
+            </summary>
+            <param name="styleContent">The content container for the style informations</param>
         </member>
         <member name="M:NetOdt.Helper.StyleHelper.GetStyleAndOutline``1(``0@)">
             <summary>
-            Return the style name and the outline level of a given text style
+            Return the outline level and style name of a given text style
             </summary>
             <param name="style">The text style for the style name</param>
-            <returns>The style name and the outline level</returns>
+            <returns>The outline level and style name and </returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">Text style not supported</exception>
         </member>
         <member name="M:NetOdt.Helper.StyleHelper.GetTableCellStyleName(System.Int32@,System.Int32@,System.Int32@)">
             <summary>
@@ -367,7 +418,7 @@
             <param name="uriRight">The right part for the complete path</param>
             <returns>A <see cref="T:System.Uri"/> with the complete path</returns>
         </member>
-        <member name="T:NetCoreOdt.OdtDocument">
+        <member name="T:NetOdt.OdtDocument">
             <summary>
             Class to create and write ODT documents
             </summary>
@@ -390,71 +441,71 @@
             Class to create and write ODT documents
             </summary>
         </member>
-        <member name="P:NetCoreOdt.OdtDocument.FileUri">
+        <member name="P:NetOdt.OdtDocument.FileUri">
             <summary>
             The uniform resource identifier for the file
             </summary>
         </member>
-        <member name="P:NetCoreOdt.OdtDocument.TempWorkingUri">
+        <member name="P:NetOdt.OdtDocument.TempWorkingUri">
             <summary>
-            The uniform resource identifier for the temporary working folder working folder, the folder will delete when <see cref="M:NetCoreOdt.OdtDocument.Dispose"/> is called
+            The uniform resource identifier for the temporary working folder working folder, the folder will delete when <see cref="M:NetOdt.OdtDocument.Dispose"/> is called
             </summary>
         </member>
-        <member name="P:NetCoreOdt.OdtDocument.TableCount">
+        <member name="P:NetOdt.OdtDocument.TableCount">
             <summary>
             The count of the tables
             </summary>
         </member>
-        <member name="P:NetCoreOdt.OdtDocument.PictureCount">
+        <member name="P:NetOdt.OdtDocument.PictureCount">
             <summary>
             The count of picture
             </summary>
         </member>
-        <member name="M:NetCoreOdt.OdtDocument.#ctor">
+        <member name="M:NetOdt.OdtDocument.#ctor">
             <summary>
             Create a new ODT document, save the ODT document as "Unknown.odt" and use a automatic generated temporary folder
             under the <see cref="F:System.Environment.SpecialFolder.LocalApplicationData"/> folder
             </summary>
         </member>
-        <member name="M:NetCoreOdt.OdtDocument.#ctor(System.String@)">
+        <member name="M:NetOdt.OdtDocument.#ctor(System.String@)">
             <summary>
             Create a new ODT document, save the ODT document into the given file path and use a automatic generated temporary folder
             under the <see cref="F:System.Environment.SpecialFolder.LocalApplicationData"/> folder
             </summary>
             <param name="filePath">The save path for the ODT document</param>
         </member>
-        <member name="M:NetCoreOdt.OdtDocument.#ctor(System.String@,System.String@)">
+        <member name="M:NetOdt.OdtDocument.#ctor(System.String@,System.String@)">
             <summary>
             Create a new ODT document, save the ODT document into the given file path and use the given temporary folder
             </summary>
             <param name="filePath">The save path for the ODT document</param>
             <param name="tempWorkingPath">The temporary working path for the none zipped document files</param>
         </member>
-        <member name="M:NetCoreOdt.OdtDocument.#ctor(System.Uri@)">
+        <member name="M:NetOdt.OdtDocument.#ctor(System.Uri@)">
             <summary>
             Create a new ODT document, save the ODT document into the given uniform resource identifier and use a automatic generated temporary folder
             under the <see cref="F:System.Environment.SpecialFolder.LocalApplicationData"/> folder
             </summary>
             <param name="fileUri">The uniform resource identifier for the ODT document</param>
         </member>
-        <member name="M:NetCoreOdt.OdtDocument.#ctor(System.Uri@,System.Uri@)">
+        <member name="M:NetOdt.OdtDocument.#ctor(System.Uri@,System.Uri@)">
             <summary>
             Create a new ODT document, save the ODT document into the given uniform resource identifier and use the given temporary folder on the uniform resource identifier
             </summary>
             <param name="fileUri">The uniform resource identifier for the ODT document</param>
             <param name="tempWorkingUri">The uniform resource identifier  for the temporary working folder for the none zipped document files</param>
         </member>
-        <member name="M:NetCoreOdt.OdtDocument.Dispose">
+        <member name="M:NetOdt.OdtDocument.Dispose">
             <summary>
-            Save the document (override when existing), delete folder under the <see cref="P:NetCoreOdt.OdtDocument.TempWorkingUri"/> and free all resources
+            Save the document (override when existing), delete folder under the <see cref="P:NetOdt.OdtDocument.TempWorkingUri"/> and free all resources
             </summary>
         </member>
-        <member name="M:NetCoreOdt.OdtDocument.Dispose(System.Boolean@)">
+        <member name="M:NetOdt.OdtDocument.Dispose(System.Boolean@)">
             <summary>
-            Save the document, delete the folder under the <see cref="P:NetCoreOdt.OdtDocument.TempWorkingUri"/> and free all resources
+            Save the document, delete the folder under the <see cref="P:NetOdt.OdtDocument.TempWorkingUri"/> and free all resources
             </summary>
         </member>
-        <member name="M:NetCoreOdt.OdtDocument.AppendImage(System.String,System.Double,System.Double)">
+        <member name="M:NetOdt.OdtDocument.AppendImage(System.String,System.Double,System.Double)">
             <summary>
             Append a image to the document
             </summary>
@@ -462,7 +513,7 @@
             <param name="width">The width of the picture in centimeter (cm)</param>
             <param name="height">The height of the picture in centimeter (cm)</param>
         </member>
-        <member name="M:NetCoreOdt.OdtDocument.AppendImage(System.Uri,System.Double,System.Double)">
+        <member name="M:NetOdt.OdtDocument.AppendImage(System.Uri,System.Double,System.Double)">
             <summary>
             Append a image to the document
             </summary>
@@ -470,114 +521,114 @@
             <param name="width">The width of the picture in centimeter (cm)</param>
             <param name="height">The height of the picture in centimeter (cm)</param>
         </member>
-        <member name="P:NetCoreOdt.OdtDocument.ContentFile">
+        <member name="P:NetOdt.OdtDocument.ContentFile">
              <summary>
              The XML content of the content file
             <para>TODO: #8 - Find a way to use XMLDocument class</para>
              </summary>
         </member>
-        <member name="P:NetCoreOdt.OdtDocument.BeforeStyleContent">
+        <member name="P:NetOdt.OdtDocument.BeforeStyleContent">
             <summary>
-            The raw content before the <see cref="P:NetCoreOdt.OdtDocument.StyleContent"/>
+            The raw content before the <see cref="P:NetOdt.OdtDocument.StyleContent"/>
             </summary>
         </member>
-        <member name="P:NetCoreOdt.OdtDocument.StyleContent">
+        <member name="P:NetOdt.OdtDocument.StyleContent">
             <summary>
             The raw style content
             </summary>
         </member>
-        <member name="P:NetCoreOdt.OdtDocument.AfterStyleContent">
+        <member name="P:NetOdt.OdtDocument.AfterStyleContent">
             <summary>
-            The raw content after the <see cref="P:NetCoreOdt.OdtDocument.StyleContent"/> and before the <see cref="P:NetCoreOdt.OdtDocument.TextContent"/>
+            The raw content after the <see cref="P:NetOdt.OdtDocument.StyleContent"/> and before the <see cref="P:NetOdt.OdtDocument.TextContent"/>
             </summary>
         </member>
-        <member name="P:NetCoreOdt.OdtDocument.TextContent">
+        <member name="P:NetOdt.OdtDocument.TextContent">
             <summary>
             The raw text content
             </summary>
         </member>
-        <member name="P:NetCoreOdt.OdtDocument.AfterTextContent">
+        <member name="P:NetOdt.OdtDocument.AfterTextContent">
             <summary>
-            The raw content after the <see cref="P:NetCoreOdt.OdtDocument.TextContent"/>
+            The raw content after the <see cref="P:NetOdt.OdtDocument.TextContent"/>
             </summary>
         </member>
-        <member name="P:NetCoreOdt.OdtDocument.BeforeManifestContent">
+        <member name="P:NetOdt.OdtDocument.BeforeManifestContent">
             <summary>
-            The raw content before the <see cref="P:NetCoreOdt.OdtDocument.ManifestContent"/>
+            The raw content before the <see cref="P:NetOdt.OdtDocument.ManifestContent"/>
             </summary>
         </member>
-        <member name="P:NetCoreOdt.OdtDocument.ManifestContent">
+        <member name="P:NetOdt.OdtDocument.ManifestContent">
             <summary>
             The raw manifest content
             </summary>
         </member>
-        <member name="P:NetCoreOdt.OdtDocument.ContentFileUri">
+        <member name="P:NetOdt.OdtDocument.ContentFileUri">
             <summary>
-            The uniform resource identifier to the content file (typical inside the <see cref="P:NetCoreOdt.OdtDocument.TempWorkingUri"/>)
+            The uniform resource identifier to the content file (typical inside the <see cref="P:NetOdt.OdtDocument.TempWorkingUri"/>)
             </summary>
         </member>
-        <member name="P:NetCoreOdt.OdtDocument.ManifestFileUri">
+        <member name="P:NetOdt.OdtDocument.ManifestFileUri">
             <summary>
-            The uniform resource identifier to the manifest file (typical inside the <see cref="P:NetCoreOdt.OdtDocument.TempWorkingUri"/>)
+            The uniform resource identifier to the manifest file (typical inside the <see cref="P:NetOdt.OdtDocument.TempWorkingUri"/>)
             </summary>
         </member>
-        <member name="M:NetCoreOdt.OdtDocument.ReadContent">
+        <member name="M:NetOdt.OdtDocument.ReadContent">
             <summary>
             Read the complete content of the content file
             </summary>
         </member>
-        <member name="M:NetCoreOdt.OdtDocument.WriteContent">
+        <member name="M:NetOdt.OdtDocument.WriteContent">
             <summary>
             Write the complete content to the content file (overwrite the existing file)
             </summary>
         </member>
-        <member name="M:NetCoreOdt.OdtDocument.SaveAs(System.String@)">
+        <member name="M:NetOdt.OdtDocument.SaveAs(System.String@)">
             <summary>
             Save the change content and create the ODT document into the given path
             and automatic override a existing file
             </summary>
             <param name="filePath">The save path for the ODT document</param>
         </member>
-        <member name="M:NetCoreOdt.OdtDocument.SaveAs(System.Uri@)">
+        <member name="M:NetOdt.OdtDocument.SaveAs(System.Uri@)">
             <summary>
             Save the change content and create the ODT document into the uniform resource identifier
             and automatic override a existing file
             </summary>
             <param name="fileUri">The uniform resource identifier for the ODT document</param>
         </member>
-        <member name="M:NetCoreOdt.OdtDocument.SaveAs(System.String@,System.Boolean@)">
+        <member name="M:NetOdt.OdtDocument.SaveAs(System.String@,System.Boolean@)">
             <summary>
             Save the change content and create the ODT document into the given path
             </summary>
             <param name="filePath">The save path for the ODT document</param>
             <param name="overrideExistingFile">Indicate that a existing file will be override</param>
         </member>
-        <member name="M:NetCoreOdt.OdtDocument.SaveAs(System.Uri@,System.Boolean@)">
+        <member name="M:NetOdt.OdtDocument.SaveAs(System.Uri@,System.Boolean@)">
             <summary>
             Save the change content and create the ODT document into the uniform resource identifier
             </summary>
             <param name="fileUri">The uniform resource identifier for the ODT document</param>
             <param name="overrideExistingFile">Indicate that a existing file will be override</param>
         </member>
-        <member name="M:NetCoreOdt.OdtDocument.Save">
+        <member name="M:NetOdt.OdtDocument.Save">
             <summary>
             Save the change content and create the ODT document and automatic override a existing file
             </summary>
         </member>
-        <member name="M:NetCoreOdt.OdtDocument.Save(System.Boolean@)">
+        <member name="M:NetOdt.OdtDocument.Save(System.Boolean@)">
             <summary>
             Save the change content and create the ODT document
             </summary>
             <param name="overrideExistingFile">Indicate that a existing file will be override</param>
         </member>
-        <member name="M:NetCoreOdt.OdtDocument.AppendTable(System.Int32@,System.Int32@)">
+        <member name="M:NetOdt.OdtDocument.AppendTable(System.Int32@,System.Int32@)">
             <summary>
             Append an empty unformatted table with the given row and cell count into the document
             </summary>
             <param name="rowCount">The count of the rows</param>
             <param name="columnCount">The count of the columns</param>
         </member>
-        <member name="M:NetCoreOdt.OdtDocument.AppendTable(System.Int32@,System.Int32@,System.ValueType@)">
+        <member name="M:NetOdt.OdtDocument.AppendTable(System.Int32@,System.Int32@,System.ValueType@)">
             <summary>
             Append a unformatted table with the given row and cell count into the document and fill each cell with the given value
             </summary>
@@ -585,7 +636,7 @@
             <param name="columnCount">The count of the columns</param>
             <param name="value">The value for each cell</param>
         </member>
-        <member name="M:NetCoreOdt.OdtDocument.AppendTable(System.Int32@,System.Int32@,System.String@)">
+        <member name="M:NetOdt.OdtDocument.AppendTable(System.Int32@,System.Int32@,System.String@)">
             <summary>
             Append a unformatted table with the given row and cell count into the document and fill each cell with the given text
             </summary>
@@ -593,7 +644,7 @@
             <param name="columnCount">The count of the columns</param>
             <param name="text">The text for each cell</param>
         </member>
-        <member name="M:NetCoreOdt.OdtDocument.AppendTable(System.Int32@,System.Int32@,System.Text.StringBuilder@)">
+        <member name="M:NetOdt.OdtDocument.AppendTable(System.Int32@,System.Int32@,System.Text.StringBuilder@)">
             <summary>
             Append a unformatted table with the given row and cell count into the document and fill each cell with the given content
             </summary>
@@ -601,64 +652,64 @@
             <param name="columnCount">The count of the columns</param>
             <param name="content">The content for each cell</param>
         </member>
-        <member name="M:NetCoreOdt.OdtDocument.AppendTable(System.Collections.Generic.IEnumerable{System.Collections.Generic.IEnumerable{System.ValueType}}@)">
+        <member name="M:NetOdt.OdtDocument.AppendTable(System.Collections.Generic.IEnumerable{System.Collections.Generic.IEnumerable{System.ValueType}}@)">
             <summary>
             Append a unformatted table and fill it with the given data from the value array
             </summary>
             <param name="valueArray">The array that contains the values for the table</param>
         </member>
-        <member name="M:NetCoreOdt.OdtDocument.AppendTable(System.Collections.Generic.IEnumerable{System.Collections.Generic.IEnumerable{System.String}}@)">
+        <member name="M:NetOdt.OdtDocument.AppendTable(System.Collections.Generic.IEnumerable{System.Collections.Generic.IEnumerable{System.String}}@)">
             <summary>
             Append a unformatted table and fill it with the given data from the string array
             </summary>
             <param name="stringArray">The array that contains the strings for the table</param>
         </member>
-        <member name="M:NetCoreOdt.OdtDocument.AppendTable(System.Collections.Generic.IEnumerable{System.Collections.Generic.IEnumerable{System.Text.StringBuilder}}@)">
+        <member name="M:NetOdt.OdtDocument.AppendTable(System.Collections.Generic.IEnumerable{System.Collections.Generic.IEnumerable{System.Text.StringBuilder}}@)">
             <summary>
             Append a unformatted table and fill it with the given content from the content array
             </summary>
             <param name="contentArray">The array that contains the contents for the table</param>
         </member>
-        <member name="M:NetCoreOdt.OdtDocument.AppendTable(System.Data.DataTable@)">
+        <member name="M:NetOdt.OdtDocument.AppendTable(System.Data.DataTable@)">
             <summary>
             Append a unformatted table and fill it with the given data from the <see cref="T:System.Data.DataTable"/>
             </summary>
             <param name="dataTable">The <see cref="T:System.Data.DataTable"/> that contains the data for the table</param>
         </member>
-        <member name="M:NetCoreOdt.OdtDocument.Append``1(``0@)">
+        <member name="M:NetOdt.OdtDocument.Append``1(``0@)">
             <summary>
             Append a single line with a unformatted value to the document
             </summary>
             <param name="value">The value to write into the document</param>
         </member>
-        <member name="M:NetCoreOdt.OdtDocument.Append``2(``0@,``1@)">
+        <member name="M:NetOdt.OdtDocument.Append``2(``0@,``1@)">
             <summary>
             Append a single line with a styled value to the document
             </summary>
             <param name="value">The value to write into the document</param>
             <param name="style">The style of the value</param>
         </member>
-        <member name="M:NetCoreOdt.OdtDocument.AppendEmptyLines(System.Int32)">
+        <member name="M:NetOdt.OdtDocument.AppendEmptyLines(System.Int32)">
             <summary>
             Append the given count of empty lines
             </summary>
             <param name="countOfEmptyLines">The count of empty lines to write</param>
         </member>
-        <member name="M:NetCoreOdt.OdtDocument.AppendXmlTextStart``1(``0@)">
+        <member name="M:NetOdt.OdtDocument.AppendXmlTextStart``1(``0@)">
             <summary>
             Append a XML start element for a text passage
             </summary>
             <typeparam name="TStyle">The <see cref="T:System.Type"/> of the style for the text passage</typeparam>
             <param name="style">The style for the text passage</param>
         </member>
-        <member name="M:NetCoreOdt.OdtDocument.AppendValue``1(``0@)">
+        <member name="M:NetOdt.OdtDocument.AppendValue``1(``0@)">
             <summary>
             Append the value of a text passage
             </summary>
             <typeparam name="TValue">The <see cref="T:System.Type"/> of the value</typeparam>
             <param name="value">The value for the text passage</param>
         </member>
-        <member name="M:NetCoreOdt.OdtDocument.AppendXmlTextEnd``1(``0@)">
+        <member name="M:NetOdt.OdtDocument.AppendXmlTextEnd``1(``0@)">
             <summary>
             Append a XML end element for a text passage
             </summary>
