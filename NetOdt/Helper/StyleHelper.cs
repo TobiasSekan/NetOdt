@@ -173,6 +173,7 @@ namespace NetOdt.Helper
         /// </summary>
         /// <param name="style">The text style for the style name</param>
         /// <returns>The outline level and style name and </returns>
+        /// <exception cref="ArgumentOutOfRangeException">Text style not supported</exception>
         internal static (byte outlineLevel, string styleName) GetStyleAndOutline<TStyle>(in TStyle style)
             where TStyle : notnull, Enum
             => style switch
@@ -209,7 +210,7 @@ namespace NetOdt.Helper
                 HeaderStyle.HeadingLevel09                              => (09, "Heading_20_9"),
                 HeaderStyle.HeadingLevel10                              => (10, "Heading_20_10"),
 
-                _ => throw new NotSupportedException("Text style not supported")
+                _ => throw new ArgumentOutOfRangeException(nameof(style), style, "Text style not supported")
             };
 
         /// <summary>

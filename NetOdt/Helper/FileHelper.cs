@@ -60,7 +60,7 @@ namespace NetOdt.Helper
         /// </summary>
         /// <param name="path">The path to the file or the filename</param>
         /// <returns>The mine type of a file</returns>
-        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        /// <exception cref="ArgumentOutOfRangeException">Mine type of file inside the path not supported</exception>
         internal static string GetMineType(string path)
         {
             var extension = Path.GetExtension(path).ToLower();
@@ -72,7 +72,7 @@ namespace NetOdt.Helper
                 ".png"  => "image/png",
                 ".xml"  => "text/xml",
 
-                _ => throw new ArgumentOutOfRangeException(nameof(path), path, $"mine type of file inside the path not supported")
+                _ => throw new ArgumentOutOfRangeException(nameof(path), path, $"Mine type of file inside the path not supported")
             };
         }
     }

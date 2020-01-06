@@ -13,6 +13,7 @@ namespace NetOdt.Helper
         /// <summary>
         /// Create a folder with a minimum of files that are need by a ODT document
         /// </summary>
+        /// <exception cref="DirectoryNotFoundException">Assembly directory not found</exception>
         internal static void CreateOdtTemplate(in Uri tempWorkingUri)
         {
             var assemblyFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
