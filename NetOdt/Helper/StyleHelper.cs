@@ -15,44 +15,42 @@ namespace NetOdt.Helper
         /// <param name="styleContent">The content container for the style informations</param>
         internal static void AddStandardTextStyles(in StringBuilder styleContent)
         {
-            // P1 - 0b_000 - Normal
             AppendXmlStyleStart(styleContent, "P1", StyleFamily.Paragraph);
-            styleContent.Append("<style:text-properties/>");
+            AppendXmlStyle(styleContent, TextStyle.Normal);
             AppendXmlStyleEnd(styleContent);
 
-            // P2 - 0b_001 - Bold
             AppendXmlStyleStart(styleContent, "P2", StyleFamily.Paragraph);
-            styleContent.Append("<style:text-properties fo:font-weight=\"bold\" style:font-weight-asian=\"bold\" style:font-weight-complex=\"bold\"/>");
+            AppendXmlStyle(styleContent, TextStyle.Bold);
             AppendXmlStyleEnd(styleContent);
 
             // P3 - 0b_010 - Italic
             AppendXmlStyleStart(styleContent, "P3", StyleFamily.Paragraph);
-            styleContent.Append("<style:text-properties fo:font-style=\"italic\" style:font-style-asian=\"italic\" style:font-style-complex=\"italic\"/>");
+            AppendXmlStyle(styleContent, TextStyle.Italic);
             AppendXmlStyleEnd(styleContent);
 
             // P4 - 0b_011 - Bold + Italic
             AppendXmlStyleStart(styleContent, "P4", StyleFamily.Paragraph);
-            styleContent.Append("<style:text-properties fo:font-style=\"italic\" fo:font-weight=\"bold\" style:font-style-asian=\"italic\" style:font-weight-asian=\"bold\" style:font-style-complex=\"italic\" style:font-weight-complex=\"bold\"/>");
+            AppendXmlStyle(styleContent, TextStyle.Bold | TextStyle.Italic);
             AppendXmlStyleEnd(styleContent);
 
             // P5 0b_100 - Underline
             AppendXmlStyleStart(styleContent, "P5", StyleFamily.Paragraph);
-            styleContent.Append("<style:text-properties style:text-underline-style=\"solid\" style:text-underline-width=\"auto\" style:text-underline-color=\"font-color\"/>");
+            AppendXmlStyle(styleContent, TextStyle.Underline);
             AppendXmlStyleEnd(styleContent);
 
             // P6 - 0b_101 - Bold + Underline
             AppendXmlStyleStart(styleContent, "P6", StyleFamily.Paragraph);
-            styleContent.Append("<style:text-properties style:text-underline-style=\"solid\" style:text-underline-width=\"auto\" style:text-underline-color=\"font-color\" fo:font-weight=\"bold\" style:font-weight-asian=\"bold\" style:font-weight-complex=\"bold\"/>");
+            AppendXmlStyle(styleContent, TextStyle.Bold | TextStyle.Underline);
             AppendXmlStyleEnd(styleContent);
 
             // P7 - 0b_110 - Italic + Underline
             AppendXmlStyleStart(styleContent, "P7", StyleFamily.Paragraph);
-            styleContent.Append("<style:text-properties fo:font-style=\"italic\" style:text-underline-style=\"solid\" style:text-underline-width=\"auto\" style:text-underline-color=\"font-color\" style:font-style-asian=\"italic\" style:font-style-complex=\"italic\"/>");
+            AppendXmlStyle(styleContent, TextStyle.Italic | TextStyle.Underline);
             AppendXmlStyleEnd(styleContent);
 
             // P8 - 0b_111 - Bold + Italic + Underline
             AppendXmlStyleStart(styleContent, "P8", StyleFamily.Paragraph);
-            styleContent.Append("<style:text-properties fo:font-style=\"italic\" style:text-underline-style=\"solid\" style:text-underline-width=\"auto\" style:text-underline-color=\"font-color\" fo:font-weight=\"bold\" style:font-style-asian=\"italic\" style:font-weight-asian=\"bold\" style:font-style-complex=\"italic\" style:font-weight-complex=\"bold\"/>");
+            AppendXmlStyle(styleContent, TextStyle.Bold | TextStyle.Italic | TextStyle.Underline);
             AppendXmlStyleEnd(styleContent);
         }
 
@@ -158,6 +156,54 @@ namespace NetOdt.Helper
 
                 default:
                     throw new ArgumentOutOfRangeException(nameof(styleFamily), styleFamily, "Style family not supported");
+            }
+        }
+
+        /// <summary>
+        /// Append the given text style to the style informations
+        /// </summary>
+        /// <param name="styleContent">The content container for the style informations</param>
+        /// <param name="style">The style for the style informations</param>
+        internal static void AppendXmlStyle(in StringBuilder styleContent, TextStyle style)
+        {
+            // Note: Don't forget the spaces between the XML properties
+
+            switch(style)
+            {
+                case TextStyle.Normal:
+                    styleContent.Append("<style:text-properties/>");
+                    break;
+
+                case TextStyle.Bold:
+                    styleContent.Append("<style:text-properties fo:font-weight=\"bold\" style:font-weight-asian=\"bold\" style:font-weight-complex=\"bold\"/>");
+                    break;
+
+                case TextStyle.Italic:
+                    styleContent.Append("<style:text-properties fo:font-style=\"italic\" style:font-style-asian=\"italic\" style:font-style-complex=\"italic\"/>");
+                    break;
+
+                case TextStyle.Underline:
+                    styleContent.Append("<style:text-properties style:text-underline-style=\"solid\" style:text-underline-width=\"auto\" style:text-underline-color=\"font-color\"/>");
+                    break;
+
+                case TextStyle.Bold | TextStyle.Italic:
+                    styleContent.Append("<style:text-properties fo:font-style=\"italic\" fo:font-weight=\"bold\" style:font-style-asian=\"italic\" style:font-weight-asian=\"bold\" style:font-style-complex=\"italic\" style:font-weight-complex=\"bold\"/>");
+                    break;
+
+                case TextStyle.Bold | TextStyle.Underline:
+                    styleContent.Append("<style:text-properties style:text-underline-style=\"solid\" style:text-underline-width=\"auto\" style:text-underline-color=\"font-color\" fo:font-weight=\"bold\" style:font-weight-asian=\"bold\" style:font-weight-complex=\"bold\"/>");
+                    break;
+
+                case TextStyle.Italic | TextStyle.Underline:
+                    styleContent.Append("<style:text-properties fo:font-style=\"italic\" style:text-underline-style=\"solid\" style:text-underline-width=\"auto\" style:text-underline-color=\"font-color\" style:font-style-asian=\"italic\" style:font-style-complex=\"italic\"/>");
+                    break;
+
+                case TextStyle.Bold | TextStyle.Italic | TextStyle.Underline:
+                    styleContent.Append("<style:text-properties fo:font-style=\"italic\" style:text-underline-style=\"solid\" style:text-underline-width=\"auto\" style:text-underline-color=\"font-color\" fo:font-weight=\"bold\" style:font-style-asian=\"italic\" style:font-weight-asian=\"bold\" style:font-style-complex=\"italic\" style:font-weight-complex=\"bold\"/>");
+                    break;
+
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(style), style, "Text style not supported");
             }
         }
 

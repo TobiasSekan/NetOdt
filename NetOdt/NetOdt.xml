@@ -357,6 +357,13 @@
             <param name="styleFamily">The family of the style</param>
             <exception cref="T:System.ArgumentOutOfRangeException">Style family not supported</exception>
         </member>
+        <member name="M:NetOdt.Helper.StyleHelper.AppendXmlStyle(System.Text.StringBuilder@,NetOdt.Enumerations.TextStyle)">
+            <summary>
+            Append the given text style to the style informations
+            </summary>
+            <param name="styleContent">The content container for the style informations</param>
+            <param name="style">The style for the style informations</param>
+        </member>
         <member name="M:NetOdt.Helper.StyleHelper.AppendXmlStyleEnd(System.Text.StringBuilder@)">
             <summary>
             Append a XML end element for style informations

@@ -3,7 +3,7 @@
     /// <summary>
     /// The style type for a passage
     /// </summary>
-    internal enum StyleFamily
+    public enum StyleFamily
     {
         /// <summary>
         /// Style for a text paragraph
