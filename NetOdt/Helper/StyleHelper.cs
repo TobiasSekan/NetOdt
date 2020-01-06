@@ -121,21 +121,35 @@ namespace NetOdt.Helper
         /// <param name="style">The style for the style informations</param>
         internal static void AppendTextProperties(in StringBuilder styleContent, TextStyle style)
         {
-            if(!style.HasFlag(TextStyle.Bold)
-            && !style.HasFlag(TextStyle.Italic)
-            && !style.HasFlag(TextStyle.UnderlineSingle))
-            {
-                return;
-            }
-
             // Note: Don't forget the spaces between the XML properties
 
             styleContent.Append("<");
             styleContent.Append("style:text-properties");
 
+            if(style.HasFlag(TextStyle.Bold))
+            {
+                styleContent.Append(" fo:font-weight=\"bold\"");
+                styleContent.Append(" style:font-weight-asian=\"bold\"");
+                styleContent.Append(" style:font-weight-complex=\"bold\"");
+            }
+            else
+            {
+                styleContent.Append(" fo:font-weight=\"normal\"");
+                styleContent.Append(" style:font-weight-asian=\"normal\"");
+                styleContent.Append(" style:font-weight-complex=\"normal\"");
+            }
+
             if(style.HasFlag(TextStyle.Italic))
             {
                 styleContent.Append(" fo:font-style=\"italic\"");
+                styleContent.Append(" style:font-style-asian=\"italic\"");
+                styleContent.Append(" style:font-style-complex=\"italic\"");
+            }
+            else
+            {
+                styleContent.Append(" fo:font-style=\"normal\"");
+                styleContent.Append(" style:font-style-asian=\"normal\"");
+                styleContent.Append(" style:font-style-complex=\"normal\"");
             }
 
             if(style.HasFlag(TextStyle.UnderlineSingle))
@@ -144,30 +158,30 @@ namespace NetOdt.Helper
                 styleContent.Append(" style:text-underline-width=\"auto\"");
                 styleContent.Append(" style:text-underline-color=\"font-color\"");
             }
-
-            if(style.HasFlag(TextStyle.Bold))
+            else
             {
-                styleContent.Append(" fo:font-weight=\"bold\"");
+                styleContent.Append(" style:text-underline-style=\"none\"");
             }
 
-            if(style.HasFlag(TextStyle.Italic))
+            if(style.HasFlag(TextStyle.Stroke))
             {
-                styleContent.Append(" style:font-style-asian=\"italic\"");
+                styleContent.Append(" style:text-line-through-style=\"solid\"");
+                styleContent.Append(" style:text-line-through-type=\"single\"");
+            }
+            else
+            {
+                styleContent.Append(" style:text-line-through-style=\"none\"");
+                styleContent.Append(" style:text-line-through-type=\"none\"");
             }
 
-            if(style.HasFlag(TextStyle.Bold))
+            // A text paragraph can only use superscript or subscript not both at same time
+            if(style.HasFlag(TextStyle.Subscript))
             {
-                styleContent.Append(" style:font-weight-asian=\"bold\"");
+                styleContent.Append(" style:text-position=\"sub 58%\"");
             }
-
-            if(style.HasFlag(TextStyle.Italic))
+            else if(style.HasFlag(TextStyle.Superscript))
             {
-                styleContent.Append(" style:font-style-complex=\"italic\"");
-            }
-
-            if(style.HasFlag(TextStyle.Bold))
-            {
-                styleContent.Append(" style:font-weight-complex=\"bold\"");
+                styleContent.Append(" style:text-position=\"super 58%\"");
             }
 
             styleContent.Append("/>");

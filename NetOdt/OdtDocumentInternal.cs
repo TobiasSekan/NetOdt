@@ -213,6 +213,9 @@ namespace NetOdt
                 case TextStyle.Left | TextStyle.Center | TextStyle.Right | TextStyle.Justify:
                     throw new ArgumentOutOfRangeException(nameof(style), style, "Only one alignment can be used at same time");
 
+                case TextStyle.Subscript | TextStyle.Superscript:
+                    throw new ArgumentOutOfRangeException(nameof(style), style, "Superscript and subscript can't used at same time");
+
                 default:
                     return;
             }

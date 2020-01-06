@@ -5,6 +5,9 @@
 * Bold
 * Italic
 * Underline (single stroke)
+* Stroke
+* Superscript
+* Subscript
 
 * Left
 * Center
@@ -16,6 +19,16 @@ For style combinations you must combine the text styling via a bitwise or `|`, l
 TextStyle.Center | TextStyle.Bold
 
 TextStyle.Bold | TextStyle.Italic | TextStyle.Underline
+```
+
+Note: You can't combine different alignments, like
+```
+TextStyle.Left | TextStyle.Right
+```
+
+Note: You can't combine superscript and subscript
+```
+TextStyle.Superscript | TextStyle.Subscript
 ```
 
 ## Supported header styles

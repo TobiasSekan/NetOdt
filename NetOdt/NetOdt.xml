@@ -189,9 +189,24 @@
             A italic text
             </summary>
         </member>
-        <member name="F:NetOdt.Enumerations.TextStyle.Underline">
+        <member name="F:NetOdt.Enumerations.TextStyle.UnderlineSingle">
             <summary>
-            A text with a underline
+            A text with a underline (single stroke)
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.TextStyle.Stroke">
+            <summary>
+            A stroked text
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.TextStyle.Subscript">
+            <summary>
+            A subscript text
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.TextStyle.Superscript">
+            <summary>
+            A superscript text
             </summary>
         </member>
         <member name="F:NetOdt.Enumerations.TextStyle.Left">

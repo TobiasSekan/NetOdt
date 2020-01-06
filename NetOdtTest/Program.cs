@@ -26,7 +26,7 @@ namespace NetOdtTest
             odtDoucment.Append("Unformatted", HeaderStyle.HeadingLevel01);
 
             odtDoucment.AppendEmptyLines(countOfEmptyLines: 5);
-            odtDoucment.Append(byte.MaxValue, TextStyle.Center | TextStyle.Justify);
+            odtDoucment.Append(byte.MaxValue, TextStyle.Center | TextStyle.Bold);
 
             odtDoucment.AppendEmptyLines(countOfEmptyLines: 2);
             odtDoucment.Append(uint.MaxValue, TextStyle.Right | TextStyle.Italic);
@@ -47,16 +47,16 @@ namespace NetOdtTest
 
             odtDoucment.Append("Formatted", HeaderStyle.HeadingLevel04);
 
-            odtDoucment.Append(long.MinValue, TextStyle.Bold);
-            odtDoucment.Append(byte.MaxValue, TextStyle.Italic);
-            odtDoucment.Append(uint.MaxValue, TextStyle.UnderlineSingle);
-            odtDoucment.Append(double.NaN, TextStyle.Bold | TextStyle.Italic | TextStyle.UnderlineSingle | TextStyle.Justify);
+            odtDoucment.Append(long.MinValue, TextStyle.Bold | TextStyle.Stroke);
+            odtDoucment.Append(byte.MaxValue, TextStyle.Italic | TextStyle.Subscript);
+            odtDoucment.Append(uint.MaxValue, TextStyle.UnderlineSingle | TextStyle.Superscript);
+            odtDoucment.Append(double.NaN, TextStyle.Bold | TextStyle.Italic | TextStyle.UnderlineSingle | TextStyle.Justify | TextStyle.Stroke);
 
-            odtDoucment.Append("This\n\n\nis\n\n\na\n\n\ntext", TextStyle.Bold | TextStyle.UnderlineSingle);
+            odtDoucment.Append("This\n\n\nis\n\n\na\n\n\ntext", TextStyle.Bold | TextStyle.UnderlineSingle | TextStyle.Superscript);
 
             var contentTwo = new StringBuilder();
             content.Append("This is a text a\n very\n\n\nvery very\n\n\nlong text");
-            odtDoucment.Append(content, TextStyle.Italic | TextStyle.UnderlineSingle);
+            odtDoucment.Append(content, TextStyle.Italic | TextStyle.UnderlineSingle | TextStyle.Subscript);
 
             odtDoucment.Append("sub-sub-sub-sub", HeaderStyle.Subtitle);
 
