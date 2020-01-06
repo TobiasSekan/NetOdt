@@ -168,43 +168,47 @@ namespace NetOdt.Helper
         {
             // Note: Don't forget the spaces between the XML properties
 
-            switch(style)
+            styleContent.Append("<");
+            styleContent.Append("style:text-properties");
+
+            if(style.HasFlag(TextStyle.Italic))
             {
-                case TextStyle.Normal:
-                    styleContent.Append("<style:text-properties/>");
-                    break;
-
-                case TextStyle.Bold:
-                    styleContent.Append("<style:text-properties fo:font-weight=\"bold\" style:font-weight-asian=\"bold\" style:font-weight-complex=\"bold\"/>");
-                    break;
-
-                case TextStyle.Italic:
-                    styleContent.Append("<style:text-properties fo:font-style=\"italic\" style:font-style-asian=\"italic\" style:font-style-complex=\"italic\"/>");
-                    break;
-
-                case TextStyle.Underline:
-                    styleContent.Append("<style:text-properties style:text-underline-style=\"solid\" style:text-underline-width=\"auto\" style:text-underline-color=\"font-color\"/>");
-                    break;
-
-                case TextStyle.Bold | TextStyle.Italic:
-                    styleContent.Append("<style:text-properties fo:font-style=\"italic\" fo:font-weight=\"bold\" style:font-style-asian=\"italic\" style:font-weight-asian=\"bold\" style:font-style-complex=\"italic\" style:font-weight-complex=\"bold\"/>");
-                    break;
-
-                case TextStyle.Bold | TextStyle.Underline:
-                    styleContent.Append("<style:text-properties style:text-underline-style=\"solid\" style:text-underline-width=\"auto\" style:text-underline-color=\"font-color\" fo:font-weight=\"bold\" style:font-weight-asian=\"bold\" style:font-weight-complex=\"bold\"/>");
-                    break;
-
-                case TextStyle.Italic | TextStyle.Underline:
-                    styleContent.Append("<style:text-properties fo:font-style=\"italic\" style:text-underline-style=\"solid\" style:text-underline-width=\"auto\" style:text-underline-color=\"font-color\" style:font-style-asian=\"italic\" style:font-style-complex=\"italic\"/>");
-                    break;
-
-                case TextStyle.Bold | TextStyle.Italic | TextStyle.Underline:
-                    styleContent.Append("<style:text-properties fo:font-style=\"italic\" style:text-underline-style=\"solid\" style:text-underline-width=\"auto\" style:text-underline-color=\"font-color\" fo:font-weight=\"bold\" style:font-style-asian=\"italic\" style:font-weight-asian=\"bold\" style:font-style-complex=\"italic\" style:font-weight-complex=\"bold\"/>");
-                    break;
-
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(style), style, "Text style not supported");
+                styleContent.Append(" fo:font-style=\"italic\"");
             }
+
+            if(style.HasFlag(TextStyle.Underline))
+            {
+                styleContent.Append(" style:text-underline-style=\"solid\"");
+                styleContent.Append(" style:text-underline-width=\"auto\"");
+                styleContent.Append(" style:text-underline-color=\"font-color\"");
+            }
+
+            if(style.HasFlag(TextStyle.Bold))
+            {
+                styleContent.Append(" fo:font-weight=\"bold\"");
+            }
+
+            if(style.HasFlag(TextStyle.Italic))
+            {
+                styleContent.Append(" style:font-style-asian=\"italic\"");
+            }
+
+            if(style.HasFlag(TextStyle.Bold))
+            {
+                styleContent.Append(" style:font-weight-asian=\"bold\"");
+            }
+
+            if(style.HasFlag(TextStyle.Italic))
+            {
+                styleContent.Append(" style:font-style-complex=\"italic\"");
+            }
+
+            if(style.HasFlag(TextStyle.Bold))
+            {
+                styleContent.Append(" style:font-weight-complex=\"bold\"");
+            }
+
+            styleContent.Append("/>");
         }
 
         /// <summary>
