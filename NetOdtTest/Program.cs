@@ -1,14 +1,17 @@
 ﻿using NetOdt;
 using NetOdt.Enumerations;
+using NUnit.Framework;
 using System;
 using System.Data;
 using System.Text;
 
 namespace NetOdtTest
 {
-    public static class Program
+    [TestFixture]
+    public class Program
     {
-        public static void Main(string[] args)
+        [Test]
+        public void CompleteTest()
         {
             var uri = new Uri("E:/testTest.odt");
 
