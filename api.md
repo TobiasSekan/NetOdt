@@ -45,6 +45,18 @@ var temporaryUri = new Uri("E:/TempFolder")
 using var odtDocument = new OdtDocument(documentUri, temporaryUri);
 ```
 
+## Set font and font size for the document
+
+```csharp
+// Set the font (name) and font size for the document
+odtDocument.SetGlobalFont(fontName: "Liberation Serif", fontSize: 12);
+
+// Set the font (name) and font size for the document
+odtDocument.SetGlobalFont(fontName: "Liberation Serif", fontSize: FontSize.Size10);
+```
+
+The enumeration `NetOdt.Enumerations.FontSize` contains all typical font sizes.
+
 ## Append unformatted values and text into the document
 
 ```csharp

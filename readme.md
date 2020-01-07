@@ -10,6 +10,9 @@ using NetOdt.Enumerations;
 // Create document (C# 8.0 syntax)
 using var odtDocument = new OdtDocument(path: "E:/MyDocument.odt");
 
+// Set font (name) and font size for the complete document
+odtDocument.SetGlobalFont("Liberation Serif", FontSize.Size12);
+
 // Append a title
 odtDocument.AppendLine("My document", HeaderStyle.Title);
 
@@ -39,7 +42,10 @@ odtDocument.AppendImage(path: "E:/picture1.jpg", width: 22.5, height: 14.1);
 
 ## Upcoming features
 Next time, when possible:
-* Font and font size
+* Set global font for all used style-sheets
+  * need complete internal rework for style sheet behavior
+* Enumeration with typical font names
+* Page break
 * Text color support (foreground, background)
 * Additional standard style-sheets
   * Sender
@@ -47,7 +53,7 @@ Next time, when possible:
   * Salutation
   * Pre-formated text
   * Horizontal line
-* Page break
+* Support for font and font size for each text passage
 * Data type support for table cells (currency for `decimal`, ...)
 
 Later, need more work:

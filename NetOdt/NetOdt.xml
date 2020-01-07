@@ -54,6 +54,161 @@
             The name of the picture folder inside the ODT document
             </summary>
         </member>
+        <member name="T:NetOdt.Enumerations.FontSize">
+            <summary>
+            Typical font size
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.FontSize.Size6">
+            <summary>
+            Font size 6
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.FontSize.Size7">
+            <summary>
+            Font size 7
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.FontSize.Size8">
+            <summary>
+            Font size 8
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.FontSize.Size9">
+            <summary>
+            Font size 9
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.FontSize.Size10">
+            <summary>
+            Font size 10
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.FontSize.Size10Point5">
+            <summary>
+            Font size 10.5
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.FontSize.Size11">
+            <summary>
+            Font size 11
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.FontSize.Size12">
+            <summary>
+            Font size 12
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.FontSize.Size13">
+            <summary>
+            Font size 13
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.FontSize.Size14">
+            <summary>
+            Font size 14
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.FontSize.Size15">
+            <summary>
+            Font size 15
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.FontSize.Size16">
+            <summary>
+            Font size 16
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.FontSize.Size18">
+            <summary>
+            Font size 18
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.FontSize.Size20">
+            <summary>
+            Font size 20
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.FontSize.Size22">
+            <summary>
+            Font size 22
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.FontSize.Size24">
+            <summary>
+            Font size 24
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.FontSize.Size26">
+            <summary>
+            Font size 26
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.FontSize.Size28">
+            <summary>
+            Font size 28
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.FontSize.Size32">
+            <summary>
+            Font size 32
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.FontSize.Size36">
+            <summary>
+            Font size 36
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.FontSize.Size40">
+            <summary>
+            Font size 40
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.FontSize.Size44">
+            <summary>
+            Font size 44
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.FontSize.Size48">
+            <summary>
+            Font size 48
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.FontSize.Size54">
+            <summary>
+            Font size 54
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.FontSize.Size60">
+            <summary>
+            Font size 60
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.FontSize.Size66">
+            <summary>
+            Font size 66
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.FontSize.Size72">
+            <summary>
+            Font size 72
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.FontSize.Size80">
+            <summary>
+            Font size 80
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.FontSize.Size88">
+            <summary>
+            Font size 88
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.FontSize.Size96">
+            <summary>
+            Font size 96
+            </summary>
+        </member>
         <member name="T:NetOdt.Enumerations.HeaderStyle">
             <summary>
             The style of a header
@@ -340,6 +495,18 @@
             <returns>The mine type of a file</returns>
             <exception cref="T:System.ArgumentOutOfRangeException">Mine type of file inside the path not supported</exception>
         </member>
+        <member name="T:NetOdt.Helper.FontHelper">
+            <summary>
+            Helper class to easier work with fonts
+            </summary>
+        </member>
+        <member name="M:NetOdt.Helper.FontHelper.GetFontSize(NetOdt.Enumerations.FontSize)">
+            <summary>
+            Return the real size of a give font size representation for a font
+            </summary>
+            <param name="fontSize">The font size representation for the real font size</param>
+            <returns>A real font size</returns>
+        </member>
         <member name="T:NetOdt.Helper.OdtDocumentHelper">
             <summary>
             Helper class to easier work with ODT document files
@@ -379,60 +546,60 @@
             Helper class to easier work with ODT document styles
             </summary>
         </member>
-        <member name="M:NetOdt.Helper.StyleHelper.AddStandardTextStyles(System.Text.StringBuilder@,System.Collections.Generic.IDictionary{NetOdt.Enumerations.TextStyle,System.String})">
+        <member name="M:NetOdt.Helper.StyleHelper.AddStandardTextStyles(NetOdt.OdtDocument@,System.Collections.Generic.IDictionary{NetOdt.Enumerations.TextStyle,System.String})">
             <summary>
             Add all needed styles for all <see cref="T:NetOdt.Enumerations.TextStyle"/> combinations to the style content
             </summary>
-            <param name="styleContent">The content container for the XML style informations</param>
+            <param name="document">The document for the XML style informations</param>
             <param name="neededStyles">List that contains all needed styles</param>
         </member>
-        <member name="M:NetOdt.Helper.StyleHelper.AddTableStyles(System.Text.StringBuilder@)">
+        <member name="M:NetOdt.Helper.StyleHelper.AddTableStyles(NetOdt.OdtDocument@)">
             <summary>
             Add all needed styles for simple tables
             </summary>
-            <param name="styleContent">The content container for the XML style informations</param>
+            <param name="document">The document for the XML style informations</param>
         </member>
-        <member name="M:NetOdt.Helper.StyleHelper.AddPictureStyle(System.Text.StringBuilder@)">
+        <member name="M:NetOdt.Helper.StyleHelper.AddPictureStyle(NetOdt.OdtDocument@)">
             <summary>
             Add all needed styles for simple pictures
             </summary>
-            <param name="styleContent">The content container for the XML style informations</param>
+            <param name="document">The document for the XML style informations</param>
         </member>
-        <member name="M:NetOdt.Helper.StyleHelper.AppendXmlStyleStart(System.Text.StringBuilder@,System.String@,NetOdt.Enumerations.StyleFamily@)">
+        <member name="M:NetOdt.Helper.StyleHelper.AppendXmlStyleStart(NetOdt.OdtDocument@,System.String@,NetOdt.Enumerations.StyleFamily@)">
             <summary>
             Append a XML start element for XML style informations
             </summary>
-            <param name="styleContent">The content container for the XML style informations</param>
+            <param name="document">The document for the XML style informations</param>
             <param name="styleName">The name for the style</param>
             <param name="styleFamily">The family of the style</param>
             <exception cref="T:System.ArgumentOutOfRangeException">Style family not supported</exception>
         </member>
-        <member name="M:NetOdt.Helper.StyleHelper.AppendXmlStyle(System.Text.StringBuilder@,NetOdt.Enumerations.TextStyle)">
+        <member name="M:NetOdt.Helper.StyleHelper.AppendXmlStyle(NetOdt.OdtDocument@,NetOdt.Enumerations.TextStyle)">
             <summary>
             Append the given text style to the XML style informations
             </summary>
-            <param name="styleContent">The content container for the XML style informations</param>
+            <param name="document">The document for the XML style informations</param>
             <param name="style">The style for the style informations</param>
         </member>
-        <member name="M:NetOdt.Helper.StyleHelper.AppendTextProperties(System.Text.StringBuilder@,NetOdt.Enumerations.TextStyle)">
+        <member name="M:NetOdt.Helper.StyleHelper.AppendTextProperties(NetOdt.OdtDocument@,NetOdt.Enumerations.TextStyle)">
             <summary>
             Append the given text properties to the XML style informations
             </summary>
-            <param name="styleContent">The content container for the XML style informations</param>
+            <param name="document">The document for the XML style informations</param>
             <param name="style">The style for the style informations</param>
         </member>
-        <member name="M:NetOdt.Helper.StyleHelper.AppendParagraphProperties(System.Text.StringBuilder@,NetOdt.Enumerations.TextStyle)">
+        <member name="M:NetOdt.Helper.StyleHelper.AppendParagraphProperties(NetOdt.OdtDocument@,NetOdt.Enumerations.TextStyle)">
             <summary>
             Append the given paragraph properties to the XML style informations
             </summary>
-            <param name="styleContent">The content container for the XML style informations</param>
+            <param name="document">The document for the XML style informations</param>
             <param name="style">The style for the style informations</param>
         </member>
-        <member name="M:NetOdt.Helper.StyleHelper.AppendXmlStyleEnd(System.Text.StringBuilder@)">
+        <member name="M:NetOdt.Helper.StyleHelper.AppendXmlStyleEnd(NetOdt.OdtDocument@)">
             <summary>
             Append a XML end element for XML style informations
             </summary>
-            <param name="styleContent">The content container for the XML style informations</param>
+            <param name="document">The document for the XML style informations</param>
         </member>
         <member name="M:NetOdt.Helper.StyleHelper.GetStyleAndOutline``1(``0@)">
             <summary>
@@ -495,6 +662,9 @@
             </summary>
             <summary>
             Class to create and write ODT documents
+            </summary>
+            <summary>
+            Class to set the global font (name and size)
             </summary>
             <summary>
             Class to create and write ODT documents
@@ -580,6 +750,30 @@
             <summary>
             Save the document, delete the folder under the <see cref="P:NetOdt.OdtDocument.TempWorkingUri"/> and free all resources
             </summary>
+        </member>
+        <member name="P:NetOdt.OdtDocument.GlobalFontName">
+            <summary>
+            The font name for complete document
+            </summary>
+        </member>
+        <member name="P:NetOdt.OdtDocument.GlobalFontSize">
+            <summary>
+            The font size for complete document
+            </summary>
+        </member>
+        <member name="M:NetOdt.OdtDocument.SetGlobalFont(System.String,NetOdt.Enumerations.FontSize)">
+            <summary>
+            Set the font (name) and font size for the complete document
+            </summary>
+            <param name="fontName">The name of the font</param>
+            <param name="fontSize">The font size representation for the font</param>
+        </member>
+        <member name="M:NetOdt.OdtDocument.SetGlobalFont(System.String,System.Single)">
+            <summary>
+            Set the font (name) and font size for the complete document
+            </summary>
+            <param name="fontName">The name of the font</param>
+            <param name="fontSize">The size of the font</param>
         </member>
         <member name="M:NetOdt.OdtDocument.AppendImage(System.String,System.Double,System.Double)">
             <summary>

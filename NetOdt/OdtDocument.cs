@@ -52,7 +52,7 @@ namespace NetOdt
         /// under the <see cref="Environment.SpecialFolder.LocalApplicationData"/> folder
         /// </summary>
         public OdtDocument()
-            : this(new Uri(FileName.UnkownOdtFile))
+            : this(new Uri(FileName.UnkownOdtFile, UriKind.Relative))
         {
         }
 
@@ -93,12 +93,9 @@ namespace NetOdt
         /// <param name="tempWorkingUri">The uniform resource identifier  for the temporary working folder for the none zipped document files</param>
         public OdtDocument(in Uri fileUri, in Uri tempWorkingUri)
         {
-            TableCount            = 0;
-            PictureCount          = 0;
-                                 
             FileUri               = fileUri;
             TempWorkingUri        = tempWorkingUri;
-                                 
+
             ContentFileUri        = UriHelper.Combine(TempWorkingUri, FileName.ContentFile);
             ManifestFileUri       = UriHelper.Combine(TempWorkingUri,
                                                       FolderResource.MainfestFolderName,
@@ -116,8 +113,17 @@ namespace NetOdt
 
             NeededStyles          = new Dictionary<TextStyle, string>();
 
+            TableCount            = 0;
+            PictureCount          = 0;
+            StyleCount            = 0;
+
+            GlobalFontName        = "Liberation Serif";
+            GlobalFontSize        = 12;
+
             OdtDocumentHelper.CreateOdtTemplate(TempWorkingUri);
             ReadContent();
+
+            SetGlobalFont("Liberation Serif", FontSize.Size12);
         }
 
         #endregion Public Constructors

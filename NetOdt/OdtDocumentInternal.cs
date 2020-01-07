@@ -121,18 +121,18 @@ namespace NetOdt
         internal void WriteContent()
         {
             // TODO: Add standard text styles only when needed
-            StyleHelper.AddStandardTextStyles(StyleContent, NeededStyles);
+            StyleHelper.AddStandardTextStyles(this, NeededStyles);
 
             // When a document has no tables, we don't need a table style
             if(TableCount > 0)
             {
-                StyleHelper.AddTableStyles(StyleContent);
+                StyleHelper.AddTableStyles(this);
             }
 
             // When a document has no pictures, we don't need a picture style
             if(PictureCount > 0)
             {
-                StyleHelper.AddPictureStyle(StyleContent);
+                StyleHelper.AddPictureStyle(this);
             }
             else
             {

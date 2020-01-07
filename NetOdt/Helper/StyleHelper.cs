@@ -1,7 +1,6 @@
 ﻿using NetOdt.Enumerations;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace NetOdt.Helper
 {
@@ -13,89 +12,89 @@ namespace NetOdt.Helper
         /// <summary>
         /// Add all needed styles for all <see cref="TextStyle"/> combinations to the style content
         /// </summary>
-        /// <param name="styleContent">The content container for the XML style informations</param>
+        /// <param name="document">The document for the XML style informations</param>
         /// <param name="neededStyles">List that contains all needed styles</param>
-        internal static void AddStandardTextStyles(in StringBuilder styleContent, IDictionary<TextStyle, string> neededStyles)
+        internal static void AddStandardTextStyles(in OdtDocument document, IDictionary<TextStyle, string> neededStyles)
         {
             foreach(var style in neededStyles)
             {
-                AppendXmlStyleStart(styleContent, style.Value, StyleFamily.Paragraph);
-                AppendXmlStyle(styleContent, style.Key);
-                AppendXmlStyleEnd(styleContent);
+                AppendXmlStyleStart(document, style.Value, StyleFamily.Paragraph);
+                AppendXmlStyle(document, style.Key);
+                AppendXmlStyleEnd(document);
             }
         }
 
         /// <summary>
         /// Add all needed styles for simple tables
         /// </summary>
-        /// <param name="styleContent">The content container for the XML style informations</param>
-        internal static void AddTableStyles(in StringBuilder styleContent)
+        /// <param name="document">The document for the XML style informations</param>
+        internal static void AddTableStyles(in OdtDocument document)
         {
-            AppendXmlStyleStart(styleContent, "Tabelle1", StyleFamily.Table);
-            styleContent.Append("<style:table-properties style:width=\"17cm\" table:align=\"margins\"/>");
-            AppendXmlStyleEnd(styleContent);
+            AppendXmlStyleStart(document, "Tabelle1", StyleFamily.Table);
+            document.StyleContent.Append("<style:table-properties style:width=\"17cm\" table:align=\"margins\"/>");
+            AppendXmlStyleEnd(document);
 
-            AppendXmlStyleStart(styleContent, "Tabelle1.A", StyleFamily.TableColumn);
-            styleContent.Append("<style:table-column-properties style:column-width=\"3.401cm\" style:rel-column-width=\"13107*\"/>");
-            AppendXmlStyleEnd(styleContent);
+            AppendXmlStyleStart(document, "Tabelle1.A", StyleFamily.TableColumn);
+            document.StyleContent.Append("<style:table-column-properties style:column-width=\"3.401cm\" style:rel-column-width=\"13107*\"/>");
+            AppendXmlStyleEnd(document);
 
-            AppendXmlStyleStart(styleContent, "Tabelle1.A1", StyleFamily.TableCell);
-            styleContent.Append("<style:table-cell-properties fo:padding=\"0.097cm\" fo:border-left=\"0.05pt solid #000000\" fo:border-right=\"none\" fo:border-top=\"0.05pt solid #000000\" fo:border-bottom=\"0.05pt solid #000000\"/>");
-            AppendXmlStyleEnd(styleContent);
+            AppendXmlStyleStart(document, "Tabelle1.A1", StyleFamily.TableCell);
+            document.StyleContent.Append("<style:table-cell-properties fo:padding=\"0.097cm\" fo:border-left=\"0.05pt solid #000000\" fo:border-right=\"none\" fo:border-top=\"0.05pt solid #000000\" fo:border-bottom=\"0.05pt solid #000000\"/>");
+            AppendXmlStyleEnd(document);
 
-            AppendXmlStyleStart(styleContent, "Tabelle1.E1", StyleFamily.TableCell);
-            styleContent.Append("<style:table-cell-properties fo:padding=\"0.097cm\" fo:border=\"0.05pt solid #000000\"/>");
-            AppendXmlStyleEnd(styleContent);
+            AppendXmlStyleStart(document, "Tabelle1.E1", StyleFamily.TableCell);
+            document.StyleContent.Append("<style:table-cell-properties fo:padding=\"0.097cm\" fo:border=\"0.05pt solid #000000\"/>");
+            AppendXmlStyleEnd(document);
 
-            AppendXmlStyleStart(styleContent, "Tabelle1.A2", StyleFamily.TableCell);
-            styleContent.Append("<style:table-cell-properties fo:padding=\"0.097cm\" fo:border-left=\"0.05pt solid #000000\" fo:border-right=\"none\" fo:border-top=\"none\" fo:border-bottom=\"0.05pt solid #000000\"/>");
-            AppendXmlStyleEnd(styleContent);
+            AppendXmlStyleStart(document, "Tabelle1.A2", StyleFamily.TableCell);
+            document.StyleContent.Append("<style:table-cell-properties fo:padding=\"0.097cm\" fo:border-left=\"0.05pt solid #000000\" fo:border-right=\"none\" fo:border-top=\"none\" fo:border-bottom=\"0.05pt solid #000000\"/>");
+            AppendXmlStyleEnd(document);
 
-            AppendXmlStyleStart(styleContent, "Tabelle1.E2", StyleFamily.TableCell);
-            styleContent.Append("<style:table-cell-properties fo:padding=\"0.097cm\" fo:border-left=\"0.05pt solid #000000\" fo:border-right=\"0.05pt solid #000000\" fo:border-top=\"none\" fo:border-bottom=\"0.05pt solid #000000\"/>");
-            AppendXmlStyleEnd(styleContent);
+            AppendXmlStyleStart(document, "Tabelle1.E2", StyleFamily.TableCell);
+            document.StyleContent.Append("<style:table-cell-properties fo:padding=\"0.097cm\" fo:border-left=\"0.05pt solid #000000\" fo:border-right=\"0.05pt solid #000000\" fo:border-top=\"none\" fo:border-bottom=\"0.05pt solid #000000\"/>");
+            AppendXmlStyleEnd(document);
         }
 
         /// <summary>
         /// Add all needed styles for simple pictures
         /// </summary>
-        /// <param name="styleContent">The content container for the XML style informations</param>
-        internal static void AddPictureStyle(in StringBuilder styleContent)
+        /// <param name="document">The document for the XML style informations</param>
+        internal static void AddPictureStyle(in OdtDocument document)
         {
-            AppendXmlStyleStart(styleContent, "fr1", StyleFamily.Graphic);
-            styleContent.Append("<style:graphic-properties style:mirror=\"none\" fo:clip=\"rect(0cm, 0cm, 0cm, 0cm)\" draw:luminance=\"0%\" draw:contrast=\"0%\" draw:red=\"0%\" draw:green=\"0%\" draw:blue=\"0%\" draw:gamma=\"100%\" draw:color-inversion=\"false\" draw:image-opacity=\"100%\" draw:color-mode=\"standard\"/>");
-            AppendXmlStyleEnd(styleContent);
+            AppendXmlStyleStart(document, "fr1", StyleFamily.Graphic);
+            document.StyleContent.Append("<style:graphic-properties style:mirror=\"none\" fo:clip=\"rect(0cm, 0cm, 0cm, 0cm)\" draw:luminance=\"0%\" draw:contrast=\"0%\" draw:red=\"0%\" draw:green=\"0%\" draw:blue=\"0%\" draw:gamma=\"100%\" draw:color-inversion=\"false\" draw:image-opacity=\"100%\" draw:color-mode=\"standard\"/>");
+            AppendXmlStyleEnd(document);
         }
 
         /// <summary>
         /// Append a XML start element for XML style informations
         /// </summary>
-        /// <param name="styleContent">The content container for the XML style informations</param>
+        /// <param name="document">The document for the XML style informations</param>
         /// <param name="styleName">The name for the style</param>
         /// <param name="styleFamily">The family of the style</param>
         /// <exception cref="ArgumentOutOfRangeException">Style family not supported</exception>
-        internal static void AppendXmlStyleStart(in StringBuilder styleContent, in string styleName, in StyleFamily styleFamily)
+        internal static void AppendXmlStyleStart(in OdtDocument document, in string styleName, in StyleFamily styleFamily)
         {
             switch(styleFamily)
             {
                 case StyleFamily.Paragraph:
-                    styleContent.Append($"<style:style style:name=\"{styleName}\" style:family=\"paragraph\" style:parent-style-name=\"Standard\">");
+                    document.StyleContent.Append($"<style:style style:name=\"{styleName}\" style:family=\"paragraph\" style:parent-style-name=\"Standard\">");
                     break;
 
                 case StyleFamily.Table:
-                    styleContent.Append($"<style:style style:name=\"{styleName}\" style:family=\"table\">");
+                    document.StyleContent.Append($"<style:style style:name=\"{styleName}\" style:family=\"table\">");
                     break;
 
                 case StyleFamily.TableColumn:
-                    styleContent.Append($"<style:style style:name=\"{styleName}\" style:family=\"table-column\">");
+                    document.StyleContent.Append($"<style:style style:name=\"{styleName}\" style:family=\"table-column\">");
                     break;
 
                 case StyleFamily.TableCell:
-                    styleContent.Append($"<style:style style:name=\"{styleName}\" style:family=\"table-cell\">");
+                    document.StyleContent.Append($"<style:style style:name=\"{styleName}\" style:family=\"table-cell\">");
                     break;
 
                 case StyleFamily.Graphic:
-                    styleContent.Append($"<style:style style:name=\"{styleName}\" style:family=\"graphic\" style:parent-style-name=\"Graphics\">");
+                    document.StyleContent.Append($"<style:style style:name=\"{styleName}\" style:family=\"graphic\" style:parent-style-name=\"Graphics\">");
                     break;
 
                 default:
@@ -106,147 +105,150 @@ namespace NetOdt.Helper
         /// <summary>
         /// Append the given text style to the XML style informations
         /// </summary>
-        /// <param name="styleContent">The content container for the XML style informations</param>
+        /// <param name="document">The document for the XML style informations</param>
         /// <param name="style">The style for the style informations</param>
-        internal static void AppendXmlStyle(in StringBuilder styleContent, TextStyle style)
+        internal static void AppendXmlStyle(in OdtDocument document, TextStyle style)
         {
-            AppendTextProperties(styleContent, style);
-            AppendParagraphProperties(styleContent, style);
+            AppendTextProperties(document, style);
+            AppendParagraphProperties(document, style);
         }
 
         /// <summary>
         /// Append the given text properties to the XML style informations
         /// </summary>
-        /// <param name="styleContent">The content container for the XML style informations</param>
+        /// <param name="document">The document for the XML style informations</param>
         /// <param name="style">The style for the style informations</param>
-        internal static void AppendTextProperties(in StringBuilder styleContent, TextStyle style)
+        internal static void AppendTextProperties(in OdtDocument document, TextStyle style)
         {
             // Note: Don't forget the spaces between the XML properties
 
-            styleContent.Append("<");
-            styleContent.Append("style:text-properties");
+            document.StyleContent.Append("<");
+            document.StyleContent.Append("style:text-properties");
+
+            document.StyleContent.Append($" style:font-name=\"{document.GlobalFontName}\"");
+            document.StyleContent.Append($" style:font-size=\"{document.GlobalFontSize}\"");
 
             if(style.HasFlag(TextStyle.Bold))
             {
-                styleContent.Append(" fo:font-weight=\"bold\"");
-                styleContent.Append(" style:font-weight-asian=\"bold\"");
-                styleContent.Append(" style:font-weight-complex=\"bold\"");
+                document.StyleContent.Append(" fo:font-weight=\"bold\"");
+                document.StyleContent.Append(" style:font-weight-asian=\"bold\"");
+                document.StyleContent.Append(" style:font-weight-complex=\"bold\"");
             }
             else
             {
-                styleContent.Append(" fo:font-weight=\"normal\"");
-                styleContent.Append(" style:font-weight-asian=\"normal\"");
-                styleContent.Append(" style:font-weight-complex=\"normal\"");
+                document.StyleContent.Append(" fo:font-weight=\"normal\"");
+                document.StyleContent.Append(" style:font-weight-asian=\"normal\"");
+                document.StyleContent.Append(" style:font-weight-complex=\"normal\"");
             }
 
             if(style.HasFlag(TextStyle.Italic))
             {
-                styleContent.Append(" fo:font-style=\"italic\"");
-                styleContent.Append(" style:font-style-asian=\"italic\"");
-                styleContent.Append(" style:font-style-complex=\"italic\"");
+                document.StyleContent.Append(" fo:font-style=\"italic\"");
+                document.StyleContent.Append(" style:font-style-asian=\"italic\"");
+                document.StyleContent.Append(" style:font-style-complex=\"italic\"");
             }
             else
             {
-                styleContent.Append(" fo:font-style=\"normal\"");
-                styleContent.Append(" style:font-style-asian=\"normal\"");
-                styleContent.Append(" style:font-style-complex=\"normal\"");
+                document.StyleContent.Append(" fo:font-style=\"normal\"");
+                document.StyleContent.Append(" style:font-style-asian=\"normal\"");
+                document.StyleContent.Append(" style:font-style-complex=\"normal\"");
             }
 
             if(style.HasFlag(TextStyle.UnderlineSingle))
             {
-                styleContent.Append(" style:text-underline-style=\"solid\"");
-                styleContent.Append(" style:text-underline-width=\"auto\"");
-                styleContent.Append(" style:text-underline-color=\"font-color\"");
+                document.StyleContent.Append(" style:text-underline-style=\"solid\"");
+                document.StyleContent.Append(" style:text-underline-width=\"auto\"");
+                document.StyleContent.Append(" style:text-underline-color=\"font-color\"");
             }
             else if(style.HasFlag(TextStyle.UnderlineDouble))
             {
-                styleContent.Append(" style:text-underline-style=\"double\"");
-                styleContent.Append(" style:text-underline-width=\"auto\"");
-                styleContent.Append(" style:text-underline-color=\"font-color\"");
+                document.StyleContent.Append(" style:text-underline-style=\"double\"");
+                document.StyleContent.Append(" style:text-underline-width=\"auto\"");
+                document.StyleContent.Append(" style:text-underline-color=\"font-color\"");
             }
             else if(style.HasFlag(TextStyle.UnderlineBold))
             {
-                styleContent.Append(" style:text-underline-style=\"solid\"");
-                styleContent.Append(" style:text-underline-width=\"bold\"");
-                styleContent.Append(" style:text-underline-color=\"font-color\"");
+                document.StyleContent.Append(" style:text-underline-style=\"solid\"");
+                document.StyleContent.Append(" style:text-underline-width=\"bold\"");
+                document.StyleContent.Append(" style:text-underline-color=\"font-color\"");
             }
             else if(style.HasFlag(TextStyle.UnderlineDotted))
             {
-                styleContent.Append(" style:text-underline-style=\"dotted\"");
-                styleContent.Append(" style:text-underline-width=\"auto\"");
-                styleContent.Append(" style:text-underline-color=\"font-color\"");
+                document.StyleContent.Append(" style:text-underline-style=\"dotted\"");
+                document.StyleContent.Append(" style:text-underline-width=\"auto\"");
+                document.StyleContent.Append(" style:text-underline-color=\"font-color\"");
             }
             else if(style.HasFlag(TextStyle.UnderlineDottedBold))
             {
-                styleContent.Append(" style:text-underline-style=\"dotted\"");
-                styleContent.Append(" style:text-underline-width=\"bold\"");
-                styleContent.Append(" style:text-underline-color=\"font-color\"");
+                document.StyleContent.Append(" style:text-underline-style=\"dotted\"");
+                document.StyleContent.Append(" style:text-underline-width=\"bold\"");
+                document.StyleContent.Append(" style:text-underline-color=\"font-color\"");
             }
             else if(style.HasFlag(TextStyle.UnderlineDash))
             {
-                styleContent.Append(" style:text-underline-style=\"dash\"");
-                styleContent.Append(" style:text-underline-width=\"auto\"");
-                styleContent.Append(" style:text-underline-color=\"font-color\"");
+                document.StyleContent.Append(" style:text-underline-style=\"dash\"");
+                document.StyleContent.Append(" style:text-underline-width=\"auto\"");
+                document.StyleContent.Append(" style:text-underline-color=\"font-color\"");
             }
             else if(style.HasFlag(TextStyle.UnderlineLongDash))
             {
-                styleContent.Append(" style:text-underline-style=\"long-dash\"");
-                styleContent.Append(" style:text-underline-width=\"auto\"");
-                styleContent.Append(" style:text-underline-color=\"font-color\"");
+                document.StyleContent.Append(" style:text-underline-style=\"long-dash\"");
+                document.StyleContent.Append(" style:text-underline-width=\"auto\"");
+                document.StyleContent.Append(" style:text-underline-color=\"font-color\"");
             }
             else if(style.HasFlag(TextStyle.UnderlineDotDash))
             {
-                styleContent.Append(" style:text-underline-style=\"dot-dash\"");
-                styleContent.Append(" style:text-underline-width=\"auto\"");
-                styleContent.Append(" style:text-underline-color=\"font-color\"");
+                document.StyleContent.Append(" style:text-underline-style=\"dot-dash\"");
+                document.StyleContent.Append(" style:text-underline-width=\"auto\"");
+                document.StyleContent.Append(" style:text-underline-color=\"font-color\"");
             }
             else if(style.HasFlag(TextStyle.UnderlineDotDotDash))
             {
-                styleContent.Append(" style:text-underline-style=\"dot-dot-dash\"");
-                styleContent.Append(" style:text-underline-width=\"auto\"");
-                styleContent.Append(" style:text-underline-color=\"font-color\"");
+                document.StyleContent.Append(" style:text-underline-style=\"dot-dot-dash\"");
+                document.StyleContent.Append(" style:text-underline-width=\"auto\"");
+                document.StyleContent.Append(" style:text-underline-color=\"font-color\"");
             }
             else if(style.HasFlag(TextStyle.UnderlineWave))
             {
-                styleContent.Append(" style:text-underline-style=\"wave\"");
-                styleContent.Append(" style:text-underline-width=\"auto\"");
-                styleContent.Append(" style:text-underline-color=\"font-color\"");
+                document.StyleContent.Append(" style:text-underline-style=\"wave\"");
+                document.StyleContent.Append(" style:text-underline-width=\"auto\"");
+                document.StyleContent.Append(" style:text-underline-color=\"font-color\"");
             }
             else
             {
-                styleContent.Append(" style:text-underline-style=\"none\"");
+                document.StyleContent.Append(" style:text-underline-style=\"none\"");
             }
 
             if(style.HasFlag(TextStyle.Stroke))
             {
-                styleContent.Append(" style:text-line-through-style=\"solid\"");
-                styleContent.Append(" style:text-line-through-type=\"single\"");
+                document.StyleContent.Append(" style:text-line-through-style=\"solid\"");
+                document.StyleContent.Append(" style:text-line-through-type=\"single\"");
             }
             else
             {
-                styleContent.Append(" style:text-line-through-style=\"none\"");
-                styleContent.Append(" style:text-line-through-type=\"none\"");
+                document.StyleContent.Append(" style:text-line-through-style=\"none\"");
+                document.StyleContent.Append(" style:text-line-through-type=\"none\"");
             }
 
             // A text paragraph can only use superscript or subscript not both at same time
             if(style.HasFlag(TextStyle.Subscript))
             {
-                styleContent.Append(" style:text-position=\"sub 58%\"");
+                document.StyleContent.Append(" style:text-position=\"sub 58%\"");
             }
             else if(style.HasFlag(TextStyle.Superscript))
             {
-                styleContent.Append(" style:text-position=\"super 58%\"");
+                document.StyleContent.Append(" style:text-position=\"super 58%\"");
             }
 
-            styleContent.Append("/>");
+            document.StyleContent.Append("/>");
         }
 
         /// <summary>
         /// Append the given paragraph properties to the XML style informations
         /// </summary>
-        /// <param name="styleContent">The content container for the XML style informations</param>
+        /// <param name="document">The document for the XML style informations</param>
         /// <param name="style">The style for the style informations</param>
-        internal static void AppendParagraphProperties(in StringBuilder styleContent, TextStyle style)
+        internal static void AppendParagraphProperties(in OdtDocument document, TextStyle style)
         {
             if(!style.HasFlag(TextStyle.Left)
             && !style.HasFlag(TextStyle.Center)
@@ -258,42 +260,42 @@ namespace NetOdt.Helper
 
             // Note: Don't forget the spaces between the XML properties
 
-            styleContent.Append("<");
-            styleContent.Append("style:paragraph-properties");
+            document.StyleContent.Append("<");
+            document.StyleContent.Append("style:paragraph-properties");
 
             if(style.HasFlag(TextStyle.Left))
             {
-                styleContent.Append(" fo:text-align=\"start\"");
-                styleContent.Append(" style:justify-single-word=\"false\"");
+                document.StyleContent.Append(" fo:text-align=\"start\"");
+                document.StyleContent.Append(" style:justify-single-word=\"false\"");
             }
 
             if(style.HasFlag(TextStyle.Center))
             {
-                styleContent.Append(" fo:text-align=\"center\"");
-                styleContent.Append(" style:justify-single-word=\"false\"");
+                document.StyleContent.Append(" fo:text-align=\"center\"");
+                document.StyleContent.Append(" style:justify-single-word=\"false\"");
             }
 
             if(style.HasFlag(TextStyle.Right))
             {
-                styleContent.Append(" fo:text-align=\"end\"");
-                styleContent.Append(" style:justify-single-word=\"false\"");
+                document.StyleContent.Append(" fo:text-align=\"end\"");
+                document.StyleContent.Append(" style:justify-single-word=\"false\"");
             }
 
             if(style.HasFlag(TextStyle.Justify))
             {
-                styleContent.Append(" fo:text-align=\"justify\"");
-                styleContent.Append(" style:justify-single-word=\"false\"");
+                document.StyleContent.Append(" fo:text-align=\"justify\"");
+                document.StyleContent.Append(" style:justify-single-word=\"false\"");
             }
 
-            styleContent.Append("/>");
+            document.StyleContent.Append("/>");
         }
 
         /// <summary>
         /// Append a XML end element for XML style informations
         /// </summary>
-        /// <param name="styleContent">The content container for the XML style informations</param>
-        internal static void AppendXmlStyleEnd(in StringBuilder styleContent)
-            => styleContent.Append("</style:style>");
+        /// <param name="document">The document for the XML style informations</param>
+        internal static void AppendXmlStyleEnd(in OdtDocument document)
+            => document.StyleContent.Append("</style:style>");
 
         /// <summary>
         /// Return the outline level and style name of a given text style

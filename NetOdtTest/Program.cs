@@ -17,6 +17,8 @@ namespace NetOdtTest
 
             using var odtDoucment = new OdtDocument(uri);
 
+            odtDoucment.SetGlobalFont("Arial", FontSize.Size11);
+
             odtDoucment.AppendLine("My Test document", HeaderStyle.Title);
 
             odtDoucment.AppendTable(GetTable());

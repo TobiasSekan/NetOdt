@@ -1,7 +1,7 @@
-﻿using NetOdt.Enumerations;
+﻿using NetOdt;
+using NetOdt.Enumerations;
 using NetOdt.Helper;
 using NUnit.Framework;
-using System.Text;
 
 namespace NetOdtTest.HelperTest
 {
@@ -15,11 +15,11 @@ namespace NetOdtTest.HelperTest
         [TestCase("TestName5", StyleFamily.TableColumn, "<style:style style:name=\"TestName5\" style:family=\"table-column\">")]
         public void AppendXmlStyleStartTest(string styleName, StyleFamily styleFamily, string result)
         {
-            var styleContent = new StringBuilder();
+            var document = new OdtDocument();
 
-            StyleHelper.AppendXmlStyleStart(styleContent, styleName, styleFamily);
+            StyleHelper.AppendXmlStyleStart(document, styleName, styleFamily);
 
-            Assert.That(styleContent.ToString(), Is.EqualTo(result));
+            Assert.That(document.StyleContent.ToString(), Is.EqualTo(result));
         }
 
         [TestCase(TextStyle.None, "fo:font-weight=\"normal\"")]
@@ -127,25 +127,25 @@ namespace NetOdtTest.HelperTest
 
         public void AppendXmlStyleTest(TextStyle style, string result)
         {
-            var styleContent = new StringBuilder();
+            var document = new OdtDocument();
 
-            StyleHelper.AppendXmlStyle(styleContent, style);
+            StyleHelper.AppendXmlStyle(document, style);
 
-            Assert.That(styleContent.ToString(), Does.StartWith("<style:text-properties"));
-            Assert.That(styleContent.ToString(), Does.EndWith("/>"));
+            Assert.That(document.StyleContent.ToString(), Does.StartWith("<style:text-properties"));
+            Assert.That(document.StyleContent.ToString(), Does.EndWith("/>"));
 
             // Make sure that every property is has a separated with a space
-            Assert.That(styleContent.ToString(), Does.Contain($" {result}"));
+            Assert.That(document.StyleContent.ToString(), Does.Contain($" {result}"));
         }
 
         [Test]
         public void AppendXmlStyleEndTest()
         {
-            var styleContent = new StringBuilder();
+            var document = new OdtDocument();
 
-            StyleHelper.AppendXmlStyleEnd(styleContent);
+            StyleHelper.AppendXmlStyleEnd(document);
 
-            Assert.That(styleContent.ToString(), Is.EqualTo("</style:style>"));
+            Assert.That(document.StyleContent.ToString(), Is.EqualTo("</style:style>"));
         }
 
     }
