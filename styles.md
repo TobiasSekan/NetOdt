@@ -42,7 +42,8 @@ TextStyle.Superscript | TextStyle.Subscript
 
 ## Supported styles sheets
 
-You can only use one style for a header.
+You can only use one style sheet for a text passage.
+
 * Title
 * Heading level 1
 * Heading level 2
