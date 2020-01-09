@@ -260,7 +260,8 @@ namespace NetOdt.Helper
             if(!style.HasFlag(TextStyle.Left)
             && !style.HasFlag(TextStyle.Center)
             && !style.HasFlag(TextStyle.Right)
-            && !style.HasFlag(TextStyle.Justify))
+            && !style.HasFlag(TextStyle.Justify)
+            && !style.HasFlag(TextStyle.PageBreak))
             {
                 return;
             }
@@ -292,6 +293,11 @@ namespace NetOdt.Helper
             {
                 document.StyleContent.Append(" fo:text-align=\"justify\"");
                 document.StyleContent.Append(" style:justify-single-word=\"false\"");
+            }
+
+            if(style.HasFlag(TextStyle.Justify))
+            {
+                document.StyleContent.Append(" fo:break-before=\"page\"");
             }
 
             document.StyleContent.Append("/>");

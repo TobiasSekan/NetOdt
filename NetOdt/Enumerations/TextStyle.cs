@@ -199,5 +199,10 @@ namespace NetOdt.Enumerations
         /// Footnote
         /// </summary>
         Footnote = 1 << 34,
+
+        /// <summary>
+        /// Page break before text
+        /// </summary>
+        PageBreak = 1 << 35,
     }
 }

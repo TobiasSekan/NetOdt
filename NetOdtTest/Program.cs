@@ -58,7 +58,7 @@ namespace NetOdtTest
 
             var contentTwo = new StringBuilder();
             content.Append("This is a text a\n very\n\n\nvery very\n\n\nlong text");
-            odtDoucment.AppendLine(content, TextStyle.Italic | TextStyle.UnderlineSingle | TextStyle.Subscript);
+            odtDoucment.AppendLine(content, TextStyle.PageBreak | TextStyle.Italic | TextStyle.UnderlineSingle | TextStyle.Subscript);
 
             odtDoucment.AppendLine("sub-sub-sub-sub", TextStyle.Subtitle);
 

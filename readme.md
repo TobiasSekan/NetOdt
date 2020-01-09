@@ -43,7 +43,6 @@ odtDocument.AppendImage(path: "E:/picture1.jpg", width: 22.5, height: 14.1);
 ## Upcoming features
 Next time, when possible:
 * Enumeration with typical font names
-* Page break
 * Text color support (foreground, background)
 * Additional standard style-sheets
   * Sender

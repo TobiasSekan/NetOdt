@@ -134,6 +134,16 @@ odtDocument.AppendLine(content, TextStyle.Footnote);
 
 [All supported styles can find here](./styles.md)
 
+## Append a page break
+
+```charp
+/// Append a page break
+odtDocument.AppendLines(string.Empty, TextStyle.PageBreak);
+
+/// Append a page break before a bold text passages
+odtDocument.AppendLines("This is the last sentence on page one", TextStyle.PageBreak | TextStyle.Bold);
+```
+
 ## Append empty lines
 
 ```csharp

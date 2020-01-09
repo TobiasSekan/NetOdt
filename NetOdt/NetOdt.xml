@@ -436,6 +436,11 @@
             Footnote
             </summary>
         </member>
+        <member name="F:NetOdt.Enumerations.TextStyle.PageBreak">
+            <summary>
+            Page break before text
+            </summary>
+        </member>
         <member name="T:NetOdt.Helper.DirectoryHelper">
             <summary>
             Helper class to easier work with <see cref="T:System.IO.Directory"/>
