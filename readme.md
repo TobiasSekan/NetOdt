@@ -14,7 +14,7 @@ using var odtDocument = new OdtDocument(path: "E:/MyDocument.odt");
 odtDocument.SetGlobalFont("Liberation Serif", FontSize.Size12);
 
 // Append a title
-odtDocument.AppendLine("My document", HeaderStyle.Title);
+odtDocument.AppendLine("My document", TextStyle.Title);
 
 // Append a centered bold text
 odtDocument.AppendLine("This is a bold text", TextStyle.Center | TextStyle.Bold);
