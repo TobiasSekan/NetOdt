@@ -22,26 +22,25 @@ namespace NetOdt
         /// Append a single line with a styled value to the document
         /// </summary>
         /// <param name="value">The value to write into the document</param>
-        /// <param name="style">The style of the value</param>
-        public void AppendLine<TValue, TStyle>(in TValue value, in TStyle style)
+        /// <param name="textStyle">The style of the value</param>
+        public void AppendLine<TValue>(in TValue value, in TextStyle textStyle)
             where TValue : notnull
-            where TStyle : notnull, Enum
         {
             if(value is StringBuilder content)
             {
                 if(content.Length == 0 || !StringBuilderHelper.ContainsLineBreaks(content))
                 {
-                    AppendXmlTextStart(style);
+                    AppendXmlTextStart(textStyle);
                     AppendValue(content);
-                    AppendXmlTextEnd(style);
+                    AppendXmlTextEnd(textStyle);
                     return;
                 }
 
                 foreach(var contentBlock in content.ToString().Split('\n'))
                 {
-                    AppendXmlTextStart(style);
+                    AppendXmlTextStart(textStyle);
                     AppendValue(contentBlock);
-                    AppendXmlTextEnd(style);
+                    AppendXmlTextEnd(textStyle);
                 }
 
                 return;
@@ -51,32 +50,32 @@ namespace NetOdt
             {
                 if(text.Length == 0 || !text.Contains("\n"))
                 {
-                    AppendXmlTextStart(style);
+                    AppendXmlTextStart(textStyle);
                     AppendValue(text);
-                    AppendXmlTextEnd(style);
+                    AppendXmlTextEnd(textStyle);
                     return;
                 }
 
                 foreach(var textBlock in text.Split('\n'))
                 {
-                    AppendXmlTextStart(style);
+                    AppendXmlTextStart(textStyle);
                     AppendValue(textBlock);
-                    AppendXmlTextEnd(style);
+                    AppendXmlTextEnd(textStyle);
                 }
 
                 return;
             }
 
-            AppendXmlTextStart(style);
+            AppendXmlTextStart(textStyle);
             AppendValue(value);
-            AppendXmlTextEnd(style);
+            AppendXmlTextEnd(textStyle);
         }
 
         /// <summary>
         /// Append the given count of empty lines
         /// </summary>
         /// <param name="countOfEmptyLines">The count of empty lines to write</param>
-        public void AppendEmptyLines(int countOfEmptyLines)
+        public void AppendEmptyLines(in int countOfEmptyLines)
         {
             for(var count = 0; count < countOfEmptyLines; count++)
             {
@@ -87,44 +86,37 @@ namespace NetOdt
         /// <summary>
         /// Append a XML start element for a text passage
         /// </summary>
-        /// <typeparam name="TStyle">The <see cref="Type"/> of the style for the text passage</typeparam>
-        /// <param name="style">The style for the text passage</param>
-        internal void AppendXmlTextStart<TStyle>(in TStyle style) where TStyle : notnull, Enum
+        /// <param name="textStyle">The style for the text passage</param>
+        internal void AppendXmlTextStart(in TextStyle textStyle)
         {
-            byte outlineLevel;
-            string styleName;
+            var styleName = TryToAddStyle(textStyle);
 
-            switch(style)
+            TextContent.Append("<");
+
+            switch(textStyle)
             {
-                case HeaderStyle.HeadingLevel01:
-                case HeaderStyle.HeadingLevel02:
-                case HeaderStyle.HeadingLevel03:
-                case HeaderStyle.HeadingLevel04:
-                case HeaderStyle.HeadingLevel05:
-                case HeaderStyle.HeadingLevel06:
-                case HeaderStyle.HeadingLevel07:
-                case HeaderStyle.HeadingLevel08:
-                case HeaderStyle.HeadingLevel09:
-                case HeaderStyle.HeadingLevel10:
-                    (outlineLevel, styleName) = StyleHelper.GetStyleAndOutline(style);
-                    TextContent.Append($"<text:h text:style-name=\"{styleName}\" text:outline-level=\"{outlineLevel}\">");
-                    break;
-
-                case HeaderStyle.Title:
-                case HeaderStyle.Subtitle:
-                case HeaderStyle.Signature:
-                case HeaderStyle.Quotations:
-                case HeaderStyle.Endnote:
-                case HeaderStyle.Footnote:
-                    (_, styleName) = StyleHelper.GetStyleAndOutline(style);
-                    TextContent.Append($"<text:p text:style-name=\"{styleName}\">");
+                case TextStyle.HeadingLevel01:
+                case TextStyle.HeadingLevel02:
+                case TextStyle.HeadingLevel03:
+                case TextStyle.HeadingLevel04:
+                case TextStyle.HeadingLevel05:
+                case TextStyle.HeadingLevel06:
+                case TextStyle.HeadingLevel07:
+                case TextStyle.HeadingLevel08:
+                case TextStyle.HeadingLevel09:
+                case TextStyle.HeadingLevel10:
+                    TextContent.Append("text:h");
+                    TextContent.Append($" text:style-name=\"{styleName}\"");
+                    TextContent.Append($" text:outline-level=\"{StyleHelper.GetOutlineLevel(textStyle)}\"");
                     break;
 
                 default:
-                    styleName = TryToAddStyle((style as TextStyle?) ?? TextStyle.None);
-                    TextContent.Append($"<text:p text:style-name=\"{styleName}\">");
+                    TextContent.Append("text:p");
+                    TextContent.Append($" text:style-name=\"{styleName}\"");
                     break;
             }
+
+            TextContent.Append(">");
         }
 
         /// <summary>
@@ -216,20 +208,20 @@ namespace NetOdt
         /// <summary>
         /// Append a XML end element for a text passage
         /// </summary>
-        internal void AppendXmlTextEnd<TStyle>(in TStyle style) where TStyle : notnull, Enum
+        internal void AppendXmlTextEnd(in TextStyle textStyle)
         {
-            switch(style)
+            switch(textStyle)
             {
-                case HeaderStyle.HeadingLevel01:
-                case HeaderStyle.HeadingLevel02:
-                case HeaderStyle.HeadingLevel03:
-                case HeaderStyle.HeadingLevel04:
-                case HeaderStyle.HeadingLevel05:
-                case HeaderStyle.HeadingLevel06:
-                case HeaderStyle.HeadingLevel07:
-                case HeaderStyle.HeadingLevel08:
-                case HeaderStyle.HeadingLevel09:
-                case HeaderStyle.HeadingLevel10:
+                case TextStyle.HeadingLevel01:
+                case TextStyle.HeadingLevel02:
+                case TextStyle.HeadingLevel03:
+                case TextStyle.HeadingLevel04:
+                case TextStyle.HeadingLevel05:
+                case TextStyle.HeadingLevel06:
+                case TextStyle.HeadingLevel07:
+                case TextStyle.HeadingLevel08:
+                case TextStyle.HeadingLevel09:
+                case TextStyle.HeadingLevel10:
                     TextContent.Append("</text:h>");
                     break;
 

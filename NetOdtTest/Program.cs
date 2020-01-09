@@ -19,13 +19,13 @@ namespace NetOdtTest
 
             odtDoucment.SetGlobalFont("Arial", FontSize.Size11);
 
-            odtDoucment.AppendLine("My Test document", HeaderStyle.Title);
+            odtDoucment.AppendLine("My Test document", TextStyle.Title);
 
             odtDoucment.AppendTable(GetTable());
 
             odtDoucment.AppendImage("E:/picture1.jpg", width: 10.5, height: 8.0);
 
-            odtDoucment.AppendLine("Unformatted", HeaderStyle.HeadingLevel01);
+            odtDoucment.AppendLine("Unformatted", TextStyle.HeadingLevel01);
 
             odtDoucment.AppendEmptyLines(countOfEmptyLines: 5);
             odtDoucment.AppendLine(byte.MaxValue, TextStyle.Center | TextStyle.Bold);
@@ -47,7 +47,7 @@ namespace NetOdtTest
 
             odtDoucment.AppendTable(GetTable());
 
-            odtDoucment.AppendLine("Formatted", HeaderStyle.HeadingLevel04);
+            odtDoucment.AppendLine("Formatted", TextStyle.HeadingLevel04);
 
             odtDoucment.AppendLine(long.MinValue, TextStyle.Bold | TextStyle.Stroke);
             odtDoucment.AppendLine(byte.MaxValue, TextStyle.Italic | TextStyle.Subscript);
@@ -60,7 +60,7 @@ namespace NetOdtTest
             content.Append("This is a text a\n very\n\n\nvery very\n\n\nlong text");
             odtDoucment.AppendLine(content, TextStyle.Italic | TextStyle.UnderlineSingle | TextStyle.Subscript);
 
-            odtDoucment.AppendLine("sub-sub-sub-sub", HeaderStyle.Subtitle);
+            odtDoucment.AppendLine("sub-sub-sub-sub", TextStyle.Subtitle);
 
             odtDoucment.AppendTable(3, 3, "Fill me");
             odtDoucment.AppendTable(3, 3, 0.00);

@@ -209,91 +209,6 @@
             Font size 96
             </summary>
         </member>
-        <member name="T:NetOdt.Enumerations.HeaderStyle">
-            <summary>
-            The style of a header
-            </summary>
-        </member>
-        <member name="F:NetOdt.Enumerations.HeaderStyle.Title">
-            <summary>
-            Title
-            </summary>
-        </member>
-        <member name="F:NetOdt.Enumerations.HeaderStyle.HeadingLevel01">
-            <summary>
-            Heading level 1
-            </summary>
-        </member>
-        <member name="F:NetOdt.Enumerations.HeaderStyle.HeadingLevel02">
-            <summary>
-            Heading level 2
-            </summary>
-        </member>
-        <member name="F:NetOdt.Enumerations.HeaderStyle.HeadingLevel03">
-            <summary>
-            Heading level 3
-            </summary>
-        </member>
-        <member name="F:NetOdt.Enumerations.HeaderStyle.HeadingLevel04">
-            <summary>
-            Heading level 4
-            </summary>
-        </member>
-        <member name="F:NetOdt.Enumerations.HeaderStyle.HeadingLevel05">
-            <summary>
-            Heading level 5
-            </summary>
-        </member>
-        <member name="F:NetOdt.Enumerations.HeaderStyle.HeadingLevel06">
-            <summary>
-            Heading level 6
-            </summary>
-        </member>
-        <member name="F:NetOdt.Enumerations.HeaderStyle.HeadingLevel07">
-            <summary>
-            Heading level 7
-            </summary>
-        </member>
-        <member name="F:NetOdt.Enumerations.HeaderStyle.HeadingLevel08">
-            <summary>
-            Heading level 8
-            </summary>
-        </member>
-        <member name="F:NetOdt.Enumerations.HeaderStyle.HeadingLevel09">
-            <summary>
-            Heading level 9
-            </summary>
-        </member>
-        <member name="F:NetOdt.Enumerations.HeaderStyle.HeadingLevel10">
-            <summary>
-            Heading level 10
-            </summary>
-        </member>
-        <member name="F:NetOdt.Enumerations.HeaderStyle.Subtitle">
-            <summary>
-            Subtitle
-            </summary>
-        </member>
-        <member name="F:NetOdt.Enumerations.HeaderStyle.Signature">
-            <summary>
-            Signature
-            </summary>
-        </member>
-        <member name="F:NetOdt.Enumerations.HeaderStyle.Quotations">
-            <summary>
-            Quotations
-            </summary>
-        </member>
-        <member name="F:NetOdt.Enumerations.HeaderStyle.Endnote">
-            <summary>
-            Endnote
-            </summary>
-        </member>
-        <member name="F:NetOdt.Enumerations.HeaderStyle.Footnote">
-            <summary>
-            Footnote
-            </summary>
-        </member>
         <member name="T:NetOdt.Enumerations.StyleFamily">
             <summary>
             The style type for a passage
@@ -427,6 +342,98 @@
         <member name="F:NetOdt.Enumerations.TextStyle.Justify">
             <summary>
             The text use full justification
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.TextStyle.Title">
+            <summary>
+            Title
+            <para>font size 28 and bold and centered</para>
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.TextStyle.Subtitle">
+            <summary>
+            Subtitle
+            <para>font size 18 and centered</para>
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.TextStyle.HeadingLevel01">
+            <summary>
+            Heading level 1
+            <para>font size 18,2 and bold</para>
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.TextStyle.HeadingLevel02">
+            <summary>
+            Heading level 2
+            <para>font size 16,1 and bold</para>
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.TextStyle.HeadingLevel03">
+            <summary>
+            Heading level 3
+            <para>font size 14,1 and bold</para>
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.TextStyle.HeadingLevel04">
+            <summary>
+            Heading level 4 ()
+            <para>font size 13,3 and bold and italic</para>
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.TextStyle.HeadingLevel05">
+            <summary>
+            Heading level 5 ()
+            <para>font size 11,8 and bold</para>
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.TextStyle.HeadingLevel06">
+            <summary>
+            Heading level 6
+            <para>font size 11,8 and bold and italic</para>
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.TextStyle.HeadingLevel07">
+            <summary>
+            Heading level 7
+            <para>font size 11,1 and bold</para>
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.TextStyle.HeadingLevel08">
+            <summary>
+            Heading level 8
+            <para>font size 11,1 and bold and italic</para>
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.TextStyle.HeadingLevel09">
+            <summary>
+            Heading level 9
+            <para>font size 10,5 and bold</para>
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.TextStyle.HeadingLevel10">
+            <summary>
+            Heading level 10
+            <para>font size 10,5 and bold</para>
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.TextStyle.Signature">
+            <summary>
+            Signature
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.TextStyle.Quotations">
+            <summary>
+            Quotations
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.TextStyle.Endnote">
+            <summary>
+            Endnote
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.TextStyle.Footnote">
+            <summary>
+            Footnote
             </summary>
         </member>
         <member name="T:NetOdt.Helper.DirectoryHelper">
@@ -565,13 +572,14 @@
             </summary>
             <param name="document">The document for the XML style informations</param>
         </member>
-        <member name="M:NetOdt.Helper.StyleHelper.AppendXmlStyleStart(NetOdt.OdtDocument@,System.String@,NetOdt.Enumerations.StyleFamily@)">
+        <member name="M:NetOdt.Helper.StyleHelper.AppendXmlStyleStart(NetOdt.OdtDocument@,System.String@,NetOdt.Enumerations.StyleFamily@,NetOdt.Enumerations.TextStyle@)">
             <summary>
             Append a XML start element for XML style informations
             </summary>
             <param name="document">The document for the XML style informations</param>
             <param name="styleName">The name for the style</param>
             <param name="styleFamily">The family of the style</param>
+            <param name="textStyle">The type of the style</param>
             <exception cref="T:System.ArgumentOutOfRangeException">Style family not supported</exception>
         </member>
         <member name="M:NetOdt.Helper.StyleHelper.AppendXmlStyle(NetOdt.OdtDocument@,NetOdt.Enumerations.TextStyle)">
@@ -586,7 +594,7 @@
             Append the given text properties to the XML style informations
             </summary>
             <param name="document">The document for the XML style informations</param>
-            <param name="style">The style for the style informations</param>
+            <param name="textStyle">The style for the style informations</param>
         </member>
         <member name="M:NetOdt.Helper.StyleHelper.AppendParagraphProperties(NetOdt.OdtDocument@,NetOdt.Enumerations.TextStyle)">
             <summary>
@@ -601,13 +609,12 @@
             </summary>
             <param name="document">The document for the XML style informations</param>
         </member>
-        <member name="M:NetOdt.Helper.StyleHelper.GetStyleAndOutline``1(``0@)">
+        <member name="M:NetOdt.Helper.StyleHelper.GetOutlineLevel(NetOdt.Enumerations.TextStyle@)">
             <summary>
-            Return the outline level and style name of a given text style
+            Return the outline level of a given text style
             </summary>
-            <param name="style">The text style for the style name</param>
-            <returns>The outline level and style name and </returns>
-            <exception cref="T:System.ArgumentOutOfRangeException">Text style not supported</exception>
+            <param name="textStyle">The text style for the outline level</param>
+            <returns>A outline level</returns>
         </member>
         <member name="M:NetOdt.Helper.StyleHelper.GetTableCellStyleName(System.Int32@,System.Int32@,System.Int32@)">
             <summary>
@@ -617,6 +624,20 @@
             <param name="columnNumber">The column number of the current cell</param>
             <param name="columnCount">The column count of the current row</param>
             <returns>The name representation of a table column</returns>
+        </member>
+        <member name="M:NetOdt.Helper.StyleHelper.GetParentStyleName(NetOdt.Enumerations.TextStyle)">
+            <summary>
+            Return the parent style name of a given text style
+            </summary>
+            <param name="textStyle">The text style for the parent style name</param>
+            <returns>A parent style name</returns>
+        </member>
+        <member name="M:NetOdt.Helper.StyleHelper.HaveParentFontSize(NetOdt.Enumerations.TextStyle)">
+            <summary>
+            Check if the given text style have a parent font size
+            </summary>
+            <param name="textStyle">The text style to check</param>
+            <returns><see langword="true"/> if the given text style have a parent font size, otherwise <see langword="false"/></returns>
         </member>
         <member name="T:NetOdt.Helper.UriHelper">
             <summary>
@@ -969,25 +990,24 @@
             </summary>
             <param name="value">The value to write into the document</param>
         </member>
-        <member name="M:NetOdt.OdtDocument.AppendLine``2(``0@,``1@)">
+        <member name="M:NetOdt.OdtDocument.AppendLine``1(``0@,NetOdt.Enumerations.TextStyle@)">
             <summary>
             Append a single line with a styled value to the document
             </summary>
             <param name="value">The value to write into the document</param>
-            <param name="style">The style of the value</param>
+            <param name="textStyle">The style of the value</param>
         </member>
-        <member name="M:NetOdt.OdtDocument.AppendEmptyLines(System.Int32)">
+        <member name="M:NetOdt.OdtDocument.AppendEmptyLines(System.Int32@)">
             <summary>
             Append the given count of empty lines
             </summary>
             <param name="countOfEmptyLines">The count of empty lines to write</param>
         </member>
-        <member name="M:NetOdt.OdtDocument.AppendXmlTextStart``1(``0@)">
+        <member name="M:NetOdt.OdtDocument.AppendXmlTextStart(NetOdt.Enumerations.TextStyle@)">
             <summary>
             Append a XML start element for a text passage
             </summary>
-            <typeparam name="TStyle">The <see cref="T:System.Type"/> of the style for the text passage</typeparam>
-            <param name="style">The style for the text passage</param>
+            <param name="textStyle">The style for the text passage</param>
         </member>
         <member name="M:NetOdt.OdtDocument.AppendValue``1(``0@)">
             <summary>
@@ -996,7 +1016,7 @@
             <typeparam name="TValue">The <see cref="T:System.Type"/> of the value</typeparam>
             <param name="value">The value for the text passage</param>
         </member>
-        <member name="M:NetOdt.OdtDocument.AppendXmlTextEnd``1(``0@)">
+        <member name="M:NetOdt.OdtDocument.AppendXmlTextEnd(NetOdt.Enumerations.TextStyle@)">
             <summary>
             Append a XML end element for a text passage
             </summary>

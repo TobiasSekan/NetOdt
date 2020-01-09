@@ -40,7 +40,7 @@ TextStyle.UnderlineBold | TextStyle.UnderlineWave
 TextStyle.Superscript | TextStyle.Subscript
 ```
 
-## Supported header styles
+## Supported styles sheets
 
 You can only use one style for a header.
 * Title

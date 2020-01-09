@@ -17,7 +17,7 @@ namespace NetOdtTest.HelperTest
         {
             var document = new OdtDocument();
 
-            StyleHelper.AppendXmlStyleStart(document, styleName, styleFamily);
+            StyleHelper.AppendXmlStyleStart(document, styleName, styleFamily, TextStyle.None);
 
             Assert.That(document.StyleContent.ToString(), Is.EqualTo(result));
         }

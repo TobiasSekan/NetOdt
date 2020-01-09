@@ -120,7 +120,6 @@ namespace NetOdt
         /// </summary>
         internal void WriteContent()
         {
-            // TODO: Add standard text styles only when needed
             StyleHelper.AddStandardTextStyles(this, NeededStyles);
 
             // When a document has no tables, we don't need a table style

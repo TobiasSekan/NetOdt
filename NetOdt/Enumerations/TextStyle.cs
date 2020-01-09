@@ -6,7 +6,7 @@ namespace NetOdt.Enumerations
     /// The style of a text
     /// </summary>
     [Flags]
-    public enum TextStyle
+    public enum TextStyle : long
     {
         /// <summary>
         /// Text without any style
@@ -107,5 +107,97 @@ namespace NetOdt.Enumerations
         /// The text use full justification
         /// </summary>
         Justify = 1 << 18,
+
+        /// <summary>
+        /// Title
+        /// <para>font size 28 and bold and centered</para>
+        /// </summary>
+        Title =  1 << 19,
+
+        /// <summary>
+        /// Subtitle
+        /// <para>font size 18 and centered</para>
+        /// </summary>
+        Subtitle = 1 << 20,
+
+        /// <summary>
+        /// Heading level 1
+        /// <para>font size 18,2 and bold</para>
+        /// </summary>
+        HeadingLevel01 = 1 << 21,
+
+        /// <summary>
+        /// Heading level 2
+        /// <para>font size 16,1 and bold</para>
+        /// </summary>
+        HeadingLevel02 = 1 << 22,
+
+        /// <summary>
+        /// Heading level 3
+        /// <para>font size 14,1 and bold</para>
+        /// </summary>
+        HeadingLevel03 = 1 << 23,
+
+        /// <summary>
+        /// Heading level 4 ()
+        /// <para>font size 13,3 and bold and italic</para>
+        /// </summary>
+        HeadingLevel04 = 1 << 24,
+
+        /// <summary>
+        /// Heading level 5 ()
+        /// <para>font size 11,8 and bold</para>
+        /// </summary>
+        HeadingLevel05 = 1 << 25,
+
+        /// <summary>
+        /// Heading level 6
+        /// <para>font size 11,8 and bold and italic</para>
+        /// </summary>
+        HeadingLevel06 = 1 << 26,
+
+        /// <summary>
+        /// Heading level 7
+        /// <para>font size 11,1 and bold</para>
+        /// </summary>
+        HeadingLevel07 = 1 << 27,
+
+        /// <summary>
+        /// Heading level 8
+        /// <para>font size 11,1 and bold and italic</para>
+        /// </summary>
+        HeadingLevel08 = 1 << 28,
+
+        /// <summary>
+        /// Heading level 9
+        /// <para>font size 10,5 and bold</para>
+        /// </summary>
+        HeadingLevel09 = 1 << 29,
+
+        /// <summary>
+        /// Heading level 10
+        /// <para>font size 10,5 and bold</para>
+        /// </summary>
+        HeadingLevel10 = 1 << 30,
+
+        /// <summary>
+        /// Signature
+        /// </summary>
+        Signature = 1 << 31,
+
+        /// <summary>
+        /// Quotations
+        /// </summary>
+        Quotations = 1 << 32,
+
+        /// <summary>
+        /// Endnote
+        /// </summary>
+        Endnote = 1 << 33,
+
+        /// <summary>
+        /// Footnote
+        /// </summary>
+        Footnote = 1 << 34,
     }
 }

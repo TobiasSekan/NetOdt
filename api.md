@@ -117,19 +117,19 @@ odtDocument.AppendLine(content, TextStyle.Justify);
 Note: Don't confuse with **Header** and **Footer**
 
 ```csharp
-// Append a value with the given header style
-odtDocument.AppendLine(long.MinValue, HeaderStyle.HeadingLevel01);
-odtDocument.AppendLine(byte.MaxValue, HeaderStyle.HeadingLevel02);
-odtDocument.AppendLine(uint.MaxValue, HeaderStyle.HeadingLevel03);
-odtDocument.AppendLine(double.NaN,    HeaderStyle.HeadingLevel04);
+// Append a value with the given style type
+odtDocument.AppendLine(long.MinValue, TextStyle.HeadingLevel01);
+odtDocument.AppendLine(byte.MaxValue, TextStyle.HeadingLevel02);
+odtDocument.AppendLine(uint.MaxValue, TextStyle.HeadingLevel03);
+odtDocument.AppendLine(double.NaN,    TextStyle.HeadingLevel04);
 
-// Append a value with the given header style
-odtDocument.AppendLine("This is a title",  HeaderStyle.Title);
+// Append a value with the given style type
+odtDocument.AppendLine("This is a title",  TextStyle.Title);
 
-// Append a content with the given header style
+// Append a content with the given style type
 var content = new StringBuilder();
 content.Append("This is a very very very long footnote");
-odtDocument.AppendLine(content, HeaderStyle.Footnote);
+odtDocument.AppendLine(content, TextStyle.Footnote);
 ```
 
 [All supported styles can find here](./styles.md)

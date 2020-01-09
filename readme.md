@@ -42,8 +42,6 @@ odtDocument.AppendImage(path: "E:/picture1.jpg", width: 22.5, height: 14.1);
 
 ## Upcoming features
 Next time, when possible:
-* Set global font for all used style-sheets
-  * need complete internal rework for style sheet behavior
 * Enumeration with typical font names
 * Page break
 * Text color support (foreground, background)
