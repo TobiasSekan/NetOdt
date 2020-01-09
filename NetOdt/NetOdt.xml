@@ -244,6 +244,16 @@
             Style for a graphic (e.g. images)
             </summary>
         </member>
+        <member name="F:NetOdt.Enumerations.StyleFamily.Header">
+            <summary>
+            Style for a header
+            </summary>
+        </member>
+        <member name="F:NetOdt.Enumerations.StyleFamily.Footer">
+            <summary>
+            Style for a footer
+            </summary>
+        </member>
         <member name="T:NetOdt.Enumerations.TextStyle">
             <summary>
             The style of a text
@@ -570,54 +580,58 @@
             <param name="document">The document for the XML style informations</param>
             <param name="neededStyles">List that contains all needed styles</param>
         </member>
-        <member name="M:NetOdt.Helper.StyleHelper.AddTableStyles(NetOdt.OdtDocument@)">
+        <member name="M:NetOdt.Helper.StyleHelper.AddTableStyles(System.Text.StringBuilder@)">
             <summary>
             Add all needed styles for simple tables
             </summary>
-            <param name="document">The document for the XML style informations</param>
+            <param name="styleContent">The content container for the style</param>
         </member>
-        <member name="M:NetOdt.Helper.StyleHelper.AddPictureStyle(NetOdt.OdtDocument@)">
+        <member name="M:NetOdt.Helper.StyleHelper.AddPictureStyle(System.Text.StringBuilder@)">
             <summary>
             Add all needed styles for simple pictures
             </summary>
-            <param name="document">The document for the XML style informations</param>
+            <param name="styleContent">The content container for the style</param>
         </member>
-        <member name="M:NetOdt.Helper.StyleHelper.AppendXmlStyleStart(NetOdt.OdtDocument@,System.String@,NetOdt.Enumerations.StyleFamily@,NetOdt.Enumerations.TextStyle@)">
+        <member name="M:NetOdt.Helper.StyleHelper.AppendXmlStyleStart(System.Text.StringBuilder@,System.String@,NetOdt.Enumerations.StyleFamily@,NetOdt.Enumerations.TextStyle@)">
             <summary>
             Append a XML start element for XML style informations
             </summary>
-            <param name="document">The document for the XML style informations</param>
+            <param name="styleContent">The content container for the style</param>
             <param name="styleName">The name for the style</param>
             <param name="styleFamily">The family of the style</param>
             <param name="textStyle">The type of the style</param>
             <exception cref="T:System.ArgumentOutOfRangeException">Style family not supported</exception>
         </member>
-        <member name="M:NetOdt.Helper.StyleHelper.AppendXmlStyle(NetOdt.OdtDocument@,NetOdt.Enumerations.TextStyle)">
+        <member name="M:NetOdt.Helper.StyleHelper.AppendXmlStyle(System.Text.StringBuilder@,NetOdt.Enumerations.TextStyle,System.String,System.Single)">
             <summary>
             Append the given text style to the XML style informations
             </summary>
-            <param name="document">The document for the XML style informations</param>
+            <param name="styleContent">The content container for the style</param>
             <param name="style">The style for the style informations</param>
+            <param name="fontName">The name of the font for the style</param>
+            <param name="fontSize">The size of the font for the style</param>
         </member>
-        <member name="M:NetOdt.Helper.StyleHelper.AppendTextProperties(NetOdt.OdtDocument@,NetOdt.Enumerations.TextStyle)">
+        <member name="M:NetOdt.Helper.StyleHelper.AppendTextProperties(System.Text.StringBuilder@,NetOdt.Enumerations.TextStyle,System.String,System.Single)">
             <summary>
             Append the given text properties to the XML style informations
             </summary>
-            <param name="document">The document for the XML style informations</param>
+            <param name="styleContent">The content container for the style</param>
             <param name="textStyle">The style for the style informations</param>
+            <param name="fontName">The name of the font for the style</param>
+            <param name="fontSize">The size of the font for the style</param>
         </member>
-        <member name="M:NetOdt.Helper.StyleHelper.AppendParagraphProperties(NetOdt.OdtDocument@,NetOdt.Enumerations.TextStyle)">
+        <member name="M:NetOdt.Helper.StyleHelper.AppendParagraphProperties(System.Text.StringBuilder@,NetOdt.Enumerations.TextStyle)">
             <summary>
             Append the given paragraph properties to the XML style informations
             </summary>
-            <param name="document">The document for the XML style informations</param>
+            <param name="styleContent">The content container for the style</param>
             <param name="style">The style for the style informations</param>
         </member>
-        <member name="M:NetOdt.Helper.StyleHelper.AppendXmlStyleEnd(NetOdt.OdtDocument@)">
+        <member name="M:NetOdt.Helper.StyleHelper.AppendXmlStyleEnd(System.Text.StringBuilder@)">
             <summary>
             Append a XML end element for XML style informations
             </summary>
-            <param name="document">The document for the XML style informations</param>
+            <param name="styleContent">The content container for the style</param>
         </member>
         <member name="M:NetOdt.Helper.StyleHelper.GetOutlineLevel(NetOdt.Enumerations.TextStyle@)">
             <summary>
@@ -635,11 +649,12 @@
             <param name="columnCount">The column count of the current row</param>
             <returns>The name representation of a table column</returns>
         </member>
-        <member name="M:NetOdt.Helper.StyleHelper.GetParentStyleName(NetOdt.Enumerations.TextStyle)">
+        <member name="M:NetOdt.Helper.StyleHelper.GetParentStyleName(NetOdt.Enumerations.StyleFamily,NetOdt.Enumerations.TextStyle)">
             <summary>
             Return the parent style name of a given text style
             </summary>
             <param name="textStyle">The text style for the parent style name</param>
+            <param name="styleFamily">The family of the style</param>
             <returns>A parent style name</returns>
         </member>
         <member name="M:NetOdt.Helper.StyleHelper.HaveParentFontSize(NetOdt.Enumerations.TextStyle)">
@@ -738,7 +753,12 @@
         </member>
         <member name="P:NetOdt.OdtDocument.StyleCount">
             <summary>
-            The count of styles
+            The count of document styles
+            </summary>
+        </member>
+        <member name="P:NetOdt.OdtDocument.MasterStyleCount">
+            <summary>
+            The count of master styles
             </summary>
         </member>
         <member name="M:NetOdt.OdtDocument.#ctor">
@@ -809,6 +829,11 @@
             <param name="fontName">The name of the font</param>
             <param name="fontSize">The size of the font</param>
         </member>
+        <member name="P:NetOdt.OdtDocument.MasterStyle">
+            <summary>
+            The raw content of the master style
+            </summary>
+        </member>
         <member name="P:NetOdt.OdtDocument.HeaderContent">
             <summary>
             The raw content of the header
@@ -824,7 +849,17 @@
             Set the given content as header
             </summary>
             <typeparam name="TValue">The type of the header content</typeparam>
-            <param name="value">The content  for the header</param>
+            <param name="value">The content for the header</param>
+            <exception cref="T:System.NotSupportedException">Style-sheets inside the header not supported</exception>
+        </member>
+        <member name="M:NetOdt.OdtDocument.SetHeader``1(``0@,NetOdt.Enumerations.TextStyle)">
+            <summary>
+            Set the given content with the given style as header
+            </summary>
+            <typeparam name="TValue">The type of the header content</typeparam>
+            <param name="value">The content for the header</param>
+            <param name="textStyle">The text style for the header</param>
+            <exception cref="T:System.NotSupportedException">Style-sheets inside the header not supported</exception>
         </member>
         <member name="M:NetOdt.OdtDocument.SetFooter``1(``0@)">
             <summary>
@@ -832,6 +867,16 @@
             </summary>
             <typeparam name="TValue">The type of the footer content</typeparam>
             <param name="value">The content for the footer</param>
+            <exception cref="T:System.NotSupportedException">Style-sheets inside the footer not supported</exception>
+        </member>
+        <member name="M:NetOdt.OdtDocument.SetFooter``1(``0@,NetOdt.Enumerations.TextStyle)">
+            <summary>
+            Set the given content with the given style as footer
+            </summary>
+            <typeparam name="TValue">The type of the footer content</typeparam>
+            <param name="value">The content for the footer</param>
+            <param name="textStyle">The text style for the footer</param>
+            <exception cref="T:System.NotSupportedException">Style-sheets inside the footer not supported</exception>
         </member>
         <member name="M:NetOdt.OdtDocument.AppendImage(System.String,System.Double,System.Double)">
             <summary>
@@ -883,6 +928,11 @@
         <member name="P:NetOdt.OdtDocument.BeforeManifestContent">
             <summary>
             The raw content before the <see cref="P:NetOdt.OdtDocument.ManifestContent"/>
+            </summary>
+        </member>
+        <member name="P:NetOdt.OdtDocument.BeforeMasterStyleContent">
+            <summary>
+            The raw content before the <see cref="P:NetOdt.OdtDocument.MasterStyle"/>
             </summary>
         </member>
         <member name="P:NetOdt.OdtDocument.BeforeHeaderContent">

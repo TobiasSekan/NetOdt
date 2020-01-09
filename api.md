@@ -60,11 +60,17 @@ The enumeration `NetOdt.Enumerations.FontSize` contains all typical font sizes.
 ## Header and Footer
 
 ```
-// Set the header for the each page
+// Set the given content as header
 odtDocument.SetHeader("My header");
 
-// Set the footer for each page
+// Set the given content with the given style as header
+odtDocument.SetHeader("My header", TextStyle.Center | TextStyle.Bold);
+
+// Set the given content as footer
 odtDocument.SetFooter("My footer");
+
+// Set the given content with the given style as footer
+odtDocument.SetFooter("My footer", TextStyle.Right | TextStyle.Italic);
 ```
 
 ## Append unformatted values and text into the document

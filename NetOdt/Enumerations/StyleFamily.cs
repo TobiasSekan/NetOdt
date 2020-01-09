@@ -28,6 +28,16 @@
         /// <summary>
         /// Style for a graphic (e.g. images)
         /// </summary>
-        Graphic
+        Graphic,
+
+        /// <summary>
+        /// Style for a header
+        /// </summary>
+        Header,
+
+        /// <summary>
+        /// Style for a footer
+        /// </summary>
+        Footer,
     }
 }

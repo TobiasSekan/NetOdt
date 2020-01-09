@@ -39,9 +39,14 @@ namespace NetOdt
         public byte PictureCount { get; private set; }
 
         /// <summary>
-        /// The count of styles
+        /// The count of document styles
         /// </summary>
         public byte StyleCount { get; private set; }
+
+        /// <summary>
+        /// The count of master styles
+        /// </summary>
+        public byte MasterStyleCount { get; private set; }
 
         #endregion Public Properties
 
@@ -93,37 +98,39 @@ namespace NetOdt
         /// <param name="tempWorkingUri">The uniform resource identifier  for the temporary working folder for the none zipped document files</param>
         public OdtDocument(in Uri fileUri, in Uri tempWorkingUri)
         {
-            FileUri               = fileUri;
-            TempWorkingUri        = tempWorkingUri;
+            FileUri                  = fileUri;
+            TempWorkingUri           = tempWorkingUri;
 
-            ContentFileUri        = UriHelper.Combine(TempWorkingUri, FileName.ContentFile);
-            ManifestFileUri       = UriHelper.Combine(TempWorkingUri, FolderResource.MainfestFolderName, FileName.ManifestFile);
-            StyleFileUri          = UriHelper.Combine(TempWorkingUri, FileName.StyleFile);
+            ContentFileUri           = UriHelper.Combine(TempWorkingUri, FileName.ContentFile);
+            ManifestFileUri          = UriHelper.Combine(TempWorkingUri, FolderResource.MainfestFolderName, FileName.ManifestFile);
+            StyleFileUri             = UriHelper.Combine(TempWorkingUri, FileName.StyleFile);
 
-            ContentFile           = new XmlDocument();
+            ContentFile              = new XmlDocument();
 
-            BeforeStyleContent    = new StringBuilder();
-            StyleContent          = new StringBuilder();
-            AfterStyleContent     = new StringBuilder();
-            TextContent           = new StringBuilder();
-            AfterTextContent      = new StringBuilder();
+            BeforeStyleContent       = new StringBuilder();
+            StyleContent             = new StringBuilder();
+            AfterStyleContent        = new StringBuilder();
+            TextContent              = new StringBuilder();
+            AfterTextContent         = new StringBuilder();
 
-            BeforeManifestContent = new StringBuilder();
-            ManifestContent       = new StringBuilder();
+            BeforeManifestContent    = new StringBuilder();
+            ManifestContent          = new StringBuilder();
 
-            BeforeHeaderContent   = new StringBuilder();
-            HeaderContent         = new StringBuilder();
-            FooterContent         = new StringBuilder();
-            AfterFooterContent    = new StringBuilder();
+            BeforeMasterStyleContent = new StringBuilder();
+            MasterStyle              = new StringBuilder();
+            BeforeHeaderContent      = new StringBuilder();
+            HeaderContent            = new StringBuilder();
+            FooterContent            = new StringBuilder();
+            AfterFooterContent       = new StringBuilder();
 
-            NeededStyles          = new Dictionary<TextStyle, string>();
+            NeededStyles             = new Dictionary<TextStyle, string>();
 
-            TableCount            = 0;
-            PictureCount          = 0;
-            StyleCount            = 0;
+            TableCount               = 0;
+            PictureCount             = 0;
+            StyleCount               = 0;
 
-            GlobalFontName        = "Liberation Serif";
-            GlobalFontSize        = 12;
+            GlobalFontName           = "Liberation Serif";
+            GlobalFontSize           = 12;
 
             OdtDocumentHelper.CreateOdtTemplate(TempWorkingUri);
             ReadContent();

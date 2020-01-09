@@ -15,58 +15,58 @@ namespace NetOdtTest
         {
             var uri = new Uri("E:/testTest.odt");
 
-            using var odtDoucment = new OdtDocument(uri);
+            using var odtDocument = new OdtDocument(uri);
 
-            odtDoucment.SetGlobalFont("Arial", FontSize.Size11);
+            odtDocument.SetGlobalFont("Arial", FontSize.Size11);
 
-            odtDoucment.SetHeader("My Header");
-            odtDoucment.SetFooter("My Footer");
+            odtDocument.SetHeader("Extend documentation", TextStyle.Center | TextStyle.Bold);
+            odtDocument.SetFooter("Page 2/5", TextStyle.Right | TextStyle.Italic);
 
-            odtDoucment.AppendLine("My Test document", TextStyle.Title);
+            odtDocument.AppendLine("My Test document", TextStyle.Title);
 
-            odtDoucment.AppendTable(GetTable());
+            odtDocument.AppendTable(GetTable());
 
-            odtDoucment.AppendImage("E:/picture1.jpg", width: 10.5, height: 8.0);
+            odtDocument.AppendImage("E:/picture1.jpg", width: 10.5, height: 8.0);
 
-            odtDoucment.AppendLine("Unformatted", TextStyle.HeadingLevel01);
+            odtDocument.AppendLine("Unformatted", TextStyle.HeadingLevel01);
 
-            odtDoucment.AppendEmptyLines(countOfEmptyLines: 5);
-            odtDoucment.AppendLine(byte.MaxValue, TextStyle.Center | TextStyle.Bold);
+            odtDocument.AppendEmptyLines(countOfEmptyLines: 5);
+            odtDocument.AppendLine(byte.MaxValue, TextStyle.Center | TextStyle.Bold);
 
-            odtDoucment.AppendEmptyLines(countOfEmptyLines: 2);
-            odtDoucment.AppendLine(uint.MaxValue, TextStyle.Right | TextStyle.Italic);
+            odtDocument.AppendEmptyLines(countOfEmptyLines: 2);
+            odtDocument.AppendLine(uint.MaxValue, TextStyle.Right | TextStyle.Italic);
 
-            odtDoucment.AppendEmptyLines(countOfEmptyLines: 1);
-            odtDoucment.AppendLine(double.NaN);
+            odtDocument.AppendEmptyLines(countOfEmptyLines: 1);
+            odtDocument.AppendLine(double.NaN);
 
-            odtDoucment.AppendLine("This is a text");
+            odtDocument.AppendLine("This is a text");
 
             var content = new StringBuilder();
             content.Append("This is a text a very very very long text");
             content.Append("This is a text a very very very long text");
             content.Append("This is a text a very very very long text");
             content.Append("This is a text a very very very long text");
-            odtDoucment.AppendLine(content, TextStyle.Justify);
+            odtDocument.AppendLine(content, TextStyle.Justify);
 
-            odtDoucment.AppendTable(GetTable());
+            odtDocument.AppendTable(GetTable());
 
-            odtDoucment.AppendLine("Formatted", TextStyle.HeadingLevel04);
+            odtDocument.AppendLine("Formatted", TextStyle.HeadingLevel04);
 
-            odtDoucment.AppendLine(long.MinValue, TextStyle.Bold | TextStyle.Stroke);
-            odtDoucment.AppendLine(byte.MaxValue, TextStyle.Italic | TextStyle.Subscript);
-            odtDoucment.AppendLine(uint.MaxValue, TextStyle.UnderlineSingle | TextStyle.Superscript);
-            odtDoucment.AppendLine(double.NaN, TextStyle.Bold | TextStyle.Italic | TextStyle.UnderlineSingle | TextStyle.Justify | TextStyle.Stroke);
+            odtDocument.AppendLine(long.MinValue, TextStyle.Bold | TextStyle.Stroke);
+            odtDocument.AppendLine(byte.MaxValue, TextStyle.Italic | TextStyle.Subscript);
+            odtDocument.AppendLine(uint.MaxValue, TextStyle.UnderlineSingle | TextStyle.Superscript);
+            odtDocument.AppendLine(double.NaN, TextStyle.Bold | TextStyle.Italic | TextStyle.UnderlineSingle | TextStyle.Justify | TextStyle.Stroke);
 
-            odtDoucment.AppendLine("This\n\n\nis\n\n\na\n\n\ntext", TextStyle.Bold | TextStyle.UnderlineSingle | TextStyle.Superscript);
+            odtDocument.AppendLine("This\n\n\nis\n\n\na\n\n\ntext", TextStyle.Bold | TextStyle.UnderlineSingle | TextStyle.Superscript);
 
             var contentTwo = new StringBuilder();
             content.Append("This is a text a\n very\n\n\nvery very\n\n\nlong text");
-            odtDoucment.AppendLine(content, TextStyle.PageBreak | TextStyle.Italic | TextStyle.UnderlineSingle | TextStyle.Subscript);
+            odtDocument.AppendLine(content, TextStyle.PageBreak | TextStyle.Italic | TextStyle.UnderlineSingle | TextStyle.Subscript);
 
-            odtDoucment.AppendLine("sub-sub-sub-sub", TextStyle.Subtitle);
+            odtDocument.AppendLine("sub-sub-sub-sub", TextStyle.Subtitle);
 
-            odtDoucment.AppendTable(3, 3, "Fill me");
-            odtDoucment.AppendTable(3, 3, 0.00);
+            odtDocument.AppendTable(3, 3, "Fill me");
+            odtDocument.AppendTable(3, 3, 0.00);
 
             // on Dispose call the ODT document will automatic save and temporary working folder will delete
         }

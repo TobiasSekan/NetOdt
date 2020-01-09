@@ -54,6 +54,11 @@ namespace NetOdt
         internal StringBuilder BeforeManifestContent { get; }
 
         /// <summary>
+        /// The raw content before the <see cref="MasterStyle"/>
+        /// </summary>
+        internal StringBuilder BeforeMasterStyleContent { get; }
+
+        /// <summary>
         /// The raw content before the <see cref="HeaderContent"/>
         /// </summary>
         internal StringBuilder BeforeHeaderContent { get; }
@@ -134,7 +139,15 @@ namespace NetOdt
                 using(var textReader = new StreamReader(fileStream))
                 {
                     var rawFileContent    = textReader.ReadToEnd();
-                    var styleContentSplit = rawFileContent.Split(new string[] { "<style:header/><style:footer/>" }, StringSplitOptions.None);
+
+                    var officeStyleContentSplit = rawFileContent.Split(new string[] { "<office:automatic-styles>" }, StringSplitOptions.None);
+
+                    BeforeMasterStyleContent.Append(officeStyleContentSplit.FirstOrDefault() ?? string.Empty);
+
+                    var automaticStyleContentSplit
+                        = officeStyleContentSplit.LastOrDefault().Split(new string[] { "<style:page-layout style:name=\"Mpm1\">" }, StringSplitOptions.None);
+
+                    var styleContentSplit = automaticStyleContentSplit.LastOrDefault().Split(new string[] { "<style:header/><style:footer/>" }, StringSplitOptions.None);
 
                     BeforeHeaderContent.Append(styleContentSplit.FirstOrDefault() ?? string.Empty);
                     AfterFooterContent.Append(styleContentSplit.LastOrDefault() ?? string.Empty);
@@ -153,13 +166,13 @@ namespace NetOdt
             // When a document has no tables, we don't need a table style
             if(TableCount > 0)
             {
-                StyleHelper.AddTableStyles(this);
+                StyleHelper.AddTableStyles(StyleContent);
             }
 
             // When a document has no pictures, we don't need a picture style
             if(PictureCount > 0)
             {
-                StyleHelper.AddPictureStyle(this);
+                StyleHelper.AddPictureStyle(StyleContent);
             }
             else
             {
@@ -196,6 +209,10 @@ namespace NetOdt
             {
                 using(var textWriter = new StreamWriter(fileStream))
                 {
+                    textWriter.Write(BeforeMasterStyleContent);
+                    textWriter.Write("<office:automatic-styles>");
+                    textWriter.Write(MasterStyle);
+                    textWriter.Write("<style:page-layout style:name=\"Mpm1\">");
                     textWriter.Write(BeforeHeaderContent);
                     textWriter.Write("<style:header>");
                     textWriter.Write(HeaderContent);

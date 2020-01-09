@@ -2,6 +2,7 @@
 using NetOdt.Enumerations;
 using NetOdt.Helper;
 using NUnit.Framework;
+using System.Text;
 
 namespace NetOdtTest.HelperTest
 {
@@ -15,11 +16,11 @@ namespace NetOdtTest.HelperTest
         [TestCase("TestName5", StyleFamily.TableColumn, "<style:style style:name=\"TestName5\" style:family=\"table-column\">")]
         public void AppendXmlStyleStartTest(string styleName, StyleFamily styleFamily, string result)
         {
-            var document = new OdtDocument();
+            var document = new StringBuilder();
 
             StyleHelper.AppendXmlStyleStart(document, styleName, styleFamily, TextStyle.None);
 
-            Assert.That(document.StyleContent.ToString(), Is.EqualTo(result));
+            Assert.That(document.ToString(), Is.EqualTo(result));
         }
 
         [TestCase(TextStyle.None, "fo:font-weight=\"normal\"")]
@@ -127,9 +128,10 @@ namespace NetOdtTest.HelperTest
 
         public void AppendXmlStyleTest(TextStyle style, string result)
         {
+            var styleContainer = new StringBuilder();
             var document = new OdtDocument();
 
-            StyleHelper.AppendXmlStyle(document, style);
+            StyleHelper.AppendXmlStyle(styleContainer, style, "Arial", 12.0f);
 
             Assert.That(document.StyleContent.ToString(), Does.StartWith("<style:text-properties"));
             Assert.That(document.StyleContent.ToString(), Does.EndWith("/>"));
@@ -141,11 +143,11 @@ namespace NetOdtTest.HelperTest
         [Test]
         public void AppendXmlStyleEndTest()
         {
-            var document = new OdtDocument();
+            var styleContainer = new StringBuilder();
 
-            StyleHelper.AppendXmlStyleEnd(document);
+            StyleHelper.AppendXmlStyleEnd(styleContainer);
 
-            Assert.That(document.StyleContent.ToString(), Is.EqualTo("</style:style>"));
+            Assert.That(styleContainer.ToString(), Is.EqualTo("</style:style>"));
         }
 
     }
