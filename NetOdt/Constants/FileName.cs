@@ -23,5 +23,11 @@ namespace NetOdt.Constants
         /// The file name for an manifest file of the ODT document
         /// </summary>
         internal static string ManifestFile { get; } = "manifest.xml";
+
+        /// <summary>
+        /// The file name for an style file of the ODT document
+        /// </summary>
+        internal static string StyleFile { get; } = "styles.xml";
+
     }
 }

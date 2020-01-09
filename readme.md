@@ -13,6 +13,10 @@ using var odtDocument = new OdtDocument(path: "E:/MyDocument.odt");
 // Set font (name) and font size for the complete document
 odtDocument.SetGlobalFont("Liberation Serif", FontSize.Size12);
 
+// Set header and footer
+odtDocument.SetHeader("My header");
+odtDocument.SetFooter("My footer");
+
 // Append a title
 odtDocument.AppendLine("My document", TextStyle.Title);
 
@@ -42,6 +46,7 @@ odtDocument.AppendImage(path: "E:/picture1.jpg", width: 22.5, height: 14.1);
 
 ## Upcoming features
 Next time, when possible:
+* Support text styles for header and footer
 * Enumeration with typical font names
 * Text color support (foreground, background)
 * Additional standard style-sheets
@@ -52,12 +57,6 @@ Next time, when possible:
   * Horizontal line
 * Support for font and font size for each text passage
 * Data type support for table cells (currency for `decimal`, ...)
-
-Later, need more work:
-* Header and footer
-  * need a lot of work on sytles.xml
-  * investigation into split styles informations
-* ...
 
 ## Bugs report and feature requests
 [Please use the GitHub issues tracker](https://github.com/TobiasSekan/NetOdt/issues)

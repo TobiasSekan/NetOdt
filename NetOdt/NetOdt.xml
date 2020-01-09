@@ -24,6 +24,11 @@
             The file name for an manifest file of the ODT document
             </summary>
         </member>
+        <member name="P:NetOdt.Constants.FileName.StyleFile">
+            <summary>
+            The file name for an style file of the ODT document
+            </summary>
+        </member>
         <member name="T:NetOdt.Constants.FolderResource">
             <summary>
             Constants for folder resources
@@ -693,6 +698,9 @@
             Class to set the global font (name and size)
             </summary>
             <summary>
+            Class to set the global header and footer
+            </summary>
+            <summary>
             Class to create and write ODT documents
             </summary>
             <summary>
@@ -801,6 +809,30 @@
             <param name="fontName">The name of the font</param>
             <param name="fontSize">The size of the font</param>
         </member>
+        <member name="P:NetOdt.OdtDocument.HeaderContent">
+            <summary>
+            The raw content of the header
+            </summary>
+        </member>
+        <member name="P:NetOdt.OdtDocument.FooterContent">
+            <summary>
+            The raw content of the footer
+            </summary>
+        </member>
+        <member name="M:NetOdt.OdtDocument.SetHeader``1(``0@)">
+            <summary>
+            Set the given content as header
+            </summary>
+            <typeparam name="TValue">The type of the header content</typeparam>
+            <param name="value">The content  for the header</param>
+        </member>
+        <member name="M:NetOdt.OdtDocument.SetFooter``1(``0@)">
+            <summary>
+            Set the given content as footer
+            </summary>
+            <typeparam name="TValue">The type of the footer content</typeparam>
+            <param name="value">The content for the footer</param>
+        </member>
         <member name="M:NetOdt.OdtDocument.AppendImage(System.String,System.Double,System.Double)">
             <summary>
             Append a image to the document
@@ -853,6 +885,16 @@
             The raw content before the <see cref="P:NetOdt.OdtDocument.ManifestContent"/>
             </summary>
         </member>
+        <member name="P:NetOdt.OdtDocument.BeforeHeaderContent">
+            <summary>
+            The raw content before the <see cref="P:NetOdt.OdtDocument.HeaderContent"/>
+            </summary>
+        </member>
+        <member name="P:NetOdt.OdtDocument.AfterFooterContent">
+            <summary>
+            The raw content after the <see cref="P:NetOdt.OdtDocument.FooterContent"/>
+            </summary>
+        </member>
         <member name="P:NetOdt.OdtDocument.ManifestContent">
             <summary>
             The raw manifest content
@@ -868,7 +910,12 @@
             The uniform resource identifier to the manifest file (typical inside the <see cref="P:NetOdt.OdtDocument.TempWorkingUri"/>)
             </summary>
         </member>
-        <member name="F:NetOdt.OdtDocument.NeededStyles">
+        <member name="P:NetOdt.OdtDocument.StyleFileUri">
+            <summary>
+            The uniform resource identifier to the style file (typical inside the <see cref="P:NetOdt.OdtDocument.TempWorkingUri"/>)
+            </summary>
+        </member>
+        <member name="P:NetOdt.OdtDocument.NeededStyles">
             <summary>
             List that contains all need styles and style names
             </summary>

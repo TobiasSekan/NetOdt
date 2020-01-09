@@ -97,9 +97,8 @@ namespace NetOdt
             TempWorkingUri        = tempWorkingUri;
 
             ContentFileUri        = UriHelper.Combine(TempWorkingUri, FileName.ContentFile);
-            ManifestFileUri       = UriHelper.Combine(TempWorkingUri,
-                                                      FolderResource.MainfestFolderName,
-                                                      FileName.ManifestFile);
+            ManifestFileUri       = UriHelper.Combine(TempWorkingUri, FolderResource.MainfestFolderName, FileName.ManifestFile);
+            StyleFileUri          = UriHelper.Combine(TempWorkingUri, FileName.StyleFile);
 
             ContentFile           = new XmlDocument();
 
@@ -108,8 +107,14 @@ namespace NetOdt
             AfterStyleContent     = new StringBuilder();
             TextContent           = new StringBuilder();
             AfterTextContent      = new StringBuilder();
+
             BeforeManifestContent = new StringBuilder();
             ManifestContent       = new StringBuilder();
+
+            BeforeHeaderContent   = new StringBuilder();
+            HeaderContent         = new StringBuilder();
+            FooterContent         = new StringBuilder();
+            AfterFooterContent    = new StringBuilder();
 
             NeededStyles          = new Dictionary<TextStyle, string>();
 

@@ -57,6 +57,16 @@ odtDocument.SetGlobalFont(fontName: "Liberation Serif", fontSize: FontSize.Size1
 
 The enumeration `NetOdt.Enumerations.FontSize` contains all typical font sizes.
 
+## Header and Footer
+
+```
+// Set the header for the each page
+odtDocument.SetHeader("My header");
+
+// Set the footer for each page
+odtDocument.SetFooter("My footer");
+```
+
 ## Append unformatted values and text into the document
 
 ```csharp

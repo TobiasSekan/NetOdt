@@ -19,6 +19,9 @@ namespace NetOdtTest
 
             odtDoucment.SetGlobalFont("Arial", FontSize.Size11);
 
+            odtDoucment.SetHeader("My Header");
+            odtDoucment.SetFooter("My Footer");
+
             odtDoucment.AppendLine("My Test document", TextStyle.Title);
 
             odtDoucment.AppendTable(GetTable());

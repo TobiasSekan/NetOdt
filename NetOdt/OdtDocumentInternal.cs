@@ -21,57 +21,72 @@ namespace NetOdt
         /// The XML content of the content file
         ///<para>TODO: #8 - Find a way to use XMLDocument class</para>
         /// </summary>
-        internal XmlDocument ContentFile { get; private set; }
+        internal XmlDocument ContentFile { get; set; }
 
         /// <summary>
         /// The raw content before the <see cref="StyleContent"/>
         /// </summary>
-        internal StringBuilder BeforeStyleContent { get; private set; }
+        internal StringBuilder BeforeStyleContent { get; }
 
         /// <summary>
         /// The raw style content
         /// </summary>
-        internal StringBuilder StyleContent { get; private set; }
+        internal StringBuilder StyleContent { get; }
 
         /// <summary>
         /// The raw content after the <see cref="StyleContent"/> and before the <see cref="TextContent"/>
         /// </summary>
-        internal StringBuilder AfterStyleContent { get; private set; }
+        internal StringBuilder AfterStyleContent { get; }
 
         /// <summary>
         /// The raw text content
         /// </summary>
-        internal StringBuilder TextContent { get; private set; }
+        internal StringBuilder TextContent { get; }
 
         /// <summary>
         /// The raw content after the <see cref="TextContent"/>
         /// </summary>
-        internal StringBuilder AfterTextContent { get; private set; }
+        internal StringBuilder AfterTextContent { get; }
 
         /// <summary>
         /// The raw content before the <see cref="ManifestContent"/>
         /// </summary>
-        internal StringBuilder BeforeManifestContent { get; private set; }
+        internal StringBuilder BeforeManifestContent { get; }
+
+        /// <summary>
+        /// The raw content before the <see cref="HeaderContent"/>
+        /// </summary>
+        internal StringBuilder BeforeHeaderContent { get; }
+
+        /// <summary>
+        /// The raw content after the <see cref="FooterContent"/>
+        /// </summary>
+        internal StringBuilder AfterFooterContent { get; }
 
         /// <summary>
         /// The raw manifest content
         /// </summary>
-        internal StringBuilder ManifestContent { get; private set; }
+        internal StringBuilder ManifestContent { get; }
 
         /// <summary>
         /// The uniform resource identifier to the content file (typical inside the <see cref="TempWorkingUri"/>)
         /// </summary>
-        internal Uri ContentFileUri { get; private set; }
+        internal Uri ContentFileUri { get; }
 
         /// <summary>
         /// The uniform resource identifier to the manifest file (typical inside the <see cref="TempWorkingUri"/>)
         /// </summary>
-        internal Uri ManifestFileUri { get; private set; }
+        internal Uri ManifestFileUri { get; }
+
+        /// <summary>
+        /// The uniform resource identifier to the style file (typical inside the <see cref="TempWorkingUri"/>)
+        /// </summary>
+        internal Uri StyleFileUri { get; }
 
         /// <summary>
         /// List that contains all need styles and style names
         /// </summary>
-        internal IDictionary<TextStyle, string> NeededStyles;
+        internal IDictionary<TextStyle, string> NeededStyles { get; }
 
         #endregion Internal Properties
 
@@ -113,6 +128,19 @@ namespace NetOdt
                     BeforeManifestContent.Append(mainfestContentSplit.FirstOrDefault() ?? string.Empty);
                 }
             }
+
+            using(var fileStream = File.OpenRead(StyleFileUri.AbsolutePath))
+            {
+                using(var textReader = new StreamReader(fileStream))
+                {
+                    var rawFileContent    = textReader.ReadToEnd();
+                    var styleContentSplit = rawFileContent.Split(new string[] { "<style:header/><style:footer/>" }, StringSplitOptions.None);
+
+                    BeforeHeaderContent.Append(styleContentSplit.FirstOrDefault() ?? string.Empty);
+                    AfterFooterContent.Append(styleContentSplit.LastOrDefault() ?? string.Empty);
+                }
+            }
+
         }
 
         /// <summary>
@@ -161,6 +189,21 @@ namespace NetOdt
                     textWriter.Write(BeforeManifestContent);
                     textWriter.Write(ManifestContent);
                     textWriter.Write("</manifest:manifest>");
+                }
+            }
+
+            using(var fileStream = File.Create(StyleFileUri.AbsolutePath))
+            {
+                using(var textWriter = new StreamWriter(fileStream))
+                {
+                    textWriter.Write(BeforeHeaderContent);
+                    textWriter.Write("<style:header>");
+                    textWriter.Write(HeaderContent);
+                    textWriter.Write("</style:header>");
+                    textWriter.Write("<style:footer>");
+                    textWriter.Write(FooterContent);
+                    textWriter.Write("</style:footer>");
+                    textWriter.Write(AfterFooterContent);
                 }
             }
         }
