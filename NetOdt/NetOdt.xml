@@ -44,6 +44,11 @@
             The type of the text style
             </summary>
         </member>
+        <member name="P:NetOdt.Class.Style.OutlineLevel">
+            <summary>
+            The outline level of this style (only used by headings)
+            </summary>
+        </member>
         <member name="P:NetOdt.Class.Style.HaveParentFontSize">
             <summary>
             Indicate the style have a parent font size
@@ -873,7 +878,7 @@
             <param name="fontName">The name of the font</param>
             <param name="fontSize">The font size representation for the font</param>
         </member>
-        <member name="M:NetOdt.OdtDocument.SetGlobalFont(System.String,System.Single)">
+        <member name="M:NetOdt.OdtDocument.SetGlobalFont(System.String,System.Double)">
             <summary>
             Set the font (name) and font size for the complete document
             </summary>
@@ -897,7 +902,7 @@
         </member>
         <member name="M:NetOdt.OdtDocument.SetHeader``1(``0@)">
             <summary>
-            Set the given content as header
+            Set the given content as header (use stand style and global font)
             </summary>
             <typeparam name="TValue">The type of the header content</typeparam>
             <param name="value">The content for the header</param>
@@ -905,16 +910,38 @@
         </member>
         <member name="M:NetOdt.OdtDocument.SetHeader``1(``0@,NetOdt.Enumerations.TextStyle)">
             <summary>
-            Set the given content with the given style as header
+            Set the given content with the given style as header (use global font)
             </summary>
             <typeparam name="TValue">The type of the header content</typeparam>
             <param name="value">The content for the header</param>
             <param name="textStyle">The text style for the header</param>
             <exception cref="T:System.NotSupportedException">Style-sheets inside the header not supported</exception>
         </member>
+        <member name="M:NetOdt.OdtDocument.SetHeader``1(``0@,NetOdt.Enumerations.TextStyle,System.String,NetOdt.Enumerations.FontSize)">
+            <summary>
+            Set the given content with the given style and font as header
+            </summary>
+            <typeparam name="TValue">The type of the header content</typeparam>
+            <param name="value">The content for the header</param>
+            <param name="textStyle">The text style for the header</param>
+            <param name="fontName">The font (name) for the header</param>
+            <param name="fontSize">The font size for the header</param>
+            <exception cref="T:System.NotSupportedException">Style-sheets inside the header not supported</exception>
+        </member>
+        <member name="M:NetOdt.OdtDocument.SetHeader``1(``0@,NetOdt.Enumerations.TextStyle,System.String,System.Double)">
+            <summary>
+            Set the given content with the given style and font as header
+            </summary>
+            <typeparam name="TValue">The type of the header content</typeparam>
+            <param name="value">The content for the header</param>
+            <param name="textStyle">The text style for the header</param>
+            <param name="fontName">The font (name) for the header</param>
+            <param name="fontSize">The font size for the header</param>
+            <exception cref="T:System.NotSupportedException">Style-sheets inside the header not supported</exception>
+        </member>
         <member name="M:NetOdt.OdtDocument.SetFooter``1(``0@)">
             <summary>
-            Set the given content as footer
+            Set the given content as footer (use stand style and global font)
             </summary>
             <typeparam name="TValue">The type of the footer content</typeparam>
             <param name="value">The content for the footer</param>
@@ -922,11 +949,33 @@
         </member>
         <member name="M:NetOdt.OdtDocument.SetFooter``1(``0@,NetOdt.Enumerations.TextStyle)">
             <summary>
-            Set the given content with the given style as footer
+            Set the given content with the given style as footer (use global font)
             </summary>
             <typeparam name="TValue">The type of the footer content</typeparam>
-            <param name="value">The content for the footer</param>
+            <param name="content">The content for the footer</param>
             <param name="textStyle">The text style for the footer</param>
+            <exception cref="T:System.NotSupportedException">Style-sheets inside the footer not supported</exception>
+        </member>
+        <member name="M:NetOdt.OdtDocument.SetFooter``1(``0@,NetOdt.Enumerations.TextStyle,System.String,NetOdt.Enumerations.FontSize)">
+            <summary>
+            Set the given content with the given style and font as footer
+            </summary>
+            <typeparam name="TValue">The type of the footer content</typeparam>
+            <param name="content">The content for the footer</param>
+            <param name="textStyle">The text style for the footer</param>
+            <param name="fontName">The font (name) for the footer</param>
+            <param name="fontSize">The font size for the footer</param>
+            <exception cref="T:System.NotSupportedException">Style-sheets inside the footer not supported</exception>
+        </member>
+        <member name="M:NetOdt.OdtDocument.SetFooter``1(``0@,NetOdt.Enumerations.TextStyle,System.String,System.Double)">
+            <summary>
+            Set the given content with the given style and font as footer
+            </summary>
+            <typeparam name="TValue">The type of the footer content</typeparam>
+            <param name="content">The content for the footer</param>
+            <param name="textStyle">The text style for the footer</param>
+            <param name="fontName">The font (name) for the footer</param>
+            <param name="fontSize">The font size for the footer</param>
             <exception cref="T:System.NotSupportedException">Style-sheets inside the footer not supported</exception>
         </member>
         <member name="M:NetOdt.OdtDocument.AppendImage(System.String,System.Double,System.Double)">
@@ -1031,11 +1080,13 @@
             Write the complete content to the content file (overwrite the existing file)
             </summary>
         </member>
-        <member name="M:NetOdt.OdtDocument.TryToAddStyle(NetOdt.Enumerations.TextStyle)">
+        <member name="M:NetOdt.OdtDocument.TryToAddStyle(NetOdt.Enumerations.TextStyle,System.String,System.Double)">
             <summary>
             Try to add a new style to the style list and return a style name for the style
             </summary>
-            <param name="textStyle">The style to add to the style list</param>
+            <param name="textStyle">The text style to add to the style list</param>
+            <param name="fontName">The font for the style</param>
+            <param name="fontSize">The font size for the style</param>
         </member>
         <member name="M:NetOdt.OdtDocument.CheckAcceptStyles(NetOdt.Enumerations.TextStyle)">
             <summary>
@@ -1139,16 +1190,34 @@
         </member>
         <member name="M:NetOdt.OdtDocument.AppendLine``1(``0@)">
             <summary>
-            Append a single line with a unformatted value to the document
+            Append a content to the document (use standard style and global font)
             </summary>
-            <param name="value">The value to write into the document</param>
+            <param name="content">The content to write into the document</param>
         </member>
         <member name="M:NetOdt.OdtDocument.AppendLine``1(``0@,NetOdt.Enumerations.TextStyle@)">
             <summary>
-            Append a single line with a styled value to the document
+            Append a content to the document with the given style (use global font)
             </summary>
-            <param name="value">The value to write into the document</param>
+            <param name="content">The content to write into the document</param>
+            <param name="textStyle">The style for the content</param>
+        </member>
+        <member name="M:NetOdt.OdtDocument.AppendLine``1(``0@,NetOdt.Enumerations.TextStyle@,System.String,NetOdt.Enumerations.FontSize)">
+            <summary>
+            Append a content to the document with the given style and font
+            </summary>
+            <param name="content">The content to write into the document</param>
             <param name="textStyle">The style of the value</param>
+            <param name="fontName">The font (name) for the content</param>
+            <param name="fontSize">The font size for the content</param>
+        </member>
+        <member name="M:NetOdt.OdtDocument.AppendLine``1(``0@,NetOdt.Enumerations.TextStyle@,System.String,System.Double)">
+            <summary>
+            Append a content to the document with the given style and font
+            </summary>
+            <param name="content">The content to write into the document</param>
+            <param name="textStyle">The style of the value</param>
+            <param name="fontName">The font (name) for the content</param>
+            <param name="fontSize">The font size for the content</param>
         </member>
         <member name="M:NetOdt.OdtDocument.AppendEmptyLines(System.Int32@)">
             <summary>

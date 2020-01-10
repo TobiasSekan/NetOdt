@@ -119,7 +119,9 @@ namespace NetOdt.Helper
 
             if(!style.HaveParentFontSize)
             {
-                styleContent.Append($" style:font-size=\"{style.FontSize}\"");
+                styleContent.Append($" fo:font-size=\"{style.FontSize}pt\"");
+                styleContent.Append($" style:font-size-asian=\"{style.FontSize}pt\"");
+                styleContent.Append($" style:font-size-complex=\"{style.FontSize}pt\"");
             }
 
             if(style.TextStyle.HasFlag(TextStyle.Bold))

@@ -45,6 +45,9 @@ namespace NetOdt.Class
         /// </summary>
         internal TextStyle TextStyle { get; }
 
+        /// <summary>
+        /// The outline level of this style (only used by headings)
+        /// </summary>
         internal byte OutlineLevel { get; }
 
         /// <summary>

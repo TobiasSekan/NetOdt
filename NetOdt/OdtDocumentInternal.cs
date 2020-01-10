@@ -231,17 +231,21 @@ namespace NetOdt
         /// <summary>
         /// Try to add a new style to the style list and return a style name for the style
         /// </summary>
-        /// <param name="textStyle">The style to add to the style list</param>
-        internal Style TryToAddStyle(TextStyle textStyle)
+        /// <param name="textStyle">The text style to add to the style list</param>
+        /// <param name="fontName">The font for the style</param>
+        /// <param name="fontSize">The font size for the style</param>
+        internal Style TryToAddStyle(TextStyle textStyle, string fontName, double fontSize)
         {
-            var foundStyle = NeededStyles.FirstOrDefault(found => found.TextStyle == textStyle);
+            var foundStyle = NeededStyles.FirstOrDefault(found => found.TextStyle == textStyle
+                                                               && found.FontName == fontName
+                                                               && found.FontSize == fontSize);
 
             if(foundStyle is null)
             {
                 CheckAcceptStyles(textStyle);
                 StyleCount++;
 
-                var style = new Style($"P{StyleCount}", StyleFamily.Paragraph, textStyle, GlobalFontName, GlobalFontSize);
+                var style = new Style($"P{StyleCount}", StyleFamily.Paragraph, textStyle, fontName, fontSize);
                 NeededStyles.Add(style);
                 return style;
             }

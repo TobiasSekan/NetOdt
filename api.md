@@ -59,18 +59,26 @@ The enumeration `NetOdt.Enumerations.FontSize` contains all typical font sizes.
 
 ## Header and Footer
 
-```
-// Set the given content as header
+Note: Don't confuse with **Heading** and **Footnote**
+
+```csharp
+// Set the given content as header (use standard style and global font)
 odtDocument.SetHeader("My header");
 
-// Set the given content with the given style as header
+// Set the given content with the given style as header (use global font)
 odtDocument.SetHeader("My header", TextStyle.Center | TextStyle.Bold);
 
-// Set the given content as footer
+// Set the given content with the given style and font as header
+odtDocument.SetHeader("My header", TextStyle.Center | TextStyle.Bold, "Liberation Sans", FontSize.Size22);
+
+// Set the given content as footer (use standard style and global font)
 odtDocument.SetFooter("My footer");
 
-// Set the given content with the given style as footer
+// Set the given content with the given style as footer (use global font)
 odtDocument.SetFooter("My footer", TextStyle.Right | TextStyle.Italic);
+
+// Set the given content with the given style and font as footer
+odtDocument.SetFooter("My footer", TextStyle.Right | TextStyle.Italic, "Arial", 10.3);
 ```
 
 ## Append unformatted values and text into the document
@@ -97,16 +105,16 @@ odtDocument.AppendLine(content);
 // Append a single line with a styled value to the document
 odtDocument.AppendLine(long.MinValue, TextStyle.Bold);
 odtDocument.AppendLine(byte.MaxValue, TextStyle.Italic);
-odtDocument.AppendLine(uint.MaxValue, TextStyle.UnderlineSingle);
-odtDocument.AppendLine(double.NaN,    TextStyle.Superscript);
+odtDocument.AppendLine(uint.MaxValue, TextStyle.UnderlineSingle, "Liberation Serif", 10.9);
+odtDocument.AppendLine(double.NaN,    TextStyle.Superscript, "Arial", FontSize.Size10);
 
 // Append a single line with a unformatted text to the document
-odtDocument.AppendLine("This is a stroked text", TextStyle.Stroke);
+odtDocument.AppendLine("This is a stroked text", TextStyle.Stroke, "Arial", FontSize.Size22);
 
 // Append the content of the given StringBuilder into the document
 var content = new StringBuilder();
 content.Append("This is a text a very very very long text");
-odtDocument.AppendLine(content, TextStyle.Bold | TextStyle.Italic | TextStyle.UnderlineSingle);
+odtDocument.AppendLine(content, TextStyle.Bold | TextStyle.Italic | TextStyle.UnderlineSingle, "Liberation Sans", 22.7);
 ```
 
 [All supported styles can find here](./styles.md)
@@ -152,7 +160,7 @@ odtDocument.AppendLine(content, TextStyle.Footnote);
 
 ## Append a page break
 
-```charp
+```csharp
 /// Append a page break
 odtDocument.AppendLines(string.Empty, TextStyle.PageBreak);
 

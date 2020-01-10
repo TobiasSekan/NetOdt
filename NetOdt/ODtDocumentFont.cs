@@ -17,7 +17,7 @@ namespace NetOdt
         /// <summary>
         /// The font size for complete document
         /// </summary>
-        public float GlobalFontSize { get; private set; }
+        public double GlobalFontSize { get; private set; }
 
         /// <summary>
         /// Set the font (name) and font size for the complete document
@@ -32,14 +32,14 @@ namespace NetOdt
         /// </summary>
         /// <param name="fontName">The name of the font</param>
         /// <param name="fontSize">The size of the font</param>
-        public void SetGlobalFont(string fontName, float fontSize)
+        public void SetGlobalFont(string fontName, double fontSize)
         {
             if(string.IsNullOrWhiteSpace(fontName))
             {
                 throw new ArgumentOutOfRangeException(nameof(fontName), fontName, "The font name can't be a empty string");
             }
 
-            if(fontSize < 1.0f)
+            if(fontSize < 1.0)
             {
                 throw new ArgumentOutOfRangeException(nameof(fontSize), fontSize, "The font size can be smaller as 1.0");
             }

@@ -17,10 +17,10 @@ namespace NetOdtTest
 
             using var odtDocument = new OdtDocument(uri);
 
-            odtDocument.SetGlobalFont("Arial", FontSize.Size11);
+            odtDocument.SetGlobalFont("Arial", FontSize.Size12);
 
-            odtDocument.SetHeader("Extend documentation", TextStyle.Center | TextStyle.Bold);
-            odtDocument.SetFooter("Page 2/5", TextStyle.Right | TextStyle.Italic);
+            odtDocument.SetHeader("Extend documentation", TextStyle.Center | TextStyle.Bold, "Liberation Serif", FontSize.Size32);
+            odtDocument.SetFooter("Page 2/5", TextStyle.Right | TextStyle.Italic, "Liberation Sans", FontSize.Size20);
 
             odtDocument.AppendLine("My Test document", TextStyle.Title);
 
@@ -37,9 +37,9 @@ namespace NetOdtTest
             odtDocument.AppendLine(uint.MaxValue, TextStyle.Right | TextStyle.Italic);
 
             odtDocument.AppendEmptyLines(countOfEmptyLines: 1);
-            odtDocument.AppendLine(double.NaN);
+            odtDocument.AppendLine(double.NaN, TextStyle.None, "Liberation Serif", FontSize.Size60);
 
-            odtDocument.AppendLine("This is a text");
+            odtDocument.AppendLine("This is a text", TextStyle.None, "Liberation Sans", FontSize.Size40);
 
             var content = new StringBuilder();
             content.Append("This is a text a very very very long text");

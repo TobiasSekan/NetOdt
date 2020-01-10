@@ -12,7 +12,7 @@ namespace NetOdt.Helper
         /// </summary>
         /// <param name="fontSize">The font size representation for the real font size</param>
         /// <returns>A real font size</returns>
-        internal static float GetFontSize(FontSize fontSize)
-            => fontSize == FontSize.Size10Point5 ? 10.5f : (float)fontSize;
+        internal static double GetFontSize(FontSize fontSize)
+            => fontSize == FontSize.Size10Point5 ? 10.5 : (double)fontSize;
     }
 }

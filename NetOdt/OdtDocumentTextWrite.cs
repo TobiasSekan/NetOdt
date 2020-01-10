@@ -12,29 +12,51 @@ namespace NetOdt
     public sealed partial class OdtDocument
     {
         /// <summary>
-        /// Append a single line with a unformatted value to the document
+        /// Append a content to the document (use standard style and global font)
         /// </summary>
-        /// <param name="value">The value to write into the document</param>
-        public void AppendLine<TValue>(in TValue value)
+        /// <param name="content">The content to write into the document</param>
+        public void AppendLine<TValue>(in TValue content)
             where TValue : notnull
-            => AppendLine(value, TextStyle.None);
+            => AppendLine(content, TextStyle.None);
 
         /// <summary>
-        /// Append a single line with a styled value to the document
+        /// Append a content to the document with the given style (use global font)
         /// </summary>
-        /// <param name="value">The value to write into the document</param>
+        /// <param name="content">The content to write into the document</param>
+        /// <param name="textStyle">The style for the content</param>
+        public void AppendLine<TValue>(in TValue content, in TextStyle textStyle)
+            where TValue : notnull
+            => AppendLine(content, textStyle, GlobalFontName, GlobalFontSize);
+
+        /// <summary>
+        /// Append a content to the document with the given style and font
+        /// </summary>
+        /// <param name="content">The content to write into the document</param>
         /// <param name="textStyle">The style of the value</param>
-        public void AppendLine<TValue>(in TValue value, in TextStyle textStyle)
+        /// <param name="fontName">The font (name) for the content</param>
+        /// <param name="fontSize">The font size for the content</param>
+        public void AppendLine<TValue>(in TValue content, in TextStyle textStyle, string fontName, FontSize fontSize)
+            where TValue : notnull
+            => AppendLine(content, textStyle, fontName, FontHelper.GetFontSize(fontSize));
+
+        /// <summary>
+        /// Append a content to the document with the given style and font
+        /// </summary>
+        /// <param name="content">The content to write into the document</param>
+        /// <param name="textStyle">The style of the value</param>
+        /// <param name="fontName">The font (name) for the content</param>
+        /// <param name="fontSize">The font size for the content</param>
+        public void AppendLine<TValue>(in TValue content, in TextStyle textStyle, string fontName, double fontSize)
             where TValue : notnull
         {
-            var style = TryToAddStyle(textStyle);
+            var style = TryToAddStyle(textStyle, fontName, fontSize);
 
-            if(value is StringBuilder content)
+            if(content is StringBuilder stringBuild)
             {
-                if(content.Length == 0 || !StringBuilderHelper.ContainsLineBreaks(content))
+                if(stringBuild.Length == 0 || !StringBuilderHelper.ContainsLineBreaks(stringBuild))
                 {
                     AppendXmlTextStart(style);
-                    AppendValue(content);
+                    AppendValue(stringBuild);
                     AppendXmlTextEnd(style);
                     return;
                 }
@@ -49,7 +71,7 @@ namespace NetOdt
                 return;
             }
 
-            if(value is string text)
+            if(content is string text)
             {
                 if(text.Length == 0 || !text.Contains("\n"))
                 {
@@ -70,7 +92,7 @@ namespace NetOdt
             }
 
             AppendXmlTextStart(style);
-            AppendValue(value);
+            AppendValue(content);
             AppendXmlTextEnd(style);
         }
 

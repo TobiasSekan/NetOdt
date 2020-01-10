@@ -11,11 +11,11 @@ namespace NetOdt.Helper
         /// Test if a given <see cref="StringBuilder"/> content contains line breaks
         /// </summary>
         /// <returns><see langword="true"/> if the content contains line breaks, otherwise <see langword="false"/></returns>
-        internal static bool ContainsLineBreaks(in StringBuilder content)
+        internal static bool ContainsLineBreaks(in StringBuilder stringBuild)
         {
-            for(var index = 0; index < content.Length; index++)
+            for(var index = 0; index < stringBuild.Length; index++)
             {
-                if(content[index] == '\n')
+                if(stringBuild[index] == '\n')
                 {
                     return true;
                 }
