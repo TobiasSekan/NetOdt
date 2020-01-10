@@ -1,7 +1,8 @@
-﻿using NetOdt.Class;
+using NetOdt.Class;
 using NetOdt.Enumerations;
 using NetOdt.Helper;
 using System;
+using System.Drawing;
 using System.Text;
 
 namespace NetOdt
@@ -34,7 +35,7 @@ namespace NetOdt
         /// <exception cref="NotSupportedException">Style-sheets inside the header not supported</exception>
         public void SetHeader<TValue>(in TValue value)
             where TValue : notnull
-            => SetHeader(value, TextStyle.None, GlobalFontName, GlobalFontSize);
+            => SetHeader(value, TextStyle.None, GlobalFontName, GlobalFontSize, Color.Transparent, Color.Transparent);
 
         /// <summary>
         /// Set the given content with the given style as header (use global font)
@@ -45,7 +46,20 @@ namespace NetOdt
         /// <exception cref="NotSupportedException">Style-sheets inside the header not supported</exception>
         public void SetHeader<TValue>(in TValue value, TextStyle textStyle)
             where TValue : notnull
-            => SetHeader(value, textStyle, GlobalFontName, GlobalFontSize);
+            => SetHeader(value, textStyle, GlobalFontName, GlobalFontSize, Color.Transparent, Color.Transparent);
+
+        /// <summary>
+        /// Set the given content with the given style as header (use global font)
+        /// </summary>
+        /// <typeparam name="TValue">The type of the header content</typeparam>
+        /// <param name="value">The content for the header</param>
+        /// <param name="textStyle">The text style for the header</param>
+        /// <param name="foreground">The <see cref="Color"/> of foreground for the header</param>
+        /// <param name="background">The <see cref="Color"/> of background for the header</param>
+        /// <exception cref="NotSupportedException">Style-sheets inside the header not supported</exception>
+        public void SetHeader<TValue>(in TValue value, TextStyle textStyle, Color foreground, Color background)
+            where TValue : notnull
+            => SetHeader(value, textStyle, GlobalFontName, GlobalFontSize, foreground, background);
 
         /// <summary>
         /// Set the given content with the given style and font as header
@@ -58,7 +72,7 @@ namespace NetOdt
         /// <exception cref="NotSupportedException">Style-sheets inside the header not supported</exception>
         public void SetHeader<TValue>(in TValue value, TextStyle textStyle, string fontName, FontSize fontSize)
             where TValue : notnull
-            => SetHeader(value, textStyle, fontName, FontHelper.GetFontSize(fontSize));
+            => SetHeader(value, textStyle, fontName, FontHelper.GetFontSize(fontSize), Color.Transparent, Color.Transparent);
 
         /// <summary>
         /// Set the given content with the given style and font as header
@@ -70,6 +84,36 @@ namespace NetOdt
         /// <param name="fontSize">The font size for the header</param>
         /// <exception cref="NotSupportedException">Style-sheets inside the header not supported</exception>
         public void SetHeader<TValue>(in TValue value, TextStyle textStyle, string fontName, double fontSize)
+            where TValue : notnull
+            => SetHeader(value, textStyle, fontName, fontSize, Color.Transparent, Color.Transparent);
+
+        /// <summary>
+        /// Set the given content with the given style and font as header
+        /// </summary>
+        /// <typeparam name="TValue">The type of the header content</typeparam>
+        /// <param name="value">The content for the header</param>
+        /// <param name="textStyle">The text style for the header</param>
+        /// <param name="fontName">The font (name) for the header</param>
+        /// <param name="fontSize">The font size for the header</param>
+        /// <param name="foreground">The <see cref="Color"/> of the foreground for the header</param>
+        /// <param name="background">The <see cref="Color"/> of the background for the header</param>
+        /// <exception cref="NotSupportedException">Style-sheets inside the header not supported</exception>
+        public void SetHeader<TValue>(in TValue value, TextStyle textStyle, string fontName, FontSize fontSize, Color foreground, Color background)
+            where TValue : notnull
+            => SetHeader(value, textStyle, fontName, FontHelper.GetFontSize(fontSize), foreground, background);
+
+        /// <summary>
+        /// Set the given content with the given style and font as header
+        /// </summary>
+        /// <typeparam name="TValue">The type of the header content</typeparam>
+        /// <param name="value">The content for the header</param>
+        /// <param name="textStyle">The text style for the header</param>
+        /// <param name="fontName">The font (name) for the header</param>
+        /// <param name="fontSize">The font size for the header</param>
+        /// <param name="foreground">The <see cref="Color"/> of the foreground for the header</param>
+        /// <param name="background">The <see cref="Color"/> of the background for the header</param>
+        /// <exception cref="NotSupportedException">Style-sheets inside the header not supported</exception>
+        public void SetHeader<TValue>(in TValue value, TextStyle textStyle, string fontName, double fontSize, Color foreground, Color background)
             where TValue : notnull
         {
             switch(textStyle)
@@ -95,7 +139,7 @@ namespace NetOdt
 
             MasterStyleCount++;
 
-            var style = new Style($"MP{MasterStyleCount}", StyleFamily.Header, textStyle, fontName, fontSize);
+            var style = new Style($"MP{MasterStyleCount}", StyleFamily.Header, textStyle, fontName, fontSize, foreground, background);
 
             StyleHelper.AppendXmlStyleStart(MasterStyle, style);
             StyleHelper.AppendXmlStyle(MasterStyle, style);
@@ -116,7 +160,7 @@ namespace NetOdt
         /// <exception cref="NotSupportedException">Style-sheets inside the footer not supported</exception>
         public void SetFooter<TValue>(in TValue value)
             where TValue : notnull
-            => SetFooter(value, TextStyle.None, GlobalFontName, GlobalFontSize);
+            => SetFooter(value, TextStyle.None, GlobalFontName, GlobalFontSize, Color.Transparent, Color.Transparent);
 
         /// <summary>
         /// Set the given content with the given style as footer (use global font)
@@ -127,7 +171,20 @@ namespace NetOdt
         /// <exception cref="NotSupportedException">Style-sheets inside the footer not supported</exception>
         public void SetFooter<TValue>(in TValue content, TextStyle textStyle)
             where TValue : notnull
-            => SetFooter(content, textStyle, GlobalFontName, GlobalFontSize);
+            => SetFooter(content, textStyle, GlobalFontName, GlobalFontSize, Color.Transparent, Color.Transparent);
+
+        /// <summary>
+        /// Set the given content with the given style as footer (use global font)
+        /// </summary>
+        /// <typeparam name="TValue">The type of the footer content</typeparam>
+        /// <param name="content">The content for the footer</param>
+        /// <param name="textStyle">The text style for the footer</param>
+        /// <param name="foreground">The <see cref="Color"/> of the foreground for the footer</param>
+        /// <param name="background">The <see cref="Color"/> of the background for the footer</param>
+        /// <exception cref="NotSupportedException">Style-sheets inside the footer not supported</exception>
+        public void SetFooter<TValue>(in TValue content, TextStyle textStyle, Color foreground, Color background)
+            where TValue : notnull
+            => SetFooter(content, textStyle, GlobalFontName, GlobalFontSize, foreground, background);
 
         /// <summary>
         /// Set the given content with the given style and font as footer
@@ -140,7 +197,7 @@ namespace NetOdt
         /// <exception cref="NotSupportedException">Style-sheets inside the footer not supported</exception>
         public void SetFooter<TValue>(in TValue content, TextStyle textStyle, string fontName, FontSize fontSize)
             where TValue : notnull
-            => SetFooter(content, textStyle, fontName, FontHelper.GetFontSize(fontSize));
+            => SetFooter(content, textStyle, fontName, FontHelper.GetFontSize(fontSize), Color.Transparent, Color.Transparent);
 
         /// <summary>
         /// Set the given content with the given style and font as footer
@@ -152,6 +209,36 @@ namespace NetOdt
         /// <param name="fontSize">The font size for the footer</param>
         /// <exception cref="NotSupportedException">Style-sheets inside the footer not supported</exception>
         public void SetFooter<TValue>(in TValue content, TextStyle textStyle, string fontName, double fontSize)
+            where TValue : notnull
+            => SetFooter(content, textStyle, fontName, fontSize, Color.Transparent, Color.Transparent);
+
+        /// <summary>
+        /// Set the given content with the given style and font as footer
+        /// </summary>
+        /// <typeparam name="TValue">The type of the footer content</typeparam>
+        /// <param name="content">The content for the footer</param>
+        /// <param name="textStyle">The text style for the footer</param>
+        /// <param name="fontName">The font (name) for the footer</param>
+        /// <param name="fontSize">The font size for the footer</param>
+        /// <param name="foreground">The <see cref="Color"/> of the foreground for the footer</param>
+        /// <param name="background">The <see cref="Color"/> of the background for the footer</param>
+        /// <exception cref="NotSupportedException">Style-sheets inside the footer not supported</exception>
+        public void SetFooter<TValue>(in TValue content, TextStyle textStyle, string fontName, FontSize fontSize, Color foreground, Color background)
+            where TValue : notnull
+            => SetFooter(content, textStyle, fontName, FontHelper.GetFontSize(fontSize), foreground, background);
+
+        /// <summary>
+        /// Set the given content with the given style and font as footer
+        /// </summary>
+        /// <typeparam name="TValue">The type of the footer content</typeparam>
+        /// <param name="content">The content for the footer</param>
+        /// <param name="textStyle">The text style for the footer</param>
+        /// <param name="fontName">The font (name) for the footer</param>
+        /// <param name="fontSize">The font size for the footer</param>
+        /// <param name="foreground">The <see cref="Color"/> of the foreground for the footer</param>
+        /// <param name="background">The <see cref="Color"/> of the background for the footer</param>
+        /// <exception cref="NotSupportedException">Style-sheets inside the footer not supported</exception>
+        public void SetFooter<TValue>(in TValue content, TextStyle textStyle, string fontName, double fontSize, Color foreground, Color background)
             where TValue : notnull
         {
             switch(textStyle)
@@ -177,7 +264,7 @@ namespace NetOdt
 
             MasterStyleCount++;
 
-            var style = new Style($"MP{MasterStyleCount}", StyleFamily.Footer, textStyle, fontName, fontSize);
+            var style = new Style($"MP{MasterStyleCount}", StyleFamily.Footer, textStyle, fontName, fontSize, foreground, background);
 
             StyleHelper.AppendXmlStyleStart(MasterStyle, style);
             StyleHelper.AppendXmlStyle(MasterStyle, style);

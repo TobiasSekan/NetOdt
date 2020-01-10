@@ -1,9 +1,10 @@
-﻿using NetOdt.Class;
+using NetOdt.Class;
 using NetOdt.Constants;
 using NetOdt.Enumerations;
 using NetOdt.Helper;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -234,18 +235,23 @@ namespace NetOdt
         /// <param name="textStyle">The text style to add to the style list</param>
         /// <param name="fontName">The font for the style</param>
         /// <param name="fontSize">The font size for the style</param>
-        internal Style TryToAddStyle(TextStyle textStyle, string fontName, double fontSize)
+        /// <param name="foreground">The <see cref="Color"/> of the foreground for the style</param>
+        /// <param name="background">The <see cref="Color"/> of the background for the style</param>
+        /// 
+        internal Style TryToAddStyle(TextStyle textStyle, string fontName, double fontSize, Color foreground, Color background)
         {
             var foundStyle = NeededStyles.FirstOrDefault(found => found.TextStyle == textStyle
                                                                && found.FontName == fontName
-                                                               && found.FontSize == fontSize);
+                                                               && found.FontSize == fontSize
+                                                               && found.ForegroundColor == foreground
+                                                               && found.BackgroundColor == background);
 
             if(foundStyle is null)
             {
                 CheckAcceptStyles(textStyle);
                 StyleCount++;
 
-                var style = new Style($"P{StyleCount}", StyleFamily.Paragraph, textStyle, fontName, fontSize);
+                var style = new Style($"P{StyleCount}", StyleFamily.Paragraph, textStyle, fontName, fontSize, foreground, background);
                 NeededStyles.Add(style);
                 return style;
             }

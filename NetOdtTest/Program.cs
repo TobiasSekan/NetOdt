@@ -1,8 +1,9 @@
-﻿using NetOdt;
+using NetOdt;
 using NetOdt.Enumerations;
 using NUnit.Framework;
 using System;
 using System.Data;
+using System.Drawing;
 using System.Text;
 
 namespace NetOdtTest
@@ -19,10 +20,10 @@ namespace NetOdtTest
 
             odtDocument.SetGlobalFont("Arial", FontSize.Size12);
 
-            odtDocument.SetHeader("Extend documentation", TextStyle.Center | TextStyle.Bold, "Liberation Serif", FontSize.Size32);
-            odtDocument.SetFooter("Page 2/5", TextStyle.Right | TextStyle.Italic, "Liberation Sans", FontSize.Size20);
+            odtDocument.SetHeader("Extend documentation", TextStyle.Center | TextStyle.Bold, "Liberation Serif", FontSize.Size32, Color.Pink, Color.DarkGray);
+            odtDocument.SetFooter("Page 2/5", TextStyle.Right | TextStyle.Italic, "Liberation Sans", FontSize.Size20, Color.Blue, Color.LightYellow);
 
-            odtDocument.AppendLine("My Test document", TextStyle.Title);
+            odtDocument.AppendLine("My Test document", TextStyle.Title, Color.FromArgb(255, 0, 0), Color.FromArgb(0, 126, 126));
 
             odtDocument.AppendTable(GetTable());
 

@@ -1,6 +1,7 @@
-﻿using NetOdt.Class;
+using NetOdt.Class;
 using NetOdt.Enumerations;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Text;
 
 namespace NetOdt.Helper
@@ -31,27 +32,27 @@ namespace NetOdt.Helper
         /// <param name="styleContent">The content container for the style</param>
         internal static void AddTableStyles(in StringBuilder styleContent)
         {
-            AppendXmlStyleStart(styleContent, new Style("Tabelle1", StyleFamily.Table, TextStyle.None, string.Empty, 0.0));
+            AppendXmlStyleStart(styleContent, new Style("Tabelle1", StyleFamily.Table, TextStyle.None));
             styleContent.Append("<style:table-properties style:width=\"17cm\" table:align=\"margins\"/>");
             AppendXmlStyleEnd(styleContent);
 
-            AppendXmlStyleStart(styleContent, new Style("Tabelle1.A", StyleFamily.TableColumn, TextStyle.None, string.Empty, 0.0));
+            AppendXmlStyleStart(styleContent, new Style("Tabelle1.A", StyleFamily.TableColumn, TextStyle.None));
             styleContent.Append("<style:table-column-properties style:column-width=\"3.401cm\" style:rel-column-width=\"13107*\"/>");
             AppendXmlStyleEnd(styleContent);
 
-            AppendXmlStyleStart(styleContent, new Style("Tabelle1.A1", StyleFamily.TableCell, TextStyle.None, string.Empty, 0.0));
+            AppendXmlStyleStart(styleContent, new Style("Tabelle1.A1", StyleFamily.TableCell, TextStyle.None));
             styleContent.Append("<style:table-cell-properties fo:padding=\"0.097cm\" fo:border-left=\"0.05pt solid #000000\" fo:border-right=\"none\" fo:border-top=\"0.05pt solid #000000\" fo:border-bottom=\"0.05pt solid #000000\"/>");
             AppendXmlStyleEnd(styleContent);
 
-            AppendXmlStyleStart(styleContent, new Style("Tabelle1.E1", StyleFamily.TableCell, TextStyle.None, string.Empty, 0.0));
+            AppendXmlStyleStart(styleContent, new Style("Tabelle1.E1", StyleFamily.TableCell, TextStyle.None));
             styleContent.Append("<style:table-cell-properties fo:padding=\"0.097cm\" fo:border=\"0.05pt solid #000000\"/>");
             AppendXmlStyleEnd(styleContent);
 
-            AppendXmlStyleStart(styleContent, new Style("Tabelle1.A2", StyleFamily.TableCell, TextStyle.None, string.Empty, 0.0));
+            AppendXmlStyleStart(styleContent, new Style("Tabelle1.A2", StyleFamily.TableCell, TextStyle.None));
             styleContent.Append("<style:table-cell-properties fo:padding=\"0.097cm\" fo:border-left=\"0.05pt solid #000000\" fo:border-right=\"none\" fo:border-top=\"none\" fo:border-bottom=\"0.05pt solid #000000\"/>");
             AppendXmlStyleEnd(styleContent);
 
-            AppendXmlStyleStart(styleContent, new Style("Tabelle1.E2", StyleFamily.TableCell, TextStyle.None, string.Empty, 0.0));
+            AppendXmlStyleStart(styleContent, new Style("Tabelle1.E2", StyleFamily.TableCell, TextStyle.None));
             styleContent.Append("<style:table-cell-properties fo:padding=\"0.097cm\" fo:border-left=\"0.05pt solid #000000\" fo:border-right=\"0.05pt solid #000000\" fo:border-top=\"none\" fo:border-bottom=\"0.05pt solid #000000\"/>");
             AppendXmlStyleEnd(styleContent);
         }
@@ -62,7 +63,7 @@ namespace NetOdt.Helper
         /// <param name="styleContent">The content container for the style</param>
         internal static void AddPictureStyle(in StringBuilder styleContent)
         {
-            AppendXmlStyleStart(styleContent, new Style("fr1", StyleFamily.Graphic, TextStyle.None, string.Empty, 0.0));
+            AppendXmlStyleStart(styleContent, new Style("fr1", StyleFamily.Graphic, TextStyle.None));
             styleContent.Append("<style:graphic-properties style:mirror=\"none\" fo:clip=\"rect(0cm, 0cm, 0cm, 0cm)\" draw:luminance=\"0%\" draw:contrast=\"0%\" draw:red=\"0%\" draw:green=\"0%\" draw:blue=\"0%\" draw:gamma=\"100%\" draw:color-inversion=\"false\" draw:image-opacity=\"100%\" draw:color-mode=\"standard\"/>");
             AppendXmlStyleEnd(styleContent);
         }
@@ -122,6 +123,18 @@ namespace NetOdt.Helper
                 styleContent.Append($" fo:font-size=\"{style.FontSize}pt\"");
                 styleContent.Append($" style:font-size-asian=\"{style.FontSize}pt\"");
                 styleContent.Append($" style:font-size-complex=\"{style.FontSize}pt\"");
+            }
+
+            if(style.ForegroundColor != Color.Transparent)
+            {
+                var colorValue = $"#{style.ForegroundColor.R:X2}{style.ForegroundColor.G:X2}{style.ForegroundColor.B:X2}";
+                styleContent.Append($" fo:color=\"{colorValue}\"");
+            }
+
+            if(style.BackgroundColor != Color.Transparent)
+            {
+                var colorValue = $"#{style.BackgroundColor.R:X2}{style.BackgroundColor.G:X2}{style.BackgroundColor.B:X2}";
+                styleContent.Append($" fo:background-color=\"{colorValue}\"");
             }
 
             if(style.TextStyle.HasFlag(TextStyle.Bold))

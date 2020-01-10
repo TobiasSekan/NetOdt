@@ -1,5 +1,6 @@
-﻿using NetOdt.Enumerations;
+using NetOdt.Enumerations;
 using System;
+using System.Drawing;
 
 namespace NetOdt.Class
 {
@@ -55,9 +56,29 @@ namespace NetOdt.Class
         /// </summary>
         internal bool HaveParentFontSize { get; }
 
+        /// <summary>
+        /// The <see cref="Color"/> of the foreground
+        /// </summary>
+        internal Color ForegroundColor { get; }
+
+        /// <summary>
+        /// The <see cref="Color"/> of the background
+        /// </summary>
+        internal Color BackgroundColor { get; }
+
         #endregion Internal Properties
 
-        #region Internal Constructor
+        #region Internal Constructors
+
+        /// <summary>
+        /// Create a new style with the given informations
+        /// </summary>
+        /// <param name="name">The name for this style</param>
+        /// <param name="family">The style family for this style</param>
+        /// <param name="textStyle">The text style for this style name</param>
+        internal Style(string name, StyleFamily family, TextStyle textStyle)
+            : this(name, family, textStyle, string.Empty, 0.0, Color.Black, Color.Transparent)
+        { }
 
         /// <summary>
         /// Create a new style with the given informations
@@ -66,14 +87,24 @@ namespace NetOdt.Class
         /// <param name="family">The style family for this style</param>
         /// <param name="textStyle">The text style for this style name</param>
         /// <param name="fontName">The name of the font for this style</param>
-        /// <param name="fontSize">he size of the font for this style</param>
-        internal Style(string name, StyleFamily family, TextStyle textStyle, string fontName, double fontSize)
+        /// <param name="fontSize">The size of the font for this style</param>
+        /// <param name="foreground">The foreground color for this style</param>
+        /// <param name="background">The background color for this style</param>
+        internal Style(string name,
+                       StyleFamily family,
+                       TextStyle textStyle,
+                       string fontName,
+                       double fontSize,
+                       Color foreground,
+                       Color background)
         {
             FontName           = fontName;
             FontSize           = fontSize;
             Name               = name;
             Family             = family;
             TextStyle          = textStyle;
+            ForegroundColor    = foreground;
+            BackgroundColor    = background;
 
             FamilyName         = GetStyleFamily();
             ParentName         = GetParentStyleName();
@@ -81,7 +112,7 @@ namespace NetOdt.Class
             OutlineLevel       = GetOutlineLevel();
         }
 
-        #endregion Internal Constructor
+        #endregion Internal Constructors
 
         #region Internal Methods
 
