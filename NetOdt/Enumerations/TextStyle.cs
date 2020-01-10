@@ -6,203 +6,203 @@ namespace NetOdt.Enumerations
     /// The style of a text
     /// </summary>
     [Flags]
-    public enum TextStyle : long
+    public enum TextStyle : ulong
     {
         /// <summary>
         /// Text without any style
         /// </summary>
-        None = 0,
+        None = 0x_00_00_00_00_00_00,
 
         /// <summary>
         /// A bold text
         /// </summary>
-        Bold = 1 << 0,
+        Bold = 0x_00_00_00_00_00_01,
 
         /// <summary>
         /// A italic text
         /// </summary>
-        Italic = 1 << 1,
+        Italic = 0x_00_00_00_00_00_02,
 
         /// <summary>
         /// A text with a single underline
         /// </summary>
-        UnderlineSingle = 1 << 2,
+        UnderlineSingle = 0x_00_00_00_00_00_04,
 
         /// <summary>
         /// A text with a double underline
         /// </summary>
-        UnderlineDouble = 1 << 3,
+        UnderlineDouble = 0x_00_00_00_00_00_08,
 
         /// <summary>
         /// A text with a bold underline
         /// </summary>
-        UnderlineBold = 1 << 4,
+        UnderlineBold = 0x_00_00_00_00_00_10,
 
         /// <summary>
         /// A text with a dotted underline
         /// </summary>
-        UnderlineDotted = 1 << 5,
+        UnderlineDotted = 0x_00_00_00_00_00_20,
 
         /// <summary>
         /// A text with a bold dotted underline
         /// </summary>
-        UnderlineDottedBold = 1 << 6,
+        UnderlineDottedBold = 0x_00_00_00_00_00_40,
 
         /// <summary>
         /// A text with a dash underline
         /// </summary>
-        UnderlineDash = 1 << 7,
+        UnderlineDash = 0x_00_00_00_00_00_80,
 
         /// <summary>
         /// A text with a long-dash underline
         /// </summary>
-        UnderlineLongDash = 1 << 8,
+        UnderlineLongDash = 0x_00_00_00_00_01_00,
 
         /// <summary>
         /// A text with a dot-dash underline
         /// </summary>
-        UnderlineDotDash = 1 << 9,
+        UnderlineDotDash = 0x_00_00_00_00_02_00,
 
         /// <summary>
         /// A text with a dot-dot-dash underline
         /// </summary>
-        UnderlineDotDotDash = 1 << 10,
+        UnderlineDotDotDash = 0x_00_00_00_00_04_00,
 
         /// <summary>
         /// A text with a wave underline
         /// </summary>
-        UnderlineWave = 1 << 11,
+        UnderlineWave = 0x_00_00_00_00_08_00,
 
         /// <summary>
         /// A stroked text
         /// </summary>
-        Stroke = 1 << 12,
+        Stroke = 0x_00_00_00_00_10_00,
 
         /// <summary>
         /// A subscript text
         /// </summary>
-        Subscript = 1 << 13,
+        Subscript = 0x_00_00_00_00_20_00,
 
         /// <summary>
         /// A superscript text
         /// </summary>
-        Superscript = 1 << 14,
+        Superscript = 0x_00_00_00_00_40_00,
 
         /// <summary>
         /// The text alignment is left
         /// </summary>
-        Left = 1 << 15,
+        Left = 0x_00_00_00_00_80_00,
 
         /// <summary>
         /// The text alignment is centered
         /// </summary>
-        Center = 1 << 16,
+        Center = 0x_00_00_00_01_00_00,
 
         /// <summary>
         /// The text alignment is right
         /// </summary>
-        Right = 1 << 17,
+        Right = 0x_00_00_00_02_00_00,
 
         /// <summary>
         /// The text use full justification
         /// </summary>
-        Justify = 1 << 18,
+        Justify = 0x_00_00_00_04_00_00,
 
         /// <summary>
         /// Title
         /// <para>font size 28 and bold and centered</para>
         /// </summary>
-        Title =  1 << 19,
+        Title =  0x_00_00_00_08_00_00,
 
         /// <summary>
         /// Subtitle
         /// <para>font size 18 and centered</para>
         /// </summary>
-        Subtitle = 1 << 20,
+        Subtitle = 0x_00_00_00_10_00_00,
 
         /// <summary>
         /// Heading level 1
         /// <para>font size 18,2 and bold</para>
         /// </summary>
-        HeadingLevel01 = 1 << 21,
+        HeadingLevel01 = 0x_00_00_00_20_00_00,
 
         /// <summary>
         /// Heading level 2
         /// <para>font size 16,1 and bold</para>
         /// </summary>
-        HeadingLevel02 = 1 << 22,
+        HeadingLevel02 = 0x_00_00_00_40_00_00,
 
         /// <summary>
         /// Heading level 3
         /// <para>font size 14,1 and bold</para>
         /// </summary>
-        HeadingLevel03 = 1 << 23,
+        HeadingLevel03 = 0x_00_00_00_80_00_00,
 
         /// <summary>
-        /// Heading level 4 ()
+        /// Heading level 4
         /// <para>font size 13,3 and bold and italic</para>
         /// </summary>
-        HeadingLevel04 = 1 << 24,
+        HeadingLevel04 = 0x_00_00_01_00_00_00,
 
         /// <summary>
-        /// Heading level 5 ()
+        /// Heading level 5
         /// <para>font size 11,8 and bold</para>
         /// </summary>
-        HeadingLevel05 = 1 << 25,
+        HeadingLevel05 = 0x_00_00_02_00_00_00,
 
         /// <summary>
         /// Heading level 6
         /// <para>font size 11,8 and bold and italic</para>
         /// </summary>
-        HeadingLevel06 = 1 << 26,
+        HeadingLevel06 = 0x_00_00_04_00_00_00,
 
         /// <summary>
         /// Heading level 7
         /// <para>font size 11,1 and bold</para>
         /// </summary>
-        HeadingLevel07 = 1 << 27,
+        HeadingLevel07 = 0x_00_00_08_00_00_00,
 
         /// <summary>
         /// Heading level 8
         /// <para>font size 11,1 and bold and italic</para>
         /// </summary>
-        HeadingLevel08 = 1 << 28,
+        HeadingLevel08 = 0x_00_00_10_00_00_00,
 
         /// <summary>
         /// Heading level 9
         /// <para>font size 10,5 and bold</para>
         /// </summary>
-        HeadingLevel09 = 1 << 29,
+        HeadingLevel09 = 0x_00_00_20_00_00_00,
 
         /// <summary>
         /// Heading level 10
         /// <para>font size 10,5 and bold</para>
         /// </summary>
-        HeadingLevel10 = 1 << 30,
+        HeadingLevel10 = 0x_00_00_40_00_00_00,
 
         /// <summary>
         /// Signature
         /// </summary>
-        Signature = 1 << 31,
+        Signature = 0x_00_00_80_00_00_00,
 
         /// <summary>
         /// Quotations
         /// </summary>
-        Quotations = 1 << 32,
+        Quotations = 0x_00_01_00_00_00_00,
 
         /// <summary>
         /// Endnote
         /// </summary>
-        Endnote = 1 << 33,
+        Endnote = 0x_00_02_00_00_00_00,
 
         /// <summary>
         /// Footnote
         /// </summary>
-        Footnote = 1 << 34,
+        Footnote = 0x_00_04_00_00_00_00,
 
         /// <summary>
         /// Page break before text
         /// </summary>
-        PageBreak = 1 << 35,
+        PageBreak = 0x_00_08_00_00_00_00,
     }
 }

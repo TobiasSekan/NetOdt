@@ -1,4 +1,4 @@
-﻿using NetOdt;
+﻿using NetOdt.Class;
 using NetOdt.Enumerations;
 using NetOdt.Helper;
 using NUnit.Framework;
@@ -17,8 +17,9 @@ namespace NetOdtTest.HelperTest
         public void AppendXmlStyleStartTest(string styleName, StyleFamily styleFamily, string result)
         {
             var document = new StringBuilder();
+            var style    = new Style(styleName, styleFamily, TextStyle.None, "Arial", 12.0);
 
-            StyleHelper.AppendXmlStyleStart(document, styleName, styleFamily, TextStyle.None);
+            StyleHelper.AppendXmlStyleStart(document, style);
 
             Assert.That(document.ToString(), Is.EqualTo(result));
         }
@@ -126,18 +127,18 @@ namespace NetOdtTest.HelperTest
         //[TestCase(TextStyle.Right   , "<style:paragraph-properties fo:text-align=\"end\" style:justify-single-word=\"false\"")]
         //[TestCase(TextStyle.Justify , "<style:paragraph-properties fo:text-align=\"justify\" style:justify-single-word=\"false\"")]
 
-        public void AppendXmlStyleTest(TextStyle style, string result)
+        public void AppendXmlStyleTest(TextStyle textStyle, string result)
         {
             var styleContainer = new StringBuilder();
-            var document = new OdtDocument();
+            var style          = new Style(string.Empty, StyleFamily.Paragraph, textStyle, "Arial", 12.0);
 
-            StyleHelper.AppendXmlStyle(styleContainer, style, "Arial", 12.0f);
+            StyleHelper.AppendXmlStyle(styleContainer, style);
 
-            Assert.That(document.StyleContent.ToString(), Does.StartWith("<style:text-properties"));
-            Assert.That(document.StyleContent.ToString(), Does.EndWith("/>"));
+            Assert.That(styleContainer.ToString(), Does.StartWith("<style:text-properties"));
+            Assert.That(styleContainer.ToString(), Does.EndWith("/>"));
 
             // Make sure that every property is has a separated with a space
-            Assert.That(document.StyleContent.ToString(), Does.Contain($" {result}"));
+            Assert.That(styleContainer.ToString(), Does.Contain($" {result}"));
         }
 
         [Test]

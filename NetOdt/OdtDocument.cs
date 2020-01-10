@@ -1,8 +1,9 @@
-﻿using NetOdt.Constants;
+﻿using NetOdt.Class;
+using NetOdt.Constants;
 using NetOdt.Enumerations;
 using NetOdt.Helper;
 using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Xml;
@@ -123,7 +124,7 @@ namespace NetOdt
             FooterContent            = new StringBuilder();
             AfterFooterContent       = new StringBuilder();
 
-            NeededStyles             = new Dictionary<TextStyle, string>();
+            NeededStyles             = new Collection<Style>();
 
             TableCount               = 0;
             PictureCount             = 0;

@@ -1,4 +1,5 @@
-﻿using NetOdt.Enumerations;
+﻿using NetOdt.Class;
+using NetOdt.Enumerations;
 using NetOdt.Helper;
 using System;
 using System.Text;
@@ -26,21 +27,23 @@ namespace NetOdt
         public void AppendLine<TValue>(in TValue value, in TextStyle textStyle)
             where TValue : notnull
         {
+            var style = TryToAddStyle(textStyle);
+
             if(value is StringBuilder content)
             {
                 if(content.Length == 0 || !StringBuilderHelper.ContainsLineBreaks(content))
                 {
-                    AppendXmlTextStart(textStyle);
+                    AppendXmlTextStart(style);
                     AppendValue(content);
-                    AppendXmlTextEnd(textStyle);
+                    AppendXmlTextEnd(style);
                     return;
                 }
 
                 foreach(var contentBlock in content.ToString().Split('\n'))
                 {
-                    AppendXmlTextStart(textStyle);
+                    AppendXmlTextStart(style);
                     AppendValue(contentBlock);
-                    AppendXmlTextEnd(textStyle);
+                    AppendXmlTextEnd(style);
                 }
 
                 return;
@@ -50,25 +53,25 @@ namespace NetOdt
             {
                 if(text.Length == 0 || !text.Contains("\n"))
                 {
-                    AppendXmlTextStart(textStyle);
+                    AppendXmlTextStart(style);
                     AppendValue(text);
-                    AppendXmlTextEnd(textStyle);
+                    AppendXmlTextEnd(style);
                     return;
                 }
 
                 foreach(var textBlock in text.Split('\n'))
                 {
-                    AppendXmlTextStart(textStyle);
+                    AppendXmlTextStart(style);
                     AppendValue(textBlock);
-                    AppendXmlTextEnd(textStyle);
+                    AppendXmlTextEnd(style);
                 }
 
                 return;
             }
 
-            AppendXmlTextStart(textStyle);
+            AppendXmlTextStart(style);
             AppendValue(value);
-            AppendXmlTextEnd(textStyle);
+            AppendXmlTextEnd(style);
         }
 
         /// <summary>
@@ -86,14 +89,12 @@ namespace NetOdt
         /// <summary>
         /// Append a XML start element for a text passage
         /// </summary>
-        /// <param name="textStyle">The style for the text passage</param>
-        internal void AppendXmlTextStart(in TextStyle textStyle)
+        /// <param name="style">The style for the text passage</param>
+        internal void AppendXmlTextStart(in Style style)
         {
-            var styleName = TryToAddStyle(textStyle);
-
             TextContent.Append("<");
 
-            switch(textStyle)
+            switch(style.TextStyle)
             {
                 case TextStyle.HeadingLevel01:
                 case TextStyle.HeadingLevel02:
@@ -106,13 +107,13 @@ namespace NetOdt
                 case TextStyle.HeadingLevel09:
                 case TextStyle.HeadingLevel10:
                     TextContent.Append("text:h");
-                    TextContent.Append($" text:style-name=\"{styleName}\"");
-                    TextContent.Append($" text:outline-level=\"{StyleHelper.GetOutlineLevel(textStyle)}\"");
+                    TextContent.Append($" text:style-name=\"{style.Name}\"");
+                    TextContent.Append($" text:outline-level=\"{style.OutlineLevel}\"");
                     break;
 
                 default:
                     TextContent.Append("text:p");
-                    TextContent.Append($" text:style-name=\"{styleName}\"");
+                    TextContent.Append($" text:style-name=\"{style.Name}\"");
                     break;
             }
 
@@ -208,9 +209,10 @@ namespace NetOdt
         /// <summary>
         /// Append a XML end element for a text passage
         /// </summary>
-        internal void AppendXmlTextEnd(in TextStyle textStyle)
+        /// <param name="style">The style of this text passage</param>
+        internal void AppendXmlTextEnd(in Style style)
         {
-            switch(textStyle)
+            switch(style.TextStyle)
             {
                 case TextStyle.HeadingLevel01:
                 case TextStyle.HeadingLevel02:

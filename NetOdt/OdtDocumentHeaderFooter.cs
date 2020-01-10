@@ -1,4 +1,5 @@
-﻿using NetOdt.Enumerations;
+﻿using NetOdt.Class;
+using NetOdt.Enumerations;
 using NetOdt.Helper;
 using System;
 using System.Text;
@@ -68,8 +69,10 @@ namespace NetOdt
 
             MasterStyleCount++;
 
-            StyleHelper.AppendXmlStyleStart(MasterStyle, $"MP{MasterStyleCount}", StyleFamily.Header, textStyle);
-            StyleHelper.AppendXmlStyle(MasterStyle, textStyle, GlobalFontName, GlobalFontSize);
+            var style = new Style($"MP{MasterStyleCount}", StyleFamily.Header, textStyle, GlobalFontName, GlobalFontSize);
+
+            StyleHelper.AppendXmlStyleStart(MasterStyle, style);
+            StyleHelper.AppendXmlStyle(MasterStyle, style);
             StyleHelper.AppendXmlStyleEnd(MasterStyle);
 
             // TODO: don't use hard coded name for style informations
@@ -122,8 +125,10 @@ namespace NetOdt
 
             MasterStyleCount++;
 
-            StyleHelper.AppendXmlStyleStart(MasterStyle, $"MP{MasterStyleCount}", StyleFamily.Footer, textStyle);
-            StyleHelper.AppendXmlStyle(MasterStyle, textStyle, GlobalFontName, GlobalFontSize);
+            var style = new Style($"MP{MasterStyleCount}", StyleFamily.Footer, textStyle, GlobalFontName, GlobalFontSize);
+
+            StyleHelper.AppendXmlStyleStart(MasterStyle, style);
+            StyleHelper.AppendXmlStyle(MasterStyle, style);
             StyleHelper.AppendXmlStyleEnd(MasterStyle);
 
             // TODO: don't use hard coded name for style informations

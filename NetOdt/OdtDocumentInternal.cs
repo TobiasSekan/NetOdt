@@ -1,4 +1,5 @@
-﻿using NetOdt.Constants;
+﻿using NetOdt.Class;
+using NetOdt.Constants;
 using NetOdt.Enumerations;
 using NetOdt.Helper;
 using System;
@@ -89,9 +90,9 @@ namespace NetOdt
         internal Uri StyleFileUri { get; }
 
         /// <summary>
-        /// List that contains all need styles and style names
+        /// Collection that contains all need styles and style names
         /// </summary>
-        internal IDictionary<TextStyle, string> NeededStyles { get; }
+        internal ICollection<Style> NeededStyles { get; }
 
         #endregion Internal Properties
 
@@ -161,7 +162,7 @@ namespace NetOdt
         /// </summary>
         internal void WriteContent()
         {
-            StyleHelper.AddStandardTextStyles(this, NeededStyles);
+            StyleHelper.AddStandardTextStyles(StyleContent, NeededStyles);
 
             // When a document has no tables, we don't need a table style
             if(TableCount > 0)
@@ -230,24 +231,22 @@ namespace NetOdt
         /// <summary>
         /// Try to add a new style to the style list and return a style name for the style
         /// </summary>
-        /// <param name="style">The style to add to the style list</param>
-        internal string TryToAddStyle(TextStyle style)
+        /// <param name="textStyle">The style to add to the style list</param>
+        internal Style TryToAddStyle(TextStyle textStyle)
         {
-            string styleName;
+            var foundStyle = NeededStyles.FirstOrDefault(found => found.TextStyle == textStyle);
 
-            if(NeededStyles.ContainsKey(style))
+            if(foundStyle is null)
             {
-                NeededStyles.TryGetValue(style, out styleName);
-            }
-            else
-            {
-                CheckAcceptStyles(style);
+                CheckAcceptStyles(textStyle);
                 StyleCount++;
-                styleName = $"P{StyleCount}";
-                NeededStyles.Add(style, styleName);
+
+                var style = new Style($"P{StyleCount}", StyleFamily.Paragraph, textStyle, GlobalFontName, GlobalFontSize);
+                NeededStyles.Add(style);
+                return style;
             }
 
-            return styleName;
+            return foundStyle;
         }
 
         /// <summary>
