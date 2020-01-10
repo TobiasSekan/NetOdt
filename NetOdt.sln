@@ -9,13 +9,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 		.gitignore = .gitignore
-		api.md = api.md
 		LICENSE = LICENSE
 		readme.md = readme.md
-		styles.md = styles.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetOdtTest", "NetOdtTest\NetOdtTest.csproj", "{9FF8FC60-5BF1-449C-8204-B5BA4CC15E5E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{2D5D7765-7821-44EA-8141-38C6C4D08F80}"
+	ProjectSection(SolutionItems) = preProject
+		Documentation\api.md = Documentation\api.md
+		Documentation\styles.md = Documentation\styles.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -34,6 +38,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{2D5D7765-7821-44EA-8141-38C6C4D08F80} = {5C44EA8E-18A3-498B-8F1C-6EFDD7BF7EF7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {58A94426-5188-4F56-83AB-75F8D4CAF8A5}

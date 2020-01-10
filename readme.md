@@ -40,9 +40,9 @@ odtDocument.AppendImage(path: "E:/picture1.jpg", width: 22.5, height: 14.1);
 
 ## Documentation
 
-[All supported styles can find here](./styles.md)
+[All supported styles can find here](./documentation/styles.md)
 
-[All API calls can find here](./api.md)
+[All API calls can find here](./documentation/api.md)
 
 ## Upcoming features
 Next time, when possible:
