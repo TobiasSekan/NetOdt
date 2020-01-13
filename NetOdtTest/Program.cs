@@ -19,6 +19,7 @@ namespace NetOdtTest
             using var odtDocument = new OdtDocument(uri);
 
             odtDocument.SetGlobalFont("Arial", FontSize.Size12);
+            odtDocument.SetGlobalColors(Color.White, Color.Black);
 
             odtDocument.SetHeader("Extend documentation", TextStyle.Center | TextStyle.Bold, "Liberation Serif", FontSize.Size32, Color.Pink, Color.DarkGray);
             odtDocument.SetFooter("Page 2/5", TextStyle.Right | TextStyle.Italic, "Liberation Sans", FontSize.Size20, Color.Blue, Color.LightYellow);

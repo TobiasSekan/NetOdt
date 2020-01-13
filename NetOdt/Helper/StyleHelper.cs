@@ -1,5 +1,6 @@
 using NetOdt.Class;
 using NetOdt.Enumerations;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Text;
@@ -325,5 +326,53 @@ namespace NetOdt.Helper
         /// <returns>A color value</returns>
         internal static string GetColorValue(Color color)
             => $"#{color.R:X2}{color.G:X2}{color.B:X2}";
+
+        /// <summary>
+        /// Return the <see cref="CellValueType"/> for the given value
+        /// </summary>
+        /// <param name="value">The value for the <see cref="CellValueType"/></param>
+        /// <returns>A <see cref="CellValueType"/></returns>
+        internal static CellValueType GetCellValueType(object value)
+            => value switch
+            {
+                bool _          => CellValueType.Boolean,
+                byte _          => CellValueType.Float,
+                sbyte _         => CellValueType.Float,
+                short _         => CellValueType.Float,
+                ushort _        => CellValueType.Float,
+                int _           => CellValueType.Float,
+                uint _          => CellValueType.Float,
+                long _          => CellValueType.Float,
+                ulong _         => CellValueType.Float,
+                float _         => CellValueType.Float,
+                double _        => CellValueType.Float,
+                decimal _       => CellValueType.Currency,
+                char _          => CellValueType.String,
+                string _        => CellValueType.String,
+                StringBuilder _ => CellValueType.String,
+                DateTime _      => CellValueType.Date,
+                TimeSpan _      => CellValueType.Time,
+                _               => throw new ArgumentOutOfRangeException(nameof(value), value, "Object type for cell not supported"),
+            };
+
+        /// <summary>
+        /// Return the name of the given <see cref="CellValueType"/>
+        /// </summary>
+        /// <param name="cellValueType">The <see cref="CellValueType"/> for the name</param>
+        /// <returns>A name of a cell value type</returns>
+        internal static string GetValueTypeName(CellValueType cellValueType)
+            => cellValueType switch
+            {
+                CellValueType.Boolean    => "boolean",
+                CellValueType.Float      => "float",
+                CellValueType.Currency   => "currency",
+                CellValueType.String     => "string",
+                CellValueType.Date       => "date",
+                CellValueType.Time       => "time",
+                CellValueType.Percentage => "percentage",
+                _                        => throw new ArgumentOutOfRangeException(nameof(cellValueType),
+                                                                                  cellValueType,
+                                                                                  "Object type for cell not supported"),
+            };
     }
 }
