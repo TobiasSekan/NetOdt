@@ -1,9 +1,10 @@
-﻿using NetOdt.Class;
+using NetOdt.Class;
 using NetOdt.Constants;
 using NetOdt.Enumerations;
 using NetOdt.Helper;
 using System;
 using System.Collections.ObjectModel;
+using System.Drawing;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Xml;
@@ -126,10 +127,6 @@ namespace NetOdt
 
             NeededStyles             = new Collection<Style>();
 
-            TableCount               = 0;
-            PictureCount             = 0;
-            StyleCount               = 0;
-
             GlobalFontName           = "Liberation Serif";
             GlobalFontSize           = 12;
 
@@ -137,6 +134,7 @@ namespace NetOdt
             ReadContent();
 
             SetGlobalFont("Liberation Serif", FontSize.Size12);
+            SetGlobalColors(Color.Black, Color.Transparent);
         }
 
         #endregion Public Constructors

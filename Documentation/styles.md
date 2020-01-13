@@ -2,6 +2,8 @@
 
 ## Supported text styles and alignments
 
+Note: You must import `NetOdt.Enumerations` to use text styles.
+
 * Bold
 * Italic
 * Underline
@@ -40,7 +42,9 @@ TextStyle.UnderlineBold | TextStyle.UnderlineWave
 TextStyle.Superscript | TextStyle.Subscript
 ```
 
-## Supported styles sheets
+## Supported styles-sheets
+
+Note: You must import `NetOdt.Enumerations` to use style-sheets.
 
 You can only use one style sheet for a text passage.
 
@@ -60,3 +64,13 @@ You can only use one style sheet for a text passage.
 * Quotations
 * Endnote
 * Footnote
+
+## Supported colors
+
+Note:
+* You must import `System.Drawing` to use colors
+* Alpha-channel is supported and will ignored
+
+Use a color constant like `Color.Red`
+
+or take it from RGB code like `Color.FromArgb(128, 128, 128)`

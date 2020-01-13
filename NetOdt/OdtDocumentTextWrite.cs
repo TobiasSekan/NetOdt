@@ -13,24 +13,24 @@ namespace NetOdt
     public sealed partial class OdtDocument
     {
         /// <summary>
-        /// Append a content to the document (use standard style and color and global font)
+        /// Append a content to the document (use standard style and global font and color)
         /// </summary>
         /// <param name="content">The content to write into the document</param>
         public void AppendLine<TValue>(in TValue content)
             where TValue : notnull
-            => AppendLine(content, TextStyle.None, GlobalFontName, GlobalFontSize, Color.Transparent, Color.Transparent);
+            => AppendLine(content, TextStyle.None, GlobalFontName, GlobalFontSize, GlobalForegroundColor, GlobalBackgroundColor);
 
         /// <summary>
-        /// Append a content to the document with the given style (use global font)
+        /// Append a content to the document with the given style (use global font and color)
         /// </summary>
         /// <param name="content">The content to write into the document</param>
         /// <param name="textStyle">The style for the content</param>
         public void AppendLine<TValue>(in TValue content, in TextStyle textStyle)
             where TValue : notnull
-            => AppendLine(content, textStyle, GlobalFontName, GlobalFontSize);
+            => AppendLine(content, textStyle, GlobalFontName, GlobalFontSize, GlobalForegroundColor, GlobalBackgroundColor);
 
         /// <summary>
-        /// Append a content to the document with the given style (use standard colors and global font)
+        /// Append a content to the document with the given style and color (use global font)
         /// </summary>
         /// <param name="content">The content to write into the document</param>
         /// <param name="textStyle">The style for the content</param>
@@ -41,7 +41,7 @@ namespace NetOdt
             => AppendLine(content, textStyle, GlobalFontName, GlobalFontSize, foreground, background);
 
         /// <summary>
-        /// Append a content to the document with the given style and font (use standard colors)
+        /// Append a content to the document with the given style and font (use global colors)
         /// </summary>
         /// <param name="content">The content to write into the document</param>
         /// <param name="textStyle">The style of the value</param>
@@ -49,10 +49,10 @@ namespace NetOdt
         /// <param name="fontSize">The font size for the content</param>
         public void AppendLine<TValue>(in TValue content, in TextStyle textStyle, string fontName, FontSize fontSize)
             where TValue : notnull
-            => AppendLine(content, textStyle, fontName, FontHelper.GetFontSize(fontSize), Color.Transparent, Color.Transparent);
+            => AppendLine(content, textStyle, fontName, FontHelper.GetFontSize(fontSize), GlobalForegroundColor, GlobalBackgroundColor);
 
         /// <summary>
-        /// Append a content to the document with the given style and font (use standard colors)
+        /// Append a content to the document with the given style and font (use global colors)
         /// </summary>
         /// <param name="content">The content to write into the document</param>
         /// <param name="textStyle">The style of the value</param>
@@ -60,7 +60,7 @@ namespace NetOdt
         /// <param name="fontSize">The font size for the content</param>
         public void AppendLine<TValue>(in TValue content, in TextStyle textStyle, string fontName, double fontSize)
             where TValue : notnull
-            => AppendLine(content, textStyle, fontName, fontSize, Color.Transparent, Color.Transparent);
+            => AppendLine(content, textStyle, fontName, fontSize, GlobalForegroundColor, GlobalBackgroundColor);
 
                     /// <summary>
         /// Append a content to the document with the given style, font and color

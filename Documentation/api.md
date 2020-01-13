@@ -2,10 +2,29 @@
 
 _More API functions will come in next time, stay tuned_
 
+Contents:
+* [Important](#important)
+* [Best practice](#best-practice)
+* [Needed imports](#needed-imports)
+* [Create a document](#create-a-document)
+* [Set global font and font size for the document](#set-global-font-and-font-size-for-the-document)
+* [Set global foreground and background color for the document](#set-global-foreground-and-background-color-for-the-document)
+* [Set header and Footer](#set-header-and-footer)
+* [Append unformatted values and text into the document](#append-unformatted-values-and-text-into-the-document)
+* [Append formatted values and text into the document](#append-formatted-values-and-text-into-the-document)
+* [Append align values and text into the document](#append-align-values-and-text-into-the-document)
+* [Append style-sheets (tiles, headings, footnotes and other)](#append-style-sheets-tiles-headings-footnotes-and-other)
+* [Append a page break](#append-a-page-break)
+* [Append empty lines](#append-empty-lines)
+* [Append a unformatted table](#append-a-unformatted-table)
+* [Append a image](#append-a-image)
+* [Manually save the document](#manually-save-the-document)
+* [Manually call Dispose method](#manually-call-dispose-method)
+
 ## Important
 **Don't forget to use `using` syntax or call `Dispose()` when finished.**
 
-# Best practice
+## Best practice
 * Use `AppendEmptyLines(count)` when you need a amount of empty lines
 * Use `AppendTable(row, column, text)` when need a pre-filled table
 * Use `DataTable` for tables
@@ -45,7 +64,7 @@ var temporaryUri = new Uri("E:/TempFolder")
 using var odtDocument = new OdtDocument(documentUri, temporaryUri);
 ```
 
-## Set font and font size for the document
+## Set global font and font size for the document
 
 ```csharp
 // Set the font (name) and font size for the document
@@ -57,9 +76,21 @@ odtDocument.SetGlobalFont(fontName: "Liberation Serif", fontSize: FontSize.Size1
 
 The enumeration `NetOdt.Enumerations.FontSize` contains all typical font sizes.
 
-## Header and Footer
+## Set global foreground and background color for the document
 
-Note: Don't confuse with **Heading** and **Footnote**
+```csharp
+// Set the global foreground and background color for the text passages of the document
+odtDocument.SetGlobalColors(foregroundColor: Color.Red, backgroundColor: Color.LightGrey);
+
+// Set the global foreground and background color for the text passages of the document
+odtDocument.SetGlobalColors(foregroundColor: Color.FromArgb(0, 0, 0), backgroundColor: Color.Transparent);
+```
+
+Note: Alpha-channel is not support and will ignored.
+
+## Set header and Footer
+
+Note: [Don't confuse with heading and footnote](#append-style-sheets-tiles-headings-footnotes-and-other)
 
 ```csharp
 // Set the given content as header (use standard style and global font)
@@ -71,6 +102,12 @@ odtDocument.SetHeader("My header", TextStyle.Center | TextStyle.Bold);
 // Set the given content with the given style and font as header
 odtDocument.SetHeader("My header", TextStyle.Center | TextStyle.Bold, "Liberation Sans", FontSize.Size22);
 
+// Set the given content with the given style and color as header
+odtDocument.SetHeader("My header", TextStyle.Center | TextStyle.Bold, Color.Gray, Color.Transparent);
+
+// Set the given content with the given style, font and color as header
+odtDocument.SetHeader("My header", TextStyle.Center | TextStyle.Bold, "Liberation Sans", FontSize.Size22, Color.Gray, Color.Transparent);
+
 // Set the given content as footer (use standard style and global font)
 odtDocument.SetFooter("My footer");
 
@@ -79,6 +116,12 @@ odtDocument.SetFooter("My footer", TextStyle.Right | TextStyle.Italic);
 
 // Set the given content with the given style and font as footer
 odtDocument.SetFooter("My footer", TextStyle.Right | TextStyle.Italic, "Arial", 10.3);
+
+// Set the given content with the given style and color as footer
+odtDocument.SetFooter("My footer", TextStyle.Right | TextStyle.Italic, Color.Gray, Color.Transparent);
+
+// Set the given content with the given style, font and color as footer
+odtDocument.SetFooter("My footer", TextStyle.Right | TextStyle.Italic, "Arial", 10.3, Color.Gray, Color.Transparent);
 ```
 
 ## Append unformatted values and text into the document
@@ -104,17 +147,21 @@ odtDocument.AppendLine(content);
 ```csharp
 // Append a single line with a styled value to the document
 odtDocument.AppendLine(long.MinValue, TextStyle.Bold);
-odtDocument.AppendLine(byte.MaxValue, TextStyle.Italic);
-odtDocument.AppendLine(uint.MaxValue, TextStyle.UnderlineSingle, "Liberation Serif", 10.9);
-odtDocument.AppendLine(double.NaN,    TextStyle.Superscript, "Arial", FontSize.Size10);
+odtDocument.AppendLine(byte.MaxValue, TextStyle.Italic, "Liberation Serif", 10.9);
+odtDocument.AppendLine(uint.MaxValue, TextStyle.UnderlineSingle, "Arial", FontSize.Size10);
+odtDocument.AppendLine(double.NaN,    TextStyle.Superscript, Color.Blue, Color.Black);
 
-// Append a single line with a unformatted text to the document
+// Append a single line with a formatted text to the document
 odtDocument.AppendLine("This is a stroked text", TextStyle.Stroke, "Arial", FontSize.Size22);
+odtDocument.AppendLine("This is a stroked text", TextStyle.Stroke, Color.Blue, Color.Black);
+odtDocument.AppendLine("This is a stroked text", TextStyle.Stroke, "Arial", FontSize.Size22, Color.Blue, Color.Black);
 
 // Append the content of the given StringBuilder into the document
 var content = new StringBuilder();
 content.Append("This is a text a very very very long text");
 odtDocument.AppendLine(content, TextStyle.Bold | TextStyle.Italic | TextStyle.UnderlineSingle, "Liberation Sans", 22.7);
+odtDocument.AppendLine(content, TextStyle.Bold | TextStyle.Italic | TextStyle.UnderlineSingle, Color.Red, Color.LightGray);
+odtDocument.AppendLine(content, TextStyle.Bold | TextStyle.Italic | TextStyle.UnderlineSingle, "Liberation Sans", 22.7, Color.Red, Color.LightGray);
 ```
 
 [All supported styles can find here](./styles.md)
@@ -137,24 +184,33 @@ odtDocument.AppendLine(content, TextStyle.Justify);
 
 [All supported styles can find here](./styles.md)
 
-## Append Tiles, headings, footnotes and other
-Note: Don't confuse with **Header** and **Footer**
+## Append style-sheets (tiles, headings, footnotes and other)
+
+Note: [Don't confuse with header and footer](#set-header-and-footer)
 
 ```csharp
 // Append a value with the given style type
 odtDocument.AppendLine(long.MinValue, TextStyle.HeadingLevel01);
-odtDocument.AppendLine(byte.MaxValue, TextStyle.HeadingLevel02);
-odtDocument.AppendLine(uint.MaxValue, TextStyle.HeadingLevel03);
-odtDocument.AppendLine(double.NaN,    TextStyle.HeadingLevel04);
+odtDocument.AppendLine(byte.MaxValue, TextStyle.HeadingLevel02, "Liberation Sans", 0.0);
+odtDocument.AppendLine(uint.MaxValue, TextStyle.HeadingLevel03, Color.Red, Color.LightGray);
+odtDocument.AppendLine(double.NaN,    TextStyle.HeadingLevel04, "Liberation Sans", 0.0, Color.Red, Color.LightGray);
 
 // Append a value with the given style type
 odtDocument.AppendLine("This is a title",  TextStyle.Title);
+odtDocument.AppendLine("This is a title",  TextStyle.Title, "Liberation Sans", 0.0);
+odtDocument.AppendLine("This is a title",  TextStyle.Title, Color.Red, Color.LightGray);
+odtDocument.AppendLine("This is a title",  TextStyle.Title, "Liberation Sans", 0.0, Color.Red, Color.LightGray);
 
 // Append a content with the given style type
 var content = new StringBuilder();
 content.Append("This is a very very very long footnote");
 odtDocument.AppendLine(content, TextStyle.Footnote);
+odtDocument.AppendLine(content, TextStyle.Footnote, "Liberation Sans", 0.0);
+odtDocument.AppendLine(content, TextStyle.Footnote, Color.Red, Color.LightGray);
+odtDocument.AppendLine(content, TextStyle.Footnote, "Liberation Sans", 0.0, Color.Red, Color.LightGray);
 ```
+
+Note: Style-sheets don't support font size changes, so font size argument will be ignored
 
 [All supported styles can find here](./styles.md)
 
@@ -165,7 +221,10 @@ odtDocument.AppendLine(content, TextStyle.Footnote);
 odtDocument.AppendLines(string.Empty, TextStyle.PageBreak);
 
 /// Append a page break before a bold text passages
-odtDocument.AppendLines("This is the last sentence on page one", TextStyle.PageBreak | TextStyle.Bold);
+odtDocument.AppendLine("This is the last sentence on page one", TextStyle.PageBreak | TextStyle.Bold);
+odtDocument.AppendLine("This is the last sentence on page one", TextStyle.PageBreak | TextStyle.Bold, "Liberation Sans", 0.0);
+odtDocument.AppendLine("This is the last sentence on page one", TextStyle.PageBreak | TextStyle.Bold, Color.Red, Color.LightGray);
+odtDocument.AppendLine("This is the last sentence on page one", TextStyle.PageBreak | TextStyle.Bold, "Liberation Sans", 0.0, Color.Red, Color.LightGray);
 ```
 
 ## Append empty lines

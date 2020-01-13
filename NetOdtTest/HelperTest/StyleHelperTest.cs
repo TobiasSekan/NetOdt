@@ -2,6 +2,7 @@ using NetOdt.Class;
 using NetOdt.Enumerations;
 using NetOdt.Helper;
 using NUnit.Framework;
+using System.Drawing;
 using System.Text;
 
 namespace NetOdtTest.HelperTest
@@ -17,7 +18,7 @@ namespace NetOdtTest.HelperTest
         public void AppendXmlStyleStartTest(string styleName, StyleFamily styleFamily, string result)
         {
             var document = new StringBuilder();
-            var style    = new Style(styleName, styleFamily, TextStyle.None);
+            var style    = new Style(styleName, styleFamily, TextStyle.None, string.Empty, 0.0, Color.Black, Color.Transparent);
 
             StyleHelper.AppendXmlStyleStart(document, style);
 
@@ -130,7 +131,7 @@ namespace NetOdtTest.HelperTest
         public void AppendXmlStyleTest(TextStyle textStyle, string result)
         {
             var styleContainer = new StringBuilder();
-            var style          = new Style(string.Empty, StyleFamily.Paragraph, textStyle);
+            var style          = new Style(string.Empty, StyleFamily.Paragraph, textStyle, string.Empty, 0.0, Color.Black, Color.Transparent);
 
             StyleHelper.AppendXmlStyle(styleContainer, style);
 

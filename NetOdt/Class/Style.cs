@@ -76,16 +76,6 @@ namespace NetOdt.Class
         /// <param name="name">The name for this style</param>
         /// <param name="family">The style family for this style</param>
         /// <param name="textStyle">The text style for this style name</param>
-        internal Style(string name, StyleFamily family, TextStyle textStyle)
-            : this(name, family, textStyle, string.Empty, 0.0, Color.Black, Color.Transparent)
-        { }
-
-        /// <summary>
-        /// Create a new style with the given informations
-        /// </summary>
-        /// <param name="name">The name for this style</param>
-        /// <param name="family">The style family for this style</param>
-        /// <param name="textStyle">The text style for this style name</param>
         /// <param name="fontName">The name of the font for this style</param>
         /// <param name="fontSize">The size of the font for this style</param>
         /// <param name="foreground">The foreground color for this style</param>

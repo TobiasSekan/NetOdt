@@ -6,19 +6,23 @@ Easy API to create ODT documents in .NET
 // Needed imports
 using NetOdt;
 using NetOdt.Enumerations;
+using System.Drawing;
 
 // Create document (C# 8.0 syntax)
 using var odtDocument = new OdtDocument(path: "E:/MyDocument.odt");
 
-// Set font (name) and font size for the complete document
+// Set global font for the all text passages for complete document
 odtDocument.SetGlobalFont("Liberation Serif", FontSize.Size12);
+
+// Set global colors for the all text passages for the complete document
+odtDocument.SetGlobalFont(Color.Red, Color.Transparent);
 
 // Set header and footer
 odtDocument.SetHeader("Extend documentation", TextStyle.Center | TextStyle.Bold);
-odtDocument.SetFooter("Page 2/5", TextStyle.Right | TextStyle.Italic);
+odtDocument.SetFooter("Page 2/5", TextStyle.Right | TextStyle.Italic, Color.Gray, Color.Transparent);
 
 // Append a title
-odtDocument.AppendLine("My document", TextStyle.Title);
+odtDocument.AppendLine("My document", TextStyle.Title, Color.Blue, Color.Black);
 
 // Append a centered bold text
 odtDocument.AppendLine("This is a bold text", TextStyle.Center | TextStyle.Bold);
