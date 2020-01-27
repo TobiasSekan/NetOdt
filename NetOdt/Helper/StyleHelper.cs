@@ -328,51 +328,137 @@ namespace NetOdt.Helper
             => $"#{color.R:X2}{color.G:X2}{color.B:X2}";
 
         /// <summary>
-        /// Return the <see cref="CellValueType"/> for the given value
+        /// Return the <see cref="OfficeValueType"/> for the given value
         /// </summary>
-        /// <param name="value">The value for the <see cref="CellValueType"/></param>
-        /// <returns>A <see cref="CellValueType"/></returns>
-        internal static CellValueType GetCellValueType(object value)
+        /// <param name="value">The value for the <see cref="OfficeValueType"/></param>
+        /// <returns>A <see cref="OfficeValueType"/></returns>
+        internal static OfficeValueType GetValueType(object value)
             => value switch
             {
-                bool _          => CellValueType.Boolean,
-                byte _          => CellValueType.Float,
-                sbyte _         => CellValueType.Float,
-                short _         => CellValueType.Float,
-                ushort _        => CellValueType.Float,
-                int _           => CellValueType.Float,
-                uint _          => CellValueType.Float,
-                long _          => CellValueType.Float,
-                ulong _         => CellValueType.Float,
-                float _         => CellValueType.Float,
-                double _        => CellValueType.Float,
-                decimal _       => CellValueType.Currency,
-                char _          => CellValueType.String,
-                string _        => CellValueType.String,
-                StringBuilder _ => CellValueType.String,
-                DateTime _      => CellValueType.Date,
-                TimeSpan _      => CellValueType.Time,
+                bool _          => OfficeValueType.Boolean,
+                byte _          => OfficeValueType.Float,
+                sbyte _         => OfficeValueType.Float,
+                short _         => OfficeValueType.Float,
+                ushort _        => OfficeValueType.Float,
+                int _           => OfficeValueType.Float,
+                uint _          => OfficeValueType.Float,
+                long _          => OfficeValueType.Float,
+                ulong _         => OfficeValueType.Float,
+                float _         => OfficeValueType.Float,
+                double _        => OfficeValueType.Float,
+                decimal _       => OfficeValueType.Currency,
+                char _          => OfficeValueType.String,
+                string _        => OfficeValueType.String,
+                StringBuilder _ => OfficeValueType.String,
+                DateTime _      => OfficeValueType.Date,
+                TimeSpan _      => OfficeValueType.Time,
                 _               => throw new ArgumentOutOfRangeException(nameof(value), value, "Object type for cell not supported"),
             };
 
         /// <summary>
-        /// Return the name of the given <see cref="CellValueType"/>
+        /// Return the name of the given <see cref="OfficeValueType"/>
         /// </summary>
-        /// <param name="cellValueType">The <see cref="CellValueType"/> for the name</param>
-        /// <returns>A name of a cell value type</returns>
-        internal static string GetValueTypeName(CellValueType cellValueType)
-            => cellValueType switch
+        /// <param name="valueType">The <see cref="OfficeValueType"/> for the name</param>
+        /// <returns>A name of a value type</returns>
+        internal static string GetValueTypeName(OfficeValueType valueType)
+            => valueType switch
             {
-                CellValueType.Boolean    => "boolean",
-                CellValueType.Float      => "float",
-                CellValueType.Currency   => "currency",
-                CellValueType.String     => "string",
-                CellValueType.Date       => "date",
-                CellValueType.Time       => "time",
-                CellValueType.Percentage => "percentage",
-                _                        => throw new ArgumentOutOfRangeException(nameof(cellValueType),
-                                                                                  cellValueType,
-                                                                                  "Object type for cell not supported"),
+                OfficeValueType.Float         => "float",
+                OfficeValueType.Percentage    => "percentage",
+                OfficeValueType.Currency      => "currency",
+                OfficeValueType.Date          => "date",
+                OfficeValueType.Time          => "time",
+                OfficeValueType.Scientific    => "float",
+                OfficeValueType.Fraction      => "float",
+                OfficeValueType.Boolean       => "boolean",
+                OfficeValueType.String        => "string",
+                _                       => throw new ArgumentOutOfRangeException(nameof(valueType),
+                                                                                 valueType,
+                                                                                 "The value type is not supported"),
             };
+
+        /// <summary>
+        /// Return the specific arguments for the "office values" of the given value
+        /// </summary>
+        /// <param name="value">The value for the "office values"</param>
+        /// <returns>The "office values"</returns>
+        internal static string GetOfficeValues(object value)
+        {
+            // see https://docs.microsoft.com/de-de/dotnet/standard/base-types/standard-numeric-format-strings
+
+            var valueType     = GetValueType(value);
+            var valueTypeName = GetValueTypeName(valueType);
+
+            switch (valueType)
+            {
+                case OfficeValueType.Float:
+                    return $"office:value-type=\"{valueTypeName}\" office:value=\"{value:F}\"";
+
+                case OfficeValueType.Percentage:
+                    return $"office:value-type=\"{valueTypeName}\" office:value=\"{value:F}\"";
+
+                case OfficeValueType.Currency:
+                    return $"office:value-type=\"{valueTypeName}\" office:currency=\"EUR\" office:value=\"{value:C}\"";
+
+                case OfficeValueType.Date:
+                    return $"office:value-type=\"{valueTypeName}\" office:date-value=\"{value:yyyy}-{value:MM}-{value:dd}\"";
+
+                case OfficeValueType.Time:
+                    return $"office:value-type=\"{valueTypeName}\" office:time-value=\"PT{value:hh}H{value:mm}M{value:ss}S\"";
+
+                case OfficeValueType.Scientific:
+                    return $"office:value-type=\"{valueTypeName}\" office:value=\"{value:E}\"";
+
+                case OfficeValueType.Fraction:
+                    return $"office:value-type=\"{valueTypeName}\" office:value=\"{value:F}\"";
+
+                case OfficeValueType.Boolean:
+                    return $"office:value-type=\"{valueTypeName}\" office:boolean-value=\"{value}\"";
+
+                case OfficeValueType.String:
+                    return $"office:value-type=\"{valueTypeName}\"";
+
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(value),
+                                                          value,
+                                                          "The type of value is not supported for 'office values'");
+            }
+        }
+
+        /// <summary>
+        /// Return a formated value base on the type of the given value
+        /// </summary>
+        /// <param name="value">The value to formate</param>
+        /// <returns>A formated value</returns>
+        internal static string GetFormatedValue(object value)
+        {
+            // see https://docs.microsoft.com/de-de/dotnet/standard/base-types/standard-numeric-format-strings
+
+            switch (GetValueType(value))
+            {
+                case OfficeValueType.Float:
+                    return $"{value:F}";
+                case OfficeValueType.Percentage:
+                    return $"{value:P}";
+                case OfficeValueType.Currency:
+                    return $"{value:C}";
+                case OfficeValueType.Date:
+                    return $"{value:yyyy}-{value:MM}-{value:dd}";
+                case OfficeValueType.Time:
+                    return $"{value:hh}:{value:mm}:{value:ss}";
+                case OfficeValueType.Scientific:
+                    return $"{value:E}";
+                case OfficeValueType.Fraction:
+                    return $"{value}";         // There is currently no function to generate a ggt or similar
+                case OfficeValueType.Boolean:
+                    return $"{value}";
+                case OfficeValueType.String:
+                    return $"{value}";
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(value),
+                                                          value,
+                                                          "The type of value is not supported");
+            }
+        }
     }
 }

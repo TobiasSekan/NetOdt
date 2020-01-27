@@ -77,16 +77,20 @@ namespace NetOdtTest
         {
             var table = new DataTable();
 
-            table.Columns.Add("Dosage", typeof(int));
-            table.Columns.Add("Drug", typeof(string));
-            table.Columns.Add("Patient", typeof(string));
+            table.Columns.Add("Float", typeof(int));
+            table.Columns.Add("Percentage", typeof(float));
+            table.Columns.Add("Currency", typeof(decimal));
             table.Columns.Add("Date", typeof(DateTime));
+            table.Columns.Add("Time", typeof(TimeSpan));
+            table.Columns.Add("Scientific", typeof(double));
+            table.Columns.Add("Fraction", typeof(float));
+            table.Columns.Add("Boolean", typeof(bool));
+            table.Columns.Add("String", typeof(string));
+            table.Columns.Add("StringBuilder", typeof(StringBuilder));
 
-            table.Rows.Add(25, "Indocin\nIndocin", "David", DateTime.Now);
-            table.Rows.Add(50, "Enebrel\nEnebrel", "Sam", DateTime.Now);
-            table.Rows.Add(10, "Hydralazine\nHydralazine", "Christoff", DateTime.Now);
-            table.Rows.Add(21, "Combivent\nCombivent", "Janet", DateTime.Now);
-            table.Rows.Add(100, "Dilantin\nDilantin", "Melanie", DateTime.Now);
+            table.Rows.Add(25, 5.5f, 22.27m, DateTime.MinValue, TimeSpan.MinValue, 25.55, 7.8f, false, "Test", new StringBuilder("Test"));
+            table.Rows.Add(-25, -5.5f, -22.27m, DateTime.Now, TimeSpan.Zero, -25.55, -7.8f, true, string.Empty, new StringBuilder());
+            table.Rows.Add(1000, 5000f, 22000m, DateTime.MaxValue, TimeSpan.MaxValue, 25.55, 7.8f, false, "TestASSASSAAS", new StringBuilder("TestASDSDDASDS"));
 
             return table;
         }

@@ -553,6 +553,56 @@
             Page break before text
             </summary>
         </member>
+        <member name="T:NetOdt.OfficeValueType">
+            <summary>
+            The type of a value
+            </summary>
+        </member>
+        <member name="F:NetOdt.OfficeValueType.Float">
+            <summary>
+            A decimal value (e.g. 1, 2.2)
+            </summary>
+        </member>
+        <member name="F:NetOdt.OfficeValueType.Percentage">
+            <summary>
+            A percentage value (e.g. 1%, 2.20 %)
+            </summary>
+        </member>
+        <member name="F:NetOdt.OfficeValueType.Currency">
+            <summary>
+            A currency value (e.g. 1 €, 2.20 €)
+            </summary>
+        </member>
+        <member name="F:NetOdt.OfficeValueType.Date">
+            <summary>
+            A date value (e.g. 01.01.2010, 22.12.2020)
+            </summary>
+        </member>
+        <member name="F:NetOdt.OfficeValueType.Time">
+            <summary>
+            A time value (e.g. 01:01:01, 22:22:22)
+            </summary>
+        </member>
+        <member name="F:NetOdt.OfficeValueType.Scientific">
+            <summary>
+            A scientific value (e.g. 1.11E+11, 2.22E+22)
+            </summary>
+        </member>
+        <member name="F:NetOdt.OfficeValueType.Fraction">
+            <summary>
+            A fraction value (e.g. 1 1/2, 2 1/2)
+            </summary>
+        </member>
+        <member name="F:NetOdt.OfficeValueType.Boolean">
+            <summary>
+            A boolean value (true or false)
+            </summary>
+        </member>
+        <member name="F:NetOdt.OfficeValueType.String">
+            <summary>
+            A text
+            </summary>
+        </member>
         <member name="T:NetOdt.Helper.DirectoryHelper">
             <summary>
             Helper class to easier work with <see cref="T:System.IO.Directory"/>
@@ -738,6 +788,34 @@
             </summary>
             <param name="color">The <see cref="T:System.Drawing.Color"/> to convert into a value</param>
             <returns>A color value</returns>
+        </member>
+        <member name="M:NetOdt.Helper.StyleHelper.GetValueType(System.Object)">
+            <summary>
+            Return the <see cref="T:NetOdt.OfficeValueType"/> for the given value
+            </summary>
+            <param name="value">The value for the <see cref="T:NetOdt.OfficeValueType"/></param>
+            <returns>A <see cref="T:NetOdt.OfficeValueType"/></returns>
+        </member>
+        <member name="M:NetOdt.Helper.StyleHelper.GetValueTypeName(NetOdt.OfficeValueType)">
+            <summary>
+            Return the name of the given <see cref="T:NetOdt.OfficeValueType"/>
+            </summary>
+            <param name="valueType">The <see cref="T:NetOdt.OfficeValueType"/> for the name</param>
+            <returns>A name of a value type</returns>
+        </member>
+        <member name="M:NetOdt.Helper.StyleHelper.GetOfficeValues(System.Object)">
+            <summary>
+            Return the specific arguments for the "office values" of the given value
+            </summary>
+            <param name="value">The value for the "office values"</param>
+            <returns>The "office values"</returns>
+        </member>
+        <member name="M:NetOdt.Helper.StyleHelper.GetFormatedValue(System.Object)">
+            <summary>
+            Return a formated value base on the type of the given value
+            </summary>
+            <param name="value">The value to formate</param>
+            <returns>A formated value</returns>
         </member>
         <member name="T:NetOdt.Helper.UriHelper">
             <summary>
