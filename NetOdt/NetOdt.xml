@@ -34,7 +34,7 @@
             The name of the parent style (inheritance style informations)
             </summary>
         </member>
-        <member name="P:NetOdt.Class.Style.Family">
+        <member name="P:NetOdt.Class.Style.StyleFamily">
             <summary>
             The type of the style family
             </summary>
@@ -64,17 +64,31 @@
             The <see cref="T:System.Drawing.Color"/> of the background
             </summary>
         </member>
-        <member name="M:NetOdt.Class.Style.#ctor(System.String,NetOdt.Enumerations.StyleFamily,NetOdt.Enumerations.TextStyle,System.String,System.Double,System.Drawing.Color,System.Drawing.Color)">
+        <member name="P:NetOdt.Class.Style.ValueType">
+            <summary>
+            The "office value" type for this style
+            </summary>
+        </member>
+        <member name="M:NetOdt.Class.Style.#ctor(System.String,NetOdt.Enumerations.TextStyle,NetOdt.Enumerations.StyleFamily,NetOdt.OfficeValueType,System.Double,System.String,System.Drawing.Color,System.Drawing.Color)">
+            <summary>
+            Create a new style with the given informations
+            </summary>
+            <param name="name">The name for this style</param>
+            <param name="textStyle">The <see cref="P:NetOdt.Class.Style.TextStyle"/> for this style</param>
+            <param name="styleFamily">The <see cref="P:NetOdt.Class.Style.StyleFamily"/> for this style</param>
+            <param name="valueType">The <see cref="T:NetOdt.OfficeValueType"/> for this style</param>
+            <param name="fontSize">The size of the font for this style</param>
+            <param name="fontName">The name of the font for this style</param>
+            <param name="foreground">The foreground color for this style</param>
+            <param name="background">The background color for this style</param>
+        </member>
+        <member name="M:NetOdt.Class.Style.#ctor(System.String,NetOdt.Enumerations.StyleFamily,NetOdt.OfficeValueType)">
             <summary>
             Create a new style with the given informations
             </summary>
             <param name="name">The name for this style</param>
             <param name="family">The style family for this style</param>
-            <param name="textStyle">The text style for this style name</param>
-            <param name="fontName">The name of the font for this style</param>
-            <param name="fontSize">The size of the font for this style</param>
-            <param name="foreground">The foreground color for this style</param>
-            <param name="background">The background color for this style</param>
+            <param name="valueType">The type of the "office value" for this style</param>
         </member>
         <member name="M:NetOdt.Class.Style.GetStyleFamily">
             <summary>
@@ -739,6 +753,12 @@
             </summary>
             <param name="styleContent">The content container for the style</param>
         </member>
+        <member name="M:NetOdt.Helper.StyleHelper.AddNumericStyles(System.Text.StringBuilder)">
+            <summary>
+            Add all needed styles for numeric value presentations
+            </summary>
+            <param name="styleContent">The content container for the style</param>
+        </member>
         <member name="M:NetOdt.Helper.StyleHelper.AppendXmlStyleStart(System.Text.StringBuilder@,NetOdt.Class.Style@)">
             <summary>
             Append a XML start element for XML style informations
@@ -789,7 +809,7 @@
             <param name="color">The <see cref="T:System.Drawing.Color"/> to convert into a value</param>
             <returns>A color value</returns>
         </member>
-        <member name="M:NetOdt.Helper.StyleHelper.GetValueType(System.Object)">
+        <member name="M:NetOdt.Helper.StyleHelper.GetOfficeValueType(System.Object)">
             <summary>
             Return the <see cref="T:NetOdt.OfficeValueType"/> for the given value
             </summary>
@@ -1271,16 +1291,18 @@
             Write the complete content to the content file (overwrite the existing file)
             </summary>
         </member>
-        <member name="M:NetOdt.OdtDocument.TryToAddStyle(NetOdt.Enumerations.TextStyle,System.String,System.Double,System.Drawing.Color,System.Drawing.Color)">
+        <member name="M:NetOdt.OdtDocument.TryToAddStyle(NetOdt.Enumerations.TextStyle,NetOdt.Enumerations.StyleFamily,NetOdt.OfficeValueType,System.Double,System.String,System.Drawing.Color,System.Drawing.Color)">
             <summary>
-            Try to add a new style to the style list and return a style name for the style
+            Try to add a new style to the style list and return the style
             </summary>
-            <param name="textStyle">The text style to add to the style list</param>
-            <param name="fontName">The font for the style</param>
+            <param name="textStyle">The <see cref="T:NetOdt.Enumerations.TextStyle"/> of the style</param>
+            <param name="styleFamily">The <see cref="T:NetOdt.Enumerations.StyleFamily"/> of the style</param>
+            <param name="valueType">The <see cref="T:NetOdt.OfficeValueType"/> of the style</param>
             <param name="fontSize">The font size for the style</param>
+            <param name="fontName">The font for the style</param>
             <param name="foreground">The <see cref="T:System.Drawing.Color"/> of the foreground for the style</param>
             <param name="background">The <see cref="T:System.Drawing.Color"/> of the background for the style</param>
-            
+            <returns>A (new) <see cref="T:NetOdt.Class.Style"/> from the <see cref="P:NetOdt.OdtDocument.NeededStyles"/> list</returns>
         </member>
         <member name="M:NetOdt.OdtDocument.CheckAcceptStyles(NetOdt.Enumerations.TextStyle)">
             <summary>
@@ -1395,7 +1417,7 @@
             <param name="content">The content to write into the document</param>
             <param name="textStyle">The style for the content</param>
         </member>
-        <member name="M:NetOdt.OdtDocument.AppendLine``1(``0@,NetOdt.Enumerations.TextStyle@,System.Drawing.Color,System.Drawing.Color)">
+        <member name="M:NetOdt.OdtDocument.AppendLine``1(``0@,NetOdt.Enumerations.TextStyle@,System.Drawing.Color@,System.Drawing.Color@)">
             <summary>
             Append a content to the document with the given style and color (use global font)
             </summary>
@@ -1404,7 +1426,7 @@
             <param name="foreground">The <see cref="T:System.Drawing.Color"/> of foreground for the content</param>
             <param name="background">The <see cref="T:System.Drawing.Color"/> of background for the content</param>
         </member>
-        <member name="M:NetOdt.OdtDocument.AppendLine``1(``0@,NetOdt.Enumerations.TextStyle@,System.String,NetOdt.Enumerations.FontSize)">
+        <member name="M:NetOdt.OdtDocument.AppendLine``1(``0@,NetOdt.Enumerations.TextStyle@,System.String@,NetOdt.Enumerations.FontSize@)">
             <summary>
             Append a content to the document with the given style and font (use global colors)
             </summary>
@@ -1413,7 +1435,7 @@
             <param name="fontName">The font (name) for the content</param>
             <param name="fontSize">The font size for the content</param>
         </member>
-        <member name="M:NetOdt.OdtDocument.AppendLine``1(``0@,NetOdt.Enumerations.TextStyle@,System.String,System.Double)">
+        <member name="M:NetOdt.OdtDocument.AppendLine``1(``0@,NetOdt.Enumerations.TextStyle@,System.String@,System.Double@)">
             <summary>
             Append a content to the document with the given style and font (use global colors)
             </summary>
@@ -1422,7 +1444,7 @@
             <param name="fontName">The font (name) for the content</param>
             <param name="fontSize">The font size for the content</param>
         </member>
-        <member name="M:NetOdt.OdtDocument.AppendLine``1(``0@,NetOdt.Enumerations.TextStyle@,System.String,NetOdt.Enumerations.FontSize,System.Drawing.Color,System.Drawing.Color)">
+        <member name="M:NetOdt.OdtDocument.AppendLine``1(``0@,NetOdt.Enumerations.TextStyle@,System.String@,NetOdt.Enumerations.FontSize@,System.Drawing.Color@,System.Drawing.Color@)">
             <summary>
             Append a content to the document with the given style, font and color
             </summary>
@@ -1433,16 +1455,23 @@
             <param name="foreground">The <see cref="T:System.Drawing.Color"/> of foreground for the content</param>
             <param name="background">The <see cref="T:System.Drawing.Color"/> of background for the content</param>
         </member>
-        <member name="M:NetOdt.OdtDocument.AppendLine``1(``0@,NetOdt.Enumerations.TextStyle@,System.String,System.Double,System.Drawing.Color,System.Drawing.Color)">
+        <member name="M:NetOdt.OdtDocument.AppendLine``1(``0@,NetOdt.Enumerations.TextStyle@,System.String@,System.Double@,System.Drawing.Color@,System.Drawing.Color@)">
             <summary>
             Append a content to the document with the given style, font and color
             </summary>
             <param name="content">The content to write into the document</param>
-            <param name="textStyle">The style of the value</param>
+            <param name="textStyle">The text style of the content</param>
             <param name="fontName">The font (name) for the content</param>
             <param name="fontSize">The font size for the content</param>
             <param name="foreground">The <see cref="T:System.Drawing.Color"/> of foreground for the content</param>
             <param name="background">The <see cref="T:System.Drawing.Color"/> of background for the content</param>
+        </member>
+        <member name="M:NetOdt.OdtDocument.AppendLine``1(``0@,NetOdt.Class.Style@)">
+            <summary>
+            Append a content to the document with the given style, font and color
+            </summary>
+            <param name="content">The content to write into the document</param>
+            <param name="style">The style for the content</param>
         </member>
         <member name="M:NetOdt.OdtDocument.AppendEmptyLines(System.Int32@)">
             <summary>

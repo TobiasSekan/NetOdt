@@ -2,6 +2,7 @@ using NetOdt.Class;
 using NetOdt.Enumerations;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Text;
 
@@ -41,21 +42,21 @@ namespace NetOdt.Helper
             styleContent.Append("<style:table-column-properties style:column-width=\"3.401cm\" style:rel-column-width=\"13107*\"/>");
             AppendXmlStyleEnd(styleContent);
 
-            AppendXmlStyleStart(styleContent, new Style("Tabelle1.A1", StyleFamily.TableCell, OfficeValueType.String));
-            styleContent.Append("<style:table-cell-properties fo:padding=\"0.097cm\" fo:border-left=\"0.05pt solid #000000\" fo:border-right=\"none\" fo:border-top=\"0.05pt solid #000000\" fo:border-bottom=\"0.05pt solid #000000\"/>");
-            AppendXmlStyleEnd(styleContent);
+            //AppendXmlStyleStart(styleContent, new Style("Tabelle1.A1", StyleFamily.TableCell, OfficeValueType.String));
+            //styleContent.Append("<style:table-cell-properties fo:padding=\"0.097cm\" fo:border-left=\"0.05pt solid #000000\" fo:border-right=\"none\" fo:border-top=\"0.05pt solid #000000\" fo:border-bottom=\"0.05pt solid #000000\"/>");
+            //AppendXmlStyleEnd(styleContent);
 
-            AppendXmlStyleStart(styleContent, new Style("Tabelle1.E1", StyleFamily.TableCell, OfficeValueType.String));
-            styleContent.Append("<style:table-cell-properties fo:padding=\"0.097cm\" fo:border=\"0.05pt solid #000000\"/>");
-            AppendXmlStyleEnd(styleContent);
+            //AppendXmlStyleStart(styleContent, new Style("Tabelle1.E1", StyleFamily.TableCell, OfficeValueType.String));
+            //styleContent.Append("<style:table-cell-properties fo:padding=\"0.097cm\" fo:border=\"0.05pt solid #000000\"/>");
+            //AppendXmlStyleEnd(styleContent);
 
-            AppendXmlStyleStart(styleContent, new Style("Tabelle1.A2", StyleFamily.TableCell, OfficeValueType.String));
-            styleContent.Append("<style:table-cell-properties fo:padding=\"0.097cm\" fo:border-left=\"0.05pt solid #000000\" fo:border-right=\"none\" fo:border-top=\"none\" fo:border-bottom=\"0.05pt solid #000000\"/>");
-            AppendXmlStyleEnd(styleContent);
+            //AppendXmlStyleStart(styleContent, new Style("Tabelle1.A2", StyleFamily.TableCell, OfficeValueType.String));
+            //styleContent.Append("<style:table-cell-properties fo:padding=\"0.097cm\" fo:border-left=\"0.05pt solid #000000\" fo:border-right=\"none\" fo:border-top=\"none\" fo:border-bottom=\"0.05pt solid #000000\"/>");
+            //AppendXmlStyleEnd(styleContent);
 
-            AppendXmlStyleStart(styleContent, new Style("Tabelle1.E2", StyleFamily.TableCell, OfficeValueType.String));
-            styleContent.Append("<style:table-cell-properties fo:padding=\"0.097cm\" fo:border-left=\"0.05pt solid #000000\" fo:border-right=\"0.05pt solid #000000\" fo:border-top=\"none\" fo:border-bottom=\"0.05pt solid #000000\"/>");
-            AppendXmlStyleEnd(styleContent);
+            //AppendXmlStyleStart(styleContent, new Style("Tabelle1.E2", StyleFamily.TableCell, OfficeValueType.String));
+            //styleContent.Append("<style:table-cell-properties fo:padding=\"0.097cm\" fo:border-left=\"0.05pt solid #000000\" fo:border-right=\"0.05pt solid #000000\" fo:border-top=\"none\" fo:border-bottom=\"0.05pt solid #000000\"/>");
+            //AppendXmlStyleEnd(styleContent);
         }
 
         /// <summary>
@@ -64,7 +65,7 @@ namespace NetOdt.Helper
         /// <param name="styleContent">The content container for the style</param>
         internal static void AddPictureStyle(in StringBuilder styleContent)
         {
-            AppendXmlStyleStart(styleContent, new Style("fr1", StyleFamily.Graphic, TextStyle.None, string.Empty, 0.0, Color.Black, Color.Transparent));
+            AppendXmlStyleStart(styleContent, new Style("fr1", TextStyle.None, StyleFamily.Graphic, OfficeValueType.String, 0.0, string.Empty, Color.Black, Color.Transparent));
             styleContent.Append("<style:graphic-properties style:mirror=\"none\" fo:clip=\"rect(0cm, 0cm, 0cm, 0cm)\" draw:luminance=\"0%\" draw:contrast=\"0%\" draw:red=\"0%\" draw:green=\"0%\" draw:blue=\"0%\" draw:gamma=\"100%\" draw:color-inversion=\"false\" draw:image-opacity=\"100%\" draw:color-mode=\"standard\"/>");
             AppendXmlStyleEnd(styleContent);
         }
@@ -152,39 +153,39 @@ namespace NetOdt.Helper
             switch(style.ValueType)
             {
                 case OfficeValueType.Float:
-                    styleContent.Append(" style:data-style-name=\"N0\")");
+                    styleContent.Append(" style:data-style-name=\"N0\"");
                     break;
 
                 case OfficeValueType.Percentage:
-                    styleContent.Append(" style:data-style-name=\"N11\")");
+                    styleContent.Append(" style:data-style-name=\"N11\"");
                     break;
 
                 case OfficeValueType.Currency:
-                    styleContent.Append(" style:data-style-name=\"N107\")");
+                    styleContent.Append(" style:data-style-name=\"N107\"");
                     break;
 
                 case OfficeValueType.Date:
-                    styleContent.Append(" style:data-style-name=\"N37\")");
+                    styleContent.Append(" style:data-style-name=\"N37\"");
                     break;
 
                 case OfficeValueType.Time:
-                    styleContent.Append(" style:data-style-name=\"N41\")");
+                    styleContent.Append(" style:data-style-name=\"N41\"");
                     break;
 
                 case OfficeValueType.Scientific:
-                    styleContent.Append(" style:data-style-name=\"N61\")");
+                    styleContent.Append(" style:data-style-name=\"N61\"");
                     break;
 
                 case OfficeValueType.Fraction:
-                    styleContent.Append(" style:data-style-name=\"N65\")");
+                    styleContent.Append(" style:data-style-name=\"N65\"");
                     break;
 
                 case OfficeValueType.Boolean:
-                    styleContent.Append(" style:data-style-name=\"N99\")");
+                    styleContent.Append(" style:data-style-name=\"N99\"");
                     break;
             }
 
-            switch(style.Family)
+            switch(style.StyleFamily)
             {
                 case StyleFamily.Footer:
                 case StyleFamily.Graphic:
@@ -392,7 +393,7 @@ namespace NetOdt.Helper
                 styleContent.Append(" style:justify-single-word=\"false\"");
             }
 
-            if(style.TextStyle.HasFlag(TextStyle.Justify))
+            if(style.TextStyle.HasFlag(TextStyle.PageBreak))
             {
                 styleContent.Append(" fo:break-before=\"page\"");
             }
@@ -435,7 +436,7 @@ namespace NetOdt.Helper
         /// </summary>
         /// <param name="value">The value for the <see cref="OfficeValueType"/></param>
         /// <returns>A <see cref="OfficeValueType"/></returns>
-        internal static OfficeValueType GetValueType(object value)
+        internal static OfficeValueType GetOfficeValueType(object value)
             => value switch
             {
                 bool _          => OfficeValueType.Boolean,
@@ -475,9 +476,9 @@ namespace NetOdt.Helper
                 OfficeValueType.Fraction      => "float",
                 OfficeValueType.Boolean       => "boolean",
                 OfficeValueType.String        => "string",
-                _                       => throw new ArgumentOutOfRangeException(nameof(valueType),
-                                                                                 valueType,
-                                                                                 "The value type is not supported"),
+                _                             => throw new ArgumentOutOfRangeException(nameof(valueType),
+                                                                                       valueType,
+                                                                                       "The value type is not supported"),
             };
 
         /// <summary>
@@ -487,45 +488,24 @@ namespace NetOdt.Helper
         /// <returns>The "office values"</returns>
         internal static string GetOfficeValues(object value)
         {
-            // see https://docs.microsoft.com/de-de/dotnet/standard/base-types/standard-numeric-format-strings
-
-            var valueType     = GetValueType(value);
+            var valueType     = GetOfficeValueType(value);
             var valueTypeName = GetValueTypeName(valueType);
 
-            switch (valueType)
+            return valueType switch
             {
-                case OfficeValueType.Float:
-                    return $"office:value-type=\"{valueTypeName}\" office:value=\"{value:F}\"";
-
-                case OfficeValueType.Percentage:
-                    return $"office:value-type=\"{valueTypeName}\" office:value=\"{value:F}\"";
-
-                case OfficeValueType.Currency:
-                    return $"office:value-type=\"{valueTypeName}\" office:currency=\"EUR\" office:value=\"{value:C}\"";
-
-                case OfficeValueType.Date:
-                    return $"office:value-type=\"{valueTypeName}\" office:date-value=\"{value:yyyy}-{value:MM}-{value:dd}\"";
-
-                case OfficeValueType.Time:
-                    return $"office:value-type=\"{valueTypeName}\" office:time-value=\"PT{value:hh}H{value:mm}M{value:ss}S\"";
-
-                case OfficeValueType.Scientific:
-                    return $"office:value-type=\"{valueTypeName}\" office:value=\"{value:E}\"";
-
-                case OfficeValueType.Fraction:
-                    return $"office:value-type=\"{valueTypeName}\" office:value=\"{value:F}\"";
-
-                case OfficeValueType.Boolean:
-                    return $"office:value-type=\"{valueTypeName}\" office:boolean-value=\"{value}\"";
-
-                case OfficeValueType.String:
-                    return $"office:value-type=\"{valueTypeName}\"";
-
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(value),
-                                                          value,
-                                                          "The type of value is not supported for 'office values'");
-            }
+                OfficeValueType.Float       => $"office:value-type=\"{valueTypeName}\" office:value=\"{value:F}\"",
+                OfficeValueType.Percentage  => $"office:value-type=\"{valueTypeName}\" office:value=\"{value:F}\"",
+                OfficeValueType.Currency    => $"office:value-type=\"{valueTypeName}\" office:currency=\"EUR\" office:value=\"{value:C}\"",
+                OfficeValueType.Date        => $"office:value-type=\"{valueTypeName}\" office:date-value=\"{value:yyyy}-{value:MM}-{value:dd}\"",
+                OfficeValueType.Time        => $"office:value-type=\"{valueTypeName}\" office:time-value=\"PT{value:hh}H{value:mm}M{value:ss}S\"",
+                OfficeValueType.Scientific  => $"office:value-type=\"{valueTypeName}\" office:value=\"{value:E}\"",
+                OfficeValueType.Fraction    => $"office:value-type=\"{valueTypeName}\" office:value=\"{value:F}\"",
+                OfficeValueType.Boolean     => $"office:value-type=\"{valueTypeName}\" office:boolean-value=\"{value}\"",
+                OfficeValueType.String      => $"office:value-type=\"{valueTypeName}\"",
+                _                           => throw new ArgumentOutOfRangeException(nameof(value),
+                                                                                     value,
+                                                                                     "The type of value is not supported for 'office values'"),
+            };
         }
 
         /// <summary>
@@ -534,43 +514,20 @@ namespace NetOdt.Helper
         /// <param name="value">The value to formate</param>
         /// <returns>A formated value</returns>
         internal static string GetFormatedValue(object value)
-        {
-            // see https://docs.microsoft.com/de-de/dotnet/standard/base-types/standard-numeric-format-strings
-
-            switch (GetValueType(value))
+            => GetOfficeValueType(value) switch
             {
-                case OfficeValueType.Float:
-                    return $"{value:F}";
-
-                case OfficeValueType.Percentage:
-                    return $"{value:P}";
-
-                case OfficeValueType.Currency:
-                    return $"{value:C}";
-
-                case OfficeValueType.Date:
-                    return $"{value:yyyy}-{value:MM}-{value:dd}";
-
-                case OfficeValueType.Time:
-                    return $"{value:hh}:{value:mm}:{value:ss}";
-
-                case OfficeValueType.Scientific:
-                    return $"{value:E}";
-
-                case OfficeValueType.Fraction:
-                    return $"{value}";         // There is currently no function to generate a ggt or similar
-
-                case OfficeValueType.Boolean:
-                    return $"{value}";
-
-                case OfficeValueType.String:
-                    return $"{value}";
-
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(value),
-                                                          value,
-                                                          "The type of value is not supported");
-            }
-        }
+                OfficeValueType.Float       => $"{value:F}",
+                OfficeValueType.Percentage  => $"{value:P}",
+                OfficeValueType.Currency    => $"{value:C}",
+                OfficeValueType.Date        => $"{value:yyyy}-{value:MM}-{value:dd}",
+                OfficeValueType.Time        => $"{value:hh}:{value:mm}:{value:ss}",
+                OfficeValueType.Scientific  => $"{value:E}",
+                OfficeValueType.Fraction    => $"{value}",          // There is currently no function to generate a ggt or similar
+                OfficeValueType.Boolean     => $"{value}",
+                OfficeValueType.String      => $"{value}",
+                _                           => throw new ArgumentOutOfRangeException(nameof(value),
+                                                                                     value,
+                                                                                     "The type of value is not supported"),
+            };
     }
 }

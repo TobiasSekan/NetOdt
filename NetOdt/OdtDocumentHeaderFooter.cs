@@ -139,7 +139,7 @@ namespace NetOdt
 
             MasterStyleCount++;
 
-            var style = new Style($"MP{MasterStyleCount}", StyleFamily.Header, textStyle, fontName, fontSize, foreground, background);
+            var style = new Style($"MP{MasterStyleCount}", textStyle, StyleFamily.Header, OfficeValueType.String, fontSize, fontName, foreground, background);
 
             StyleHelper.AppendXmlStyleStart(MasterStyle, style);
             StyleHelper.AppendXmlStyle(MasterStyle, style);
@@ -264,7 +264,7 @@ namespace NetOdt
 
             MasterStyleCount++;
 
-            var style = new Style($"MP{MasterStyleCount}", StyleFamily.Footer, textStyle, fontName, fontSize, foreground, background);
+            var style = new Style($"MP{MasterStyleCount}", textStyle, StyleFamily.Footer, OfficeValueType.String, fontSize, fontName, foreground, background);
 
             StyleHelper.AppendXmlStyleStart(MasterStyle, style);
             StyleHelper.AppendXmlStyle(MasterStyle, style);

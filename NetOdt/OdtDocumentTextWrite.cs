@@ -18,7 +18,7 @@ namespace NetOdt
         /// <param name="content">The content to write into the document</param>
         public void AppendLine<TValue>(in TValue content)
             where TValue : notnull
-            => AppendLine(content, TextStyle.None, GlobalFontName, GlobalFontSize, GlobalForegroundColor, GlobalBackgroundColor);
+            => AppendLine(content, TryToAddStyle(TextStyle.None, StyleFamily.Paragraph, OfficeValueType.String, GlobalFontSize, GlobalFontName, GlobalForegroundColor, GlobalBackgroundColor));
 
         /// <summary>
         /// Append a content to the document with the given style (use global font and color)
@@ -27,7 +27,7 @@ namespace NetOdt
         /// <param name="textStyle">The style for the content</param>
         public void AppendLine<TValue>(in TValue content, in TextStyle textStyle)
             where TValue : notnull
-            => AppendLine(content, textStyle, GlobalFontName, GlobalFontSize, GlobalForegroundColor, GlobalBackgroundColor);
+            => AppendLine(content, TryToAddStyle(textStyle, StyleFamily.Paragraph, OfficeValueType.String, GlobalFontSize, GlobalFontName, GlobalForegroundColor, GlobalBackgroundColor));
 
         /// <summary>
         /// Append a content to the document with the given style and color (use global font)
@@ -36,9 +36,9 @@ namespace NetOdt
         /// <param name="textStyle">The style for the content</param>
         /// <param name="foreground">The <see cref="Color"/> of foreground for the content</param>
         /// <param name="background">The <see cref="Color"/> of background for the content</param>
-        public void AppendLine<TValue>(in TValue content, in TextStyle textStyle, Color foreground, Color background)
+        public void AppendLine<TValue>(in TValue content, in TextStyle textStyle, in Color foreground, in Color background)
             where TValue : notnull
-            => AppendLine(content, textStyle, GlobalFontName, GlobalFontSize, foreground, background);
+            => AppendLine(content, TryToAddStyle(textStyle, StyleFamily.Paragraph, OfficeValueType.String, GlobalFontSize, GlobalFontName, foreground, background));
 
         /// <summary>
         /// Append a content to the document with the given style and font (use global colors)
@@ -47,9 +47,9 @@ namespace NetOdt
         /// <param name="textStyle">The style of the value</param>
         /// <param name="fontName">The font (name) for the content</param>
         /// <param name="fontSize">The font size for the content</param>
-        public void AppendLine<TValue>(in TValue content, in TextStyle textStyle, string fontName, FontSize fontSize)
+        public void AppendLine<TValue>(in TValue content, in TextStyle textStyle, in string fontName, in FontSize fontSize)
             where TValue : notnull
-            => AppendLine(content, textStyle, fontName, FontHelper.GetFontSize(fontSize), GlobalForegroundColor, GlobalBackgroundColor);
+            => AppendLine(content, TryToAddStyle(textStyle, StyleFamily.Paragraph, OfficeValueType.String, FontHelper.GetFontSize(fontSize), fontName, GlobalForegroundColor, GlobalBackgroundColor));
 
         /// <summary>
         /// Append a content to the document with the given style and font (use global colors)
@@ -58,27 +58,9 @@ namespace NetOdt
         /// <param name="textStyle">The style of the value</param>
         /// <param name="fontName">The font (name) for the content</param>
         /// <param name="fontSize">The font size for the content</param>
-        public void AppendLine<TValue>(in TValue content, in TextStyle textStyle, string fontName, double fontSize)
+        public void AppendLine<TValue>(in TValue content, in TextStyle textStyle, in string fontName, in double fontSize)
             where TValue : notnull
-            => AppendLine(content, textStyle, fontName, fontSize, GlobalForegroundColor, GlobalBackgroundColor);
-
-                    /// <summary>
-        /// Append a content to the document with the given style, font and color
-        /// </summary>
-        /// <param name="content">The content to write into the document</param>
-        /// <param name="textStyle">The style of the value</param>
-        /// <param name="fontName">The font (name) for the content</param>
-        /// <param name="fontSize">The font size for the content</param>
-        /// <param name="foreground">The <see cref="Color"/> of foreground for the content</param>
-        /// <param name="background">The <see cref="Color"/> of background for the content</param>
-        public void AppendLine<TValue>(in TValue content,
-                                       in TextStyle textStyle,
-                                       string fontName,
-                                       FontSize fontSize,
-                                       Color foreground,
-                                       Color background)
-            where TValue : notnull
-            => AppendLine(content, textStyle, fontName, FontHelper.GetFontSize(fontSize), foreground, background);
+            => AppendLine(content, TryToAddStyle(textStyle, StyleFamily.Paragraph, OfficeValueType.String, fontSize, fontName, GlobalForegroundColor, GlobalBackgroundColor));
 
         /// <summary>
         /// Append a content to the document with the given style, font and color
@@ -91,20 +73,46 @@ namespace NetOdt
         /// <param name="background">The <see cref="Color"/> of background for the content</param>
         public void AppendLine<TValue>(in TValue content,
                                        in TextStyle textStyle,
-                                       string fontName,
-                                       double fontSize,
-                                       Color foreground,
-                                       Color background)
+                                       in string fontName,
+                                       in FontSize fontSize,
+                                       in Color foreground,
+                                       in Color background)
+            where TValue : notnull
+            => AppendLine(content, TryToAddStyle(textStyle, StyleFamily.Paragraph, OfficeValueType.String, FontHelper.GetFontSize(fontSize), fontName, foreground, background));
+
+        /// <summary>
+        /// Append a content to the document with the given style, font and color
+        /// </summary>
+        /// <param name="content">The content to write into the document</param>
+        /// <param name="textStyle">The text style of the content</param>
+        /// <param name="fontName">The font (name) for the content</param>
+        /// <param name="fontSize">The font size for the content</param>
+        /// <param name="foreground">The <see cref="Color"/> of foreground for the content</param>
+        /// <param name="background">The <see cref="Color"/> of background for the content</param>
+        public void AppendLine<TValue>(in TValue content,
+                                       in TextStyle textStyle,
+                                       in string fontName,
+                                       in double fontSize,
+                                       in Color foreground,
+                                       in Color background)
             where TValue : notnull
         {
-            var style = TryToAddStyle(textStyle, fontName, fontSize, foreground, background);
+            AppendLine(content, TryToAddStyle(textStyle, StyleFamily.Paragraph, OfficeValueType.String, fontSize, fontName, foreground, background));
+        }
 
-            if(content is StringBuilder stringBuild)
+        /// <summary>
+        /// Append a content to the document with the given style, font and color
+        /// </summary>
+        /// <param name="content">The content to write into the document</param>
+        /// <param name="style">The style for the content</param>
+        internal void AppendLine<TValue>(in TValue content, in Style style) where TValue : notnull
+        {
+            if(content is StringBuilder stringBuilder)
             {
-                if(stringBuild.Length == 0 || !StringBuilderHelper.ContainsLineBreaks(stringBuild))
+                if(stringBuilder.Length == 0 || !StringBuilderHelper.ContainsLineBreaks(stringBuilder))
                 {
                     AppendXmlTextStart(style);
-                    AppendValue(stringBuild);
+                    AppendValue(stringBuilder);
                     AppendXmlTextEnd(style);
                     return;
                 }

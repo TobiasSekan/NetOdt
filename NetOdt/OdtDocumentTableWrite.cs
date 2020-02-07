@@ -31,9 +31,17 @@ namespace NetOdt
 
                 for(var columnNumber = 1; columnNumber <= columnCount; columnNumber++)
                 {
+                    var style = TryToAddStyle(TextStyle.None,
+                                              StyleFamily.TableCell,
+                                              StyleHelper.GetOfficeValueType(string.Empty),
+                                              GlobalFontSize,
+                                              GlobalFontName,
+                                              GlobalForegroundColor,
+                                              GlobalBackgroundColor);
+
                     TextContent.Append("<");
                     TextContent.Append("table:table-cell");
-                    TextContent.Append($" table:style-name=\"Tabelle1.{StyleHelper.GetTableCellStyleName(rowNumber, columnNumber, columnCount)}\"");
+                    TextContent.Append($" table:style-name=\"{style.Name}\"");
                     TextContent.Append($" {StyleHelper.GetOfficeValues(string.Empty)}");
                     TextContent.Append(">");
 
@@ -65,13 +73,21 @@ namespace NetOdt
 
                 for(var columnNumber = 1; columnNumber <= columnCount; columnNumber++)
                 {
+                    var style = TryToAddStyle(TextStyle.None,
+                                              StyleFamily.TableCell,
+                                              StyleHelper.GetOfficeValueType(value),
+                                              GlobalFontSize,
+                                              GlobalFontName,
+                                              GlobalForegroundColor,
+                                              GlobalBackgroundColor);
+
                     TextContent.Append("<");
                     TextContent.Append("table:table-cell");
-                    TextContent.Append($" table:style-name=\"Tabelle1.{StyleHelper.GetTableCellStyleName(rowNumber, columnNumber, columnCount)}\"");
+                    TextContent.Append($" table:style-name=\"{style.Name}\"");
                     TextContent.Append($" {StyleHelper.GetOfficeValues(value)}");
                     TextContent.Append(">");
 
-                    AppendLine(StyleHelper.GetFormatedValue(value));
+                    AppendLine(StyleHelper.GetFormatedValue(value), style);
 
                     TextContent.Append($"</table:table-cell>");
                 }
@@ -101,13 +117,21 @@ namespace NetOdt
 
                 for(var columnNumber = 1; columnNumber <= columnCount; columnNumber++)
                 {
+                    var style = TryToAddStyle(TextStyle.None,
+                                              StyleFamily.TableCell,
+                                              StyleHelper.GetOfficeValueType(text),
+                                              GlobalFontSize,
+                                              GlobalFontName,
+                                              GlobalForegroundColor,
+                                              GlobalBackgroundColor);
+
                     TextContent.Append("<");
                     TextContent.Append("table:table-cell");
-                    TextContent.Append($" table:style-name=\"Tabelle1.{StyleHelper.GetTableCellStyleName(rowNumber, columnNumber, columnCount)}\"");
+                    TextContent.Append($" table:style-name=\"{style.Name}\"");
                     TextContent.Append($" {StyleHelper.GetOfficeValues(text)}");
                     TextContent.Append(">");
 
-                    AppendLine(StyleHelper.GetFormatedValue(text));
+                    AppendLine(StyleHelper.GetFormatedValue(text), style);
 
                     TextContent.Append($"</table:table-cell>");
                 }
@@ -137,13 +161,22 @@ namespace NetOdt
 
                 for(var columnNumber = 1; columnNumber <= columnCount; columnNumber++)
                 {
+                    var style = TryToAddStyle(TextStyle.None,
+                                              StyleFamily.TableCell,
+                                              StyleHelper.GetOfficeValueType(content),
+                                              GlobalFontSize,
+                                              GlobalFontName,
+                                              GlobalForegroundColor,
+                                              GlobalBackgroundColor);
+
                     TextContent.Append("<");
                     TextContent.Append("table:table-cell");
-                    TextContent.Append($" table:style-name=\"Tabelle1.{StyleHelper.GetTableCellStyleName(rowNumber, columnNumber, columnCount)}\"");
+                    TextContent.Append($" table:style-name=\"{style.Name}\"");
                     TextContent.Append($" {StyleHelper.GetOfficeValues(content)}");
                     TextContent.Append(">");
 
-                    AppendLine(StyleHelper.GetFormatedValue(content));
+
+                    AppendLine(StyleHelper.GetFormatedValue(content), style);
 
                     TextContent.Append($"</table:table-cell>");
                 }
@@ -190,13 +223,21 @@ namespace NetOdt
                         continue;
                     }
 
+                    var style = TryToAddStyle(TextStyle.None,
+                                              StyleFamily.TableCell,
+                                              StyleHelper.GetOfficeValueType(column),
+                                              GlobalFontSize,
+                                              GlobalFontName,
+                                              GlobalForegroundColor,
+                                              GlobalBackgroundColor);
+
                     TextContent.Append("<");
                     TextContent.Append("table:table-cell");
-                    TextContent.Append($" table:style-name=\"Tabelle1.{StyleHelper.GetTableCellStyleName(rowNumber, columnNumber, columnCount)}\"");
+                    TextContent.Append($" table:style-name=\"{style.Name}\"");
                     TextContent.Append($" {StyleHelper.GetOfficeValues(column)}");
                     TextContent.Append(">");
 
-                    AppendLine(StyleHelper.GetFormatedValue(column));
+                    AppendLine(StyleHelper.GetFormatedValue(column), style);
 
                     TextContent.Append($"</table:table-cell>");
                 }
@@ -243,13 +284,21 @@ namespace NetOdt
                         continue;
                     }
 
+                    var style = TryToAddStyle(TextStyle.None,
+                                              StyleFamily.TableCell,
+                                              StyleHelper.GetOfficeValueType(column),
+                                              GlobalFontSize,
+                                              GlobalFontName,
+                                              GlobalForegroundColor,
+                                              GlobalBackgroundColor);
+
                     TextContent.Append("<");
                     TextContent.Append("table:table-cell");
-                    TextContent.Append($" table:style-name=\"Tabelle1.{StyleHelper.GetTableCellStyleName(rowNumber, columnNumber, columnCount)}\"");
+                    TextContent.Append($" table:style-name=\"{style.Name}\"");
                     TextContent.Append($" {StyleHelper.GetOfficeValues(column)}");
                     TextContent.Append(">");
 
-                    AppendLine(StyleHelper.GetFormatedValue(column));
+                    AppendLine(StyleHelper.GetFormatedValue(column), style);
 
                     TextContent.Append($"</table:table-cell>");
                 }
@@ -296,13 +345,21 @@ namespace NetOdt
                         continue;
                     }
 
+                    var style = TryToAddStyle(TextStyle.None,
+                                              StyleFamily.TableCell,
+                                              StyleHelper.GetOfficeValueType(column),
+                                              GlobalFontSize,
+                                              GlobalFontName,
+                                              GlobalForegroundColor,
+                                              GlobalBackgroundColor);
+
                     TextContent.Append("<");
                     TextContent.Append("table:table-cell");
-                    TextContent.Append($" table:style-name=\"Tabelle1.{StyleHelper.GetTableCellStyleName(rowNumber, columnNumber, columnCount)}\"");
+                    TextContent.Append($" table:style-name=\"{style.Name}\"");
                     TextContent.Append($" {StyleHelper.GetOfficeValues(column)}");
                     TextContent.Append(">");
 
-                    AppendLine(StyleHelper.GetFormatedValue(column));
+                    AppendLine(StyleHelper.GetFormatedValue(column), style);
 
                     TextContent.Append($"</table:table-cell>");
                 }
@@ -349,13 +406,21 @@ namespace NetOdt
                         continue;
                     }
 
+                    var style = TryToAddStyle(TextStyle.None,
+                                              StyleFamily.TableCell,
+                                              StyleHelper.GetOfficeValueType(column),
+                                              GlobalFontSize,
+                                              GlobalFontName,
+                                              GlobalForegroundColor,
+                                              GlobalBackgroundColor);
+
                     TextContent.Append("<");
                     TextContent.Append("table:table-cell");
-                    TextContent.Append($" table:style-name=\"Tabelle1.{StyleHelper.GetTableCellStyleName(rowNumber, columnNumber, columnCount)}\"");
+                    TextContent.Append($" table:style-name=\"{style.Name}\"");
                     TextContent.Append($" {StyleHelper.GetOfficeValues(column)}");
                     TextContent.Append(">");
 
-                    AppendLine(StyleHelper.GetFormatedValue(column));
+                    AppendLine(StyleHelper.GetFormatedValue(column), style);
 
                     TextContent.Append($"</table:table-cell>");
                 }

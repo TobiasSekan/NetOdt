@@ -232,29 +232,49 @@ namespace NetOdt
 #pragma warning restore IDE0063 // don't use simple using syntax to avoid possible not closed and disposed streams
 
         /// <summary>
-        /// Try to add a new style to the style list and return a style name for the style
+        /// Try to add a new style to the style list and return the style
         /// </summary>
-        /// <param name="textStyle">The text style to add to the style list</param>
-        /// <param name="fontName">The font for the style</param>
+        /// <param name="textStyle">The <see cref="TextStyle"/> of the style</param>
+        /// <param name="styleFamily">The <see cref="StyleFamily"/> of the style</param>
+        /// <param name="valueType">The <see cref="OfficeValueType"/> of the style</param>
         /// <param name="fontSize">The font size for the style</param>
+        /// <param name="fontName">The font for the style</param>
         /// <param name="foreground">The <see cref="Color"/> of the foreground for the style</param>
         /// <param name="background">The <see cref="Color"/> of the background for the style</param>
-        /// 
-        internal Style TryToAddStyle(TextStyle textStyle, string fontName, double fontSize, Color foreground, Color background)
+        /// <returns>A (new) <see cref="Style"/> from the <see cref="NeededStyles"/> list</returns>
+        internal Style TryToAddStyle(TextStyle textStyle,
+                                     StyleFamily styleFamily,
+                                     OfficeValueType valueType,
+                                     double fontSize,
+                                     string fontName,
+                                     Color foreground,
+                                     Color background)
         {
-            var foundStyle = NeededStyles.FirstOrDefault(found => found.TextStyle == textStyle
-                                                               && found.FontName == fontName
-                                                               && found.FontSize == fontSize
-                                                               && found.ForegroundColor == foreground
-                                                               && found.BackgroundColor == background);
+            var foundStyle = NeededStyles.SingleOrDefault(found => found.TextStyle == textStyle
+                                                                && found.StyleFamily == styleFamily
+                                                                && found.ValueType == valueType
+                                                                && found.FontSize == fontSize
+                                                                && found.FontName == fontName
+                                                                && found.ForegroundColor == foreground
+                                                                && found.BackgroundColor == background);
 
             if(foundStyle is null)
             {
                 CheckAcceptStyles(textStyle);
+
                 StyleCount++;
 
-                var style = new Style($"P{StyleCount}", StyleFamily.Paragraph, textStyle, fontName, fontSize, foreground, background);
+                var styleName = styleFamily switch
+                {
+                    StyleFamily.TableCell => $"Table1.{StyleCount}",
+                    StyleFamily.Paragraph => $"P.{StyleCount}",
+                    _                     => $"ToDo.{StyleCount}"
+                };
+
+                var style = new Style(styleName, textStyle, styleFamily, valueType, fontSize, fontName, foreground, background);
+
                 NeededStyles.Add(style);
+
                 return style;
             }
 

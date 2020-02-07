@@ -39,7 +39,7 @@ namespace NetOdt.Class
         /// <summary>
         /// The type of the style family
         /// </summary>
-        internal StyleFamily Family { get; }
+        internal StyleFamily StyleFamily { get; }
 
         /// <summary>
         /// The type of the text style
@@ -79,28 +79,30 @@ namespace NetOdt.Class
         /// Create a new style with the given informations
         /// </summary>
         /// <param name="name">The name for this style</param>
-        /// <param name="family">The style family for this style</param>
-        /// <param name="textStyle">The text style for this style name</param>
-        /// <param name="fontName">The name of the font for this style</param>
+        /// <param name="textStyle">The <see cref="TextStyle"/> for this style</param>
+        /// <param name="styleFamily">The <see cref="StyleFamily"/> for this style</param>
+        /// <param name="valueType">The <see cref="OfficeValueType"/> for this style</param>
         /// <param name="fontSize">The size of the font for this style</param>
+        /// <param name="fontName">The name of the font for this style</param>
         /// <param name="foreground">The foreground color for this style</param>
         /// <param name="background">The background color for this style</param>
         internal Style(string name,
-                       StyleFamily family,
                        TextStyle textStyle,
-                       string fontName,
+                       StyleFamily styleFamily,
+                       OfficeValueType valueType,
                        double fontSize,
+                       string fontName,
                        Color foreground,
                        Color background)
         {
             FontName           = fontName;
             FontSize           = fontSize;
             Name               = name;
-            Family             = family;
+            StyleFamily        = styleFamily;
             TextStyle          = textStyle;
             ForegroundColor    = foreground;
             BackgroundColor    = background;
-            ValueType          = OfficeValueType.String;
+            ValueType          = valueType;
 
             FamilyName         = GetStyleFamily();
             ParentName         = GetParentStyleName();
@@ -119,7 +121,7 @@ namespace NetOdt.Class
             FontName           = string.Empty;
             FontSize           = 0.0;
             Name               = name;
-            Family             = family;
+            StyleFamily             = family;
             TextStyle          = TextStyle.None;
             ForegroundColor    = Color.Black;
             BackgroundColor    = Color.Transparent;
@@ -141,7 +143,7 @@ namespace NetOdt.Class
         /// <returns>A style family name</returns>
         /// <exception cref="ArgumentOutOfRangeException">"Style family not supported"</exception>
         internal string GetStyleFamily()
-            => Family switch
+            => StyleFamily switch
             {
                 // TODO: don't use StyleFamily for header and footer
                 StyleFamily.Header      => "paragraph",
@@ -153,8 +155,8 @@ namespace NetOdt.Class
                 StyleFamily.TableCell   => "table-cell",
                 StyleFamily.Graphic     => "graphic",
 
-                _                       => throw new ArgumentOutOfRangeException(nameof(Family),
-                                                                                 Family,
+                _                       => throw new ArgumentOutOfRangeException(nameof(StyleFamily),
+                                                                                 StyleFamily,
                                                                                  "Style family not supported"),
             };
 
@@ -164,7 +166,7 @@ namespace NetOdt.Class
         /// <returns>A parent style name</returns>
         internal string GetParentStyleName()
         {
-            switch(Family)
+            switch(StyleFamily)
             {
                 case StyleFamily.Graphic:
                     return "Graphics";
