@@ -438,22 +438,31 @@ namespace NetOdt.Helper
             {
                 case OfficeValueType.Float:
                     return $"{value:F}";
+
                 case OfficeValueType.Percentage:
                     return $"{value:P}";
+
                 case OfficeValueType.Currency:
                     return $"{value:C}";
+
                 case OfficeValueType.Date:
                     return $"{value:yyyy}-{value:MM}-{value:dd}";
+
                 case OfficeValueType.Time:
                     return $"{value:hh}:{value:mm}:{value:ss}";
+
                 case OfficeValueType.Scientific:
                     return $"{value:E}";
+
                 case OfficeValueType.Fraction:
                     return $"{value}";         // There is currently no function to generate a ggt or similar
+
                 case OfficeValueType.Boolean:
                     return $"{value}";
+
                 case OfficeValueType.String:
                     return $"{value}";
+
                 default:
                     throw new ArgumentOutOfRangeException(nameof(value),
                                                           value,
