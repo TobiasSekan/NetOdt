@@ -181,6 +181,8 @@ namespace NetOdt
                 DirectoryHelper.Delete(TempWorkingUri, FolderResource.PictureFolderName);
             }
 
+            StyleHelper.AddNumericStyles(StyleContent);
+
             // don't use simple using syntax to avoid possible not closed and disposed streams
 
             using(var fileStream = File.Create(ContentFileUri.AbsolutePath))

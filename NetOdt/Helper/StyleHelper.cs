@@ -33,27 +33,27 @@ namespace NetOdt.Helper
         /// <param name="styleContent">The content container for the style</param>
         internal static void AddTableStyles(in StringBuilder styleContent)
         {
-            AppendXmlStyleStart(styleContent, new Style("Tabelle1", StyleFamily.Table, TextStyle.None, string.Empty, 0.0, Color.Black, Color.Transparent));
+            AppendXmlStyleStart(styleContent, new Style("Tabelle1", StyleFamily.Table, OfficeValueType.String));
             styleContent.Append("<style:table-properties style:width=\"17cm\" table:align=\"margins\"/>");
             AppendXmlStyleEnd(styleContent);
 
-            AppendXmlStyleStart(styleContent, new Style("Tabelle1.A", StyleFamily.TableColumn, TextStyle.None, string.Empty, 0.0, Color.Black, Color.Transparent));
+            AppendXmlStyleStart(styleContent, new Style("Tabelle1.A", StyleFamily.TableColumn, OfficeValueType.String));
             styleContent.Append("<style:table-column-properties style:column-width=\"3.401cm\" style:rel-column-width=\"13107*\"/>");
             AppendXmlStyleEnd(styleContent);
 
-            AppendXmlStyleStart(styleContent, new Style("Tabelle1.A1", StyleFamily.TableCell, TextStyle.None, string.Empty, 0.0, Color.Black, Color.Transparent));
+            AppendXmlStyleStart(styleContent, new Style("Tabelle1.A1", StyleFamily.TableCell, OfficeValueType.String));
             styleContent.Append("<style:table-cell-properties fo:padding=\"0.097cm\" fo:border-left=\"0.05pt solid #000000\" fo:border-right=\"none\" fo:border-top=\"0.05pt solid #000000\" fo:border-bottom=\"0.05pt solid #000000\"/>");
             AppendXmlStyleEnd(styleContent);
 
-            AppendXmlStyleStart(styleContent, new Style("Tabelle1.E1", StyleFamily.TableCell, TextStyle.None, string.Empty, 0.0, Color.Black, Color.Transparent));
+            AppendXmlStyleStart(styleContent, new Style("Tabelle1.E1", StyleFamily.TableCell, OfficeValueType.String));
             styleContent.Append("<style:table-cell-properties fo:padding=\"0.097cm\" fo:border=\"0.05pt solid #000000\"/>");
             AppendXmlStyleEnd(styleContent);
 
-            AppendXmlStyleStart(styleContent, new Style("Tabelle1.A2", StyleFamily.TableCell, TextStyle.None, string.Empty, 0.0, Color.Black, Color.Transparent));
+            AppendXmlStyleStart(styleContent, new Style("Tabelle1.A2", StyleFamily.TableCell, OfficeValueType.String));
             styleContent.Append("<style:table-cell-properties fo:padding=\"0.097cm\" fo:border-left=\"0.05pt solid #000000\" fo:border-right=\"none\" fo:border-top=\"none\" fo:border-bottom=\"0.05pt solid #000000\"/>");
             AppendXmlStyleEnd(styleContent);
 
-            AppendXmlStyleStart(styleContent, new Style("Tabelle1.E2", StyleFamily.TableCell, TextStyle.None, string.Empty, 0.0, Color.Black, Color.Transparent));
+            AppendXmlStyleStart(styleContent, new Style("Tabelle1.E2", StyleFamily.TableCell, OfficeValueType.String));
             styleContent.Append("<style:table-cell-properties fo:padding=\"0.097cm\" fo:border-left=\"0.05pt solid #000000\" fo:border-right=\"0.05pt solid #000000\" fo:border-top=\"none\" fo:border-bottom=\"0.05pt solid #000000\"/>");
             AppendXmlStyleEnd(styleContent);
         }
@@ -70,6 +70,74 @@ namespace NetOdt.Helper
         }
 
         /// <summary>
+        /// Add all needed styles for numeric value presentations
+        /// </summary>
+        /// <param name="styleContent">The content container for the style</param>
+        internal static void AddNumericStyles(StringBuilder styleContent)
+        {
+            // Decimal
+            styleContent.Append("<number:number-style style:name=\"N0\">");
+            styleContent.Append("<number:number number:min-integer-digits=\"1\"/>");
+            styleContent.Append("</number:number-style>");
+
+            // Percentage
+            styleContent.Append("<number:percentage-style style:name=\"N11\">");
+            styleContent.Append("<number:number number:decimal-places=\"2\" loext:min-decimal-places=\"2\" number:min-integer-digits=\"1\"/>");
+            styleContent.Append("<number:text> %</number:text>");
+            styleContent.Append("</number:percentage-style>");
+
+            // Date
+            styleContent.Append("<number:date-style style:name=\"N37\" number:automatic-order=\"true\">");
+            styleContent.Append("<number:day number:style=\"long\"/>");
+            styleContent.Append("<number:text>.</number:text>");
+            styleContent.Append("<number:month number:style=\"long\"/>");
+            styleContent.Append("<number:text>.</number:text>");
+            styleContent.Append("<number:year/>");
+            styleContent.Append("</number:date-style>");
+
+            // Time
+            styleContent.Append("<number:time-style style:name=\"N41\">");
+            styleContent.Append("<number:hours number:style=\"long\"/>");
+            styleContent.Append("<number:text>:</number:text>");
+            styleContent.Append("<number:minutes number:style=\"long\"/>");
+            styleContent.Append("<number:text>:</number:text>");
+            styleContent.Append("<number:seconds number:style=\"long\"/>");
+            styleContent.Append("</number:time-style>");
+
+            // Scientific
+            styleContent.Append("<number:number-style style:name=\"N61\">");
+            styleContent.Append("<number:scientific-number number:decimal-places=\"2\" loext:min-decimal-places=\"2\" number:min-integer-digits=\"1\" number:min-exponent-digits=\"2\" loext:exponent-interval=\"1\" loext:forced-exponent-sign=\"true\"/>");
+            styleContent.Append("</number:number-style>");
+
+            // Fraction
+            styleContent.Append("<number:number-style style:name=\"N65\">");
+            styleContent.Append("<number:fraction number:min-integer-digits=\"0\" number:min-numerator-digits=\"1\" loext:max-numerator-digits=\"1\" number:min-denominator-digits=\"1\" loext:max-denominator-value=\"9\"/>");
+            styleContent.Append("</number:number-style>");
+
+            // Boolean
+            styleContent.Append("<number:boolean-style style:name=\"N99\">");
+            styleContent.Append("<number:boolean/>");
+            styleContent.Append("</number:boolean-style>");
+
+            // Currency (positive ???)
+            styleContent.Append("<number:currency-style style:name=\"N107P0\" style:volatile=\"true\">");
+            styleContent.Append("<number:number number:decimal-places=\"2\" loext:min-decimal-places=\"2\" number:min-integer-digits=\"1\" number:grouping=\"true\"/>");
+            styleContent.Append("<number:text></number:text>");
+            styleContent.Append("<number:currency-symbol number:language=\"de\" number:country=\"DE\">€</number:currency-symbol>");
+            styleContent.Append("</number:currency-style>");
+
+            // Currency (negative ???)
+            styleContent.Append("<number:currency-style style:name=\"N107\">");
+            styleContent.Append("<style:text-properties fo:color=\"#ff0000\"/>");
+            styleContent.Append("<number:text>-</number:text>");
+            styleContent.Append("<number:number number:decimal-places=\"2\" loext:min-decimal-places=\"2\" number:min-integer-digits=\"1\" number:grouping=\"true\"/>");
+            styleContent.Append("<number:text></number:text>");
+            styleContent.Append("<number:currency-symbol number:language=\"de\" number:country=\"DE\">€</number:currency-symbol>");
+            styleContent.Append("<style:map style:condition=\"value()&gt;=0\" style:apply-style-name=\"N107P0\"/>");
+            styleContent.Append("</number:currency-style>");
+        }
+
+        /// <summary>
         /// Append a XML start element for XML style informations
         /// </summary>
         /// <param name="styleContent">The content container for the style</param>
@@ -80,6 +148,41 @@ namespace NetOdt.Helper
             styleContent.Append($"style:style");
             styleContent.Append($" style:name=\"{style.Name}\"");
             styleContent.Append($" style:family=\"{style.FamilyName}\"");
+
+            switch(style.ValueType)
+            {
+                case OfficeValueType.Float:
+                    styleContent.Append(" style:data-style-name=\"N0\")");
+                    break;
+
+                case OfficeValueType.Percentage:
+                    styleContent.Append(" style:data-style-name=\"N11\")");
+                    break;
+
+                case OfficeValueType.Currency:
+                    styleContent.Append(" style:data-style-name=\"N107\")");
+                    break;
+
+                case OfficeValueType.Date:
+                    styleContent.Append(" style:data-style-name=\"N37\")");
+                    break;
+
+                case OfficeValueType.Time:
+                    styleContent.Append(" style:data-style-name=\"N41\")");
+                    break;
+
+                case OfficeValueType.Scientific:
+                    styleContent.Append(" style:data-style-name=\"N61\")");
+                    break;
+
+                case OfficeValueType.Fraction:
+                    styleContent.Append(" style:data-style-name=\"N65\")");
+                    break;
+
+                case OfficeValueType.Boolean:
+                    styleContent.Append(" style:data-style-name=\"N99\")");
+                    break;
+            }
 
             switch(style.Family)
             {

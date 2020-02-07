@@ -66,6 +66,11 @@ namespace NetOdt.Class
         /// </summary>
         internal Color BackgroundColor { get; }
 
+        /// <summary>
+        /// The "office value" type for this style
+        /// </summary>
+        internal OfficeValueType ValueType { get; }
+
         #endregion Internal Properties
 
         #region Internal Constructors
@@ -95,6 +100,30 @@ namespace NetOdt.Class
             TextStyle          = textStyle;
             ForegroundColor    = foreground;
             BackgroundColor    = background;
+            ValueType          = OfficeValueType.String;
+
+            FamilyName         = GetStyleFamily();
+            ParentName         = GetParentStyleName();
+            HaveParentFontSize = CheckParentFontSize();
+            OutlineLevel       = GetOutlineLevel();
+        }
+
+        /// <summary>
+        /// Create a new style with the given informations
+        /// </summary>
+        /// <param name="name">The name for this style</param>
+        /// <param name="family">The style family for this style</param>
+        /// <param name="valueType">The type of the "office value" for this style</param>
+        internal Style(string name, StyleFamily family, OfficeValueType valueType)
+        {
+            FontName           = string.Empty;
+            FontSize           = 0.0;
+            Name               = name;
+            Family             = family;
+            TextStyle          = TextStyle.None;
+            ForegroundColor    = Color.Black;
+            BackgroundColor    = Color.Transparent;
+            ValueType          = valueType;
 
             FamilyName         = GetStyleFamily();
             ParentName         = GetParentStyleName();
