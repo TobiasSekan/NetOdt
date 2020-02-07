@@ -97,7 +97,7 @@ namespace NetOdt
                                        Color background)
             where TValue : notnull
         {
-            var style = TryToAddStyle(textStyle, fontName, fontSize, foreground, background);
+            var style = TryToAddStyle(textStyle, fontName, fontSize, foreground, background, OfficeValueType.String);
 
             if(content is StringBuilder stringBuild)
             {

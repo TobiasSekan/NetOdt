@@ -232,21 +232,23 @@ namespace NetOdt
 #pragma warning restore IDE0063 // don't use simple using syntax to avoid possible not closed and disposed streams
 
         /// <summary>
-        /// Try to add a new style to the style list and return a style name for the style
+        /// Try to add a new style to the style list and return the style
         /// </summary>
         /// <param name="textStyle">The text style to add to the style list</param>
         /// <param name="fontName">The font for the style</param>
         /// <param name="fontSize">The font size for the style</param>
         /// <param name="foreground">The <see cref="Color"/> of the foreground for the style</param>
         /// <param name="background">The <see cref="Color"/> of the background for the style</param>
-        /// 
-        internal Style TryToAddStyle(TextStyle textStyle, string fontName, double fontSize, Color foreground, Color background)
+        /// <param name="valueType">The <see cref="OfficeValueType"/> of the style</param>
+        /// <returns>A <see cref="Style"/></returns>
+        internal Style TryToAddStyle(TextStyle textStyle, string fontName, double fontSize, Color foreground, Color background, OfficeValueType valueType)
         {
             var foundStyle = NeededStyles.FirstOrDefault(found => found.TextStyle == textStyle
                                                                && found.FontName == fontName
                                                                && found.FontSize == fontSize
                                                                && found.ForegroundColor == foreground
-                                                               && found.BackgroundColor == background);
+                                                               && found.BackgroundColor == background
+                                                               && found.ValueType == valueType);
 
             if(foundStyle is null)
             {
