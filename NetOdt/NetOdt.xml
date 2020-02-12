@@ -69,6 +69,11 @@
             The "office value" type for this style
             </summary>
         </member>
+        <member name="P:NetOdt.Class.Style.AdditionalStyleData">
+            <summary>
+            Additional style informations of this style
+            </summary>
+        </member>
         <member name="M:NetOdt.Class.Style.#ctor(System.String,NetOdt.Enumerations.TextStyle,NetOdt.Enumerations.StyleFamily,NetOdt.OfficeValueType,System.Double,System.String,System.Drawing.Color,System.Drawing.Color)">
             <summary>
             Create a new style with the given informations
@@ -793,14 +798,14 @@
             </summary>
             <param name="styleContent">The content container for the style</param>
         </member>
-        <member name="M:NetOdt.Helper.StyleHelper.GetTableCellStyleName(System.Int32@,System.Int32@,System.Int32@)">
+        <member name="M:NetOdt.Helper.StyleHelper.GetTableCellBorderStyle(System.Int32@,System.Int32@,System.Int32@)">
             <summary>
-            Return the name representation for a style for the given table cell
+            Add the needed additional style informations for table cell borders
             </summary>
             <param name="rowNumber">The row number of the current cell</param>
             <param name="columnNumber">The column number of the current cell</param>
             <param name="columnCount">The column count of the current row</param>
-            <returns>The name representation of a table column</returns>
+            <returns>Additional style data for a table cell</returns>
         </member>
         <member name="M:NetOdt.Helper.StyleHelper.GetColorValue(System.Drawing.Color)">
             <summary>
@@ -1291,7 +1296,7 @@
             Write the complete content to the content file (overwrite the existing file)
             </summary>
         </member>
-        <member name="M:NetOdt.OdtDocument.TryToAddStyle(NetOdt.Enumerations.TextStyle,NetOdt.Enumerations.StyleFamily,NetOdt.OfficeValueType,System.Double,System.String,System.Drawing.Color,System.Drawing.Color)">
+        <member name="M:NetOdt.OdtDocument.TryToAddStyle(NetOdt.Enumerations.TextStyle,NetOdt.Enumerations.StyleFamily,NetOdt.OfficeValueType,System.Double,System.String,System.Drawing.Color,System.Drawing.Color,System.String)">
             <summary>
             Try to add a new style to the style list and return the style
             </summary>
@@ -1302,6 +1307,7 @@
             <param name="fontName">The font for the style</param>
             <param name="foreground">The <see cref="T:System.Drawing.Color"/> of the foreground for the style</param>
             <param name="background">The <see cref="T:System.Drawing.Color"/> of the background for the style</param>
+            <param name="additionalStyleData">Additional style data for the style</param>
             <returns>A (new) <see cref="T:NetOdt.Class.Style"/> from the <see cref="P:NetOdt.OdtDocument.NeededStyles"/> list</returns>
         </member>
         <member name="M:NetOdt.OdtDocument.CheckAcceptStyles(NetOdt.Enumerations.TextStyle)">

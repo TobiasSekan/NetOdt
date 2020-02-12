@@ -37,7 +37,8 @@ namespace NetOdt
                                               GlobalFontSize,
                                               GlobalFontName,
                                               GlobalForegroundColor,
-                                              GlobalBackgroundColor);
+                                              GlobalBackgroundColor,
+                                              StyleHelper.GetTableCellBorderStyle(rowNumber, columnNumber, columnCount));
 
                     TextContent.Append("<");
                     TextContent.Append("table:table-cell");
@@ -79,7 +80,8 @@ namespace NetOdt
                                               GlobalFontSize,
                                               GlobalFontName,
                                               GlobalForegroundColor,
-                                              GlobalBackgroundColor);
+                                              GlobalBackgroundColor,
+                                              StyleHelper.GetTableCellBorderStyle(rowNumber, columnNumber, columnCount));
 
                     TextContent.Append("<");
                     TextContent.Append("table:table-cell");
@@ -123,7 +125,8 @@ namespace NetOdt
                                               GlobalFontSize,
                                               GlobalFontName,
                                               GlobalForegroundColor,
-                                              GlobalBackgroundColor);
+                                              GlobalBackgroundColor,
+                                              StyleHelper.GetTableCellBorderStyle(rowNumber, columnNumber, columnCount));
 
                     TextContent.Append("<");
                     TextContent.Append("table:table-cell");
@@ -167,7 +170,8 @@ namespace NetOdt
                                               GlobalFontSize,
                                               GlobalFontName,
                                               GlobalForegroundColor,
-                                              GlobalBackgroundColor);
+                                              GlobalBackgroundColor,
+                                              StyleHelper.GetTableCellBorderStyle(rowNumber, columnNumber, columnCount));
 
                     TextContent.Append("<");
                     TextContent.Append("table:table-cell");
@@ -229,7 +233,8 @@ namespace NetOdt
                                               GlobalFontSize,
                                               GlobalFontName,
                                               GlobalForegroundColor,
-                                              GlobalBackgroundColor);
+                                              GlobalBackgroundColor,
+                                              StyleHelper.GetTableCellBorderStyle(rowNumber, columnNumber, columnCount));
 
                     TextContent.Append("<");
                     TextContent.Append("table:table-cell");
@@ -290,7 +295,8 @@ namespace NetOdt
                                               GlobalFontSize,
                                               GlobalFontName,
                                               GlobalForegroundColor,
-                                              GlobalBackgroundColor);
+                                              GlobalBackgroundColor,
+                                              StyleHelper.GetTableCellBorderStyle(rowNumber, columnNumber, columnCount));
 
                     TextContent.Append("<");
                     TextContent.Append("table:table-cell");
@@ -351,7 +357,8 @@ namespace NetOdt
                                               GlobalFontSize,
                                               GlobalFontName,
                                               GlobalForegroundColor,
-                                              GlobalBackgroundColor);
+                                              GlobalBackgroundColor,
+                                              StyleHelper.GetTableCellBorderStyle(rowNumber, columnNumber, columnCount));
 
                     TextContent.Append("<");
                     TextContent.Append("table:table-cell");
@@ -412,7 +419,8 @@ namespace NetOdt
                                               GlobalFontSize,
                                               GlobalFontName,
                                               GlobalForegroundColor,
-                                              GlobalBackgroundColor);
+                                              GlobalBackgroundColor,
+                                              StyleHelper.GetTableCellBorderStyle(rowNumber, columnNumber, columnCount));
 
                     TextContent.Append("<");
                     TextContent.Append("table:table-cell");

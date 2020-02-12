@@ -71,6 +71,11 @@ namespace NetOdt.Class
         /// </summary>
         internal OfficeValueType ValueType { get; }
 
+        /// <summary>
+        /// Additional style informations of this style
+        /// </summary>
+        internal string AdditionalStyleData { get; set; }
+
         #endregion Internal Properties
 
         #region Internal Constructors
@@ -95,19 +100,21 @@ namespace NetOdt.Class
                        Color foreground,
                        Color background)
         {
-            FontName           = fontName;
-            FontSize           = fontSize;
-            Name               = name;
-            StyleFamily        = styleFamily;
-            TextStyle          = textStyle;
-            ForegroundColor    = foreground;
-            BackgroundColor    = background;
-            ValueType          = valueType;
+            FontName            = fontName;
+            FontSize            = fontSize;
+            Name                = name;
+            StyleFamily         = styleFamily;
+            TextStyle           = textStyle;
+            ForegroundColor     = foreground;
+            BackgroundColor     = background;
+            ValueType           = valueType;
 
-            FamilyName         = GetStyleFamily();
-            ParentName         = GetParentStyleName();
-            HaveParentFontSize = CheckParentFontSize();
-            OutlineLevel       = GetOutlineLevel();
+            AdditionalStyleData = string.Empty;
+
+            FamilyName          = GetStyleFamily();
+            ParentName          = GetParentStyleName();
+            HaveParentFontSize  = CheckParentFontSize();
+            OutlineLevel        = GetOutlineLevel();
         }
 
         /// <summary>
@@ -118,19 +125,21 @@ namespace NetOdt.Class
         /// <param name="valueType">The type of the "office value" for this style</param>
         internal Style(string name, StyleFamily family, OfficeValueType valueType)
         {
-            FontName           = string.Empty;
-            FontSize           = 0.0;
-            Name               = name;
-            StyleFamily             = family;
-            TextStyle          = TextStyle.None;
-            ForegroundColor    = Color.Black;
-            BackgroundColor    = Color.Transparent;
-            ValueType          = valueType;
+            Name                = name;
+            StyleFamily         = family;
+            ValueType           = valueType;
 
-            FamilyName         = GetStyleFamily();
-            ParentName         = GetParentStyleName();
-            HaveParentFontSize = CheckParentFontSize();
-            OutlineLevel       = GetOutlineLevel();
+            FontName            = string.Empty;
+            FontSize            = 0.0;
+            TextStyle           = TextStyle.None;
+            ForegroundColor     = Color.Black;
+            BackgroundColor     = Color.Transparent;
+            AdditionalStyleData = string.Empty;
+
+            FamilyName          = GetStyleFamily();
+            ParentName          = GetParentStyleName();
+            HaveParentFontSize  = CheckParentFontSize();
+            OutlineLevel        = GetOutlineLevel();
         }
 
         #endregion Internal Constructors

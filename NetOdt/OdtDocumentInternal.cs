@@ -241,6 +241,7 @@ namespace NetOdt
         /// <param name="fontName">The font for the style</param>
         /// <param name="foreground">The <see cref="Color"/> of the foreground for the style</param>
         /// <param name="background">The <see cref="Color"/> of the background for the style</param>
+        /// <param name="additionalStyleData">Additional style data for the style</param>
         /// <returns>A (new) <see cref="Style"/> from the <see cref="NeededStyles"/> list</returns>
         internal Style TryToAddStyle(TextStyle textStyle,
                                      StyleFamily styleFamily,
@@ -248,7 +249,8 @@ namespace NetOdt
                                      double fontSize,
                                      string fontName,
                                      Color foreground,
-                                     Color background)
+                                     Color background,
+                                     string additionalStyleData = "")
         {
             var foundStyle = NeededStyles.SingleOrDefault(found => found.TextStyle == textStyle
                                                                 && found.StyleFamily == styleFamily
@@ -256,7 +258,8 @@ namespace NetOdt
                                                                 && found.FontSize == fontSize
                                                                 && found.FontName == fontName
                                                                 && found.ForegroundColor == foreground
-                                                                && found.BackgroundColor == background);
+                                                                && found.BackgroundColor == background
+                                                                && found.AdditionalStyleData == additionalStyleData);
 
             if(foundStyle is null)
             {
@@ -271,7 +274,10 @@ namespace NetOdt
                     _                     => $"ToDo.{StyleCount}"
                 };
 
-                var style = new Style(styleName, textStyle, styleFamily, valueType, fontSize, fontName, foreground, background);
+                var style = new Style(styleName, textStyle, styleFamily, valueType, fontSize, fontName, foreground, background)
+                {
+                    AdditionalStyleData = additionalStyleData
+                };
 
                 NeededStyles.Add(style);
 

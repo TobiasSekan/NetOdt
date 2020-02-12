@@ -41,22 +41,6 @@ namespace NetOdt.Helper
             AppendXmlStyleStart(styleContent, new Style("Tabelle1.A", StyleFamily.TableColumn, OfficeValueType.String));
             styleContent.Append("<style:table-column-properties style:column-width=\"3.401cm\" style:rel-column-width=\"13107*\"/>");
             AppendXmlStyleEnd(styleContent);
-
-            //AppendXmlStyleStart(styleContent, new Style("Tabelle1.A1", StyleFamily.TableCell, OfficeValueType.String));
-            //styleContent.Append("<style:table-cell-properties fo:padding=\"0.097cm\" fo:border-left=\"0.05pt solid #000000\" fo:border-right=\"none\" fo:border-top=\"0.05pt solid #000000\" fo:border-bottom=\"0.05pt solid #000000\"/>");
-            //AppendXmlStyleEnd(styleContent);
-
-            //AppendXmlStyleStart(styleContent, new Style("Tabelle1.E1", StyleFamily.TableCell, OfficeValueType.String));
-            //styleContent.Append("<style:table-cell-properties fo:padding=\"0.097cm\" fo:border=\"0.05pt solid #000000\"/>");
-            //AppendXmlStyleEnd(styleContent);
-
-            //AppendXmlStyleStart(styleContent, new Style("Tabelle1.A2", StyleFamily.TableCell, OfficeValueType.String));
-            //styleContent.Append("<style:table-cell-properties fo:padding=\"0.097cm\" fo:border-left=\"0.05pt solid #000000\" fo:border-right=\"none\" fo:border-top=\"none\" fo:border-bottom=\"0.05pt solid #000000\"/>");
-            //AppendXmlStyleEnd(styleContent);
-
-            //AppendXmlStyleStart(styleContent, new Style("Tabelle1.E2", StyleFamily.TableCell, OfficeValueType.String));
-            //styleContent.Append("<style:table-cell-properties fo:padding=\"0.097cm\" fo:border-left=\"0.05pt solid #000000\" fo:border-right=\"0.05pt solid #000000\" fo:border-top=\"none\" fo:border-bottom=\"0.05pt solid #000000\"/>");
-            //AppendXmlStyleEnd(styleContent);
         }
 
         /// <summary>
@@ -207,6 +191,13 @@ namespace NetOdt.Helper
         {
             AppendTextProperties(styleContent, style);
             AppendParagraphProperties(styleContent, style);
+
+            if(style.AdditionalStyleData == string.Empty)
+            {
+                return;
+            }
+
+            styleContent.Append(style.AdditionalStyleData);
         }
 
         /// <summary>
@@ -409,18 +400,49 @@ namespace NetOdt.Helper
             => styleContent.Append("</style:style>");
 
         /// <summary>
-        /// Return the name representation for a style for the given table cell
+        /// Add the needed additional style informations for table cell borders
         /// </summary>
         /// <param name="rowNumber">The row number of the current cell</param>
         /// <param name="columnNumber">The column number of the current cell</param>
         /// <param name="columnCount">The column count of the current row</param>
-        /// <returns>The name representation of a table column</returns>
-        internal static string GetTableCellStyleName(in int rowNumber, in int columnNumber, in int columnCount)
+        /// <returns>Additional style data for a table cell</returns>
+        internal static string GetTableCellBorderStyle(in int rowNumber, in int columnNumber, in int columnCount)
         {
-            var number = rowNumber == 1 ? "1" : "2";
-            var prefix = columnCount == columnNumber ? "E" : "A";
+            var style = "<";
 
-            return prefix + number;
+            style += "style:table-cell-properties";
+            style += " fo:padding=\"0.097cm\"";
+
+            if(rowNumber == 1 && columnCount != columnNumber)
+            {
+                style += " fo:border-left=\"0.05pt solid #000000\"";
+                style += " fo:border-right=\"none\"";
+                style += " fo:border-top=\"0.05pt solid #000000\"";
+                style += " fo:border-bottom=\"0.05pt solid #000000\"";
+            }
+
+            if(rowNumber == 1 && columnCount == columnNumber)
+            {
+                style += " fo:border=\"0.05pt solid #000000\"";
+            }
+
+            if(rowNumber != 1 && columnCount != columnNumber)
+            {
+                style += " fo:border-left=\"0.05pt solid #000000\"";
+                style += " fo:border-right=\"none\"";
+                style += " fo:border-top=\"none\"";
+                style += " fo:border-bottom=\"0.05pt solid #000000\"";
+            }
+
+            if(rowNumber != 1 && columnCount == columnNumber)
+            {
+                style += " fo:border-left=\"0.05pt solid #000000\"";
+                style += " fo:border-right=\"0.05pt solid #000000\"";
+                style += " fo:border-top=\"none\"";
+                style += " fo:border-bottom=\"0.05pt solid #000000\"";
+            }
+
+            return style + "/>";
         }
 
         /// <summary>
