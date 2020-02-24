@@ -263,11 +263,11 @@ odtDocument.AppendTable(array);
 var table = new DataTable();
 odtDocument.AppendTable(dataTable);
 ```
+Examples for `DataTable`  usage can be found here [C# DataTable Examples](https://www.dotnetperls.com/datatable)
 
 Note: Each table cell use automatic a cell style based on the given data type of the cell value
-[All automatic used cell styles can be found here](./cellstyle.md)
 
-Examples for `DataTable`  usage can be found here [C# DataTable Examples](https://www.dotnetperls.com/datatable)
+[All automatic used cell styles can be found here](./cellstyle.md)
 
 ## Append a image
 
