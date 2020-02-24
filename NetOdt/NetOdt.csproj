@@ -13,13 +13,16 @@
     <Copyright>Tobias Sekan 2019-2020</Copyright>
     <PackageTags>dotnet odt netstandard20 opendocument</PackageTags>
     <RepositoryUrl>https://github.com/TobiasSekan/NetOdt</RepositoryUrl>
-
-    <Version>0.1.0.0</Version>
-    <FileVersion>0.1.0.0</FileVersion>
+    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+    <Version>1.0.0.0-alpha</Version>
+    <FileVersion>1.0.0.0</FileVersion>
 
   </PropertyGroup>
 
   <ItemGroup>
+
+    <None Include="../LICENSE.txt" Pack="true" PackagePath="$(PackageLicenseFile)"/>
+
     <None Update="Original\content.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
