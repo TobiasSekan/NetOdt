@@ -49,7 +49,6 @@ odtDocument.AppendImage(path: "E:/picture1.jpg", width: 22.5, height: 14.1);
 [All API calls can find here](./Documentation/api.md)
 
 ## Upcoming features
-* [Version 1.x](https://github.com/TobiasSekan/NetOdt/milestone/1)
 * [Version 2.x](https://github.com/TobiasSekan/NetOdt/milestone/2)
 * [Version 3.x](https://github.com/TobiasSekan/NetOdt/milestone/3)
 

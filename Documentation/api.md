@@ -234,7 +234,7 @@ odtDocument.AppendLine("This is the last sentence on page one", TextStyle.PageBr
 odtDocument.AppendEmptyLines(10);
 ```
 
-## Append a unformatted table
+## Append a table
 
 ```csharp
 // Append a empty unformatted table with the given row and cell count into the document
@@ -263,6 +263,9 @@ odtDocument.AppendTable(array);
 var table = new DataTable();
 odtDocument.AppendTable(dataTable);
 ```
+
+Note: Each table cell use automatic a cell style based on the given data type of the cell value
+[All automatic used cell styles can be found here](./cellstyle.md)
 
 Examples for `DataTable`  usage can be found here [C# DataTable Examples](https://www.dotnetperls.com/datatable)
 

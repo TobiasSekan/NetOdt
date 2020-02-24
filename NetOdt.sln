@@ -18,6 +18,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{2D5D7765-7821-44EA-8141-38C6C4D08F80}"
 	ProjectSection(SolutionItems) = preProject
 		Documentation\api.md = Documentation\api.md
+		cellstyle.md = cellstyle.md
 		Documentation\styles.md = Documentation\styles.md
 	EndProjectSection
 EndProject
